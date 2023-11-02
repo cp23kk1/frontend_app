@@ -1,31 +1,17 @@
 pipeline {
     agent any
 
-    parameters {
-        choice(name: 'TAG', choices: [], description: 'Select a Git tag to build and deploy')
-    }
-
-    environment {
-        GIT_REPO = 'https://github.com/cp23kk1/cp23kk1_frontend_app.git'
-    }
-
     stages {
         stage('Checkout') {
             steps {
                 script {
                     // Clone the Git repository
-                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], userRemoteConfigs: [[url: env.GIT_REPO]]])
-                }
-            }
-        }
+                    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], userRemoteConfigs: [[url: 'https://github.com/cp23kk1/cp23kk1_frontend_app.git']])
 
-        stage('Get Tags') {
-            steps {
-                script {
                     // Fetch Git tags
                     def tags = sh(script: 'git for-each-ref --sort=taggerdate --format="%(refname:short)" refs/tags', returnStdout: true).trim()
                     currentBuild.description = "Select a Git tag to build and deploy:"
-                    params.TAG.choices = tags.split("\n")
+                    params.TAG = choice(name: 'TAG', choices: tags, description: 'Select a Git tag')
                 }
             }
         }
