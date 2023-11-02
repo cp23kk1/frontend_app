@@ -1,7 +1,8 @@
 node {
-    
-      TAG_NAMES = sh (script: 'git ls-remote --tags https://github.com/cp23kk1/cp23kk1_frontend_app.git | awk -F/ \'{print $3}\'', returnStdout:true).trim()
-    
+  
+   withCredentials([gitUsernamePassword(credentialsId: 'chayakornGlobal', gitToolName: 'Default')]) {
+        TAGS = sh (script: 'git ls-remote --tags https://${GIT_USERNAME}:${GITHUB_ACCESS_TOKEN}@github.com/cp23kk1/cp23kk1_frontend_app.git | cut -f 2 | cut -d / -f 3 | sort -r', returnStdout:true).trim()
+    }
 }
 
 pipeline {
@@ -10,15 +11,15 @@ pipeline {
     parameters {
         choice(
             name: 'TagName',
-            choices: "${TAG_NAMES}",
-            description: 'to refresh the list, go to configure, disable "this build has parameters", launch build (without parameters) to reload the list and stop it, then launch it again (with parameters)'
+            choices: "${TAGS}",
+            description: 'Select the tag to build'
         )
     }
 
     stages {
-        stage("Run Tests") {
+        stage("Run Tests on Tag") {
             steps {
-                sh "echo SUCCESS on ${TagName}"
+                sh "echo SUCCESS on Tag: ${TagName}"
             }
         }
     }
