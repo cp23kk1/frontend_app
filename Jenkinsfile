@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        GIT_REPO = 'https://github.com/yourusername/yourrepository.git'
+        GIT_REPO = 'https://github.com/cp23kk1/cp23kk1_frontend_app.git'
     }
 
     stages {
