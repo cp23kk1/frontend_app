@@ -2,10 +2,21 @@ pipeline {
     agent any
 
     parameters {
-        choice(
-            name: 'BRANCH',
-            choices: ['master', 'feature-branch'], // Add your specific branch names here
-            description: 'Select a Git branch'
+        extendedChoice(
+            name: 'TAG',
+            type: 'PT_SINGLE_SELECT',
+            groovyScript: """
+                def branches = ['master', 'feature-branch'] // Add your specific branch names here
+                def tags = []
+
+                branches.each { branch ->
+                    def tagsForBranch = sh(script: "git ls-remote --tags origin $branch | cut -d'/' -f3", returnStdout: true).trim().split("\n")
+                    tags.addAll(tagsForBranch)
+                }
+
+                return tags.sort().unique()
+            """,
+            description: 'Select a Git tag'
         )
     }
 
@@ -13,20 +24,15 @@ pipeline {
         stage('Checkout') {
             steps {
                 script {
-                    // Clone the Git repository based on the selected branch
-                    checkout([$class: 'GitSCM', branches: [[name: params.BRANCH]], doGenerateSubmoduleConfigurations: false, extensions: [], userRemoteConfigs: [[url: 'https://github.com/cp23kk1/cp23kk1_frontend_app.git']]])
-
-                    // Fetch Git tags from the selected branch
-                    def tags = sh(script: "git for-each-ref --sort=taggerdate --format="%(refname:short)" refs/tags", returnStdout: true).trim()
-                    currentBuild.description = "Select a Git tag to build and deploy:"
-                    params.TAG = choice(name: 'TAG', choices: tags.split('\n'), description: 'Select a Git tag')
+                    // Clone the Git repository
+                    checkout([$class: 'GitSCM', branches: [[name: '*/${params.TAG}']], doGenerateSubmoduleConfigurations: false, extensions: [], userRemoteConfigs: [[url: 'https://github.com/cp23kk1/cp23kk1_frontend_app.git']]])
                 }
             }
         }
 
         stage('Build and Deploy') {
             when {
-                expression { params.TAG != null }
+                expression { params.TAG != null && params.TAG != '' }
             }
             steps {
                 script {
