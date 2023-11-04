@@ -38,9 +38,25 @@
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
+  --red: red;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  /* font-family: Ekachon !important; */
+  background-color: black !important;
+  color: inherit !important;
+  /* background-image: url('/background/BackgroundDark.png');
+  background-position:50% 25%;
+  background-size: cover !important;
+  background-repeat: no-repeat; */
+}
+body {
+  overflow: hidden;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -104,4 +120,4 @@ a {
   html {
     color-scheme: dark;
   }
-}
+} */
