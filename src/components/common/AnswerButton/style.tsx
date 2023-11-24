@@ -2,24 +2,37 @@ import styled from '@emotion/styled';
 import { TAnswerButton } from './type';
 export const AnswerButtonWrapper = styled.button`
   width: 100%;
-  height: 100%;
-  color: #fff;
+  height: 112px;
   font-size: 48px;
-  border-radius: 36px;
-  border: 8px solid #fff;
-  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.5),
-    0px 0px 4px 0px rgba(0, 0, 0, 0.5) inset;
+  border-radius: 32px;
+  border: 0px solid #fff;
+  padding: 16px;
+  cursor: pointer;
+  transition: 0.25s;
+  :hover {
+    scale: 1.07;
+  }
+
   ${({ state }: TAnswerButton) => {
     let result: string = '';
     switch (state) {
       case 'correct':
-        result = 'background: #0FA958;';
+        result = `
+        background: #0FA958;
+        color: #fff;
+        `;
         break;
       case 'normal':
-        result = 'background: #311F47;';
+        result = `
+        background: #FFF;
+        color: #000000;
+`;
         break;
       case 'incorrect':
-        result = 'background: #E40714;';
+        result = `
+        background: #E40714;
+        color: #fff;
+`;
         break;
     }
     return `${result}`;

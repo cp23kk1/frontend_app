@@ -1,35 +1,38 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import AnswerButton from '.';
+import KnowLedgeSection from '.';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Component/common/AnswerButton',
-  component: AnswerButton,
+  title: 'Component/modules/gameplay/KnowledgeSection',
+  component: KnowLedgeSection,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs']
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-} satisfies Meta<typeof AnswerButton>;
+} satisfies Meta<typeof KnowLedgeSection>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const NormalAnswer: Story = {
-  args: { children: 'superman', onClick: () => {}, state: 'normal' }
-};
-
-export const CorrectAnswer: Story = {
+export const NormalQuestion: Story = {
   args: {
-    children: 'superman',
-    state: 'correct',
-    onClick: () => {
-      console.log('asdfasdf');
+    style: {},
+    question: 'Question',
+    pos: 'noun',
+    type: 'vocabulary',
+    ans1: {
+      state: 'correct',
+      answer: 'คำถาม',
+      onClick: () => {
+        console.log('Answer1 Clicked');
+      }
+    },
+    ans2: {
+      state: 'incorrect',
+      answer: 'คำตอบ',
+      onClick: () => {
+        console.log('Answer2 Clicked');
+      }
     }
-  }
-};
-export const IncorrectAnswer: Story = {
-  args: {
-    children: 'superman',
-    state: 'incorrect'
   }
 };

@@ -1,35 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import AnswerButton from '.';
+import QuestionLayout from '.';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Component/common/AnswerButton',
-  component: AnswerButton,
+  title: 'Component/common/QuestionLayout',
+  component: QuestionLayout,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs']
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-} satisfies Meta<typeof AnswerButton>;
+} satisfies Meta<typeof QuestionLayout>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const NormalAnswer: Story = {
-  args: { children: 'superman', onClick: () => {}, state: 'normal' }
-};
-
-export const CorrectAnswer: Story = {
-  args: {
-    children: 'superman',
-    state: 'correct',
-    onClick: () => {
-      console.log('asdfasdf');
-    }
-  }
-};
-export const IncorrectAnswer: Story = {
-  args: {
-    children: 'superman',
-    state: 'incorrect'
-  }
+export const NormalQuestion: Story = {
+  args: { style: {}, question: 'Question', pos: 'noun', type: 'vocabulary' }
 };
