@@ -9,4 +9,5 @@ export const BackGroundWrapper = styled.div`
   background-position: 0 70px;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 0;
 `;

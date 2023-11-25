@@ -34,6 +34,8 @@ export const NormalQuestion: Story = {
           console.log('Answer2 Clicked');
         }
       }
-    }
+    },
+    animationSectionItem: { enemyHealth: 80, playerHealth: 97 },
+    score: 88
   }
 };

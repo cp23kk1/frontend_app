@@ -5,9 +5,11 @@ export const GamePlayWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 27px;
+  max-height: 100vh;
+  z-index: 1;
 `;
 export const TopSectionWrapper = styled.div`
-  height: 440px;
+  height: 350px;
   width: 100%;
   display: flex;
   gap: 56px;
@@ -26,7 +28,5 @@ export const TopSectionWrapper = styled.div`
       font-weight: 400;
       line-height: normal;
     }
-  }
-  .animation {
   }
 `;

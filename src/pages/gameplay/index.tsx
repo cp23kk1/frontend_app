@@ -20,12 +20,14 @@ const GamePlayPage: NextPage = () => {
         },
         ans2: {
           state: 'incorrect',
-          answer: 'คำตอบ',
+          answer: 'คำแก้ว',
           onClick: () => {
             console.log('Answer2 Clicked');
           }
         }
       }}
+      score={99}
+      animationSectionItem={{ playerHealth: 10, enemyHealth: 76 }}
     />
   );
 };

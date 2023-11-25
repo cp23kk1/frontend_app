@@ -3,24 +3,31 @@ import BackGroundGameplay from '../BackgroundGamplay';
 import KnowLedgeSection from '../KnowledgeSection';
 import { GamePlayWrapper, TopSectionWrapper } from './style';
 import { Col, Row } from '@/components/common/layout/responsive';
+import { Fragment } from 'react';
+import AnimationSection from '@/components/common/AnimationSection';
 
-const GamePlay = ({ knowledgeSectionItem }: TGamePlay) => {
+const GamePlay = ({
+  knowledgeSectionItem,
+  animationSectionItem,
+  score
+}: TGamePlay) => {
   return (
-    <BackGroundGameplay>
+    <Fragment>
+      <BackGroundGameplay />
       <GamePlayWrapper>
         <TopSectionWrapper>
           <Row className="top">
             <Col span={8}>pause icon</Col>
             <Col span={8} className="score">
-              Score: 100
+              Score: {score ?? 0}
             </Col>
             <Col span={8} />
           </Row>
-          <Row className="animation">asdfasdf</Row>
+          <AnimationSection {...animationSectionItem} />
         </TopSectionWrapper>
         <KnowLedgeSection {...knowledgeSectionItem}></KnowLedgeSection>
       </GamePlayWrapper>
-    </BackGroundGameplay>
+    </Fragment>
   );
 };
 
