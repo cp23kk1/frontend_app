@@ -49,7 +49,20 @@ body {
 }
 
 body {
-  overflow: hidden;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar{
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap');
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+@import url('./fonts.css');

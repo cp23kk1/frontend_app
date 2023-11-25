@@ -5,6 +5,7 @@ export const QuestionLayoutWrapper = styled.div`
   height: 288px;
   display: flex;
   font-family: 'Fredoka', sans-serif;
+  background-color: white;
   flex-direction: column;
   gap: 24px;
   border-radius: 32px;
