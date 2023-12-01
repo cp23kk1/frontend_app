@@ -26,9 +26,9 @@ const GamePlay = ({
           <AnimationSection {...animationSectionItem} />
         </TopSectionWrapper>
         <KnowLedgeSection
+          {...knowledgeSectionItem}
           question={knowledgeSectionItem ? knowledgeSectionItem.question : ''}
           answers={knowledgeSectionItem ? knowledgeSectionItem.answers : []}
-          {...knowledgeSectionItem}
         ></KnowLedgeSection>
       </GamePlayWrapper>
     </Fragment>

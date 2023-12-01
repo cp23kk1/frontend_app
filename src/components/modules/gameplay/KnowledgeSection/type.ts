@@ -7,5 +7,12 @@ export type TKnowLedgeSection = {
   style?: CSSProperties;
   type?: 'sentence' | 'vocabulary' | 'passage';
   pos?: TPos;
-  answers: TAnswerButton[];
+  answers: TGamePlayAnswerButton[];
+  onAnswer: (meaning: ReactNode) => void;
+};
+export type TGamePlayAnswerButton = {
+  children: ReactNode;
+  style?: CSSProperties;
+  disabled?: boolean;
+  state: 'correct' | 'incorrect' | 'normal';
 };

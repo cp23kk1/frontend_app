@@ -1,15 +1,18 @@
-import { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { v4 as uuid } from 'uuid';
 import vocabularySelectors from './vocabulary/vocabulary-selectors';
 import { TGamePlayContainer } from './type';
-import { TKnowLedgeSection } from '@/components/modules/gameplay/KnowledgeSection/type';
+import {
+  TGamePlayAnswerButton,
+  TKnowLedgeSection
+} from '@/components/modules/gameplay/KnowledgeSection/type';
 import { IVocabulary } from './vocabulary/vocabulary-services';
-import { TQuestion } from './vocabulary/type';
 import { TAnimationSection } from '@/components/common/AnimationSection/type';
 import { dispatch as vocabularyDispatch } from './vocabulary';
 import { TAnswerButton } from '@/components/common/AnswerButton/type';
+import { TPos } from '@/components/common/QuestionLayout/type';
 
 const GamePlayContainer = ({
   render
@@ -17,76 +20,80 @@ const GamePlayContainer = ({
   render: (props: TGamePlayContainer) => ReactNode;
 }) => {
   const dispatch = useAppDispatch();
-  // knowledge section
-  const [knowLedgeSection, setKnowledgeSection] = useState<TKnowLedgeSection>();
-  const _handleChangeKnowLedgeSection = (section: TKnowLedgeSection) => {
-    setKnowledgeSection(section);
-  };
-  let questions: TKnowLedgeSection[] = [];
-  let currentQuestionIndex: number = 0;
-
-  const _handleChangeQuestions = (questionsInput: TKnowLedgeSection[]) => {
-    questions = questionsInput;
-  };
 
   // vocabulary
   const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
   const isLoadingVocabulary = useAppSelector(
     vocabularySelectors.isLoadingVocabularySelector
   );
-  // animation section
-  let playerHealth = 100;
-  let enemyHealth = 100;
-  const [showScore, setShowScore] = useState<number>(0);
-  let score = 0;
-  const [animationSection, setAnimationSection] = useState<TAnimationSection>({
-    playerHealth: playerHealth,
-    enemyHealth: enemyHealth
-  });
+
+  // knowledge section
+  const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([
+    {
+      children: 'asdf',
+      state: 'normal'
+    }
+  ]);
+  const [question, setQuestion] = useState<ReactNode>('');
+  const [pos, setPos] = useState<TPos | undefined>();
+  const [type, setType] = useState<
+    'sentence' | 'vocabulary' | 'passage' | undefined
+  >('vocabulary');
+  const [score, setscore] = useState<number>(0);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [playerHealth, setPlayerHealth] = useState<number>(100);
+  const [enemyHealth, setEnemyHealth] = useState<number>(100);
+
+  const _handleChangeScore = (inputscore: number) => {
+    setscore(inputscore);
+  };
+  const _handleChangeCurrentIndex = (inputCurrentIndex: number) => {
+    setCurrentIndex(inputCurrentIndex);
+  };
+  const _handleChangePlayerHealth = (inputPlayerHealth: number) => {
+    setPlayerHealth(inputPlayerHealth);
+  };
+  const _handleChangeEnemyHealth = (inputEnemyHealth: number) => {
+    setEnemyHealth(inputEnemyHealth);
+  };
+  const _handleChangeAnswers = (inputAnswers: TGamePlayAnswerButton[]) => {
+    setAnswers(inputAnswers);
+  };
+  const _handleChangeQuestion = (inputQuestions: ReactNode) => {
+    setQuestion(inputQuestions);
+  };
+  const _handleChangePos = (inputPos: TPos | undefined) => {
+    setPos(inputPos);
+  };
+  const _handleChangeType = (
+    inputType: 'sentence' | 'vocabulary' | 'passage' | undefined
+  ) => {
+    setType(inputType);
+  };
 
   //question logic
-  const _addQuestion = (vocabulary: IVocabulary[]) => {
-    console.log(vocabulary);
-    _handleChangeQuestions(
-      vocabulary.map((value, vIndex, arr): TQuestion => {
-        const answers: TAnswerButton[] = [
-          ...arr
-            .filter((_, index) => index !== vIndex)
-            .sort((a, b) => 0.5 - Math.random())
-            .splice(0, 1)
-            .map((jValue, index): TAnswerButton => {
-              return {
-                children: jValue.meaning,
-                onClick: () => {
-                  _validateAnswer(false, jValue.meaning);
-                },
-                state: 'normal',
-                disabled: false
-              };
-            }),
-          {
-            children: value.meaning,
-            onClick: () => {
-              _validateAnswer(true, value.meaning);
-            },
-            state: 'normal',
-            disabled: false
-          }
-        ];
-        return {
-          question: value.word,
-          pos: value.pos,
-          type: 'vocabulary',
-          answers: [...answers].sort((a, b) => 0.5 - Math.random())
-        };
-      })
-    );
-    _handleChangeKnowLedgeSection(questions[currentQuestionIndex]);
+  const _addQuestion = () => {
+    if (vocabulary[currentIndex]) {
+      const newAnswer: TGamePlayAnswerButton[] = [
+        { children: vocabulary[currentIndex].meaning, state: 'normal' },
+        ...vocabulary
+          .filter((_, index) => index !== currentIndex)
+          .sort(() => 0.5 - Math.random())
+          .splice(0, 1)
+          .map((value): TGamePlayAnswerButton => {
+            return { children: value.meaning, state: 'normal' };
+          })
+      ];
+      _handleChangeAnswers(newAnswer.sort(() => 0.5 - Math.random()));
+      _handleChangeQuestion(vocabulary[currentIndex].word);
+      _handleChangePos(vocabulary[currentIndex].pos);
+      _handleChangeType('vocabulary');
+    }
   };
-  const _validateAnswer = (correctness: boolean, meaning: string) => {
-    _handleChangeKnowLedgeSection({
-      ...questions[currentQuestionIndex],
-      answers: questions[currentQuestionIndex].answers.map((value, index) => {
+  const _validateAnswer = (meaning: ReactNode) => {
+    const correctness = vocabulary[currentIndex].meaning === meaning;
+    _handleChangeAnswers(
+      answers.map((value, index) => {
         return correctness
           ? {
               ...value,
@@ -99,57 +106,45 @@ const GamePlayContainer = ({
               state: value.children === meaning ? 'incorrect' : 'normal'
             };
       })
-    });
+    );
     setTimeout(() => {
-      currentQuestionIndex++;
+      _handleChangeCurrentIndex(currentIndex + 1);
       _calculateHealth(correctness);
-      _handleChangeKnowLedgeSection(questions[currentQuestionIndex]);
     }, 1000);
   };
-  // animation logic
   const _calculateHealth = (correctness: boolean) => {
     if (correctness) {
-      enemyHealth -= 10;
-      setAnimationSection({
-        playerHealth: playerHealth,
-        enemyHealth: enemyHealth
-      });
-      // _handleChangeScore(score);
-      score++;
-      setShowScore(score);
+      _handleChangeEnemyHealth(enemyHealth - 10);
+      _handleChangeScore(score + 1);
     } else {
-      playerHealth -= 10;
-      setAnimationSection({
-        enemyHealth: enemyHealth,
-        playerHealth: playerHealth
-      });
+      _handleChangePlayerHealth(playerHealth - 10);
     }
   };
-  // useEffect
-  useEffect(() => {
-    if (!isLoadingVocabulary) {
-      _addQuestion(vocabulary);
-    }
-  }, [isLoadingVocabulary]);
-  //onmounted
+  //onmouted
   useEffect(() => {
     dispatch(vocabularyDispatch.getRandomVocabulary());
   }, []);
+
   useEffect(() => {
-    console.log('currentQuestionIndex', currentQuestionIndex);
-    console.log(
-      'currentQuestionIndex / questions.length === 2',
-      currentQuestionIndex / questions.length === 2
-    );
-    if (currentQuestionIndex / questions.length === 2) {
-      dispatch(vocabularyDispatch.getRandomVocabulary());
-    }
-  }, [currentQuestionIndex]);
+    _addQuestion();
+  }, [isLoadingVocabulary, currentIndex]);
+
+  const knowLedgeSection: TKnowLedgeSection = {
+    answers: answers ?? [],
+    question: question ?? '',
+    pos: pos ?? '',
+    type,
+    onAnswer: _validateAnswer
+  };
+  const animationSection: TAnimationSection = {
+    enemyHealth: enemyHealth,
+    playerHealth: playerHealth
+  };
   return render({
     knowLedgeSection,
-    currentQuestionIndex,
     animationSection,
-    score: showScore
+    score,
+    onChangeScore: _handleChangeScore
   });
 };
 export default GamePlayContainer;
