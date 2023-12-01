@@ -9,11 +9,12 @@ export const AnswerButtonWrapper = styled.button`
   padding: 16px;
   cursor: pointer;
   transition: 0.25s;
+  font-family: 'Mitr';
   :hover {
     scale: 1.07;
   }
 
-  ${({ state }: TAnswerButton) => {
+  ${({ state, disabled }: TAnswerButton) => {
     let result: string = '';
     switch (state) {
       case 'correct':

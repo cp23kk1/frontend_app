@@ -8,23 +8,19 @@ const KnowLedgeSection = ({
   type,
   question,
   pos,
-  ans1,
-  ans2
+  answers
 }: TKnowLedgeSection) => {
   return (
     <KnowLedgeSectionWrapper style={style}>
-      <QuestionLayout question={question} pos={pos} type={type} />
+      <QuestionLayout question={question} pos={pos ?? ''} type={type} />
       <div className="answer-layout">
-        <div className="answer-wrapper">
-          <AnswerButton state={ans1.state} onClick={ans1.onClick}>
-            {ans1.answer}
-          </AnswerButton>
-        </div>
-        <div className="answer-wrapper">
-          <AnswerButton state={ans2.state} onClick={ans2.onClick}>
-            {ans2.answer}
-          </AnswerButton>
-        </div>
+        {answers.map((answer, index) => {
+          return (
+            <div className="answer-wrapper" key={index}>
+              <AnswerButton {...answer}></AnswerButton>
+            </div>
+          );
+        })}
       </div>
     </KnowLedgeSectionWrapper>
   );

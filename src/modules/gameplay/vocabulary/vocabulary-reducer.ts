@@ -31,7 +31,7 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getRandomVocabulary.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isVocabularyLoading = false;
-      state.vocabulary = action.payload.data;
+      state.vocabulary = action.payload.data.vocabs;
     }
   );
 

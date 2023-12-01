@@ -2,7 +2,7 @@
 const generateAppInfo = require('./appinfo.js');
 
 const apiUrl = process.env.API_URL || 'http://localhost:8080';
-const environment = process.env.ENVIRONMENT;
+const environment = process.env.ENV;
 const isProduction = process.env.NODE_ENV === 'production';
 const appVersion = process.env.APP_VERSION || '-';
 const commitID = process.env.COMMIT_ID || '-';
@@ -10,7 +10,8 @@ generateAppInfo(appVersion, commitID);
 let env = {
   ENVIRONMENT: environment,
   BASE_PATH: ``,
-  PRE_FIX_API: isProduction ? `/api` : `/${environment}/api`
+  PRE_FIX_API: isProduction ? `/api` : `/${environment}/api`,
+  API_URL: apiUrl
 };
 
 if (!isProduction)

@@ -14,4 +14,5 @@ export type TPos =
   | 'pronoun'
   | 'interjection'
   | 'conjunction'
-  | 'preposition';
+  | 'preposition'
+  | '';
