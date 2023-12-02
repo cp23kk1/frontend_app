@@ -31,10 +31,9 @@ const rewrites = () => {
     }
   ];
 };
-console.log('environment', environment);
 let nextConfig = {
   swcMinify: true,
-  basePath: environment === 'prod' ? `` : `/${environment}`,
+  basePath: `/${environment}`,
   env
 };
 
