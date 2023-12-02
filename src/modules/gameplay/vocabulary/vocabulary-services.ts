@@ -15,9 +15,7 @@ export interface IVocaublaryResponse {
 
 export const getRandomVocabulary = () => {
   return httpClient
-    .get<VocaverseResponseData<IVocaublaryResponse>>(
-      `/api/gameplays/vocabulary`
-    )
+    .get<VocaverseResponseData<IVocaublaryResponse>>(`/gameplays/vocabulary`)
     .then((res) => {
       return res.data;
     });

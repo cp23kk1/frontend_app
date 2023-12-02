@@ -20,19 +20,6 @@ export const NormalQuestion: Story = {
     question: 'Question',
     pos: 'noun',
     type: 'vocabulary',
-    ans1: {
-      state: 'correct',
-      answer: 'คำถาม',
-      onClick: () => {
-        console.log('Answer1 Clicked');
-      }
-    },
-    ans2: {
-      state: 'incorrect',
-      answer: 'คำตอบ',
-      onClick: () => {
-        console.log('Answer2 Clicked');
-      }
-    }
+    answers: []
   }
 };

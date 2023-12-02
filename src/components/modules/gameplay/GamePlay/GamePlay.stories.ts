@@ -20,19 +20,18 @@ export const NormalQuestion: Story = {
       question: 'Question',
       pos: 'noun',
       type: 'vocabulary',
+      onAnswer: (meaning) => {
+        console.log(meaning);
+      },
       answers: [
         {
-          answer: 'คำถาม',
-          onClick: () => {
-            console.log('คำถามนะจํะ');
-          },
+          children: 'คำถาม',
+
           state: 'correct'
         },
         {
-          answer: 'คำตอบ',
-          onClick: () => {
-            console.log('คำตอบนะจํะ');
-          },
+          children: 'คำตอบ',
+
           state: 'incorrect'
         }
       ]

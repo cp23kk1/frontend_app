@@ -9,17 +9,15 @@ const commitID = process.env.COMMIT_ID || '-';
 generateAppInfo(appVersion, commitID);
 let env = {
   ENVIRONMENT: environment,
-  BASE_PATH: ``,
-  PRE_FIX_API: isProduction ? `/api` : `/${environment}/api`,
+  PRE_FIX_API: environment === 'prod' ? `/api` : `/${environment}/api`,
   API_URL: apiUrl
 };
 
-if (!isProduction)
-  env = {
-    ...env,
-    API_URL: apiUrl
-    //  WS_URL: wsUrl
-  };
+env = {
+  ...env,
+  API_URL: `${apiUrl}${env.PRE_FIX_API}`
+  //  WS_URL: wsUrl
+};
 // if (isEnvironment(environment, 'local')) {
 //   destination = `/bizone/:path*`; // local environment.
 // }
@@ -35,7 +33,7 @@ const rewrites = () => {
 };
 let nextConfig = {
   swcMinify: true,
-  basePath: '',
+  basePath: environment === 'prod' ? `` : `/${environment}`,
   env
 };
 
