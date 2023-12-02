@@ -18,7 +18,7 @@ pipeline {
                 script {
                     sh "echo ${params.deployEnvironment}"
                     sh "docker build -t  ${NEXT_IMAGE_NAME}:${IMAGE_TAG} \
-                     --build-arg APP_VERSION=${params.TAG} \
+                     --build-arg APP_VERSION=${GIT_TAG} \
                      --build-arg ENV=${params.deployEnvironment} ."
                 }
             }
