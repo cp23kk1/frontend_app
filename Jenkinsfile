@@ -13,7 +13,7 @@ pipeline {
 
     stages {
 
-        stage('Build DB Images') {
+        stage('Build App Images') {
             steps {
                 script {
                     sh "echo ${params.deployEnvironment}"
