@@ -10,6 +10,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ARG APP_VERSION
+ARG ENV
+ENV APP_VERSION=${APP_VERSION}
+ENV ENVIRONMENT=${ENV}
+
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn add --exact --cwd /app --dev @types/node
 RUN npm run build
@@ -17,10 +22,7 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-ARG APP_VERSION
-ARG ENV
-ENV APP_VERSION=${APP_VERSION}
-ENV ENVIRONMENT=${ENV}
+
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
 
