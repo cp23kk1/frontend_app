@@ -11,7 +11,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
-
+RUN yarn add --exact --offline --cwd /app --dev @types/node
 RUN npm run build
 
 FROM node:18-alpine AS runner
