@@ -2,7 +2,7 @@
 const generateAppInfo = require('./appinfo.js');
 
 const apiUrl = process.env.API_URL || 'http://localhost:8080';
-const environment = process.env.ENV;
+const environment = process.env.ENVIRONMENT;
 const isProduction = process.env.NODE_ENV === 'production';
 const appVersion = process.env.APP_VERSION || '-';
 const commitID = process.env.COMMIT_ID || '-';
