@@ -7,7 +7,6 @@ import { useState } from 'react';
 //
 
 const GamePlayPage: NextPage = () => {
-  const [count, setCount] = useState<number>(0);
   return (
     <GamePlayContainer
       render={({ knowLedgeSection, animationSection, score }) => {

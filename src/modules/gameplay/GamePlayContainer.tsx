@@ -1,18 +1,23 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
-import { v4 as uuid } from 'uuid';
-import vocabularySelectors from './vocabulary/vocabulary-selectors';
 import { TGamePlayContainer } from './type';
 import {
   TGamePlayAnswerButton,
   TKnowLedgeSection
 } from '@/components/modules/gameplay/KnowledgeSection/type';
-import { IVocabulary } from './vocabulary/vocabulary-services';
 import { TAnimationSection } from '@/components/common/AnimationSection/type';
-import { dispatch as vocabularyDispatch } from './vocabulary';
-import { TAnswerButton } from '@/components/common/AnswerButton/type';
+import {
+  dispatch as vocabularyDispatch,
+  selectors as vocabularySelectors
+} from './vocabulary';
+import {
+  selectors as gameplayCoreSelectors,
+  actions as gameplayCOreActions
+} from './gameplay-core';
+
 import { TPos } from '@/components/common/QuestionLayout/type';
+import { Router, useRouter } from 'next/router';
 
 const GamePlayContainer = ({
   render
@@ -20,20 +25,19 @@ const GamePlayContainer = ({
   render: (props: TGamePlayContainer) => ReactNode;
 }) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   // vocabulary
   const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
   const isLoadingVocabulary = useAppSelector(
     vocabularySelectors.isLoadingVocabularySelector
   );
+  const currentGameHistory = useAppSelector(
+    gameplayCoreSelectors.currentGameHistorySelector
+  );
 
   // knowledge section
-  const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([
-    {
-      children: 'asdf',
-      state: 'normal'
-    }
-  ]);
+  const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([]);
   const [question, setQuestion] = useState<ReactNode>('');
   const [pos, setPos] = useState<TPos | undefined>();
   const [type, setType] = useState<
@@ -84,7 +88,7 @@ const GamePlayContainer = ({
             return { children: value.meaning, state: 'normal' };
           })
       ];
-      _handleChangeAnswers(newAnswer.sort(() => 0.5 - Math.random()));
+      _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
       _handleChangeQuestion(vocabulary[currentIndex].word);
       _handleChangePos(vocabulary[currentIndex].pos);
       _handleChangeType('vocabulary');
@@ -93,7 +97,7 @@ const GamePlayContainer = ({
   const _validateAnswer = (meaning: ReactNode) => {
     const correctness = vocabulary[currentIndex].meaning === meaning;
     _handleChangeAnswers(
-      answers.map((value, index) => {
+      answers.map((value) => {
         return correctness
           ? {
               ...value,
@@ -109,6 +113,7 @@ const GamePlayContainer = ({
     );
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
+
       _calculateHealth(correctness);
     }, 1000);
   };
@@ -119,6 +124,21 @@ const GamePlayContainer = ({
     } else {
       _handleChangePlayerHealth(playerHealth - 10);
     }
+    updateGameHistory(correctness);
+  };
+  const updateGameHistory = (correctness: boolean) => {
+    dispatch(
+      gameplayCOreActions.changeGameHistory({
+        gameId: currentGameHistory?.gameId,
+        current_score: correctness ? score + 1 : score,
+        vocabs: currentGameHistory?.vocabs.concat({
+          vocabularyId: vocabulary[currentIndex].id,
+          correctness: correctness
+        }),
+        sentences: [],
+        passages: []
+      })
+    );
   };
   //onmouted
   useEffect(() => {
@@ -128,6 +148,12 @@ const GamePlayContainer = ({
   useEffect(() => {
     _addQuestion();
   }, [isLoadingVocabulary, currentIndex]);
+
+  useEffect(() => {
+    if (playerHealth === 0) {
+      router.push('/game-result');
+    }
+  }, [playerHealth]);
 
   const knowLedgeSection: TKnowLedgeSection = {
     answers: answers ?? [],

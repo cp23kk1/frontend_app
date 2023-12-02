@@ -2,7 +2,6 @@ import { type PayloadAction, createReducer } from '@reduxjs/toolkit';
 import dispatch from './vocabulary-dispatch';
 import actionTypes from './vocabulary-action-types';
 import { IVocabulary } from './vocabulary-services';
-
 interface InitialState {
   //
 

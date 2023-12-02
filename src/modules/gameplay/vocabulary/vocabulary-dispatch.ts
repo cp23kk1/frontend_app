@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import services from './vocabulary-services';
 import actionTypes from './vocabulary-action-types';
 
-export const getRandomVocabulary = createAsyncThunk(
+const getRandomVocabulary = createAsyncThunk(
   actionTypes.GET_RAND_VOCAB,
   async (_, { rejectWithValue }) => {
     try {
@@ -16,7 +16,6 @@ export const getRandomVocabulary = createAsyncThunk(
     }
   }
 );
-
 export default {
   getRandomVocabulary
 };
