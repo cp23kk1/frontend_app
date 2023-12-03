@@ -33,10 +33,10 @@ const rewrites = () => {
     }
   ];
 };
-const basePath = `/${environment}`;
+const basePath = environment === 'prod' ? '' : `/${environment}`;
 let nextConfig = {
   swcMinify: true,
-  basePath: '/dev',
+  basePath: basePath,
   env
 };
 
