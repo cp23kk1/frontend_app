@@ -41,10 +41,16 @@ let nextConfig = {
 const redirects = () => {
   return [
     {
+      source: `/${environment}`,
+      destination: `/`,
+      basePath: false,
+      permanent: false
+    },
+    {
       source: `/${environment}/:path*`,
       destination: `/:path*`,
       basePath: false,
-      permanent: false
+      permanent: true
     }
   ];
 };
