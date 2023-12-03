@@ -36,7 +36,7 @@ const rewrites = () => {
 const basePath = `/${environment}`;
 let nextConfig = {
   swcMinify: true,
-  basePath: basePath,
+  basePath: '/dev',
   env
 };
 const redirects = () => {
