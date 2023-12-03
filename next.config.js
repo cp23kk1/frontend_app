@@ -15,7 +15,9 @@ let env = {
 
 env = {
   ...env,
-  API_URL: `${apiUrl}${env.PRE_FIX_API}`
+  API_URL: `${apiUrl}${env.PRE_FIX_API}`,
+  ASSER_PREFIX: environment === 'prod' ? undefined : `/${environment}`
+
   //  WS_URL: wsUrl
 };
 // if (isEnvironment(environment, 'local')) {
@@ -34,7 +36,6 @@ const rewrites = () => {
 let nextConfig = {
   swcMinify: true,
   basePath: environment === 'prod' ? '' : `/${environment}`,
-  assetPrefix: environment === 'prod' ? '' : `/${environment}`,
   env
 };
 

@@ -8,13 +8,19 @@ const AnimationSection = (animationSection: TAnimationSection) => {
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img src="/character/robot.svg" alt="charater" />
+        <img
+          src={`${process.env.ASSER_PREFIX}/character/robot.svg`}
+          alt="charater"
+        />
       </div>
       <div className="enemy">
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img src="/enemy/enemy1.svg" alt="charater" />
+        <img
+          src={`${process.env.ASSER_PREFIX}/enemy/enemy1.svg`}
+          alt="charater"
+        />
       </div>
     </AnimationSectionWrapper>
   );
