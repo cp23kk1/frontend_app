@@ -34,16 +34,22 @@ const rewrites = () => {
   ];
 };
 const basePath = environment === 'prod' ? '' : `/${environment}`;
+
+// Next.js Configuration
 let nextConfig = {
   swcMinify: true,
-  basePath: basePath,
+  basePath,
+  // assetPrefix: `${basePath}/_next/static`, // Adjust the asset prefix
   env
 };
 
-if (!isProduction)
+// Include rewrites in development
+if (!isProduction) {
   nextConfig = {
     ...nextConfig,
     rewrites
   };
+}
 
+// Export Configuration
 module.exports = nextConfig;
