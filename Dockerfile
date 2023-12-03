@@ -1,44 +1,27 @@
-FROM node:18-alpine AS deps
-RUN apk add --no-cache libc6-compat
+FROM node:14-alpine as builder
+
 WORKDIR /app
 
-COPY package.json ./
-RUN  npm install --production
+COPY package*.json ./
 
-FROM node:18-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+RUN npm install
+
 COPY . .
+
+RUN npm run build
+
+FROM nginx:alpine
+
 
 ARG APP_VERSION
 ARG ENV
 ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
 
-ENV NEXT_TELEMETRY_DISABLED 1
-RUN yarn add --exact --cwd /app --dev @types/node
-RUN npm run build
+COPY --from=builder /app/.next /usr/share/nginx/html
 
-FROM node:18-alpine AS runner
-WORKDIR /app
-
-
-ENV APP_VERSION=${APP_VERSION}
-ENV ENVIRONMENT=${ENV}
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-
-USER nextjs
+COPY nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 80
 
-ENV PORT 80
-
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]
