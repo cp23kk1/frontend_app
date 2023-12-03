@@ -9,7 +9,7 @@ const AnimationSection = (animationSection: TAnimationSection) => {
           <div className="health"></div>
         </div>
         <img
-          src={`${process.env.ASSER_PREFIX}/character/robot.svg`}
+          src={`${process.env.ASSET_PREFIX}/character/robot.svg`}
           alt="charater"
         />
       </div>
@@ -18,7 +18,7 @@ const AnimationSection = (animationSection: TAnimationSection) => {
           <div className="health"></div>
         </div>
         <img
-          src={`${process.env.ASSER_PREFIX}/enemy/enemy1.svg`}
+          src={`${process.env.ASSET_PREFIX}/enemy/enemy1.svg`}
           alt="charater"
         />
       </div>

@@ -16,7 +16,7 @@ let env = {
 env = {
   ...env,
   API_URL: `${apiUrl}${env.PRE_FIX_API}`,
-  ASSER_PREFIX: environment === 'prod' ? undefined : `/${environment}`
+  ASSET_PREFIX: environment === 'prod' ? '' : `/${environment}`
 
   //  WS_URL: wsUrl
 };
@@ -35,10 +35,31 @@ const rewrites = () => {
 };
 let nextConfig = {
   swcMinify: true,
-  basePath: environment === 'prod' ? undefined : `/${environment}`,
+  basePath: environment === 'prod' ? '' : `/${environment}`,
   env
 };
+const redirects = () => {
+  return [
+    {
+      source: '/',
+      destination: `/${environment}`,
+      basePath: false,
+      permanent: false
+    }
+  ];
+};
 
-if (!isProduction) nextConfig = { ...nextConfig, rewrites };
+if (!isProduction)
+  nextConfig = {
+    ...nextConfig,
+    rewrites
+  };
+
+if (environment !== 'prod') {
+  nextConfig = {
+    ...nextConfig,
+    redirects
+  };
+}
 
 module.exports = nextConfig;
