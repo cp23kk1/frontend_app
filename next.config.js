@@ -36,23 +36,8 @@ const rewrites = () => {
 const basePath = `/${environment}`;
 let nextConfig = {
   swcMinify: true,
+  basePath: '/dev',
   env
-};
-const redirects = () => {
-  return [
-    {
-      source: `/${environment}`,
-      destination: `/`,
-      basePath: false,
-      permanent: false
-    },
-    {
-      source: `/${environment}/:path*`,
-      destination: `/:path*`,
-      basePath: false,
-      permanent: true
-    }
-  ];
 };
 
 if (!isProduction)
@@ -60,12 +45,5 @@ if (!isProduction)
     ...nextConfig,
     rewrites
   };
-
-if (environment !== 'prod') {
-  nextConfig = {
-    ...nextConfig,
-    redirects
-  };
-}
 
 module.exports = nextConfig;
