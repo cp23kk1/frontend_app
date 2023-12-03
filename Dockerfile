@@ -21,7 +21,8 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-
+ARG APP_VERSION
+ARG ENV
 ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
 
