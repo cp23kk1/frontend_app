@@ -3,7 +3,7 @@ FROM node:14-alpine as builder
 WORKDIR /app
 
 COPY package*.json ./
-
+RUN yarn add --exact --cwd /app --dev @types/node
 RUN npm install
 
 COPY . .
