@@ -27,7 +27,6 @@ ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
 ENV NODE_ENV=production
 
-ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -42,4 +41,4 @@ EXPOSE 80
 
 ENV PORT 80
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
