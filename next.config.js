@@ -33,9 +33,10 @@ const rewrites = () => {
     }
   ];
 };
+const basePath = environment === 'prod' ? '' : `/${environment}`;
 let nextConfig = {
   swcMinify: true,
-  basePath: environment === 'prod' ? '' : `/${environment}`,
+  basePath: basePath,
   env
 };
 const redirects = () => {
