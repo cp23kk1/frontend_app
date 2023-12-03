@@ -11,7 +11,7 @@ ENV ENVIRONMENT=${ENV}
 COPY . .
 
 RUN npm install
-RUN yarn add --exact --cwd /app --dev @types/node
+RUN yarn add --exact --cwd /temp --dev @types/node
 RUN npm run build
 
 #########=========> 
