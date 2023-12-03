@@ -16,7 +16,7 @@ ENV ENVIRONMENT=${ENV}
 
 ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn add --exact --cwd /app --dev @types/node
-RUN npm run build
+RUN yarn build
 
 FROM node:18-alpine AS runner
 WORKDIR /app
@@ -42,4 +42,4 @@ EXPOSE 80
 
 ENV PORT 80
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

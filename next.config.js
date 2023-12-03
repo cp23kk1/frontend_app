@@ -35,7 +35,7 @@ const rewrites = () => {
 };
 let nextConfig = {
   swcMinify: true,
-  basePath: environment === 'prod' ? '' : `/${environment}`,
+  basePath: environment === 'prod' ? undefined : `/${environment}`,
   env
 };
 
