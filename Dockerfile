@@ -1,32 +1,43 @@
+FROM node:18-alpine AS deps
+WORKDIR /app
+
+COPY package.json ./
+RUN  npm install --production
+
 FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-WORKDIR /temp
-
-RUN npm config set strict-ssl false
-RUN npm config set registry http://registry.npmjs.org/
 ARG APP_VERSION
 ARG ENV
 ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
-COPY . .
 
-RUN npm install
-RUN yarn add --exact --cwd /temp --dev @types/node
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN yarn add --exact --cwd /app --dev @types/node
 RUN npm run build
 
-#########=========> 
-
-FROM node:18-alpine AS server
-
+FROM node:18-alpine AS runner
 WORKDIR /app
+
+
 ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
-# We only require these 5 folders/files for nextjs apps in production
-COPY --from=builder /temp/next.config.js ./
-COPY --from=builder /temp/public ./public
-COPY --from=builder /temp/build ./build
-COPY --from=builder /temp/node_modules ./node_modules
-COPY --from=builder /temp/package.json ./package.json
-ENV PORT 80
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+USER nextjs
+
 EXPOSE 80
-CMD [ "npm", "run", "start" ]
+
+ENV PORT 80
+
+CMD ["npm", "start"]
