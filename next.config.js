@@ -23,33 +23,33 @@ env = {
 // if (isEnvironment(environment, 'local')) {
 //   destination = `/bizone/:path*`; // local environment.
 // }
+const basePath = environment === 'prod' ? '' : `/${environment}`;
+console.log(basePath);
 let destination = `${env.API_URL}${env.PRE_FIX_API}/:path*`;
 const rewrites = () => {
   return [
     {
-      source: `${env.PRE_FIX_API}/:path*`,
-      destination,
-      basePath: false
+      source: `/:path*`,
+      destination: `${basePath}/:path*`
     }
   ];
 };
-const basePath = environment === 'prod' ? '' : `/${environment}`;
 
 // Next.js Configuration
+/** @type {import('next').NextConfig} */
 let nextConfig = {
   swcMinify: true,
-  basePath,
-  assetPrefix: `${basePath}`, // Adjust the asset prefix
-  env
+  // publicRuntimeConfig: { basePath },
+  basePath: basePath,
+  publicRuntimeConfig: { basePath },
+  assetPrefix: basePath
 };
 
 // Include rewrites in development
-if (!isProduction) {
-  nextConfig = {
-    ...nextConfig,
-    rewrites
-  };
-}
+nextConfig = {
+  ...nextConfig,
+  rewrites
+};
 
 // Export Configuration
 module.exports = nextConfig;

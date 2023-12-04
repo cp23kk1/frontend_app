@@ -1,3 +1,4 @@
+import { getPublicPath } from '@/utils/basePath';
 import { AnimationSectionWrapper } from './style';
 import { TAnimationSection } from './type';
 
@@ -8,19 +9,13 @@ const AnimationSection = (animationSection: TAnimationSection) => {
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img
-          src={`${process.env.ASSET_PREFIX}/character/robot.svg`}
-          alt="charater"
-        />
+        <img src={getPublicPath(`/character/robot.svg`)} alt="charater" />
       </div>
       <div className="enemy">
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img
-          src={`${process.env.ASSET_PREFIX}/enemy/enemy1.svg`}
-          alt="charater"
-        />
+        <img src={getPublicPath(`/enemy/enemy1.svg`)} alt="charater" />
       </div>
     </AnimationSectionWrapper>
   );
