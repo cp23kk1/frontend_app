@@ -42,7 +42,8 @@ let nextConfig = {
   // publicRuntimeConfig: { basePath },
   basePath: basePath,
   publicRuntimeConfig: { basePath },
-  assetPrefix: basePath
+  assetPrefix: basePath,
+  env
 };
 
 // Include rewrites in development
