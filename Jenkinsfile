@@ -16,9 +16,8 @@ pipeline {
         stage('Build App Images') {
             steps {
                 script {
-                    sh "echo ${params.deployEnvironment}"
+                    sh "echo ENV=${params.deployEnvironment} >> .env"
                     sh "echo APP_VERSION=${GIT_TAG} >> .env"
-                    sh "echo APP_VERSION=${GIT_TAG} >> .env "
                     sh "NEXT_PUBLIC_BASE_PATH=/${params.deployEnvironment} >> .env"
                     sh "cat .env"
                     sh "docker build -t  ${NEXT_IMAGE_NAME}:${IMAGE_TAG} \
