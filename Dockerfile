@@ -19,23 +19,10 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN yarn add --exact --cwd /app --dev @types/node
 RUN npm run build
 
-FROM node:18-alpine AS runner
-WORKDIR /app
-
-ARG APP_VERSION
-ARG ENV
-ENV APP_VERSION=${APP_VERSION}
-ENV ENVIRONMENT=${ENV}
-ENV NODE_ENV=production
-ENV NEXT_PUBLIC_BASE_PATH=/${ENV}
-
-
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
+
 
 USER nextjs
 
