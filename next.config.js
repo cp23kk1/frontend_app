@@ -39,7 +39,7 @@ const basePath = environment === 'prod' ? '' : `/${environment}`;
 let nextConfig = {
   swcMinify: true,
   basePath,
-  // assetPrefix: `${basePath}/_next/static`, // Adjust the asset prefix
+  assetPrefix: `${basePath}`, // Adjust the asset prefix
   env
 };
 
