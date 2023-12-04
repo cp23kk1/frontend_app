@@ -20,6 +20,7 @@ pipeline {
                     sh "echo APP_VERSION=${GIT_TAG} >> .env"
                     sh "echo APP_VERSION=${GIT_TAG} >> .env "
                     sh "NEXT_PUBLIC_BASE_PATH=/${params.deployEnvironment} >> .env"
+                    sh "cat .env"
                     sh "docker build -t  ${NEXT_IMAGE_NAME}:${IMAGE_TAG} \
                      --build-arg APP_VERSION=${GIT_TAG} \
                      --build-arg ENV=${params.deployEnvironment} ."
