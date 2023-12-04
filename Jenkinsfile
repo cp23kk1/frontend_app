@@ -16,10 +16,17 @@ pipeline {
         stage('Build App Images') {
             steps {
                 script {
-                    sh "cat ENV=${params.deployEnvironment} >> .env"
-                    sh "cat APP_VERSION=${GIT_TAG} >> .env"
-                    sh "cat NEXT_PUBLIC_BASE_PATH=/${params.deployEnvironment} >> .env"
-                    sh "cat .env"
+                   // Create .env file with specified content
+                    def envContent = """
+                        ENV=${params.deployEnvironment}
+                        APP_VERSION=${GIT_TAG}
+                        NEXT_PUBLIC_BASE_PATH=/${params.deployEnvironment}
+                    """
+                    writeFile file: '.env', text: envContent
+
+                    // Display the content of the created .env file
+                    echo "Content of .env:"
+                    echo readFile('.env')
                     sh "docker build -t  ${NEXT_IMAGE_NAME}:${IMAGE_TAG} \
                      --build-arg APP_VERSION=${GIT_TAG} \
                      --build-arg ENV=${params.deployEnvironment} ."
