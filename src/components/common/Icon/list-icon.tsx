@@ -1,5 +1,4 @@
 import { getPublicPath } from '@/utils/basePath';
-import { iconFiles } from 'list-icon.tsx';
 
 export const iconFiles = {
   Alert: getPublicPath('/icon/'),
