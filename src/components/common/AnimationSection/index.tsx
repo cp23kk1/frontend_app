@@ -9,13 +9,13 @@ const AnimationSection = (animationSection: TAnimationSection) => {
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img src={getPublicPath(`/character/robot.svg`)} alt="charater" />
+        <img src={getPublicPath(`/character/player/robot.svg`)} alt="player" />
       </div>
       <div className="enemy">
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img src={getPublicPath(`/enemy/enemy1.svg`)} alt="charater" />
+        <img src={getPublicPath(`/character/enemy/enemy1.svg`)} alt="enemy" />
       </div>
     </AnimationSectionWrapper>
   );

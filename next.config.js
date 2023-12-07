@@ -25,7 +25,6 @@ env = {
 // }
 const basePath = environment === 'prod' ? '' : `/${environment}`;
 console.log(basePath);
-let destination = `${env.API_URL}${env.PRE_FIX_API}/:path*`;
 const rewrites = () => {
   return [
     {
