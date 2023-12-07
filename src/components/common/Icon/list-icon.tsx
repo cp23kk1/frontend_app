@@ -1,7 +1,6 @@
 import { getPublicPath } from '@/utils/basePath';
 
 export const iconFiles = {
-  Alert: getPublicPath('/icon/'),
   Exit: getPublicPath('/icon/Exit.svg'),
   Heart: getPublicPath('/icon/Heart.svg'),
   Logo: getPublicPath('/icon/Logo.svg'),

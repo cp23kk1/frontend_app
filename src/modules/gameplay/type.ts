@@ -6,4 +6,5 @@ export type TGamePlayContainer = {
   knowLedgeSection: TKnowLedgeSection;
   animationSection: TAnimationSection;
   onChangeScore: (score: number) => void;
+  onPause: () => void;
 };

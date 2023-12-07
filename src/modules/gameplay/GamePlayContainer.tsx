@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TGamePlayContainer } from './type';
@@ -13,11 +13,12 @@ import {
 } from './vocabulary';
 import {
   selectors as gameplayCoreSelectors,
-  actions as gameplayCOreActions
+  actions as gameplayCoreActions
 } from './gameplay-core';
 
 import { TPos } from '@/components/common/QuestionLayout/type';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
+import { actions as modalActions } from '../core/modal';
 
 const GamePlayContainer = ({
   render
@@ -128,7 +129,7 @@ const GamePlayContainer = ({
   };
   const updateGameHistory = (correctness: boolean) => {
     dispatch(
-      gameplayCOreActions.changeGameHistory({
+      gameplayCoreActions.changeGameHistory({
         gameId: currentGameHistory?.gameId,
         current_score: correctness ? score + 1 : score,
         vocabs: currentGameHistory?.vocabs.concat({
@@ -140,7 +141,11 @@ const GamePlayContainer = ({
       })
     );
   };
-  //onmouted
+  const onPause = () => {
+    dispatch(modalActions.onOpen('PauseMenu'));
+  };
+
+  //useEffect
   useEffect(() => {
     dispatch(vocabularyDispatch.getRandomVocabulary());
   }, []);
@@ -151,9 +156,16 @@ const GamePlayContainer = ({
 
   useEffect(() => {
     if (playerHealth === 0) {
-      router.push('/game-result');
+      dispatch(modalActions.onOpen('GAMEOVER'));
+
+      setTimeout(() => {
+        router.push('/game-result');
+      }, 1000);
     }
-  }, [playerHealth]);
+    if (enemyHealth === 0) {
+      _handleChangeEnemyHealth(100);
+    }
+  }, [playerHealth, enemyHealth]);
 
   const knowLedgeSection: TKnowLedgeSection = {
     answers: answers ?? [],
@@ -170,6 +182,7 @@ const GamePlayContainer = ({
     knowLedgeSection,
     animationSection,
     score,
+    onPause,
     onChangeScore: _handleChangeScore
   });
 };

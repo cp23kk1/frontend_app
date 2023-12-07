@@ -1,10 +1,16 @@
 import { iconFiles } from './list-icon';
+import { IconImg } from './style';
 import { TIcon } from './type';
 
-export const Icon = ({ iconName, size, style, onClick }: TIcon) => {
+const Icon = ({ iconName, size = 60, style, onClick }: TIcon) => {
   return (
-    <div style={style} onClick={onClick}>
-      <img src={iconFiles[iconName]} alt={iconName} />
-    </div>
+    <IconImg
+      src={iconFiles[iconName]}
+      alt={iconName}
+      style={style}
+      size={size}
+      onClick={onClick}
+    />
   );
 };
+export default Icon;

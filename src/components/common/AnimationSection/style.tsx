@@ -25,6 +25,7 @@ export const AnimationSectionWrapper = styled.div`
         }) => {
           return `
         width: ${playerHealth ?? 0}%;
+        transition: 0.5s;
         height: 100%;
         max-width: 100%;
         border-radius: 16px;
@@ -42,6 +43,7 @@ export const AnimationSectionWrapper = styled.div`
       width: 100%;
       padding: 4px;
       .health {
+        transition: .5s;
         height: 100%;
         width: ${enemyHealth ?? 0}%;
         border-radius: 16px;

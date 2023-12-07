@@ -9,11 +9,12 @@ import { useState } from 'react';
 const GamePlayPage: NextPage = () => {
   return (
     <GamePlayContainer
-      render={({ knowLedgeSection, animationSection, score }) => {
+      render={({ knowLedgeSection, animationSection, score, onPause }) => {
         return (
           <GamePlay
             knowledgeSectionItem={knowLedgeSection}
             score={score}
+            onPause={onPause}
             animationSectionItem={animationSection}
           />
         );
