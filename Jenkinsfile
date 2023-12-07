@@ -21,7 +21,6 @@ pipeline {
                         API_URL=${env.ORIGIN}
                         ENV=${params.deployEnvironment}
                         APP_VERSION=${GIT_TAG}
-                        NEXT_PUBLIC_BASE_PATH=/${params.deployEnvironment}
                     """
                     writeFile file: '.env', text: envContent
 
