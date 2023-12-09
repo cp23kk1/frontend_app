@@ -1,30 +1,24 @@
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
+import { IVocabulary } from './vocabulary-services';
 
-export const webSocketSelector = (state: RootState) =>
-  state.webSocket.webSocket;
+const gameplayVocabularySelector = (state: RootState) =>
+  state.gameplay.vocabularies;
 
-export const webSocketLobbySelector = createSelector(
-  webSocketSelector,
-  (webSocket) => {
-    return webSocket.lobby;
+const vocabularySelector = createSelector(
+  gameplayVocabularySelector,
+  (gamePlay): IVocabulary[] => {
+    return gamePlay.vocabulary;
   }
 );
-export const isLoadingLobbySelector = createSelector(
-  webSocketSelector,
-  (webSocket) => {
-    return webSocket.isLobbyLoading;
-  }
-);
-export const isConnectSelector = createSelector(
-  webSocketSelector,
-  (webSocket) => {
-    return webSocket.isConnect;
+const isLoadingVocabularySelector = createSelector(
+  gameplayVocabularySelector,
+  (gamePlay) => {
+    return gamePlay.isVocabularyLoading;
   }
 );
 export default {
-  webSocketSelector,
-  webSocketLobbySelector,
-  isLoadingLobbySelector,
-  isConnectSelector
+  gameplayVocabularySelector,
+  vocabularySelector,
+  isLoadingVocabularySelector
 };

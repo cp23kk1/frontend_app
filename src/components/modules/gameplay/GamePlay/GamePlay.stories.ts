@@ -20,20 +20,21 @@ export const NormalQuestion: Story = {
       question: 'Question',
       pos: 'noun',
       type: 'vocabulary',
-      ans1: {
-        state: 'correct',
-        answer: 'คำถาม',
-        onClick: () => {
-          console.log('Answer1 Clicked');
-        }
+      onAnswer: (meaning) => {
+        console.log(meaning);
       },
-      ans2: {
-        state: 'incorrect',
-        answer: 'คำตอบ',
-        onClick: () => {
-          console.log('Answer2 Clicked');
+      answers: [
+        {
+          children: 'คำถาม',
+
+          state: 'correct'
+        },
+        {
+          children: 'คำตอบ',
+
+          state: 'incorrect'
         }
-      }
+      ]
     },
     animationSectionItem: { enemyHealth: 80, playerHealth: 97 },
     score: 88

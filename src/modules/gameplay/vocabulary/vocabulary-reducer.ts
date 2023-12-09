@@ -2,7 +2,6 @@ import { type PayloadAction, createReducer } from '@reduxjs/toolkit';
 import dispatch from './vocabulary-dispatch';
 import actionTypes from './vocabulary-action-types';
 import { IVocabulary } from './vocabulary-services';
-
 interface InitialState {
   //
 
@@ -31,7 +30,7 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getRandomVocabulary.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isVocabularyLoading = false;
-      state.vocabulary = action.payload.data;
+      state.vocabulary = action.payload.data.vocabs;
     }
   );
 

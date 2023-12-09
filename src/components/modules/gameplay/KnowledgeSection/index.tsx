@@ -2,29 +2,35 @@ import QuestionLayout from '@/components/common/QuestionLayout';
 import { KnowLedgeSectionWrapper } from './style';
 import { TKnowLedgeSection } from './type';
 import AnswerButton from '@/components/common/AnswerButton';
+import { ReactNode } from 'react';
 
 const KnowLedgeSection = ({
   style,
   type,
   question,
   pos,
-  ans1,
-  ans2
+  answers,
+  onAnswer
 }: TKnowLedgeSection) => {
+  const _handleAnswer = (meaning: ReactNode) => {
+    onAnswer(meaning);
+  };
   return (
     <KnowLedgeSectionWrapper style={style}>
-      <QuestionLayout question={question} pos={pos} type={type} />
+      <QuestionLayout question={question} pos={pos ?? ''} type={type} />
       <div className="answer-layout">
-        <div className="answer-wrapper">
-          <AnswerButton state={ans1.state} onClick={ans1.onClick}>
-            {ans1.answer}
-          </AnswerButton>
-        </div>
-        <div className="answer-wrapper">
-          <AnswerButton state={ans2.state} onClick={ans2.onClick}>
-            {ans2.answer}
-          </AnswerButton>
-        </div>
+        {answers.map((answer, index) => {
+          return (
+            <div className="answer-wrapper" key={index}>
+              <AnswerButton
+                {...answer}
+                onClick={() => {
+                  _handleAnswer(answer.children);
+                }}
+              ></AnswerButton>
+            </div>
+          );
+        })}
       </div>
     </KnowLedgeSectionWrapper>
   );

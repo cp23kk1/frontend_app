@@ -4,5 +4,6 @@ export type TAnswerButton = {
   children: ReactNode;
   onClick: () => void;
   style?: CSSProperties;
-  state?: 'correct' | 'incorrect' | 'normal';
+  disabled?: boolean;
+  state: 'correct' | 'incorrect' | 'normal';
 };
