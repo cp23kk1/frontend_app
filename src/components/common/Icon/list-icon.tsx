@@ -8,5 +8,6 @@ export const iconFiles = {
   ProfileDark: getPublicPath('/icon/ProfileDark.svg'),
   ProfileLight: getPublicPath('/icon/ProfileLight.svg'),
   SettingDark: getPublicPath('/icon/SettingDark.svg'),
-  Vector: getPublicPath('/icon/Vector.svg')
+  Vector: getPublicPath('/icon/Vector.svg'),
+  SettingLight: getPublicPath('/icon/SettingLight.svg')
 } as { [key: string]: any };
