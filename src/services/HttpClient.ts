@@ -15,8 +15,7 @@ class Http {
   }
 
   initHttp() {
-    const http = axios.create();
-
+    const http = axios.create({ baseURL: process.env.API_URL });
     http.interceptors.request.use(
       (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
         return config;

@@ -1,9 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import webSocketReducer from '@/modules/test';
+import gamePlayReducer from '@/modules/gameplay';
+import coreReducer from '@/modules/core';
 const store = configureStore({
   reducer: {
-    //reducer
-    webSocket: webSocketReducer
+    //
+    webSocket: webSocketReducer,
+    gameplay: gamePlayReducer,
+    core: coreReducer
   },
   devTools: true
 });

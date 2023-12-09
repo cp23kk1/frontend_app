@@ -117,7 +117,9 @@ const MainPage: NextPage = () => {
                 disabled={isConnect}
                 onChange={(e) => onChangeName(e.target.value)}
               />
-              <button onClick={onSubmit}>Submit</button>
+              <button onClick={onSubmit} style={{ color: 'var(--red)' }}>
+                Submit
+              </button>
               <button onClick={onCloseConnection}>closeConnection</button>
             </div>
           </Fragment>
