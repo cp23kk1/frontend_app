@@ -7,7 +7,6 @@ pipeline {
 
     environment {
         NEXT_IMAGE_NAME = "vocaverse-app"
-        IMAGE_TAG = "latest"
         CONTAINER_NAME = "vocaverse-app"
     }
 
@@ -54,7 +53,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                  sh "docker run -d  -p 3000:80 --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${IMAGE_TAG}"
+                  sh "docker run -d  -p 3000:80 --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${GIT_TAG}"
                 }
             }
         }
