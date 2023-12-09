@@ -27,7 +27,7 @@ pipeline {
                     // Display the content of the created .env file
                     echo "Content of .env:"
                     echo readFile('.env')
-                    sh "docker build -t  ${NEXT_IMAGE_NAME}:${IMAGE_TAG} \
+                    sh "docker build -t  ${NEXT_IMAGE_NAME}:${GIT_TAG} \
                      --build-arg APP_VERSION=${GIT_TAG} \
                      --build-arg ENV=${params.deployEnvironment} ."
                 }
