@@ -1,7 +1,6 @@
-import Button from '@/components/common/Button';
+import Button from '@/components/common/LandingButton';
 import { getPublicPath } from '@/utils/basePath';
 import Image from 'next/image';
-import { Fragment } from 'react';
 import { TLanding } from './type';
 import {
   ClickToBeginText,
