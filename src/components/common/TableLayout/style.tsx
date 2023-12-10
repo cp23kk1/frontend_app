@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const TableLayoutWrapper = styled.div`
+  width: 100%;
   height: 464px;
   overflow-y: scroll;
   border-radius: 12px

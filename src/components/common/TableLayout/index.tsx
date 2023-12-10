@@ -16,7 +16,7 @@ const TableLayout = ({ columns, data, onClick }: TTable) => {
           );
         })}
       </Row>
-      <div className='detail'>
+      <div className="detail">
         {data.map((item: Vocabulary, index) => {
           return (
             <Row className="record" onClick={() => onClick(item.id)}>

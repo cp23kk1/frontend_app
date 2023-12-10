@@ -4,12 +4,15 @@ export type TIcon = {
   iconName:
     | 'Exit'
     | 'Heart'
+    | 'Home'
     | 'Logo'
+    | 'Menu'
     | 'Pause'
     | 'ProfileDark'
     | 'ProfileLight'
+    | 'Retry'
     | 'SettingDark'
-    | 'Vector';
+    | 'SettingLight';
   size?: number;
   style?: CSSProperties;
   onClick?: () => void;
