@@ -18,7 +18,7 @@ env = {
   API_URL: `${apiUrl}${env.PRE_FIX_API}`,
   ASSET_PREFIX: environment === 'prod' ? '/kk1' : `/${environment}`
 };
-const basePath = environment === 'prod' ? '' : `/${environment}`;
+const basePath = environment === 'prod' ? '/kk1' : `/${environment}`;
 console.log(basePath);
 const rewrites = () => {
   return [
@@ -36,9 +36,10 @@ let nextConfig = {
   // publicRuntimeConfig: { basePath },
   basePath: basePath,
   publicRuntimeConfig: {
-    basePath: environment === 'prod' ? '/kk1/' : basePath
+    basePath: environment === 'prod' ? '/kk1' : basePath
   },
   assetPrefix: basePath,
+  output: 'standalone',
   env
 };
 
