@@ -54,7 +54,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                  sh "docker run -d  -p 3000:80 --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${IMAGE_TAG}"
+                  sh "docker run -d --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${IMAGE_TAG}"
                 }
             }
         }
