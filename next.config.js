@@ -35,7 +35,9 @@ let nextConfig = {
   swcMinify: true,
   // publicRuntimeConfig: { basePath },
   basePath: basePath,
-  publicRuntimeConfig: { basePath: environment === 'prod' ? '/kk1' : basePath },
+  publicRuntimeConfig: {
+    basePath: environment === 'prod' ? '/kk1/' : basePath
+  },
   assetPrefix: basePath,
   env
 };
