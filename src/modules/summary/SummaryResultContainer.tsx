@@ -16,18 +16,14 @@ const SummaryResultContainer = ({
 }) => {
   const router = useRouter();
 
-  // vocabulary
-  // const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
-
   // header
   const gameHistory = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector
   );
 
   const mode: string = 'Single Player';
-  // const bestScore: number = gameHistory?.current_score ?? 0;
-  // const currentScore: number = gameHistory?.current_score ?? 0;
-  const bestScore: number = 999 ?? 0;
+
+  const bestScore: number = 999;
   const currentScore: number = gameHistory.current_score;
 
   // table
