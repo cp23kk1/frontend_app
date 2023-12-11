@@ -21,53 +21,53 @@ export const Summary: Story = {
       data: [
         {
           id: 2,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 1,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 2,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 1,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 2,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 1,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 2,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 1,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 2,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         },
         {
           id: 1,
-          question: 'Vocabulary',
-          answer: 'คำตอบ'
+          word: 'Vocabulary',
+          meaning: 'คำตอบ'
         }
       ],
       onClick: (id) => {
