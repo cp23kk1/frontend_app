@@ -18,6 +18,7 @@ pipeline {
                    // Create .env file with specified content
                     def envContent = """
                         API_URL=${env.ORIGIN}
+                        PROD_API_URL=https://capstone23.sit.kmutt.ac.th
                         ENV=${params.deployEnvironment}
                         APP_VERSION=${GIT_TAG}
                     """
