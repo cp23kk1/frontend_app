@@ -7,7 +7,6 @@ pipeline {
 
     environment {
         NEXT_IMAGE_NAME = "vocaverse-app"
-        IMAGE_TAG = "latest"
         CONTAINER_NAME = "vocaverse-app"
     }
 
@@ -27,7 +26,7 @@ pipeline {
                     // Display the content of the created .env file
                     echo "Content of .env:"
                     echo readFile('.env')
-                    sh "docker build -t  ${NEXT_IMAGE_NAME}:${IMAGE_TAG} \
+                    sh "docker build -t  ${NEXT_IMAGE_NAME}:${GIT_TAG} \
                      --build-arg APP_VERSION=${GIT_TAG} \
                      --build-arg ENV=${params.deployEnvironment} ."
                 }
@@ -54,7 +53,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                  sh "docker run -d  -p 3000:80 --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${IMAGE_TAG}"
+                  sh "docker run -d  -p 3000:80 --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${GIT_TAG}"
                 }
             }
         }
