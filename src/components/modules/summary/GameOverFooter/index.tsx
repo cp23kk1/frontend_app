@@ -6,7 +6,7 @@ const GameOverFooter = ({ options, style }: TGameOverFooter) => {
   return (
     <GameOverFooterWrapper style={style}>
       {options?.map((option) => {
-        return <Button {...option}></Button>;
+        return <Button key={option.iconName} {...option}></Button>;
       })}
     </GameOverFooterWrapper>
   );

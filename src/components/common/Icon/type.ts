@@ -17,4 +17,5 @@ export type TIcon = {
   size?: number;
   style?: CSSProperties;
   onClick?: () => void;
+  className?: string;
 };

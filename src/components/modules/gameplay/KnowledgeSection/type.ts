@@ -8,10 +8,10 @@ export type TKnowLedgeSection = {
   type?: 'sentence' | 'vocabulary' | 'passage';
   pos?: TPos;
   answers: TGamePlayAnswerButton[];
-  onAnswer: (meaning: ReactNode) => void;
+  onAnswer: (meaning: string) => void;
 };
 export type TGamePlayAnswerButton = {
-  children: ReactNode;
+  children: string;
   style?: CSSProperties;
   disabled?: boolean;
   state: 'correct' | 'incorrect' | 'normal';

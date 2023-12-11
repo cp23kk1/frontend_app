@@ -18,6 +18,7 @@ pipeline {
                    // Create .env file with specified content
                     def envContent = """
                         API_URL=${env.ORIGIN}
+                        PROD_API_URL=https://capstone23.sit.kmutt.ac.th
                         ENV=${params.deployEnvironment}
                         APP_VERSION=${GIT_TAG}
                     """
@@ -53,7 +54,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                  sh "docker run -d  -p 3000:80 --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${GIT_TAG}"
+
+                  sh "docker run -d --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${GIT_TAG}"
                 }
             }
         }

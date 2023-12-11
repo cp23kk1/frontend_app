@@ -1,3 +1,4 @@
+import { getPublicPath } from '@/utils/basePath';
 import styled from '@emotion/styled';
 
 export const BackgroundSummaryWrapper = styled.div`
@@ -5,7 +6,7 @@ export const BackgroundSummaryWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  background-image: url('./assets/background/Space_BG.svg');
+  background-image: url(${getPublicPath('/background/Space_BG.svg')});
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 0;

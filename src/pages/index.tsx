@@ -1,32 +1,14 @@
-import Image from 'next/image';
-import styles from '@/styles/page.module.css';
-import { useRouter } from 'next/router';
-import styled from '@emotion/styled';
+import Landing from '@/components/modules/landing/Landing';
+import LandingContainer from '@/modules/landing/LandingContainer';
 
 export default function Home() {
-  const router = useRouter();
   return (
-    <Landing
-      onClick={() => {
-        router.push('/gameplay');
+    <LandingContainer
+      render={({ onBegin, onLogin, onSetting }) => {
+        return (
+          <Landing onBegin={onBegin} onSetting={onSetting} onLogin={onLogin} />
+        );
       }}
-    >
-      <h1>Vocaverse</h1>
-      <p>Click anywhere to play!</p>
-    </Landing>
+    />
   );
 }
-const Landing = styled.div`
-  display: flex;
-  position: fixed;
-  flex-direction: column;
-  z-index: 100;
-  font-size: 72px;
-  background: rgb(82, 82, 82, 0.4);
-  justify-content: center;
-  align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-`;

@@ -3,6 +3,7 @@ import { TTable } from './type';
 import { TableLayoutWrapper } from './style';
 import Icon from '../Icon';
 import { Fragment } from 'react';
+import { v4 as uuid } from 'uuid';
 
 const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
   return (
@@ -10,11 +11,13 @@ const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
       <Row className="header">
         {columns?.map((col) => {
           return col === 'No.' ? (
-            <Col span={2} className="col">
+            <Col key={uuid()} span={2} className="col">
               {col}
             </Col>
           ) : (
-            <Col className="col">{col}</Col>
+            <Col key={uuid()} className="col">
+              {col}
+            </Col>
           );
         })}
         {moreinfo?.isShow && (
@@ -24,14 +27,18 @@ const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
       <div className="detail">
         {data?.map((item, index) => {
           return (
-            <Row className="record" onClick={() => onClick(item.id)}>
+            <Row
+              key={uuid()}
+              className="record"
+              onClick={() => onClick(item.id)}
+            >
               {Object.entries(item).map(([key, value]) => {
                 return key === 'id' ? (
-                  <Col span={2} className="col" key="no">
+                  <Col key={`no-${uuid()}`} span={2} className="col">
                     {++index}
                   </Col>
                 ) : (
-                  <Col className="col" key={key}>
+                  <Col key={`key-${uuid()}`} className="col">
                     {value}
                   </Col>
                 );

@@ -5,7 +5,7 @@ import { actionTypes } from '.';
 interface InitialState {
   //
 
-  currentGameHistory?: TGameHistory;
+  currentGameHistory: TGameHistory;
 }
 
 const initialState = {

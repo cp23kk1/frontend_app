@@ -19,6 +19,7 @@ import {
 import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
 import { actions as modalActions } from '../core/modal';
+import { getPublicPathPageRounting } from '@/utils/basePath';
 
 const GamePlayContainer = ({
   render
@@ -95,7 +96,7 @@ const GamePlayContainer = ({
       _handleChangeType('vocabulary');
     }
   };
-  const _validateAnswer = (meaning: ReactNode) => {
+  const _validateAnswer = (meaning: string) => {
     const correctness = vocabulary[currentIndex].meaning === meaning;
     _handleChangeAnswers(
       answers.map((value) => {
@@ -115,25 +116,27 @@ const GamePlayContainer = ({
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
 
-      _calculateHealth(correctness);
+      _calculateHealth(correctness, meaning);
     }, 1000);
   };
-  const _calculateHealth = (correctness: boolean) => {
+  const _calculateHealth = (correctness: boolean, meaning: string) => {
     if (correctness) {
       _handleChangeEnemyHealth(enemyHealth - 10);
       _handleChangeScore(score + 1);
     } else {
       _handleChangePlayerHealth(playerHealth - 10);
     }
-    updateGameHistory(correctness);
+    updateGameHistory(correctness, meaning);
   };
-  const updateGameHistory = (correctness: boolean) => {
+  const updateGameHistory = (correctness: boolean, meaning: string) => {
     dispatch(
       gameplayCoreActions.changeGameHistory({
         gameId: currentGameHistory?.gameId,
         current_score: correctness ? score + 1 : score,
         vocabs: currentGameHistory?.vocabs.concat({
           vocabularyId: vocabulary[currentIndex].id,
+          answer: meaning,
+          question: vocabulary[currentIndex].word,
           correctness: correctness
         }),
         sentences: [],
@@ -159,7 +162,8 @@ const GamePlayContainer = ({
       dispatch(modalActions.onOpen('GAMEOVER'));
 
       setTimeout(() => {
-        router.push('/game-result');
+        dispatch(modalActions.onClose());
+        router.push(getPublicPathPageRounting('/summary'));
       }, 1000);
     }
     if (enemyHealth === 0) {
