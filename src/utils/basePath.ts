@@ -3,5 +3,5 @@ export const getPublicPath = (path: string) => {
   return `${BASE_PATH ?? ''}/assets${path}`;
 };
 export const getPublicPathPageRounting = (path: string) => {
-  return `${process.env.ENV === 'prod' ? BASE_PATH : ''}${path}`;
+  return `${process.env.ENVIRONMENT === 'prod' ? BASE_PATH : ''}${path}`;
 };
