@@ -2,7 +2,6 @@ import { ReactNode, useEffect } from 'react';
 import { useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
-import { selectors as vocabularySelectors } from '../gameplay/vocabulary';
 import { selectors as gameplayCoreSelectors } from '../gameplay/gameplay-core';
 
 import { useRouter } from 'next/router';
@@ -19,10 +18,6 @@ const SummaryResultContainer = ({
 
   // vocabulary
   // const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
-
-  const vocabulary = useAppSelector(
-    gameplayCoreSelectors.currentGameHistorySelector
-  )?.vocabs;
 
   // header
   const gameHistory = useAppSelector(
@@ -41,7 +36,7 @@ const SummaryResultContainer = ({
     tabs: [{ childen: 'Vocabulary', isSelected: true, onClick: () => {} }],
     table: {
       columns: ['No.', 'Question', 'Answer'],
-      data: vocabulary.map((item) => {
+      data: gameHistory.vocabs.map((item) => {
         return {
           id: item.vocabularyId,
           word: item.question,
@@ -62,17 +57,23 @@ const SummaryResultContainer = ({
       {
         iconName: 'Home',
         lebel: 'Home',
-        onClick: () => router.push(getPublicPathPageRounting('/'))
+        onClick: () => {
+          router.push(getPublicPathPageRounting('/'));
+        }
       },
       {
         iconName: 'Retry',
         lebel: 'Retry',
-        onClick: () => router.push(getPublicPathPageRounting('/gameplay'))
+        onClick: () => {
+          router.push(getPublicPathPageRounting('/gameplay'));
+        }
       },
       {
         iconName: 'Menu',
         lebel: 'Mode',
-        onClick: () => console.log(getPublicPathPageRounting('Mode clicked!'))
+        onClick: () => {
+          console.log(getPublicPathPageRounting('Mode clicked!'));
+        }
       }
     ]
   };
