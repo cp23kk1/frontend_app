@@ -163,7 +163,8 @@ const GamePlayContainer = ({
 
       setTimeout(() => {
         dispatch(modalActions.onClose());
-        router.replace(getPublicPathPageRounting('/summary'));
+
+        router.push(getPublicPathPageRounting('/summary'));
       }, 1000);
     }
     if (enemyHealth === 0) {
