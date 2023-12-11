@@ -24,7 +24,7 @@ const rewrites = () => {
   return [
     {
       source: `/:path*`,
-      destination: `${basePath}/:path*`
+      destination: `${basePath}/kk1/:path*`
     }
   ];
 };
