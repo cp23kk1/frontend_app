@@ -6,7 +6,7 @@ const gameplayCoreSelector = (state: RootState) => state.gameplay.gameplayCore;
 
 const currentGameHistorySelector = createSelector(
   gameplayCoreSelector,
-  (gamePlay): TGameHistory | undefined => {
+  (gamePlay): TGameHistory => {
     return gamePlay.currentGameHistory;
   }
 );

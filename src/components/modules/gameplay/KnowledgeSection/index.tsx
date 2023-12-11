@@ -12,7 +12,7 @@ const KnowLedgeSection = ({
   answers,
   onAnswer
 }: TKnowLedgeSection) => {
-  const _handleAnswer = (meaning: ReactNode) => {
+  const _handleAnswer = (meaning: string) => {
     onAnswer(meaning);
   };
   return (

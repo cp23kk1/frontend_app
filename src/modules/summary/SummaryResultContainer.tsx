@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
@@ -8,6 +8,7 @@ import { selectors as gameplayCoreSelectors } from '../gameplay/gameplay-core';
 import { useRouter } from 'next/router';
 import { TGameOverFooter } from '@/components/modules/summary/GameOverFooter/type';
 import { TSummarySection } from '@/components/modules/summary/SummarySection/type';
+import { getPublicPathPageRounting } from '@/utils/basePath';
 
 const SummaryResultContainer = ({
   render
@@ -17,7 +18,11 @@ const SummaryResultContainer = ({
   const router = useRouter();
 
   // vocabulary
-  const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
+  // const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
+
+  const vocabulary = useAppSelector(
+    gameplayCoreSelectors.currentGameHistorySelector
+  )?.vocabs;
 
   // header
   const gameHistory = useAppSelector(
@@ -27,8 +32,8 @@ const SummaryResultContainer = ({
   const mode: string = 'Single Player';
   // const bestScore: number = gameHistory?.current_score ?? 0;
   // const currentScore: number = gameHistory?.current_score ?? 0;
-  const bestScore: number = 28 ?? 0;
-  const currentScore: number = 42 ?? 0;
+  const bestScore: number = 999 ?? 0;
+  const currentScore: number = gameHistory.current_score;
 
   // table
   const summarySection: TSummarySection = {
@@ -37,7 +42,11 @@ const SummaryResultContainer = ({
     table: {
       columns: ['No.', 'Question', 'Answer'],
       data: vocabulary.map((item) => {
-        return { id: item.id, word: item.word, meaning: item.meaning };
+        return {
+          id: item.vocabularyId,
+          word: item.question,
+          meaning: item.answer
+        };
       }),
       onClick: () => {},
       moreinfo: {
@@ -53,20 +62,28 @@ const SummaryResultContainer = ({
       {
         iconName: 'Home',
         lebel: 'Home',
-        onClick: () => router.push('/')
+        onClick: () => router.push(getPublicPathPageRounting('/'))
       },
       {
         iconName: 'Retry',
         lebel: 'Retry',
-        onClick: () => router.push('/gameplay')
+        onClick: () => router.push(getPublicPathPageRounting('/gameplay'))
       },
       {
         iconName: 'Menu',
         lebel: 'Mode',
-        onClick: () => console.log('Mode clicked!')
+        onClick: () => console.log(getPublicPathPageRounting('Mode clicked!'))
       }
     ]
   };
+
+  useEffect(() => {
+    let bool =
+      gameHistory.current_score === 0 && gameHistory.vocabs.length === 0;
+    if (bool) {
+      router.push(getPublicPathPageRounting('/'));
+    }
+  }, []);
 
   return render({
     mode,

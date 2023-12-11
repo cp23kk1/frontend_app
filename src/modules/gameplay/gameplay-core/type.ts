@@ -8,13 +8,19 @@ export type TGameHistory = {
 
 export type TVocabGameHistory = {
   vocabularyId: number;
+  answer: string;
+  question: string;
   correctness: boolean;
 };
 export type TSentenceGameHistory = {
   sentenceId: number;
+  answer: string;
+  question: string;
   correctness: boolean;
 };
 export type TPassageGameHistory = {
   passageId: number;
+  answer: string;
+  question: string;
   correctness: boolean;
 };

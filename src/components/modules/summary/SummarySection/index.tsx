@@ -3,6 +3,7 @@ import { SummarySectionWrapper } from './style';
 import { TSummarySection } from './type';
 import TableLayout from '@/components/common/TableLayout';
 import Tab from '../Tab';
+import { v4 as uuid } from 'uuid';
 
 const SummarySection = ({ table, tabs, style }: TSummarySection) => {
   return (
@@ -10,7 +11,7 @@ const SummarySection = ({ table, tabs, style }: TSummarySection) => {
       <Row className="tabs">
         {tabs?.map((tab) => {
           return (
-            <Col span={24 / tabs?.length ?? 1}>
+            <Col key={uuid()} span={24 / tabs?.length ?? 1}>
               <Tab {...tab} />
             </Col>
           );
