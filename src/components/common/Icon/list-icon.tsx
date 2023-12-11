@@ -4,6 +4,7 @@ export const iconFiles = {
   Exit: getPublicPath('/icon/Exit.svg'),
   Heart: getPublicPath('/icon/Heart.svg'),
   Home: getPublicPath('/icon/Home.svg'),
+  Info: getPublicPath('/icon/Info.svg'),
   Logo: getPublicPath('/icon/Logo.svg'),
   Menu: getPublicPath('/icon/Menu.svg'),
   Pause: getPublicPath('/icon/Pause.svg'),

@@ -17,20 +17,22 @@ const SummaryResult = ({
     <Fragment>
       <BackgroundSummary />
       <SummaryResultWrapper>
-        <div className='headers'>
-          <Row className='header'>
-            <Col span={8} className="mode">
+        <div className="headers">
+          <Row className="header">
+            <Col span={6} className="mode">
               Mode: {mode}
             </Col>
-            <Col span={8} className="gameover-header">
-              Game Over
+            <Col span={12} className="gameover-header">
+              GAME OVER
             </Col>
-            <Col span={8} className="best-score">
+            <Col span={6} className="best-score">
               Best score: {bestScore}
             </Col>
           </Row>
           <Row className="score">
-            <div className="current-score">Current score: {currentScore}</div>
+            <div className="current-score">
+              Current score: {currentScore}
+            </div>
           </Row>
         </div>
         <SummarySection {...result} />

@@ -8,9 +8,9 @@ const SummarySection = ({ table, tabs, style }: TSummarySection) => {
   return (
     <SummarySectionWrapper style={style}>
       <Row className="tabs">
-        {tabs.map((tab) => {
+        {tabs?.map((tab) => {
           return (
-            <Col span={8}>
+            <Col span={24 / tabs?.length ?? 1}>
               <Tab {...tab} />
             </Col>
           );

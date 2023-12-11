@@ -19,54 +19,9 @@ export const Table: Story = {
     columns: ['No.', 'Question', 'Answer', ''],
     data: [
       {
-        id: 2,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
         id: 1,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 2,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 1,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 2,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 1,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 2,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 1,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 2,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
-      },
-      {
-        id: 1,
-        question: 'Vocabulary',
-        answer: 'คำตอบ'
+        word: 'Vocabulary',
+        meaning: 'คำตอบ'
       }
     ],
     onClick: (id) => {

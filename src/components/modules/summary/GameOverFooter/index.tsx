@@ -5,7 +5,7 @@ import { TGameOverFooter } from './type';
 const GameOverFooter = ({ options, style }: TGameOverFooter) => {
   return (
     <GameOverFooterWrapper style={style}>
-      {options.map((option) => {
+      {options?.map((option) => {
         return <Button {...option}></Button>;
       })}
     </GameOverFooterWrapper>

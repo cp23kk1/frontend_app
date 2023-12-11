@@ -1,13 +1,12 @@
+import { IVocabulary } from '@/modules/gameplay/vocabulary/vocabulary-services';
+
 export type TTable = {
   columns: string[];
-  data: Vocabulary[];
+  data: Pick<IVocabulary, 'id' | 'word' | 'meaning'>[];
   onClick: (id: number) => void;
+  moreinfo?: { label: string; isShow: boolean };
 };
 
-export type Vocabulary = {
-  id: number;
-  question: string;
-  answer: string;
-};
+type Vocabulary = {};
 type Sentence = {};
 type Passage = {};

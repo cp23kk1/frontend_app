@@ -5,6 +5,7 @@ export type TIcon = {
     | 'Exit'
     | 'Heart'
     | 'Home'
+    | 'Info'
     | 'Logo'
     | 'Menu'
     | 'Pause'

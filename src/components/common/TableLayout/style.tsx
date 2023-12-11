@@ -62,4 +62,17 @@ export const TableLayoutWrapper = styled.div`
       line-height: normal;
     }
   }
+  .more-info {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    color: #1B61E9;
+
+    /* Fredoka/Regular-20 */
+    font-family: Fredoka;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
 `;

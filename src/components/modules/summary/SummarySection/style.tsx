@@ -6,6 +6,7 @@ export const SummarySectionWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 0;
   .tabs {
     width: 1704px;
   }

@@ -1,9 +1,22 @@
-import SummaryResult from "@/components/modules/summary/SummaryResult";
-import { NextPage } from "next";
+import SummaryResult from '@/components/modules/summary/SummaryResult';
+import SummaryResultContainer from '@/modules/summary/SummaryResultContainer';
+import { NextPage } from 'next';
 
-const GamePlayPage: NextPage = () => {
+const SummaryResultPage: NextPage = () => {
   return (
-    <SummaryResult/>
+    <SummaryResultContainer
+      render={({ mode, bestScore, currentScore, summarySection, options }) => {
+        return (
+          <SummaryResult
+            mode={mode}
+            bestScore={bestScore}
+            currentScore={currentScore}
+            result={summarySection}
+            footer={options}
+          />
+        );
+      }}
+    />
   );
 };
-export default GamePlayPage;
+export default SummaryResultPage;
