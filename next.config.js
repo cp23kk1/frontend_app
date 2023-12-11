@@ -9,14 +9,14 @@ const commitID = process.env.COMMIT_ID || '-';
 generateAppInfo(appVersion, commitID);
 let env = {
   ENVIRONMENT: environment,
-  PRE_FIX_API: environment === 'prod' ? `/api` : `/${environment}/api`,
+  PRE_FIX_API: environment === 'prod' ? `/kk1/api` : `/${environment}/api`,
   API_URL: apiUrl
 };
 
 env = {
   ...env,
   API_URL: `${apiUrl}${env.PRE_FIX_API}`,
-  ASSET_PREFIX: environment === 'prod' ? '' : `/${environment}`
+  ASSET_PREFIX: environment === 'prod' ? '/kk1' : `/${environment}`
 };
 const basePath = environment === 'prod' ? '' : `/${environment}`;
 console.log(basePath);
@@ -38,7 +38,7 @@ let nextConfig = {
   publicRuntimeConfig: {
     basePath: environment === 'prod' ? '' : basePath
   },
-  assetPrefix: basePath,
+  assetPrefix: environment === 'prod' ? '/kk1' : basePath,
   output: 'standalone',
   env
 };
