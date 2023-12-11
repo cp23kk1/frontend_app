@@ -19,6 +19,7 @@ import {
 import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
 import { actions as modalActions } from '../core/modal';
+import { getPublicPathPageRounting } from '@/utils/basePath';
 
 const GamePlayContainer = ({
   render
@@ -159,7 +160,7 @@ const GamePlayContainer = ({
       dispatch(modalActions.onOpen('GAMEOVER'));
 
       setTimeout(() => {
-        router.push('/game-result');
+        router.push(getPublicPathPageRounting('/game-result'));
       }, 1000);
     }
     if (enemyHealth === 0) {

@@ -4,6 +4,7 @@ import { useAppDispatch } from '@/hooks';
 import { useRouter } from 'next/router';
 import { actions as modalActions } from '../core/modal';
 import { TLanding } from '@/components/modules/landing/Landing/type';
+import { getPublicPathPageRounting } from '@/utils/basePath';
 
 export const LandingContainer = ({
   render
@@ -23,7 +24,7 @@ export const LandingContainer = ({
     dispatch(modalActions.onOpen('SettingMenu'));
   };
   const onBegin = () => {
-    router.push('/gameplay');
+    router.push(getPublicPathPageRounting('/gameplay'));
   };
 
   return render({
