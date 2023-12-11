@@ -77,14 +77,6 @@ const SummaryResultContainer = ({
     ]
   };
 
-  useEffect(() => {
-    let bool =
-      gameHistory.current_score === 0 && gameHistory.vocabs.length === 0;
-    if (bool) {
-      router.push(getPublicPathPageRounting('/'));
-    }
-  }, []);
-
   return render({
     mode,
     bestScore,
