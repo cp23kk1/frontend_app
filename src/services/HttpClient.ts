@@ -4,8 +4,8 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios';
-import { v4 as uuid } from 'uuid';
 //
+
 //
 class Http {
   private instance: AxiosInstance | null = null;
@@ -27,32 +27,15 @@ class Http {
 
     http.interceptors.response.use(
       (response) => {
-        if (Number(response.status) === 204) {
-          // const modal = modalAlert();
-          // modal.render({
-          //   title: `Something went wrong`,
-          //   content: `Please contact admin.`,
-          //   closable: true
-          // });
-          // throw new Error('error message');
-        }
+        // if (Number(response.status) === 404) {
+        //   dispatch(modalActions.onOpen('Error: 404 Notfound.'));
+        // }
         return response;
       },
       (error) => {
-        // const modal = modalAlert();
-        // if (Number(error.response?.status) >= 500) {
-        //   modal.render({
-        //     title: `Service Error (${error.response?.status})`,
-        //     content: `Please contact admin.`,
-        //     closable: true
-        //   });
-        // } else if (Number(error.response?.status) >= 400) {
-        //   modal.render({
-        //     title: `Service(s) Error (${error.response?.status})`,
-        //     content: `Tract id: ${error.config.headers.rqUid}. Please contact admin.`,
-        //     closable: true
-        //   });
-        // }
+        // const dispatch = useAppDispatch();
+        // dispatchf(modalActions.onOpen('Error: Please contract admin'));
+        alert(error);
         return Promise.reject(error);
       }
     );
