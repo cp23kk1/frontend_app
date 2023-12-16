@@ -1,0 +1,26 @@
+{
+  "tabnine.experimentalAutoImports": true,
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 120,
+  "prettier.tabWidth": 2,
+  "prettier.semi": true,
+  "prettier.trailingComma": "none",
+  "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "never",
+  "editor.tabSize": 2,
+  "[html]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+}
