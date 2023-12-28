@@ -1,12 +1,11 @@
 export const getGoogleUrl = (from: string) => {
   const rootUrl = `https://accounts.google.com/o/oauth2/v2/auth`;
-
   const options = {
     redirect_uri:
-      process.env.GOOGLE_OAUTH_REDIRECT_URL ?? process.env.ENV === 'prod'
+      (process.env.GOOGLE_OAUTH_REDIRECT_URL as string) ||
+      (process.env.ENV === 'prod'
         ? 'https://capstone23.sit.kmutt.ac.th/kk1/api/auth/google'
-        : (`https://capstone23.sit.kmutt.ac.th/kk1/
-        ${process.env.ENV}/api/auth/google` as string),
+        : `https://capstone23.sit.kmutt.ac.th/kk1/${process.env.ENV}/api/auth/google`),
     client_id: process.env.GOOGLE_OAUTH_CLIENT_ID as string,
     access_type: 'offline',
     response_type: 'code',

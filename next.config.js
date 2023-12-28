@@ -7,11 +7,15 @@ const environment = process.env.ENV;
 const isProduction = process.env.NODE_ENV === 'production';
 const appVersion = process.env.APP_VERSION || '-';
 const commitID = process.env.COMMIT_ID || '-';
+
 generateAppInfo(appVersion, commitID);
 let env = {
   ENVIRONMENT: environment,
   PRE_FIX_API: environment === 'prod' ? `/kk1/api` : `/${environment}/api`,
-  API_URL: apiUrl
+  API_URL: apiUrl,
+  GOOGLE_OAUTH_CLIENT_ID: process.env.GOOGLE_OAUTH_CLIENT_ID,
+  GOOGLE_OAUTH_CLIENT_SECRET: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+  GOOGLE_OAUTH_REDIRECT_URL: process.env.GOOGLE_OAUTH_REDIRECT_URL
 };
 
 env = {
