@@ -21,6 +21,8 @@ pipeline {
                         PROD_API_URL=https://capstone23.sit.kmutt.ac.th
                         ENV=${params.deployEnvironment}
                         APP_VERSION=${GIT_TAG}
+                        GOOGLE_OAUTH_CLIENT_ID=126533526038-40qi1o4nlvr4k56h01rl3634i4janrce.apps.googleusercontent.com
+                        GOOGLE_OAUTH_CLIENT_SECRET=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
                     """
                     writeFile file: '.env', text: envContent
 
