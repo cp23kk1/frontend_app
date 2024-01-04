@@ -9,11 +9,14 @@ import { useRouter } from 'next/router';
 import { TGameOverFooter } from '@/components/modules/summary/GameOverFooter/type';
 import { TSummarySection } from '@/components/modules/summary/SummarySection/type';
 import { getPublicPathPageRounting } from '@/utils/basePath';
+import { TState } from '../core/VocaverseCoreContainer';
 
 const SummaryResultContainer = ({
-  render
+  render,
+  onChangeState
 }: {
   render: (props: TSummaryResultContainer) => ReactNode;
+  onChangeState: (input: TState) => void;
 }) => {
   const router = useRouter();
 
@@ -62,12 +65,16 @@ const SummaryResultContainer = ({
       {
         iconName: 'Home',
         lebel: 'Home',
-        onClick: () => router.push(getPublicPathPageRounting('/'))
+        onClick: () =>
+          // router.push(getPublicPathPageRounting('/'))
+          onChangeState('landing')
       },
       {
         iconName: 'Retry',
         lebel: 'Retry',
-        onClick: () => router.push(getPublicPathPageRounting('/gameplay'))
+        onClick: () =>
+          // router.push(getPublicPathPageRounting('/gameplay'))
+          onChangeState('gameplay')
       },
       {
         iconName: 'Menu',
