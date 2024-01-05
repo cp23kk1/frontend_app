@@ -5,11 +5,14 @@ import { useRouter } from 'next/router';
 import { actions as modalActions } from '../core/modal';
 import { TLanding } from '@/components/modules/landing/Landing/type';
 import { getPublicPathPageRounting } from '@/utils/basePath';
+import { TState } from '../core/VocaverseCoreContainer';
 
 export const LandingContainer = ({
-  render
+  render,
+  onChangeState
 }: {
   render: (props: TLanding) => ReactNode;
+  onChangeState: (input: TState) => void;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -24,7 +27,8 @@ export const LandingContainer = ({
     dispatch(modalActions.onOpen('SettingMenu'));
   };
   const onBegin = () => {
-    router.push(getPublicPathPageRounting('/gameplay'));
+    // router.push(getPublicPathPageRounting('/gameplay'));
+    onChangeState('gameplay');
   };
 
   return render({

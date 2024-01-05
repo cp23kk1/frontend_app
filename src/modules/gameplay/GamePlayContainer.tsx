@@ -20,11 +20,14 @@ import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
 import { actions as modalActions } from '../core/modal';
 import { getPublicPathPageRounting } from '@/utils/basePath';
+import { TState } from '../core/VocaverseCoreContainer';
 
 const GamePlayContainer = ({
-  render
+  render,
+  onChangeState
 }: {
   render: (props: TGamePlayContainer) => ReactNode;
+  onChangeState: (input: TState) => void;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -45,13 +48,13 @@ const GamePlayContainer = ({
   const [type, setType] = useState<
     'sentence' | 'vocabulary' | 'passage' | undefined
   >('vocabulary');
-  const [score, setscore] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [playerHealth, setPlayerHealth] = useState<number>(100);
   const [enemyHealth, setEnemyHealth] = useState<number>(100);
 
   const _handleChangeScore = (inputscore: number) => {
-    setscore(inputscore);
+    setScore(inputscore);
   };
   const _handleChangeCurrentIndex = (inputCurrentIndex: number) => {
     setCurrentIndex(inputCurrentIndex);
@@ -163,7 +166,8 @@ const GamePlayContainer = ({
 
       setTimeout(() => {
         dispatch(modalActions.onClose());
-        router.push(getPublicPathPageRounting('/summary'));
+        // router.push(getPublicPathPageRounting('/summary'));
+        onChangeState('summary');
       }, 1000);
     }
     if (enemyHealth === 0) {
