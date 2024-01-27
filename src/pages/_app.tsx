@@ -4,9 +4,7 @@ import '@/styles/globals.css';
 import { Provider } from 'react-redux';
 import store from '@/store';
 import { AppProps } from 'next/app';
-import { Fragment } from 'react';
 import Head from 'next/head';
-import Modal from '@/components/common/Modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,7 +21,6 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
       </Head>
 
       <Component {...pageProps} />
-      <Modal />
     </Provider>
   );
 }

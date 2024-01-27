@@ -20,10 +20,28 @@ export const ModalWrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+  width: 100%;
+  height: 100%;
   .modal {
     background-color: white;
     padding: 10px;
-    border-radius: 40px;
+    border-radius: 24px;
     font-family: 'Mitr';
+    position: relative;
+    width: 65%;
+    .closeButton {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #e1e1e1;
+      padding: 8px;
+      top: 18px;
+      right: 18px;
+      border-radius: 8px;
+      border: 0;
+      cursor: pointer;
+      z-index: 100;
+    }
   }
 `;

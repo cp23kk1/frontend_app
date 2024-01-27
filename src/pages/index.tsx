@@ -1,5 +1,6 @@
 import GamePlay from '@/components/modules/gameplay/GamePlay';
 import Landing from '@/components/modules/landing/Landing';
+import LoginModal from '@/components/modules/landing/LoginModal';
 import SummaryResult from '@/components/modules/summary/SummaryResult';
 import VocaverseCoreContainer from '@/modules/core/VocaverseCoreContainer';
 import GamePlayContainer from '@/modules/gameplay/GamePlayContainer';
@@ -16,11 +17,21 @@ export default function Home() {
               onChangeState={onChangeState}
               render={({ onBegin, onLogin, onSetting }) => {
                 return (
-                  <Landing
-                    onBegin={onBegin}
-                    onSetting={onSetting}
-                    onLogin={onLogin}
-                  />
+                  <>
+                    <Landing
+                      onBegin={onBegin}
+                      onSetting={onSetting}
+                      onLogin={onLogin}
+                    />
+                    <LoginModal
+                      isModalOpen={true}
+                      onClickGoogleLogin={() => {}}
+                      onClickGuestLogin={() => {}}
+                      onClickPolicy={() => {}}
+                      onClickTerm={() => {}}
+                      onClose={() => {}}
+                    />
+                  </>
                 );
               }}
             />
