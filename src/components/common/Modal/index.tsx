@@ -5,8 +5,14 @@ import { getPublicPath } from '@/utils/basePath';
 
 const Modal = ({ onClose, children, isModalOpen }: TModal) => {
   return (
-    <ModalWrapper onClick={onClose} isOpen={isModalOpen}>
-      <div className="modal">
+    <ModalWrapper
+      className="modalBg"
+      onClick={(event) => {
+        if ((event?.target as Element).className.includes('modalBg')) onClose();
+      }}
+      isOpen={isModalOpen}
+    >
+      <div className="modalContent">
         <button className="closeButton" onClick={onClose}>
           <img src={getPublicPath(`/icon/X.svg`)} alt="X" />
         </button>

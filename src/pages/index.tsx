@@ -15,7 +15,15 @@ export default function Home() {
           return (
             <LandingContainer
               onChangeState={onChangeState}
-              render={({ onBegin, onLogin, onSetting }) => {
+              render={({
+                onBegin,
+                onLogin,
+                onSetting,
+                onCloseModal,
+                onGoogleLogin,
+                onGuestLogin,
+                isModalLoginOpen
+              }) => {
                 return (
                   <>
                     <Landing
@@ -24,12 +32,12 @@ export default function Home() {
                       onLogin={onLogin}
                     />
                     <LoginModal
-                      isModalOpen={true}
-                      onClickGoogleLogin={() => {}}
-                      onClickGuestLogin={() => {}}
+                      isModalOpen={isModalLoginOpen}
+                      onClickGoogleLogin={onGoogleLogin}
+                      onClickGuestLogin={onGuestLogin}
                       onClickPolicy={() => {}}
                       onClickTerm={() => {}}
-                      onClose={() => {}}
+                      onClose={onCloseModal}
                     />
                   </>
                 );

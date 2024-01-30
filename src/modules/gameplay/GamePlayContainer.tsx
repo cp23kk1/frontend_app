@@ -153,7 +153,7 @@ const GamePlayContainer = ({
 
   //useEffect
   useEffect(() => {
-    dispatch(vocabularyDispatch.getRandomVocabulary());
+    dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
   }, []);
 
   useEffect(() => {

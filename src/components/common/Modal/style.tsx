@@ -22,13 +22,14 @@ export const ModalWrapper = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
-  .modal {
+  .modalContent {
     background-color: white;
     padding: 10px;
     border-radius: 24px;
     font-family: 'Mitr';
     position: relative;
     width: 65%;
+    z-index: 100;
     .closeButton {
       position: absolute;
       display: flex;

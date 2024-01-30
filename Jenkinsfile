@@ -2,16 +2,31 @@ pipeline {
     agent any
 
     parameters {
-      choice(choices: ["dev", "sit", "prod"], description: "Which environment to deploy?", name: "deployEnvironment")
+    choice(choices: ["dev", "sit", "prod"], description: "Which environment to deploy?", name: "deployEnvironment")
     }
 
     environment {
         NEXT_IMAGE_NAME = "vocaverse-app"
         CONTAINER_NAME = "vocaverse-app"
     }
+        stage ('Remove container'){
+            steps {
+                script {
+                    // Run the command and capture the exit code
+                    def exitCode = sh(script: "docker rm -f ${CONTAINER_NAME}-${params.deployEnvironment}", returnStatus: true)
 
+                    // Check the exit code to determine success or failure
+                    if (exitCode == 0) {
+                        echo "Container removal was successful"
+                        // Add more steps or logic here if needed
+                    } else {
+                        echo "Container removal failed or was skipped"
+                        // Add more steps or logic here if needed
+                    }
+                }
+            }
+        }
     stages {
-
         stage('Build App Images') {
             steps {
                 script {
@@ -30,34 +45,15 @@ pipeline {
                     echo "Content of .env:"
                     echo readFile('.env')
                     sh "docker build -t  ${NEXT_IMAGE_NAME}:${GIT_TAG} \
-                     --build-arg APP_VERSION=${GIT_TAG} \
-                     --build-arg ENV=${params.deployEnvironment} ."
+                    --build-arg APP_VERSION=${GIT_TAG} \
+                    --build-arg ENV=${params.deployEnvironment} ."
                 }
             }
         }
-        stage ('Remove container'){
-            steps {
-              script {
-                    // Run the command and capture the exit code
-                    def exitCode = sh(script: "docker rm -f ${CONTAINER_NAME}-${params.deployEnvironment}", returnStatus: true)
-
-                    // Check the exit code to determine success or failure
-                    if (exitCode == 0) {
-                        echo "Container removal was successful"
-                        // Add more steps or logic here if needed
-                    } else {
-                        echo "Container removal failed or was skipped"
-                        // Add more steps or logic here if needed
-                    }
-              }
-            }
-        }
-
         stage('Deploy') {
             steps {
                 script {
-
-                  sh "docker run -d --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${GIT_TAG}"
+                sh "docker run -d --name ${CONTAINER_NAME}-${params.deployEnvironment} --network ${params.deployEnvironment}-network ${NEXT_IMAGE_NAME}:${GIT_TAG}"
                 }
             }
         }

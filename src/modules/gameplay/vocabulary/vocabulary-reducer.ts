@@ -22,12 +22,12 @@ const reducer = createReducer(initialState, (builder) => {
     state.vocabulary = [];
   });
 
-  builder.addCase(dispatch.getRandomVocabulary.pending, (state) => {
+  builder.addCase(dispatch.getRandomVocabularyDispatch.pending, (state) => {
     state.isVocabularyLoading = true;
   });
 
   builder.addCase(
-    dispatch.getRandomVocabulary.fulfilled,
+    dispatch.getRandomVocabularyDispatch.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isVocabularyLoading = false;
       state.vocabulary = action.payload.data.vocabs;
@@ -35,7 +35,7 @@ const reducer = createReducer(initialState, (builder) => {
   );
 
   builder.addCase(
-    dispatch.getRandomVocabulary.rejected,
+    dispatch.getRandomVocabularyDispatch.rejected,
     (state, action: PayloadAction<any>) => {
       state.isVocabularyLoading = false;
     }

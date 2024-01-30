@@ -19,19 +19,19 @@ export const Footer: Story = {
     options: [
       {
         iconName: 'Home',
-        lebel: 'Home',
+        label: 'Home',
         onClick: () => console.log('Home clicked!')
       },
       {
         iconName: 'Retry',
-        lebel: 'Retry',
+        label: 'Retry',
         onClick: () => console.log('Retry clicked!')
       },
       {
         iconName: 'Menu',
-        lebel: 'Mode',
+        label: 'Mode',
         onClick: () => console.log('Mode clicked!')
-      },
+      }
     ]
   }
 };
