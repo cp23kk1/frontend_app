@@ -9,6 +9,8 @@ pipeline {
         NEXT_IMAGE_NAME = "vocaverse-app"
         CONTAINER_NAME = "vocaverse-app"
     }
+        
+    stages {
         stage ('Remove container'){
             steps {
                 script {
@@ -26,7 +28,6 @@ pipeline {
                 }
             }
         }
-    stages {
         stage('Build App Images') {
             steps {
                 script {
