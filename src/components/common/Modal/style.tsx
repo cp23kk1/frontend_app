@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const ModalWrapper = styled.div`
   ${({ isOpen }: { isOpen: boolean }) => {
     return isOpen
-      ? 'opacity: 1;'
+      ? `opacity: 1;`
       : `
     pointer-events: none;
     opacity: 0;
@@ -30,6 +30,14 @@ export const ModalWrapper = styled.div`
     position: relative;
     width: 65%;
     z-index: 100;
+    ${({ isOpen }: { isOpen: boolean }) => {
+      return isOpen
+        ? `
+      animation: scale 0.25s alternate;
+    animation-iteration-count: 2;`
+        : `
+    `;
+    }}
     .closeButton {
       position: absolute;
       display: flex;
@@ -43,6 +51,15 @@ export const ModalWrapper = styled.div`
       border: 0;
       cursor: pointer;
       z-index: 100;
+    }
+  }
+
+  @keyframes scale {
+    from {
+      scale: 1;
+    }
+    to {
+      scale: 1.1;
     }
   }
 `;
