@@ -39,6 +39,7 @@ pipeline {
                         APP_VERSION=${GIT_TAG}
                         GOOGLE_OAUTH_CLIENT_ID=126533526038-40qi1o4nlvr4k56h01rl3634i4janrce.apps.googleusercontent.com
                         GOOGLE_OAUTH_CLIENT_SECRET=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
+                        GOOGLE_OAUTH_REDIRECT_URL=${params.deployEnvironment == 'prod' ? env.GOOGLE_OAUTH_REDIRECT_URL_PROD : params.deployEnvironment == 'dev' ? env.GOOGLE_OAUTH_REDIRECT_URL_DEV : env.GOOGLE_OAUTH_REDIRECT_URL_SIT }
                     """
                     writeFile file: '.env', text: envContent
 
