@@ -59,7 +59,7 @@ export const ModalWrapper = styled.div`
       scale: 1;
     }
     to {
-      scale: 1.1;
+      scale: 1.05;
     }
   }
 `;
