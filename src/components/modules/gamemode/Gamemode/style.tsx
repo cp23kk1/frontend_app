@@ -5,13 +5,17 @@ export const GameModeWrapper = styled.div`
   flex-direction: column;
   z-index: 10;
   gap: 24px;
-  height: 100vh;
+  height: 96.6vh;
+  padding: 16px;
+  justify-content: center;
   .top-section {
     display: flex;
-    padding: 16px;
 
     .profile {
       align-items: start;
+    }
+    .profile > div {
+      width: 30%;
     }
     .score {
       color: #fff;
@@ -26,6 +30,7 @@ export const GameModeWrapper = styled.div`
   .mode-section {
     display: flex;
     justify-content: center;
+    align-items: center;
     .swiper {
       width: 110%;
       height: 100%;
@@ -53,18 +58,26 @@ export const GameModeWrapper = styled.div`
       scale: 1.1;
       z-index: 10;
     }
+    .swiper-slide-active > div {
+      border: 8px solid #fff;
+      background: linear-gradient(
+        180deg,
+        rgba(35, 0, 82, 0) 0%,
+        #842249 64.58%,
+        #ff5a0a 100%,
+        #ff5a0a 100%
+      );
+    }
   }
 
   .bottom-section {
     height: 100%;
-
     .scoreboard {
-      padding: 0 16px 16px 16px;
+      justify-content: end;
     }
     .play-section {
       align-items: end;
       justify-content: end;
-      padding: 16px;
       .play {
         display: flex;
         align-items: center;

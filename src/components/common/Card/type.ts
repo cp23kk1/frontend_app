@@ -7,4 +7,5 @@ export type TCard = {
   modeSubtitle?: string;
   modeIcon?: string;
   isSelected?: boolean;
+  className?: string;
 };

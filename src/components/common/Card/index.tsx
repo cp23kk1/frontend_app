@@ -8,10 +8,10 @@ const Card = ({
   modeName,
   modeSubtitle,
   modeIcon,
-  isSelected
+  className
 }: TCard) => {
   return (
-    <CardWrapper onClick={onClick} isSelected={isSelected}>
+    <CardWrapper onClick={onClick} className={className}>
       <div className="card">
         <div className="card-icon">
           <Image

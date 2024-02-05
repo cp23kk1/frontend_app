@@ -1,15 +1,7 @@
 import styled from '@emotion/styled';
 
 export const CardWrapper = styled.div`
-  ${({ isSelected }: { isSelected: boolean | undefined }) => {
-    return isSelected
-      ? `
-      border: 8px solid #fff;
-      
-      background: linear-gradient(180deg, rgba(35, 0, 82, 0) 0%, #842249 64.58%, #ff5a0a 100%, #ff5a0a 100%);
-      `
-      : `background: linear-gradient(180deg, rgba(35, 0, 82, 0) 8.85%, #230052 100%);`;
-  }}
+  background: linear-gradient(180deg, rgba(35, 0, 82, 0) 8.85%, #230052 100%);
   border-radius: 32px;
 
   .card {
@@ -46,8 +38,9 @@ export const CardWrapper = styled.div`
         font-family: Fredoka;
         font-size: 20px;
         width: 100%;
-        height: 100%;
+        height: 40%;
         overflow-wrap: break-word;
+        overflow-x: scroll;
       }
     }
   }

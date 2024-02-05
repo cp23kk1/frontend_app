@@ -9,7 +9,7 @@ export const ScoreBoardWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.25);
   border-radius: 32px;
   color: white;
-  padding: 24px 16px 16px 16px;
+  padding: 24px 16px 0px 16px;
   font-size: 24px;
   gap: 16px;
   .header {
@@ -27,9 +27,32 @@ export const ScoreBoardWrapper = styled.div`
     font-size: 24px;
     font-family: Fredoka;
     gap: 16px;
-    overflow-y: scroll;
-    div {
+    .score-board {
       display: flex;
+      flex-direction: column;
+      height: 70%;
+      gap: 16px;
+      overflow-y: scroll;
+      .ranking {
+        display: flex;
+        padding: 0 8px;
+        .username {
+          text-align: start;
+        }
+        .score {
+          text-align: center;
+        }
+        .series {
+          text-align: center;
+        }
+      }
+    }
+  }
+  .user-score  {
+    color: black;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 32px;
+    display: flex;
       padding: 0 8px;
       .username {
         text-align: start;
@@ -41,10 +64,5 @@ export const ScoreBoardWrapper = styled.div`
         text-align: center;
       }
     }
-  }
-  .user-score {
-    color: black;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 32px;
   }
 `;

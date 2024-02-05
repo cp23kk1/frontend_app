@@ -6,18 +6,18 @@ import Icon from '@/components/common/Icon';
 import { TGamemode } from './type';
 import Card from '@/components/common/Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { TCard } from '@/components/common/Card/type';
 
 import { v4 as uuid } from 'uuid';
-import { Navigation, Pagination } from 'swiper/modules';
 import ScoreBoard from '@/components/common/ScoreBoard';
-import Button from '@/components/common/Button';
+import ProfileTab from '@/components/common/ProfileTab';
 
 const GameMode = ({
   onClickSetting,
   listMode,
   onSelectMode,
-  scoreBoard
+  scoreBoard,
+  bestScore,
+  profileTab
 }: TGamemode) => {
   return (
     <>
@@ -39,10 +39,10 @@ const GameMode = ({
       <GameModeWrapper>
         <div className="top-section">
           <Col span={8} className="profile">
-            asdfasdf
+            <ProfileTab {...profileTab} />
           </Col>
           <Col span={8} className="score">
-            Best Score: 999
+            Best Score: {bestScore}
           </Col>
           <Col span={8} className="setting">
             <Icon
@@ -59,7 +59,9 @@ const GameMode = ({
             slidesPerView={5}
             centeredSlides
             loop
-            onSlideChange={(e) => onSelectMode(e.realIndex)}
+            onSlideChange={(e) => {
+              onSelectMode(e.realIndex);
+            }}
           >
             {listMode.map((mode) => {
               return (

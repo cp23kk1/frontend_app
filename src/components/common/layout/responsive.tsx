@@ -74,6 +74,7 @@ export const Col = styled.div<ColProps>`
   padding: 0;
   position: relative;
   word-wrap: break-word;
+  height: 100%;
 
   ${({ span, xl, lg, md, sm, useBlock, width }) => {
     const calWidth = (size: number) => {
