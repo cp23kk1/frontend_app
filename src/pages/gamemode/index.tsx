@@ -12,6 +12,7 @@ import { useState } from 'react';
 const GameModePage: NextPage = () => {
   return (
     <GameModeContainer
+      state={{ page: 'summary' }}
       onChangeState={(s) => {
         console.log(s);
       }}

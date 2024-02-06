@@ -9,6 +9,7 @@ import { useState } from 'react';
 const GamePlayPage: NextPage = () => {
   return (
     <GamePlayContainer
+      state={{ page: 'gamemode' }}
       onChangeState={() => {}} //for build
       render={({ knowLedgeSection, animationSection, score, onPause }) => {
         return (
