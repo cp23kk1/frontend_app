@@ -15,7 +15,6 @@ ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
 
 ENV NEXT_TELEMETRY_DISABLED 1
-RUN yarn add --exact --cwd /app --dev @types/node
 RUN yarn build
 
 FROM node:20-alpine AS runner

@@ -1,4 +1,3 @@
-import ModalContainer from '@/modules/core/setting/ModalContainer';
 import { ModalWrapper } from './style';
 import { TModal } from './type';
 import { getPublicPath } from '@/utils/basePath';

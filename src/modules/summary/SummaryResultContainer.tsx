@@ -67,19 +67,19 @@ const SummaryResultContainer = ({
         label: 'Home',
         onClick: () =>
           // router.push(getPublicPathPageRounting('/'))
-          onChangeState('landing')
+          onChangeState({ state: 'landing' })
       },
       {
         iconName: 'Retry',
         label: 'Retry',
         onClick: () =>
           // router.push(getPublicPathPageRounting('/gameplay'))
-          onChangeState('gameplay')
+          onChangeState({ state: 'gameplay' })
       },
       {
         iconName: 'Menu',
         label: 'Mode',
-        onClick: () => console.log(getPublicPathPageRounting('Mode clicked!'))
+        onClick: () => onChangeState({ state: 'gamemode' })
       }
     ]
   };
