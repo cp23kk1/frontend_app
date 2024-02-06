@@ -5,7 +5,7 @@ export const LandingContainer = ({
 }: {
   render: (props: TVocaverseCore) => ReactNode;
 }) => {
-  const [state, setState] = useState<TState>({ state: 'landing' });
+  const [state, setState] = useState<TState>({ page: 'landing' });
   const onChangeState = (inputState: TState) => {
     setState(inputState);
   };
@@ -17,7 +17,7 @@ export const LandingContainer = ({
 };
 
 export type TState = {
-  state: 'landing' | 'gameplay' | 'summary' | 'gamemode';
+  page: 'landing' | 'gameplay' | 'summary' | 'gamemode';
   data?: any;
 };
 export type TVocaverseCore = {

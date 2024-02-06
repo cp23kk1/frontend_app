@@ -5,6 +5,8 @@ import { Col } from '@/components/common/layout/responsive';
 import { SettingModalWrapper } from './style';
 import Icon from '../Icon';
 import { TSettingModal } from './type';
+import { useAppDispatch } from '@/hooks';
+import settingActions from '@/modules/core/setting/setting-actions';
 
 const SettingModal = ({
   isModalOpen,
@@ -13,11 +15,18 @@ const SettingModal = ({
   charaterPic,
   volumeValue,
   musicValue,
-  soundEffectValue,
-  onVolumechange,
-  onMusicChange,
-  onSoundEffectChange
+  soundEffectValue
 }: TSettingModal) => {
+  const dispatch = useAppDispatch();
+  const handleChangeVolume = (value: string) => {
+    dispatch(settingActions.onChangeVolume(value));
+  };
+  const handleChangeMusic = (value: string) => {
+    dispatch(settingActions.onChangeMusic(value));
+  };
+  const handleChangeSoundEffect = (value: string) => {
+    dispatch(settingActions.onChangeSoundEffect(value));
+  };
   return (
     <Modal isModalOpen={isModalOpen} onClose={onClose}>
       <SettingModalWrapper style={{ position: 'relative' }}>
@@ -50,7 +59,7 @@ const SettingModal = ({
                   className="slider"
                   id="volume"
                   onChange={(e) => {
-                    onVolumechange(e.target.value);
+                    handleChangeVolume(e.target.value);
                   }}
                 />
                 <div className="value">{volumeValue}%</div>
@@ -65,7 +74,7 @@ const SettingModal = ({
                   className="slider"
                   id="music"
                   onChange={(e) => {
-                    onMusicChange(e.target.value);
+                    handleChangeMusic(e.target.value);
                   }}
                 />
                 <div className="value">{musicValue}%</div>
@@ -80,7 +89,7 @@ const SettingModal = ({
                   className="slider"
                   id="soundEffect"
                   onChange={(e) => {
-                    onSoundEffectChange(e.target.value);
+                    handleChangeSoundEffect(e.target.value);
                   }}
                 />
                 <div className="value">{soundEffectValue}%</div>

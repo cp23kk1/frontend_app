@@ -30,18 +30,15 @@ const Landing = ({ onLogin, onSetting, onBegin }: TLanding) => {
       </div>
       <LandingBackgroundWrapper onClick={onBegin}>
         <div className="top-wrapper">
-          <Button
-            className="hover-scale"
-            text="Login"
-            onClick={onLogin}
-            style={{ fontSize: 24, zIndex: 80 }}
-          />
           <Icon
             className="hover-scale"
             onClick={onSetting}
             iconName="SettingLight"
             size={60}
           />
+          <button className="signInButton hover-scale" onClick={onLogin}>
+            Sign in
+          </button>
         </div>
 
         <div className="bottom-wrapper">

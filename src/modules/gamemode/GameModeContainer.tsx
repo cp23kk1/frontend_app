@@ -6,18 +6,17 @@ import { useRouter } from 'next/router';
 import { TState } from '../core/VocaverseCoreContainer';
 import { TGameModeContainer } from './type';
 import gamemodeCoreSelectors from './gamemode-core/gamemode-core-selectors';
-import {
-  selectors as settingSelectors,
-  actions as settingActions
-} from '@/modules/core/setting';
+import { selectors as settingSelectors } from '@/modules/core/setting';
 import { getPublicPath } from '@/utils/basePath';
 
 const GamePlayContainer = ({
   render,
-  onChangeState
+  onChangeState,
+  state
 }: {
   render: (props: TGameModeContainer) => ReactNode;
   onChangeState: (input: TState) => void;
+  state: TState;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -39,17 +38,12 @@ const GamePlayContainer = ({
   const handleCloseSetting = () => {
     setIsModalOpen(false);
   };
-  const handleChangeVolume = (value: string) => {
-    dispatch(settingActions.onChangeVolume(value));
-  };
-  const handleChangeMusic = (value: string) => {
-    dispatch(settingActions.onChangeMusic(value));
-  };
-  const handleChangeSoundEffect = (value: string) => {
-    dispatch(settingActions.onChangeSoundEffect(value));
-  };
+
   const handleClickPlay = () => {
-    onChangeState({ state: 'gameplay' });
+    onChangeState({
+      page: 'gameplay',
+      data: { mode: modes[currentModeIndex].modeName }
+    });
   };
 
   return render({
@@ -79,9 +73,6 @@ const GamePlayContainer = ({
       charaterPic: getPublicPath(`/character/player/robot.svg`),
       isModalOpen: isModalOpen,
       onClose: handleCloseSetting,
-      onMusicChange: handleChangeMusic,
-      onSoundEffectChange: handleChangeSoundEffect,
-      onVolumechange: handleChangeVolume,
       musicValue: music,
       volumeValue: volume,
       soundEffectValue: soundEffect,

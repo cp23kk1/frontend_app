@@ -18,16 +18,17 @@ import {
 
 import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
-import { actions as modalActions } from '../core/setting';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
 
 const GamePlayContainer = ({
   render,
-  onChangeState
+  onChangeState,
+  state
 }: {
   render: (props: TGamePlayContainer) => ReactNode;
   onChangeState: (input: TState) => void;
+  state: TState;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -148,7 +149,7 @@ const GamePlayContainer = ({
     );
   };
   const onPause = () => {
-    dispatch(modalActions.onOpen('PauseMenu'));
+    // dispatch(modalActions.onOpen('PauseMenu'));
   };
 
   //useEffect
@@ -162,12 +163,12 @@ const GamePlayContainer = ({
 
   useEffect(() => {
     if (playerHealth === 0) {
-      dispatch(modalActions.onOpen('GAMEOVER'));
+      // dispatch(modalActions.onOpen('GAMEOVER'));
 
       setTimeout(() => {
-        dispatch(modalActions.onClose());
+        // dispatch(modalActions.onClose());
         // router.push(getPublicPathPageRounting('/summary'));
-        onChangeState({ state: 'summary' });
+        onChangeState({ ...state, page: 'summary' });
       }, 1000);
     }
     if (enemyHealth === 0) {

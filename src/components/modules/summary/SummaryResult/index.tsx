@@ -30,9 +30,7 @@ const SummaryResult = ({
             </Col>
           </Row>
           <Row className="score">
-            <div className="current-score">
-              Current score: {currentScore}
-            </div>
+            <div className="current-score">Current score: {currentScore}</div>
           </Row>
         </div>
         <SummarySection {...result} />

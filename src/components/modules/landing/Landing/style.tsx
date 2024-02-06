@@ -11,6 +11,15 @@ export const LandingBackgroundWrapper = styled.div`
     justify-content: end;
     align-items: center;
     gap: 16px;
+    .signInButton {
+      border: 0;
+      border-radius: 16px;
+      padding: 0 24px;
+      font-size: 20px;
+      font-family: Audiowide;
+      background-color: #fff;
+      height: 48px;
+    }
   }
   .bottom-wrapper {
     display: flex;

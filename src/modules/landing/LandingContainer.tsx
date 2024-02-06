@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
 import { actions as modalActions } from '../core/setting';
@@ -7,6 +7,8 @@ import { TState } from '../core/VocaverseCoreContainer';
 import { ILandingContainer } from './type';
 import { getGoogleUrl } from '@/utils/getGoogleUrl';
 import authDispatch from '../user/auth/auth-dispatch';
+import { getPublicPath } from '@/utils/basePath';
+import settingSelectors from '../core/setting/setting-selectors';
 
 export const LandingContainer = ({
   render,
@@ -19,9 +21,15 @@ export const LandingContainer = ({
   const router = useRouter();
 
   const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
+  const [isModalSettingOpen, setIsModalSettingOpen] = useState<boolean>(false);
   const _handleSetModalLogin = (bool: boolean) => {
     setIsModalLoginOpen(bool);
   };
+
+  const volume = useAppSelector(settingSelectors.volumeSelector);
+  const music = useAppSelector(settingSelectors.musicSelector);
+  const soundEffect = useAppSelector(settingSelectors.soundEffectSelector);
+
   const onCloseModal = (event?: React.MouseEvent<HTMLButtonElement>) => {
     _handleSetModalLogin(false);
   };
@@ -31,11 +39,15 @@ export const LandingContainer = ({
   };
   const onSetting = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
-    dispatch(modalActions.onOpen('SettingMenu'));
+    setIsModalSettingOpen(true);
+    // dispatch(modalActions.onOpen('SettingMenu'));
+  };
+  const onCloseModalSetting = () => {
+    setIsModalSettingOpen(false);
   };
   const onBegin = () => {
     // router.push(getPublicPathPageRounting('/gameplay'));
-    onChangeState({ state: 'gamemode' });
+    onChangeState({ page: 'gamemode' });
   };
   const onGoogleLogin = () => {
     // const a = document.createElement('a');
@@ -54,7 +66,16 @@ export const LandingContainer = ({
     onCloseModal,
     onGoogleLogin,
     onGuestLogin,
-    isModalLoginOpen
+    isModalLoginOpen,
+    settingModal: {
+      charaterPic: getPublicPath(`/character/player/robot.svg`),
+      isModalOpen: isModalSettingOpen,
+      onClose: onCloseModalSetting,
+      musicValue: music,
+      volumeValue: volume,
+      soundEffectValue: soundEffect,
+      onClickChangeButton: () => {}
+    }
   });
 };
 export default LandingContainer;

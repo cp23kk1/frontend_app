@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 export const SummaryResultWrapper = styled.div`
   width: 100%;
   color: #fff;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 32px;
 
   /* Audiowide/Regular-32 */

@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
 import { selectors as vocabularySelectors } from '../gameplay/vocabulary';
@@ -10,19 +10,20 @@ import { TGameOverFooter } from '@/components/modules/summary/GameOverFooter/typ
 import { TSummarySection } from '@/components/modules/summary/SummarySection/type';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
+import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions';
 
 const SummaryResultContainer = ({
   render,
-  onChangeState
+  onChangeState,
+  state
 }: {
   render: (props: TSummaryResultContainer) => ReactNode;
   onChangeState: (input: TState) => void;
+  state: TState;
 }) => {
-  const router = useRouter();
-
   // vocabulary
   // const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
-
+  const dispatch = useAppDispatch();
   const vocabulary = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector
   )?.vocabs;
@@ -32,10 +33,8 @@ const SummaryResultContainer = ({
     gameplayCoreSelectors.currentGameHistorySelector
   );
 
-  const mode: string = 'Single Player';
-  // const bestScore: number = gameHistory?.current_score ?? 0;
-  // const currentScore: number = gameHistory?.current_score ?? 0;
-  const bestScore: number = 999 ?? 0;
+  const mode: string = state.data.mode;
+  const bestScore: number = 999;
   const currentScore: number = gameHistory.current_score;
 
   // table
@@ -67,19 +66,20 @@ const SummaryResultContainer = ({
         label: 'Home',
         onClick: () =>
           // router.push(getPublicPathPageRounting('/'))
-          onChangeState({ state: 'landing' })
+          onChangeState({ page: 'landing' })
       },
       {
         iconName: 'Retry',
         label: 'Retry',
-        onClick: () =>
-          // router.push(getPublicPathPageRounting('/gameplay'))
-          onChangeState({ state: 'gameplay' })
+        onClick: () => {
+          dispatch(gameplayCoreActions.clear());
+          onChangeState({ ...state, page: 'gameplay' });
+        }
       },
       {
         iconName: 'Menu',
         label: 'Mode',
-        onClick: () => onChangeState({ state: 'gamemode' })
+        onClick: () => onChangeState({ page: 'gamemode' })
       }
     ]
   };
@@ -88,7 +88,7 @@ const SummaryResultContainer = ({
     let bool =
       gameHistory.current_score === 0 && gameHistory.vocabs.length === 0;
     if (bool) {
-      router.push(getPublicPathPageRounting('/'));
+      // router.push(getPublicPathPageRounting('/'));
     }
   }, []);
 

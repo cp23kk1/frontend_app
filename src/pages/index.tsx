@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <VocaverseCoreContainer
       render={({ state, onChangeState }) => {
-        if (state.state === 'landing') {
+        if (state.page === 'landing') {
           return (
             <LandingContainer
               onChangeState={onChangeState}
@@ -25,7 +25,8 @@ export default function Home() {
                 onCloseModal,
                 onGoogleLogin,
                 onGuestLogin,
-                isModalLoginOpen
+                isModalLoginOpen,
+                settingModal
               }) => {
                 return (
                   <>
@@ -42,15 +43,33 @@ export default function Home() {
                       onClickTerm={() => {}}
                       onClose={onCloseModal}
                     />
+                    <SettingModal {...settingModal} />
                   </>
                 );
               }}
             />
           );
         }
-        if (state.state === 'gameplay') {
+        if (state.page === 'gamemode') {
+          return (
+            <GameModeContainer
+              state={state}
+              onChangeState={onChangeState}
+              render={({ gameModeProps, settingModalProps }) => {
+                return (
+                  <>
+                    <GameMode {...gameModeProps}></GameMode>
+                    <SettingModal {...settingModalProps} />
+                  </>
+                );
+              }}
+            />
+          );
+        }
+        if (state.page === 'gameplay') {
           return (
             <GamePlayContainer
+              state={state}
               onChangeState={onChangeState}
               render={({
                 knowLedgeSection,
@@ -70,10 +89,11 @@ export default function Home() {
             />
           );
         }
-        if (state.state === 'summary') {
+        if (state.page === 'summary') {
           return (
             <SummaryResultContainer
               onChangeState={onChangeState}
+              state={state}
               render={({
                 mode,
                 bestScore,
@@ -89,21 +109,6 @@ export default function Home() {
                     result={summarySection}
                     footer={options}
                   />
-                );
-              }}
-            />
-          );
-        }
-        if (state.state === 'gamemode') {
-          return (
-            <GameModeContainer
-              onChangeState={onChangeState}
-              render={({ gameModeProps, settingModalProps }) => {
-                return (
-                  <>
-                    <GameMode {...gameModeProps}></GameMode>
-                    <SettingModal {...settingModalProps} />
-                  </>
                 );
               }}
             />

@@ -50,7 +50,7 @@ const GameMode = ({
               className="hover-scale"
               onClick={onClickSetting}
               iconName="SettingLight"
-              size={36}
+              size={60}
             />
           </Col>
         </div>

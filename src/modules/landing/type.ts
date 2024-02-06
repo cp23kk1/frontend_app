@@ -1,3 +1,4 @@
+import { TSettingModal } from '@/components/common/SettingModal/type';
 import { TLanding } from '@/components/modules/landing/Landing/type';
 
 export interface ILandingContainer extends TLanding {
@@ -5,4 +6,5 @@ export interface ILandingContainer extends TLanding {
   onGoogleLogin: () => void;
   onGuestLogin: () => void;
   isModalLoginOpen: boolean;
+  settingModal: TSettingModal;
 }
