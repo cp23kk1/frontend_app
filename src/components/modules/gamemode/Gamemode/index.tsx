@@ -31,7 +31,7 @@ const GameMode = ({
         }}
       >
         <Image
-          src={getPublicPath('/background/GameModeBackGround.svg')}
+          src={getPublicPath('/background/GameModeBackground.svg')}
           alt="GameModeBackGround"
           layout="fill"
           objectFit="cover"
