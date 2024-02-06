@@ -15,8 +15,7 @@ ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
 
 ENV NEXT_TELEMETRY_DISABLED 1
-
-RUN npm run build --production
+RUN yarn build
 
 FROM node:20-alpine AS runner
 WORKDIR /app
