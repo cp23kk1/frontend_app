@@ -1,3 +1,4 @@
+import SettingModal from '@/components/common/SettingModal';
 import GameMode from '@/components/modules/gamemode/Gamemode';
 import BackGround from '@/components/modules/gameplay/BackgroundGamplay';
 import GamePlay from '@/components/modules/gameplay/GamePlay';
@@ -14,8 +15,13 @@ const GameModePage: NextPage = () => {
       onChangeState={(s) => {
         console.log(s);
       }}
-      render={(props) => {
-        return <GameMode {...props}></GameMode>;
+      render={({ gameModeProps, settingModalProps }) => {
+        return (
+          <>
+            <GameMode {...gameModeProps}></GameMode>
+            <SettingModal {...settingModalProps} />
+          </>
+        );
       }}
     />
   );

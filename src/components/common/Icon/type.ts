@@ -16,7 +16,8 @@ export type TIcon = {
     | 'SettingLight'
     | 'ArrowRight'
     | 'Crown'
-    | 'ChevronDown';
+    | 'ChevronDown'
+    | 'Speaker';
   size?: number;
   style?: CSSProperties;
   onClick?: () => void;

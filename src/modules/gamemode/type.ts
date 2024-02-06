@@ -1,5 +1,7 @@
-import { TGamemode } from '@/components/modules/gamemode/Gamemode/type';
+import { TSettingModal } from '@/components/common/SettingModal/type';
+import { TGameMode } from '@/components/modules/gamemode/Gamemode/type';
 
-export interface TGameModeContainer extends TGamemode {
-  isModalSettingOpen: boolean;
-}
+export type TGameModeContainer = {
+  gameModeProps: TGameMode;
+  settingModalProps: TSettingModal;
+};

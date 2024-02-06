@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { GameModeWrapper } from './style';
 import { Col, Row } from '@/components/common/layout/responsive';
 import Icon from '@/components/common/Icon';
-import { TGamemode } from './type';
+import { TGameMode } from './type';
 import Card from '@/components/common/Card';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -18,7 +18,7 @@ const GameMode = ({
   scoreBoard,
   bestScore,
   profileTab
-}: TGamemode) => {
+}: TGameMode) => {
   return (
     <>
       <Row
