@@ -17,7 +17,8 @@ const GameMode = ({
   onSelectMode,
   scoreBoard,
   bestScore,
-  profileTab
+  profileTab,
+  onClickPlay
 }: TGameMode) => {
   return (
     <>
@@ -73,13 +74,12 @@ const GameMode = ({
           </Swiper>
         </Row>
         <Row className="bottom-section">
-          <Col className="scoreboard">
-            <Col span={12}>
-              <ScoreBoard {...scoreBoard} />
-            </Col>
+          <Col span={6} className="scoreboard">
+            <ScoreBoard {...scoreBoard} />
           </Col>
-          <Col className="play-section">
-            <button className="play">
+          <Col span={12}></Col>
+          <Col span={6} className="play-section">
+            <button className="play" onClick={onClickPlay}>
               PLAY <Icon iconName="ArrowRight" size={30} />
             </button>
           </Col>

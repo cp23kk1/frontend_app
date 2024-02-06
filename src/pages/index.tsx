@@ -1,8 +1,11 @@
+import SettingModal from '@/components/common/SettingModal';
+import GameMode from '@/components/modules/gamemode/Gamemode';
 import GamePlay from '@/components/modules/gameplay/GamePlay';
 import Landing from '@/components/modules/landing/Landing';
 import LoginModal from '@/components/modules/landing/LoginModal';
 import SummaryResult from '@/components/modules/summary/SummaryResult';
 import VocaverseCoreContainer from '@/modules/core/VocaverseCoreContainer';
+import GameModeContainer from '@/modules/gamemode/GameModeContainer';
 import GamePlayContainer from '@/modules/gameplay/GamePlayContainer';
 import LandingContainer from '@/modules/landing/LandingContainer';
 import SummaryResultContainer from '@/modules/summary/SummaryResultContainer';
@@ -11,7 +14,7 @@ export default function Home() {
   return (
     <VocaverseCoreContainer
       render={({ state, onChangeState }) => {
-        if (state === 'landing') {
+        if (state.state === 'landing') {
           return (
             <LandingContainer
               onChangeState={onChangeState}
@@ -45,7 +48,7 @@ export default function Home() {
             />
           );
         }
-        if (state === 'gameplay') {
+        if (state.state === 'gameplay') {
           return (
             <GamePlayContainer
               onChangeState={onChangeState}
@@ -67,7 +70,7 @@ export default function Home() {
             />
           );
         }
-        if (state === 'summary') {
+        if (state.state === 'summary') {
           return (
             <SummaryResultContainer
               onChangeState={onChangeState}
@@ -86,6 +89,21 @@ export default function Home() {
                     result={summarySection}
                     footer={options}
                   />
+                );
+              }}
+            />
+          );
+        }
+        if (state.state === 'gamemode') {
+          return (
+            <GameModeContainer
+              onChangeState={onChangeState}
+              render={({ gameModeProps, settingModalProps }) => {
+                return (
+                  <>
+                    <GameMode {...gameModeProps}></GameMode>
+                    <SettingModal {...settingModalProps} />
+                  </>
                 );
               }}
             />

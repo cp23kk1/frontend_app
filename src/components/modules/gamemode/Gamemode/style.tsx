@@ -72,7 +72,9 @@ export const GameModeWrapper = styled.div`
 
   .bottom-section {
     height: 100%;
+    justify-content: space-between;
     .scoreboard {
+      display: flex;
       justify-content: end;
     }
     .play-section {

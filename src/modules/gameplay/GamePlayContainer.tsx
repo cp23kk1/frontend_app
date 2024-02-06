@@ -18,7 +18,7 @@ import {
 
 import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
-import { actions as modalActions } from '../core/modal';
+import { actions as modalActions } from '../core/setting';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
 
@@ -167,7 +167,7 @@ const GamePlayContainer = ({
       setTimeout(() => {
         dispatch(modalActions.onClose());
         // router.push(getPublicPathPageRounting('/summary'));
-        onChangeState('summary');
+        onChangeState({ state: 'summary' });
       }, 1000);
     }
     if (enemyHealth === 0) {

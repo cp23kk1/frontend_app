@@ -2,7 +2,7 @@ import { ReactNode, useState } from 'react';
 import { useAppDispatch } from '@/hooks';
 
 import { useRouter } from 'next/router';
-import { actions as modalActions } from '../core/modal';
+import { actions as modalActions } from '../core/setting';
 import { TState } from '../core/VocaverseCoreContainer';
 import { ILandingContainer } from './type';
 import { getGoogleUrl } from '@/utils/getGoogleUrl';
@@ -35,7 +35,7 @@ export const LandingContainer = ({
   };
   const onBegin = () => {
     // router.push(getPublicPathPageRounting('/gameplay'));
-    onChangeState('gameplay');
+    onChangeState({ state: 'gamemode' });
   };
   const onGoogleLogin = () => {
     // const a = document.createElement('a');

@@ -4,8 +4,9 @@ import { TScoreBoard } from '@/components/common/ScoreBoard/type';
 
 export type TGameMode = {
   onClickSetting: () => void;
-  listMode: TCard[];
   onSelectMode: (selectedIndex: number) => void;
+  onClickPlay: () => void;
+  listMode: TCard[];
   scoreBoard: TScoreBoard;
   profileTab: TProfileTab;
   bestScore: number;

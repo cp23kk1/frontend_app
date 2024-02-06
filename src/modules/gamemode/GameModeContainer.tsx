@@ -5,9 +5,11 @@ import { useRouter } from 'next/router';
 
 import { TState } from '../core/VocaverseCoreContainer';
 import { TGameModeContainer } from './type';
-import { TCard } from '@/components/common/Card/type';
 import gamemodeCoreSelectors from './gamemode-core/gamemode-core-selectors';
-import { current } from '@reduxjs/toolkit';
+import {
+  selectors as settingSelectors,
+  actions as settingActions
+} from '@/modules/core/setting';
 import { getPublicPath } from '@/utils/basePath';
 
 const GamePlayContainer = ({
@@ -21,9 +23,9 @@ const GamePlayContainer = ({
   const router = useRouter();
 
   const modes = useAppSelector(gamemodeCoreSelectors.gameModeSelector);
-  const [volume, setVolume] = useState<string>('50');
-  const [music, setMusic] = useState<string>('50');
-  const [soundEffect, setSoundEffect] = useState<string>('50');
+  const volume = useAppSelector(settingSelectors.volumeSelector);
+  const music = useAppSelector(settingSelectors.musicSelector);
+  const soundEffect = useAppSelector(settingSelectors.soundEffectSelector);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   let currentModeIndex = 0;
@@ -33,19 +35,21 @@ const GamePlayContainer = ({
   };
   const handleClickSetting = () => {
     setIsModalOpen(true);
-    console.log('object');
   };
   const handleCloseSetting = () => {
     setIsModalOpen(false);
   };
   const handleChangeVolume = (value: string) => {
-    setVolume(value);
+    dispatch(settingActions.onChangeVolume(value));
   };
   const handleChangeMusic = (value: string) => {
-    setMusic(value);
+    dispatch(settingActions.onChangeMusic(value));
   };
   const handleChangeSoundEffect = (value: string) => {
-    setSoundEffect(value);
+    dispatch(settingActions.onChangeSoundEffect(value));
+  };
+  const handleClickPlay = () => {
+    onChangeState({ state: 'gameplay' });
   };
 
   return render({
@@ -54,6 +58,7 @@ const GamePlayContainer = ({
       listMode: modes,
       onClickSetting: handleClickSetting,
       onSelectMode: handleChangeMode,
+      onClickPlay: handleClickPlay,
       profileTab: {
         onClick: () => {},
         profilePic:
