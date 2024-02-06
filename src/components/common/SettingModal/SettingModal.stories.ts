@@ -27,15 +27,6 @@ export const NormalQuestion: Story = {
     },
     onClose: () => {
       console.log('close');
-    },
-    onVolumechange: (value: string) => {
-      console.log(value);
-    },
-    onMusicChange: (value: string) => {
-      console.log(value);
-    },
-    onSoundEffectChange: (value: string) => {
-      console.log(value);
     }
   }
 };
