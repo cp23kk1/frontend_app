@@ -1,3 +1,4 @@
+import { Textfit } from 'react-textfit';
 import { AnswerButtonWrapper } from './style';
 import { TAnswerButton } from './type';
 
@@ -15,7 +16,9 @@ const AnswerButton = ({
       state={state ?? 'normal'}
       disabled={disabled}
     >
-      {children}
+      <Textfit max={48} mode="single">
+        {children}
+      </Textfit>
     </AnswerButtonWrapper>
   );
 };

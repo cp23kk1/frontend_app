@@ -18,7 +18,7 @@ const Landing = ({ onLogin, onSetting, onBegin }: TLanding) => {
           zIndex: -1,
           position: 'fixed',
           width: '100%',
-          height: '100%'
+          height: '100vh'
         }}
       >
         <Image

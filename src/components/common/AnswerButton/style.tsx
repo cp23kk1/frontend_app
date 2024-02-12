@@ -3,7 +3,6 @@ import { TAnswerButton } from './type';
 export const AnswerButtonWrapper = styled.button`
   width: 100%;
   height: 112px;
-  font-size: 48px;
   border-radius: 32px;
   border: 0px solid #fff;
   padding: 16px;

@@ -25,6 +25,13 @@ export const GameModeWrapper = styled.div`
     }
     .setting {
       align-items: end;
+      .hover-scale {
+        :hover {
+          scale: 1.1;
+          transition: 0.25s;
+          cursor: pointer;
+        }
+      }
     }
   }
   .mode-section {
