@@ -11,6 +11,7 @@ import { TSummarySection } from '@/components/modules/summary/SummarySection/typ
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
 import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions';
+import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
 
 const SummaryResultContainer = ({
   render,
@@ -27,6 +28,15 @@ const SummaryResultContainer = ({
   const vocabulary = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector
   )?.vocabs;
+  const sentence = useAppSelector(
+    gameplayCoreSelectors.currentGameHistorySelector
+  )?.sentences;
+  const passage = useAppSelector(
+    gameplayCoreSelectors.currentGameHistorySelector
+  )?.passages;
+  const gameId = useAppSelector(
+    gameplayCoreSelectors.currentGameHistorySelector
+  )?.gameId;
 
   // header
   const gameHistory = useAppSelector(
@@ -85,11 +95,15 @@ const SummaryResultContainer = ({
   };
 
   useEffect(() => {
-    let bool =
-      gameHistory.current_score === 0 && gameHistory.vocabs.length === 0;
-    if (bool) {
-      // router.push(getPublicPathPageRounting('/'));
-    }
+    dispatch(
+      gameResultDispatch.createGameResultDispatch({
+        current_score: currentScore,
+        gameID: gameId,
+        vocabs: vocabulary,
+        passages: passage,
+        sentences: sentence
+      })
+    );
   }, []);
 
   return render({

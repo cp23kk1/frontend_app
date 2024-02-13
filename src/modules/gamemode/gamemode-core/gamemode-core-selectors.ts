@@ -20,7 +20,7 @@ const gameModeSelector = createSelector(
       {
         modeSubtitle: 'Multi play mode.',
         modeName: 'Multi Player',
-        modeIcon: getPublicPath('/decorations/PlanetsGameMode1.svg'),
+        modeIcon: getPublicPath('/decorations/PlanetsGameMode3.svg'),
         onClick: () => {}
       },
       { modeName: 'Comming Soon', onClick: () => {} },

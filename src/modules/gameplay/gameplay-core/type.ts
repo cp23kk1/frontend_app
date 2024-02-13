@@ -1,3 +1,10 @@
+import { TVocabGameHistory } from '@/modules/gamemode/gamemode-core/type';
+import {
+  IGameResultPassage,
+  IGameResultSentence,
+  IGameResultVocabulary
+} from '../game-result/game-result-services';
+
 export type TGameHistory = {
   gameId: string;
   current_score: number;
@@ -6,21 +13,15 @@ export type TGameHistory = {
   passages: TPassageGameHistory[];
 };
 
-export type TVocabGameHistory = {
-  vocabularyId: number;
+export interface IVocabGameHistory extends IGameResultVocabulary {
   answer: string;
   question: string;
-  correctness: boolean;
-};
-export type TSentenceGameHistory = {
-  sentenceId: number;
+}
+export interface TSentenceGameHistory extends IGameResultSentence {
   answer: string;
   question: string;
-  correctness: boolean;
-};
-export type TPassageGameHistory = {
-  passageId: number;
+}
+export interface TPassageGameHistory extends IGameResultPassage {
   answer: string;
   question: string;
-  correctness: boolean;
-};
+}
