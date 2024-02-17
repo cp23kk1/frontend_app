@@ -15,7 +15,9 @@ const ProfileTab = ({ profilePic, userName, onClick, style }: TProfileTab) => {
         alt="profile_pic"
       />
 
-      <div className="username">{userName}</div>
+      <div className="username">
+        <p>{userName}</p>
+      </div>
       <div className="icon" onClick={onClick}>
         <Icon iconName="ChevronDown" size={13} />
       </div>

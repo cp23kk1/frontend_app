@@ -17,8 +17,13 @@ export const ProfileTabWrapper = styled.div`
     border-radius: 16px;
   }
   .username {
+    justify-content: end;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
+  }
+  .username > p {
+    overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
   }
   .icon {
