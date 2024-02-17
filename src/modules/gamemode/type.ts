@@ -3,5 +3,4 @@ import { TGameMode } from '@/components/modules/gamemode/Gamemode/type';
 
 export type TGameModeContainer = {
   gameModeProps: TGameMode;
-  settingModalProps: TSettingModal;
 };

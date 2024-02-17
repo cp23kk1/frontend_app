@@ -7,6 +7,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { getPublicPath } from '@/utils/basePath';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,11 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <Head>
         <title>VocaVerse</title>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href={getPublicPath('/icon/Logo.svg')}
+        ></link>
       </Head>
 
       <Component {...pageProps} />

@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 export const LandingBackgroundWrapper = styled.div`
   display: flex;
   padding: 16px;
-  gap: 275px;
-  max-height: 100%;
+  height: 96.6vh;
+  max-height: 100vh;
   flex-direction: column;
+  justify-content: space-between;
   .top-wrapper {
     display: flex;
     justify-content: end;
@@ -24,7 +25,8 @@ export const LandingBackgroundWrapper = styled.div`
   .bottom-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    justify-content: space-between;
+    height: 85%;
   }
   .landing-text-wrapper {
     display: flex;

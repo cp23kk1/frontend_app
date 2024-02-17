@@ -8,6 +8,7 @@ import { TGameModeContainer } from './type';
 import gamemodeCoreSelectors from './gamemode-core/gamemode-core-selectors';
 import { selectors as settingSelectors } from '@/modules/core/setting';
 import { getPublicPath } from '@/utils/basePath';
+import settingActions from '../core/setting/setting-actions';
 
 const GamePlayContainer = ({
   render,
@@ -68,15 +69,6 @@ const GamePlayContainer = ({
         ],
         userScore: { no: 2, score: 999, userName: 'j' }
       }
-    },
-    settingModalProps: {
-      charaterPic: getPublicPath(`/character/player/robot.svg`),
-      isModalOpen: isModalOpen,
-      onClose: handleCloseSetting,
-      musicValue: music,
-      volumeValue: volume,
-      soundEffectValue: soundEffect,
-      onClickChangeButton: () => {}
     }
   });
 };

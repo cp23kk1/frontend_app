@@ -20,6 +20,7 @@ import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
+import { current } from '@reduxjs/toolkit';
 
 const GamePlayContainer = ({
   render,
@@ -87,8 +88,9 @@ const GamePlayContainer = ({
       const newAnswer: TGamePlayAnswerButton[] = [
         { children: vocabulary[currentIndex].meaning, state: 'normal' },
         ...vocabulary
-          .filter((_, index) => index !== currentIndex)
+          .filter((_, index: number) => index !== currentIndex)
           .sort(() => 0.5 - Math.random())
+          // number of answer
           .splice(0, 1)
           .map((value): TGamePlayAnswerButton => {
             return { children: value.meaning, state: 'normal' };
@@ -119,7 +121,6 @@ const GamePlayContainer = ({
     );
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
-
       _calculateHealth(correctness, meaning);
     }, 1000);
   };
@@ -131,6 +132,9 @@ const GamePlayContainer = ({
       _handleChangePlayerHealth(playerHealth - 10);
     }
     updateGameHistory(correctness, meaning);
+    if (currentGameHistory.vocabs.length > vocabulary.length / 2) {
+      dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
+    }
   };
   const updateGameHistory = (correctness: boolean, meaning: string) => {
     dispatch(

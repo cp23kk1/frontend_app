@@ -38,6 +38,7 @@ export const GameModeWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
     .swiper {
       width: 110%;
       height: 100%;
@@ -78,7 +79,7 @@ export const GameModeWrapper = styled.div`
   }
 
   .bottom-section {
-    height: 100%;
+    height: 60%;
     justify-content: space-between;
     .scoreboard {
       display: flex;

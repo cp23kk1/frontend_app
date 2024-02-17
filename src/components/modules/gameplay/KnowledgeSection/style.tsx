@@ -2,11 +2,11 @@ import styled from '@emotion/styled';
 
 export const KnowLedgeSectionWrapper = styled.div`
   width: auto;
-  height: auto;
+  height: 100%;
   padding: 16px;
   border-radius: 32px;
   background: rgba(255, 255, 255, 0.5);
-  gap: 100px;
+  gap: 5vh;
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -14,10 +14,6 @@ export const KnowLedgeSectionWrapper = styled.div`
     height: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 128px;
-  }
-  .answer-wrapper {
-    width: 492px;
+    justify-content: space-around;
   }
 `;

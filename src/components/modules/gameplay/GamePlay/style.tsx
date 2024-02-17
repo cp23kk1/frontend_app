@@ -4,15 +4,17 @@ export const GamePlayWrapper = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 27px;
+  justify-content: space-between;
   max-height: 100vh;
+  gap: 4vh;
   z-index: 1;
+  height: 96.6vh;
 `;
 export const TopSectionWrapper = styled.div`
-  height: 350px;
   width: 100%;
+  height: 100%;
   display: flex;
-  gap: 56px;
+  justify-content: space-between;
   flex-direction: column;
   .top {
     display: flex;

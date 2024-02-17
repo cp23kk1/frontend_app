@@ -1,4 +1,9 @@
+import { modalAlert } from '@/components/common/Modal';
+import ErrorModal from '@/components/common/Modal/ModalError';
+import { useAppDispatch } from '@/hooks';
+import { VocaverseResponseData } from '@/types/vocaverse/api/response';
 import axios, {
+  AxiosError,
   AxiosInstance,
   AxiosRequestConfig,
   AxiosResponse,
@@ -27,15 +32,29 @@ class Http {
 
     http.interceptors.response.use(
       (response) => {
-        // if (Number(response.status) === 404) {
-        //   dispatch(modalActions.onOpen('Error: 404 Notfound.'));
-        // }
+        if (Number(response.status) === 401) {
+        }
+
         return response;
       },
-      (error) => {
-        // const dispatch = useAppDispatch();
-        // dispatchf(modalActions.onOpen('Error: Please contract admin'));
-        alert(error);
+      (error: AxiosError<VocaverseResponseData>) => {
+        const modal = modalAlert();
+        if (Number(error.response?.status) >= 500) {
+          modal.render({
+            children: ErrorModal({
+              errorMessage: 'Please contact admin:',
+              errorStatus: error.response?.status
+            })
+          });
+        } else if (Number(error.response?.status) >= 400) {
+          modal.render({
+            children: ErrorModal({
+              errorMessage: error.response?.data.status?.message,
+              errorStatus: error.response?.status
+            })
+          });
+        }
+
         return Promise.reject(error);
       }
     );

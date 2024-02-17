@@ -3,6 +3,8 @@ import { KnowLedgeSectionWrapper } from './style';
 import { TKnowLedgeSection } from './type';
 import AnswerButton from '@/components/common/AnswerButton';
 import { ReactNode } from 'react';
+import { Col } from '@/components/common/layout/responsive';
+import { v4 as uuid } from 'uuid';
 
 const KnowLedgeSection = ({
   style,
@@ -21,14 +23,18 @@ const KnowLedgeSection = ({
       <div className="answer-layout">
         {answers.map((answer, index) => {
           return (
-            <div className="answer-wrapper" key={index}>
+            <Col
+              span={14 / answers.length}
+              className="answer-wrapper"
+              key={index}
+            >
               <AnswerButton
                 {...answer}
                 onClick={() => {
                   _handleAnswer(answer.children);
                 }}
-              ></AnswerButton>
-            </div>
+              />
+            </Col>
           );
         })}
       </div>

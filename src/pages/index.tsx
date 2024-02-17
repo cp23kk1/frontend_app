@@ -13,21 +13,12 @@ import SummaryResultContainer from '@/modules/summary/SummaryResultContainer';
 export default function Home() {
   return (
     <VocaverseCoreContainer
-      render={({ state, onChangeState }) => {
+      render={({ state, onChangeState, onSetting, settingModal }) => {
         if (state.page === 'landing') {
           return (
             <LandingContainer
               onChangeState={onChangeState}
-              render={({
-                onBegin,
-                onLogin,
-                onSetting,
-                onCloseModal,
-                onGoogleLogin,
-                onGuestLogin,
-                isModalLoginOpen,
-                settingModal
-              }) => {
+              render={({ onBegin, onLogin }) => {
                 return (
                   <>
                     <Landing
@@ -35,14 +26,7 @@ export default function Home() {
                       onSetting={onSetting}
                       onLogin={onLogin}
                     />
-                    <LoginModal
-                      isModalOpen={isModalLoginOpen}
-                      onClickGoogleLogin={onGoogleLogin}
-                      onClickGuestLogin={onGuestLogin}
-                      onClickPolicy={() => {}}
-                      onClickTerm={() => {}}
-                      onClose={onCloseModal}
-                    />
+
                     <SettingModal {...settingModal} />
                   </>
                 );
@@ -55,11 +39,11 @@ export default function Home() {
             <GameModeContainer
               state={state}
               onChangeState={onChangeState}
-              render={({ gameModeProps, settingModalProps }) => {
+              render={({ gameModeProps }) => {
                 return (
                   <>
                     <GameMode {...gameModeProps}></GameMode>
-                    <SettingModal {...settingModalProps} />
+                    <SettingModal {...settingModal} />
                   </>
                 );
               }}

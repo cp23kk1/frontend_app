@@ -29,19 +29,19 @@ const Landing = ({ onLogin, onSetting, onBegin }: TLanding) => {
         />
       </div>
       <LandingBackgroundWrapper onClick={onBegin}>
-        <div className="top-wrapper">
-          <Icon
-            className="hover-scale"
-            onClick={onSetting}
-            iconName="SettingLight"
-            size={60}
-          />
-          <button className="signInButton hover-scale" onClick={onLogin}>
-            Sign in
-          </button>
-        </div>
-
         <div className="bottom-wrapper">
+          <div className="top-wrapper">
+            <Icon
+              className="hover-scale"
+              onClick={onSetting}
+              iconName="SettingLight"
+              size={60}
+            />
+            <button className="signInButton hover-scale" onClick={onLogin}>
+              Sign in
+            </button>
+          </div>
+
           <div className="bottom-section">
             <div className="landing-text-wrapper">
               <LandingText>
@@ -67,9 +67,9 @@ const Landing = ({ onLogin, onSetting, onBegin }: TLanding) => {
               />
             </div>
           </div>
-          <div className="begin-wrapper">
-            <ClickToBeginText>CLICK TO BEGIN</ClickToBeginText>
-          </div>
+        </div>
+        <div className="begin-wrapper">
+          <ClickToBeginText>CLICK TO BEGIN</ClickToBeginText>
         </div>
       </LandingBackgroundWrapper>
     </>

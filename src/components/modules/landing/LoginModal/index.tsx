@@ -10,40 +10,36 @@ import {
 } from './style';
 
 const LoginModal = ({
-  isModalOpen,
-  onClose,
   onClickTerm,
   onClickPolicy,
   onClickGoogleLogin,
   onClickGuestLogin
 }: TLoginModal) => {
   return (
-    <Modal isModalOpen={isModalOpen} onClose={onClose}>
-      <LoginModalWrapper>
-        <Col span={12}>
-          <img src={getPublicPath(`/decorations/login_image.svg`)} alt="" />
-        </Col>
-        <Col className="loginContent" span={12}>
-          <div className="top">
-            <div className="getStart">Get started!</div>
-            <div className="loginButtons">
-              <GoogleLoginButtonWrapper onClick={onClickGoogleLogin}>
-                <img src={getPublicPath(`/icon/GoogleLogo.svg`)} alt="" />
-                <span>Continue with Google</span>
-              </GoogleLoginButtonWrapper>
-              <GuestLoginButtonWrapper onClick={onClickGuestLogin}>
-                <img src={getPublicPath(`/icon/UserIcon.svg`)} alt="" />
-                <span>Continue with Guest</span>
-              </GuestLoginButtonWrapper>
-            </div>
+    <LoginModalWrapper>
+      <Col span={12}>
+        <img src={getPublicPath(`/decorations/login_image.svg`)} alt="" />
+      </Col>
+      <Col className="loginContent" span={12}>
+        <div className="top">
+          <div className="getStart">Get started!</div>
+          <div className="loginButtons">
+            <GoogleLoginButtonWrapper onClick={onClickGoogleLogin}>
+              <img src={getPublicPath(`/icon/GoogleLogo.svg`)} alt="" />
+              <span>Continue with Google</span>
+            </GoogleLoginButtonWrapper>
+            <GuestLoginButtonWrapper onClick={onClickGuestLogin}>
+              <img src={getPublicPath(`/icon/UserIcon.svg`)} alt="" />
+              <span>Continue with Guest</span>
+            </GuestLoginButtonWrapper>
           </div>
-          <div className="termAndService">
-            <div>Terms of Service</div>&nbsp; and &nbsp;
-            <div>Privacy Policy</div>
-          </div>
-        </Col>
-      </LoginModalWrapper>
-    </Modal>
+        </div>
+        <div className="termAndService">
+          <div>Terms of Service</div>&nbsp; and &nbsp;
+          <div>Privacy Policy</div>
+        </div>
+      </Col>
+    </LoginModalWrapper>
   );
 };
 export default LoginModal;
