@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 const SummaryResultPage: NextPage = () => {
   return (
     <SummaryResultContainer
+      onChangeState={() => {}} // for build
       render={({ mode, bestScore, currentScore, summarySection, options }) => {
         return (
           <SummaryResult

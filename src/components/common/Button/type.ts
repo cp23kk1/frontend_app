@@ -4,8 +4,8 @@ import { TIcon } from '../Icon/type';
 const { iconName } = {} as TIcon;
 
 export type TButton = {
-  iconName: typeof iconName;
-  lebel: string;
+  iconName?: typeof iconName;
+  label: string;
   disable?: boolean;
   style?: CSSProperties;
   onClick: () => void;
