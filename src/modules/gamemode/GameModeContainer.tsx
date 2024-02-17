@@ -12,6 +12,8 @@ import settingActions from '../core/setting/setting-actions';
 import userCoreDispatch from '../user/user-core/user-core-dispatch';
 import userCoreSelectors from '../user/user-core/user-core-selectors';
 import user from '../user';
+import scoreDispatch from '../score/score-dispatch';
+import scoreSelectors from '../score/score-selectors';
 
 const GamePlayContainer = ({
   render,
@@ -28,6 +30,7 @@ const GamePlayContainer = ({
   const isUserProfileLoading = useAppSelector(
     userCoreSelectors.isUserProfileLoadingSelector
   );
+  const scoreBoard = useAppSelector(scoreSelectors.scoreBoardSelector);
 
   const modes = useAppSelector(gamemodeCoreSelectors.gameModeSelector);
 
@@ -45,6 +48,7 @@ const GamePlayContainer = ({
   };
 
   useEffect(() => {
+    dispatch(scoreDispatch.getLeaderBoardDispatch());
     if (!userProfile) {
       onChangeState({
         page: 'landing',
@@ -66,12 +70,13 @@ const GamePlayContainer = ({
         userName: userProfile?.displayName
       },
       scoreBoard: {
-        listScore: [
-          { no: 2, score: 999, userName: 'j' },
-          { no: 2, score: 999, userName: 'j' },
-          { no: 2, score: 999, userName: 'j' },
-          { no: 2, score: 999, userName: 'j' }
-        ],
+        listScore: scoreBoard.map((score, index) => {
+          return {
+            no: index + 1,
+            score: score.score,
+            userName: score.displayName
+          };
+        }),
         userScore: { no: 2, score: 999, userName: 'j' }
       }
     }

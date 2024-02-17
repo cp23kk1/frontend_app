@@ -12,6 +12,8 @@ import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
 import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions';
 import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
+import vocabularyActionTypes from '../gameplay/vocabulary/vocabulary-action-types';
+import vocabularyActions from '../gameplay/vocabulary/vocabulary-actions';
 
 const SummaryResultContainer = ({
   render,
@@ -104,6 +106,7 @@ const SummaryResultContainer = ({
         sentences: sentence
       })
     );
+    dispatch(vocabularyActions.clear());
   }, []);
 
   return render({

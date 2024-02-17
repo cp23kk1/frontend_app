@@ -4,6 +4,7 @@ import gamePlayReducer from '@/modules/gameplay';
 import gameModeReducer from '@/modules/gamemode';
 import coreReducer from '@/modules/core';
 import userCoreReducer from '@/modules/user';
+import { reducer as scoreReducer } from '@/modules/score';
 const store = configureStore({
   reducer: {
     //
@@ -11,7 +12,8 @@ const store = configureStore({
     gameplay: gamePlayReducer,
     gamemode: gameModeReducer,
     core: coreReducer,
-    user: userCoreReducer
+    user: userCoreReducer,
+    score: scoreReducer
   },
   devTools: true
 });
