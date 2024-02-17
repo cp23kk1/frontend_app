@@ -11,6 +11,7 @@ import { getPublicPath } from '@/utils/basePath';
 import settingActions from '../core/setting/setting-actions';
 import userCoreDispatch from '../user/user-core/user-core-dispatch';
 import userCoreSelectors from '../user/user-core/user-core-selectors';
+import user from '../user';
 
 const GamePlayContainer = ({
   render,
@@ -61,9 +62,8 @@ const GamePlayContainer = ({
       onClickPlay: handleClickPlay,
       profileTab: {
         onClick: () => {},
-        profilePic:
-          'https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg',
-        userName: 'j'
+        profilePic: userProfile?.image,
+        userName: userProfile?.displayName
       },
       scoreBoard: {
         listScore: [
