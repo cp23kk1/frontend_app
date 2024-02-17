@@ -24,6 +24,9 @@ const GamePlayContainer = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
   const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
+  const isUserProfileLoading = useAppSelector(
+    userCoreSelectors.isUserProfileLoadingSelector
+  );
 
   const modes = useAppSelector(gamemodeCoreSelectors.gameModeSelector);
 
@@ -49,7 +52,7 @@ const GamePlayContainer = ({
         data: {}
       });
     }
-  }, [userProfile]);
+  }, [isUserProfileLoading]);
 
   return render({
     gameModeProps: {
