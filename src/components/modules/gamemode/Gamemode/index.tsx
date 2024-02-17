@@ -55,23 +55,25 @@ const GameMode = ({
           </Col>
         </div>
         <Row className="mode-section">
-          <Swiper
-            spaceBetween={32}
-            slidesPerView={5}
-            centeredSlides
-            loop
-            onSlideChange={(e) => {
-              onSelectMode(e.realIndex);
-            }}
-          >
-            {listMode.map((mode) => {
-              return (
-                <SwiperSlide key={`SwiperSlide-${uuid()}`}>
-                  <Card {...mode}></Card>
-                </SwiperSlide>
-              );
-            })}
-          </Swiper>
+          {listMode.length > 0 && (
+            <Swiper
+              spaceBetween={32}
+              slidesPerView={5}
+              centeredSlides
+              loop
+              onSlideChange={(e) => {
+                onSelectMode(e.realIndex);
+              }}
+            >
+              {listMode.map((mode) => {
+                return (
+                  <SwiperSlide key={`SwiperSlide-${uuid()}`}>
+                    <Card {...mode}></Card>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
         </Row>
         <Row className="bottom-section">
           <Col span={6} className="scoreboard">

@@ -16,11 +16,11 @@ const GameModePage: NextPage = () => {
       onChangeState={(s) => {
         console.log(s);
       }}
-      render={({ gameModeProps, settingModalProps }) => {
+      render={({ gameModeProps }) => {
         return (
           <>
             <GameMode {...gameModeProps}></GameMode>
-            <SettingModal {...settingModalProps} />
+            {/* <SettingModal {...settingModalProps} /> */}
           </>
         );
       }}

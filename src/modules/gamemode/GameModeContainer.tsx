@@ -9,6 +9,8 @@ import gamemodeCoreSelectors from './gamemode-core/gamemode-core-selectors';
 import { selectors as settingSelectors } from '@/modules/core/setting';
 import { getPublicPath } from '@/utils/basePath';
 import settingActions from '../core/setting/setting-actions';
+import userCoreDispatch from '../user/user-core/user-core-dispatch';
+import userCoreSelectors from '../user/user-core/user-core-selectors';
 
 const GamePlayContainer = ({
   render,
@@ -21,23 +23,14 @@ const GamePlayContainer = ({
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
 
   const modes = useAppSelector(gamemodeCoreSelectors.gameModeSelector);
-  const volume = useAppSelector(settingSelectors.volumeSelector);
-  const music = useAppSelector(settingSelectors.musicSelector);
-  const soundEffect = useAppSelector(settingSelectors.soundEffectSelector);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   let currentModeIndex = 0;
 
   const handleChangeMode = (modeIndex: number) => {
     currentModeIndex = modeIndex;
-  };
-  const handleClickSetting = () => {
-    setIsModalOpen(true);
-  };
-  const handleCloseSetting = () => {
-    setIsModalOpen(false);
   };
 
   const handleClickPlay = () => {
@@ -46,12 +39,23 @@ const GamePlayContainer = ({
       data: { mode: modes[currentModeIndex].modeName }
     });
   };
+  useEffect(() => {
+    dispatch(userCoreDispatch.getUserProfileDispatch());
+  }, []);
+  useEffect(() => {
+    if (!userProfile) {
+      onChangeState({
+        page: 'landing',
+        data: {}
+      });
+    }
+  }, [userProfile]);
 
   return render({
     gameModeProps: {
       bestScore: 999,
       listMode: modes,
-      onClickSetting: handleClickSetting,
+      onClickSetting: () => {},
       onSelectMode: handleChangeMode,
       onClickPlay: handleClickPlay,
       profileTab: {

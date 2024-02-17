@@ -42,7 +42,10 @@ export default function Home() {
               render={({ gameModeProps }) => {
                 return (
                   <>
-                    <GameMode {...gameModeProps}></GameMode>
+                    <GameMode
+                      {...gameModeProps}
+                      onClickSetting={onSetting}
+                    ></GameMode>
                     <SettingModal {...settingModal} />
                   </>
                 );
