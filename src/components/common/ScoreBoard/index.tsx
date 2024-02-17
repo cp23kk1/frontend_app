@@ -19,7 +19,7 @@ const ScoreBoard = ({ listScore, userScore }: TScoreBoard) => {
                   {value.no}
                 </Col>
                 <Col span={12} className="username">
-                  {value.userName}
+                  <p>{value.userName}</p>
                 </Col>
                 <Col span={8} className="score">
                   {value.score}
