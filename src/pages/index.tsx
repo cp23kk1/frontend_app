@@ -18,13 +18,14 @@ export default function Home() {
           return (
             <LandingContainer
               onChangeState={onChangeState}
-              render={({ onBegin, onLogin }) => {
+              render={({ onBegin, onLogin, userProfile }) => {
                 return (
                   <>
                     <Landing
                       onBegin={onBegin}
                       onSetting={onSetting}
                       onLogin={onLogin}
+                      userProfile={userProfile}
                     />
 
                     <SettingModal {...settingModal} />

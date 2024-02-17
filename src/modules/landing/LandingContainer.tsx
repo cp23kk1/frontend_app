@@ -1,4 +1,4 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
@@ -9,6 +9,9 @@ import { getGoogleUrl } from '@/utils/getGoogleUrl';
 import authDispatch from '../user/auth/auth-dispatch';
 import LoginModal from '@/components/modules/landing/LoginModal';
 import { modalAlert } from '@/components/common/Modal';
+import userCoreDispatch from '../user/user-core/user-core-dispatch';
+import userCoreSelectors from '../user/user-core/user-core-selectors';
+import { TModal } from '../core/setting/type';
 
 export const LandingContainer = ({
   render,
@@ -19,7 +22,10 @@ export const LandingContainer = ({
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
+  const isUserProfileLoading = useAppSelector(
+    userCoreSelectors.isUserProfileLoadingSelector
+  );
   const onLogin = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
     const modal = modalAlert();
@@ -27,7 +33,7 @@ export const LandingContainer = ({
     modal.render({
       children: LoginModal({
         onClickGoogleLogin: onGoogleLogin,
-        onClickGuestLogin: onGuestLogin,
+        onClickGuestLogin: onGuestLogin(modal),
         onClickPolicy: () => {},
         onClickTerm: () => {}
       })
@@ -35,18 +41,35 @@ export const LandingContainer = ({
   };
 
   const onBegin = () => {
-    onChangeState({ page: 'gamemode' });
+    if (userProfile?.displayName) {
+      onChangeState({ page: 'gamemode' });
+    } else {
+    }
   };
   const onGoogleLogin = () => {
     router.push(getGoogleUrl(router.pathname));
   };
-  const onGuestLogin = () => {
-    dispatch(authDispatch.guestLoginDispatch());
+  const onGuestLogin = (modal: {
+    render: (props: TModal) => void;
+    destroy: () => void;
+  }) => {
+    return () => {
+      dispatch(authDispatch.guestLoginDispatch());
+      modal.destroy();
+    };
   };
+
+  useEffect(() => {
+    dispatch(userCoreDispatch.getUserProfileDispatch());
+  }, []);
 
   return render({
     onLogin,
-    onBegin
+    onBegin,
+    userProfile: {
+      displayName: userProfile?.displayName,
+      image: userProfile?.image
+    }
   });
 };
 export default LandingContainer;

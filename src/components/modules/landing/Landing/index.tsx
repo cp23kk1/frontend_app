@@ -9,8 +9,10 @@ import {
   LandingText
 } from './style';
 import Icon from '@/components/common/Icon';
+import ProfileTab from '@/components/common/ProfileTab';
+import { Col } from '@/components/common/layout/responsive';
 
-const Landing = ({ onLogin, onSetting, onBegin }: TLanding) => {
+const Landing = ({ onLogin, onSetting, onBegin, userProfile }: TLanding) => {
   return (
     <>
       <div
@@ -37,9 +39,18 @@ const Landing = ({ onLogin, onSetting, onBegin }: TLanding) => {
               iconName="SettingLight"
               size={60}
             />
-            <button className="signInButton hover-scale" onClick={onLogin}>
-              Sign in
-            </button>
+            {userProfile?.displayName ? (
+              <ProfileTab
+                style={{ width: 'fit-content', maxWidth: '200px' }}
+                profilePic={userProfile.image}
+                userName={userProfile.displayName}
+                onClick={() => {}}
+              />
+            ) : (
+              <button className="signInButton hover-scale" onClick={onLogin}>
+                Sign in
+              </button>
+            )}
           </div>
 
           <div className="bottom-section">

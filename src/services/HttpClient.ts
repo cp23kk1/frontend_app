@@ -46,7 +46,10 @@ class Http {
               errorStatus: error.response?.status
             })
           });
-        } else if (Number(error.response?.status) >= 400) {
+        } else if (
+          Number(error.response?.status) >= 400 &&
+          Number(error.response?.status) != 401
+        ) {
           modal.render({
             children: ErrorModal({
               errorMessage: error.response?.data.status?.message,

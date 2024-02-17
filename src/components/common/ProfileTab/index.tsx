@@ -2,10 +2,11 @@ import Image from 'next/image';
 import Icon from '../Icon';
 import { ProfileTabWrapper } from './style';
 import { TProfileTab } from './type';
+import { Textfit } from 'react-textfit';
 
-const ProfileTab = ({ profilePic, userName, onClick }: TProfileTab) => {
+const ProfileTab = ({ profilePic, userName, onClick, style }: TProfileTab) => {
   return (
-    <ProfileTabWrapper>
+    <ProfileTabWrapper style={style}>
       <img
         className="profilepic"
         src={profilePic}

@@ -18,6 +18,8 @@ export const ProfileTabWrapper = styled.div`
   }
   .username {
     width: 100%;
+    overflow: auto;
+    text-overflow: ellipsis;
   }
   .icon {
     cursor: pointer;

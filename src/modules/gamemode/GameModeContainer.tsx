@@ -42,9 +42,7 @@ const GamePlayContainer = ({
       data: { mode: modes[currentModeIndex].modeName }
     });
   };
-  useEffect(() => {
-    dispatch(userCoreDispatch.getUserProfileDispatch());
-  }, []);
+
   useEffect(() => {
     if (!userProfile) {
       onChangeState({
