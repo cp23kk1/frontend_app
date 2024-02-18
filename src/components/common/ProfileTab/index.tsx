@@ -1,27 +1,56 @@
 import Image from 'next/image';
 import Icon from '../Icon';
-import { ProfileTabWrapper } from './style';
+import { DropDownWrapper, ProfileTabWrapper } from './style';
 import { TProfileTab } from './type';
 import { Textfit } from 'react-textfit';
+import { useState } from 'react';
+import { useAppDispatch } from '@/hooks';
+import authDispatch from '@/modules/user/auth/auth-dispatch';
 
-const ProfileTab = ({ profilePic, userName, onClick, style }: TProfileTab) => {
+const ProfileTab = ({
+  profilePic,
+  userName,
+  style,
+  onClickLogout,
+  onClickProfile
+}: TProfileTab) => {
+  const dispatch = useAppDispatch();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const handleClickProfileTab = (event: React.MouseEvent<HTMLDivElement>) => {
+    event?.stopPropagation();
+    setIsOpen(!isOpen);
+  };
   return (
-    <ProfileTabWrapper style={style}>
-      <img
-        className="profilepic"
-        src={profilePic}
-        width={48}
-        height={48}
-        alt="profile_pic"
-      />
+    <>
+      <ProfileTabWrapper isOpen={isOpen} style={style}>
+        <img
+          className="profilepic"
+          src={profilePic}
+          width={48}
+          height={48}
+          alt="profile_pic"
+        />
 
-      <div className="username">
-        <p>{userName}</p>
-      </div>
-      <div className="icon" onClick={onClick}>
-        <Icon iconName="ChevronDown" size={13} />
-      </div>
-    </ProfileTabWrapper>
+        <div className="username">
+          <p>{userName}</p>
+        </div>
+        <div onClick={handleClickProfileTab}>
+          <Icon className="icon" iconName="ChevronDown" size={13} />
+        </div>
+      </ProfileTabWrapper>
+      {isOpen && (
+        <DropDownWrapper>
+          <div className="menu">
+            <button className="list" onClick={onClickProfile}>
+              Profile
+            </button>
+          </div>
+          <button className="list" onClick={onClickLogout}>
+            Logout
+          </button>
+        </DropDownWrapper>
+      )}
+    </>
   );
 };
 export default ProfileTab;

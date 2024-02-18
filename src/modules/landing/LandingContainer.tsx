@@ -64,6 +64,15 @@ export const LandingContainer = ({
     };
   };
 
+  const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+    dispatch(authDispatch.logoutDispatch());
+  };
+
+  const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+  };
+
   useEffect(() => {
     dispatch(userCoreDispatch.getUserProfileDispatch());
   }, [isGuestLoginLoading]);
@@ -71,6 +80,8 @@ export const LandingContainer = ({
   return render({
     onLogin,
     onBegin,
+    onClickLogout,
+    onClickProfile,
     userProfile: {
       displayName: userProfile?.displayName,
       image: userProfile?.image

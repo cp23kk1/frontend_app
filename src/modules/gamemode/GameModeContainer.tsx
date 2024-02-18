@@ -14,6 +14,7 @@ import userCoreSelectors from '../user/user-core/user-core-selectors';
 import user from '../user';
 import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
+import authDispatch from '../user/auth/auth-dispatch';
 
 const GamePlayContainer = ({
   render,
@@ -48,6 +49,15 @@ const GamePlayContainer = ({
     });
   };
 
+  const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+    dispatch(authDispatch.logoutDispatch());
+  };
+
+  const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+  };
+
   useEffect(() => {
     dispatch(scoreDispatch.getLeaderBoardDispatch());
     dispatch(scoreDispatch.getBestScoreDispatch());
@@ -67,9 +77,10 @@ const GamePlayContainer = ({
       onSelectMode: handleChangeMode,
       onClickPlay: handleClickPlay,
       profileTab: {
-        onClick: () => {},
         profilePic: userProfile?.image,
-        userName: userProfile?.displayName
+        userName: userProfile?.displayName,
+        onClickLogout,
+        onClickProfile
       },
       scoreBoard: {
         listScore: scoreBoard.map((score, index) => {

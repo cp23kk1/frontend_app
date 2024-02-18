@@ -18,7 +18,13 @@ export default function Home() {
           return (
             <LandingContainer
               onChangeState={onChangeState}
-              render={({ onBegin, onLogin, userProfile }) => {
+              render={({
+                onBegin,
+                onLogin,
+                userProfile,
+                onClickLogout,
+                onClickProfile
+              }) => {
                 return (
                   <>
                     <Landing
@@ -26,6 +32,8 @@ export default function Home() {
                       onSetting={onSetting}
                       onLogin={onLogin}
                       userProfile={userProfile}
+                      onClickLogout={onClickLogout}
+                      onClickProfile={onClickProfile}
                     />
 
                     <SettingModal {...settingModal} />

@@ -28,5 +28,27 @@ export const ProfileTabWrapper = styled.div`
   }
   .icon {
     cursor: pointer;
+    transition: 0.25s;
+    ${({ isOpen }: { isOpen: boolean }) => {
+      return isOpen ? `transform: rotate(180deg);` : ``;
+    }}
+  }
+`;
+
+export const DropDownWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  padding: 16px;
+  .list {
+    border: 0;
+    background: none;
+    text-align: start;
+    font-size: 24px;
+    font-weight: 500;
+    font-family: Fredoka;
+    cursor: pointer;
   }
 `;

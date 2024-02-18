@@ -12,7 +12,14 @@ import Icon from '@/components/common/Icon';
 import ProfileTab from '@/components/common/ProfileTab';
 import { Col } from '@/components/common/layout/responsive';
 
-const Landing = ({ onLogin, onSetting, onBegin, userProfile }: TLanding) => {
+const Landing = ({
+  onLogin,
+  onSetting,
+  onBegin,
+  userProfile,
+  onClickLogout,
+  onClickProfile
+}: TLanding) => {
   return (
     <>
       <div
@@ -44,7 +51,8 @@ const Landing = ({ onLogin, onSetting, onBegin, userProfile }: TLanding) => {
                 style={{ width: 'fit-content', maxWidth: '200px' }}
                 profilePic={userProfile.image}
                 userName={userProfile.displayName}
-                onClick={() => {}}
+                onClickLogout={onClickLogout}
+                onClickProfile={onClickProfile}
               />
             ) : (
               <button className="signInButton hover-scale" onClick={onLogin}>
