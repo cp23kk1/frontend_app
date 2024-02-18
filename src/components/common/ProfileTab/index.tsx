@@ -21,7 +21,7 @@ const ProfileTab = ({
     setIsOpen(!isOpen);
   };
   return (
-    <>
+    <div>
       <ProfileTabWrapper isOpen={isOpen} style={style}>
         <img
           className="profilepic"
@@ -37,20 +37,21 @@ const ProfileTab = ({
         <div onClick={handleClickProfileTab}>
           <Icon className="icon" iconName="ChevronDown" size={13} />
         </div>
-      </ProfileTabWrapper>
-      {isOpen && (
-        <DropDownWrapper>
-          <div className="menu">
-            <button className="list" onClick={onClickProfile}>
-              Profile
+
+        {isOpen && (
+          <div className="dropdown">
+            <div className="menu">
+              <button className="list" onClick={onClickProfile}>
+                Profile
+              </button>
+            </div>
+            <button className="list" onClick={onClickLogout}>
+              Logout
             </button>
           </div>
-          <button className="list" onClick={onClickLogout}>
-            Logout
-          </button>
-        </DropDownWrapper>
-      )}
-    </>
+        )}
+      </ProfileTabWrapper>
+    </div>
   );
 };
 export default ProfileTab;

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 
 export const ProfileTabWrapper = styled.div`
+  position: relative;
   display: flex;
   width: 100%;
   height: 40px;
@@ -13,6 +14,27 @@ export const ProfileTabWrapper = styled.div`
   border-radius: 16px;
   background-color: #fff;
   justify-content: space-between;
+  .dropdown {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: fit-content;
+    border-radius: 0 0 16px 16px;
+    top: 50px;
+    left: 0;
+    gap: 20px;
+    padding: 16px;
+    .list {
+      border: 0;
+      background: none;
+      text-align: start;
+      font-size: 20px;
+      font-weight: 500;
+      font-family: Fredoka;
+      cursor: pointer;
+    }
+  }
   .profilepic {
     border-radius: 16px;
   }
@@ -35,20 +57,4 @@ export const ProfileTabWrapper = styled.div`
   }
 `;
 
-export const DropDownWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 20px;
-  padding: 16px;
-  .list {
-    border: 0;
-    background: none;
-    text-align: start;
-    font-size: 24px;
-    font-weight: 500;
-    font-family: Fredoka;
-    cursor: pointer;
-  }
-`;
+export const DropDownWrapper = styled.div``;
