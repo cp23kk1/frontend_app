@@ -102,7 +102,7 @@ const SummaryResultContainer = ({
 
   return render({
     mode,
-    bestScore: bestScore[0].score,
+    bestScore: bestScore,
     currentScore: gameHistory.current_score,
     summarySection,
     options

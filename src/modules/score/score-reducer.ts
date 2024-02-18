@@ -8,7 +8,7 @@ interface InitialState {
   isScoreBoardLoading: boolean;
   scoreBoard: IWeeklyScoreBoard[];
   isBestScoreLoading: boolean;
-  bestScoreBoard: IBestScoreBoard[];
+  bestScore: number;
 }
 
 const initialState = {
@@ -16,7 +16,7 @@ const initialState = {
   isScoreBoardLoading: false,
   scoreBoard: [],
   isBestScoreLoading: false,
-  bestScoreBoard: []
+  bestScore: 0
 } as InitialState;
 
 const reducer = createReducer(initialState, (builder) => {
@@ -58,7 +58,7 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getBestScoreDispatch.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isBestScoreLoading = false;
-      state.bestScoreBoard = action.payload.data.bestScore;
+      state.bestScore = action.payload.data.bestScore[0].score;
     }
   );
 });

@@ -14,12 +14,9 @@ const isLoadingScoreBoardSelector = createSelector(scoreSelector, (score) => {
   return score.isScoreBoardLoading;
 });
 
-const bestScoreSelector = createSelector(
-  scoreSelector,
-  (score): IBestScoreBoard[] => {
-    return score.scoreBoard;
-  }
-);
+const bestScoreSelector = createSelector(scoreSelector, (score) => {
+  return score.bestScore;
+});
 const isLoadingBestScoreSelector = createSelector(scoreSelector, (score) => {
   return score.isScoreBoardLoading;
 });

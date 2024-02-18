@@ -61,7 +61,7 @@ const GamePlayContainer = ({
 
   return render({
     gameModeProps: {
-      bestScore: bestScore[0].score,
+      bestScore: bestScore,
       listMode: modes,
       onClickSetting: () => {},
       onSelectMode: handleChangeMode,
