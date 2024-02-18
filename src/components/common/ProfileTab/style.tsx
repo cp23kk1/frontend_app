@@ -19,7 +19,7 @@ export const ProfileTabWrapper = styled.div`
     display: flex;
     flex-direction: column;
     background-color: white;
-    width: fit-content;
+    width: 100%;
     border-radius: 0 0 16px 16px;
     top: 50px;
     left: 0;
