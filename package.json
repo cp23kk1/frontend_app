@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -45,6 +46,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
     "eslint-plugin-storybook": "^0.6.15",
+    "husky": "^9.0.11",
     "mini-css-extract-plugin": "^2.7.6",
     "storybook": "7.5.2",
     "typescript": "^5"
