@@ -14,6 +14,8 @@ import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions
 import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
 import vocabularyActionTypes from '../gameplay/vocabulary/vocabulary-action-types';
 import vocabularyActions from '../gameplay/vocabulary/vocabulary-actions';
+import scoreDispatch from '../score/score-dispatch';
+import scoreSelectors from '../score/score-selectors';
 
 const SummaryResultContainer = ({
   render,
@@ -27,18 +29,8 @@ const SummaryResultContainer = ({
   // vocabulary
   // const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
   const dispatch = useAppDispatch();
-  const vocabulary = useAppSelector(
-    gameplayCoreSelectors.currentGameHistorySelector
-  )?.vocabs;
-  const sentence = useAppSelector(
-    gameplayCoreSelectors.currentGameHistorySelector
-  )?.sentences;
-  const passage = useAppSelector(
-    gameplayCoreSelectors.currentGameHistorySelector
-  )?.passages;
-  const gameId = useAppSelector(
-    gameplayCoreSelectors.currentGameHistorySelector
-  )?.gameId;
+
+  const bestScore = useAppSelector(scoreSelectors.bestScoreSelector);
 
   // header
   const gameHistory = useAppSelector(
@@ -46,8 +38,6 @@ const SummaryResultContainer = ({
   );
 
   const mode: string = state.data.mode;
-  const bestScore: number = 999;
-  const currentScore: number = gameHistory.current_score;
 
   // table
   const summarySection: TSummarySection = {
@@ -55,7 +45,7 @@ const SummaryResultContainer = ({
     tabs: [{ childen: 'Vocabulary', isSelected: true, onClick: () => {} }],
     table: {
       columns: ['No.', 'Question', 'Answer'],
-      data: vocabulary.map((item) => {
+      data: gameHistory.vocabs.map((item) => {
         return {
           id: item.vocabularyId,
           word: item.question,
@@ -99,20 +89,21 @@ const SummaryResultContainer = ({
   useEffect(() => {
     dispatch(
       gameResultDispatch.createGameResultDispatch({
-        current_score: currentScore,
-        gameID: gameId,
-        vocabs: vocabulary,
-        passages: passage,
-        sentences: sentence
+        current_score: gameHistory.current_score,
+        gameID: gameHistory.gameId,
+        vocabs: gameHistory.vocabs,
+        passages: gameHistory.passages,
+        sentences: gameHistory.sentences
       })
     );
+    dispatch(scoreDispatch.getBestScoreDispatch());
     dispatch(vocabularyActions.clear());
   }, []);
 
   return render({
     mode,
-    bestScore,
-    currentScore,
+    bestScore: bestScore[0].score,
+    currentScore: gameHistory.current_score,
     summarySection,
     options
   });

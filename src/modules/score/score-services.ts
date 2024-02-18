@@ -22,6 +22,22 @@ export const getTopLeaderBoard = () => {
     });
 };
 
+export interface IBestScoreBoard {
+  score: number;
+  mode?: string;
+}
+export interface IBestScoreBoardResponse {
+  bestScore: IWeeklyScoreBoard[];
+}
+export const getBestScore = () => {
+  return httpClient
+    .get<VocaverseResponseData<IBestScoreBoardResponse>>(`/score/bestscore`)
+    .then((res) => {
+      return res.data;
+    });
+};
+
 export default {
-  getTopLeaderBoard
+  getTopLeaderBoard,
+  getBestScore
 };

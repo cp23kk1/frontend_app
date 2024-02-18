@@ -16,6 +16,20 @@ const getLeaderBoardDispatch = createAsyncThunk(
     }
   }
 );
+
+const getBestScoreDispatch = createAsyncThunk(
+  actionTypes.GET_BEST_SCORE,
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await services.getBestScore();
+
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 export default {
-  getLeaderBoardDispatch
+  getLeaderBoardDispatch,
+  getBestScoreDispatch
 };

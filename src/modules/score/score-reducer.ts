@@ -1,18 +1,22 @@
 import { type PayloadAction, createReducer } from '@reduxjs/toolkit';
 import dispatch from './score-dispatch';
 import actionTypes from './score-action-types';
-import { IWeeklyScoreBoard } from './score-services';
+import { IBestScoreBoard, IWeeklyScoreBoard } from './score-services';
 interface InitialState {
   //
 
   isScoreBoardLoading: boolean;
   scoreBoard: IWeeklyScoreBoard[];
+  isBestScoreLoading: boolean;
+  bestScoreBoard: IBestScoreBoard[];
 }
 
 const initialState = {
   //
   isScoreBoardLoading: false,
-  scoreBoard: []
+  scoreBoard: [],
+  isBestScoreLoading: false,
+  bestScoreBoard: []
 } as InitialState;
 
 const reducer = createReducer(initialState, (builder) => {
@@ -38,6 +42,23 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getLeaderBoardDispatch.rejected,
     (state, action: PayloadAction<any>) => {
       state.isScoreBoardLoading = false;
+    }
+  );
+  builder.addCase(
+    dispatch.getBestScoreDispatch.rejected,
+    (state, action: PayloadAction<any>) => {
+      state.isBestScoreLoading = false;
+    }
+  );
+  builder.addCase(dispatch.getBestScoreDispatch.pending, (state) => {
+    state.isBestScoreLoading = true;
+  });
+
+  builder.addCase(
+    dispatch.getBestScoreDispatch.fulfilled,
+    (state, action: PayloadAction<any>) => {
+      state.isBestScoreLoading = false;
+      state.bestScoreBoard = action.payload.data.bestScore;
     }
   );
 });

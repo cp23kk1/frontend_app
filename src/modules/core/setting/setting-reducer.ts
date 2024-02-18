@@ -30,18 +30,21 @@ const reducer = createReducer(initialState, (builder) => {
     actionTypes.ON_CHANGE_VOLUME,
     (state, action: PayloadAction<string>) => {
       state.volume = action.payload;
+      localStorage.setItem('volume', action.payload);
     }
   );
   builder.addCase(
     actionTypes.ON_CHANGE_MUSIC,
     (state, action: PayloadAction<string>) => {
       state.music = action.payload;
+      localStorage.setItem('music', action.payload);
     }
   );
   builder.addCase(
     actionTypes.ON_CHANGE_SOUNDEFFECT,
     (state, action: PayloadAction<string>) => {
       state.soundEffect = action.payload;
+      localStorage.setItem('soundEffect', action.payload);
     }
   );
 });

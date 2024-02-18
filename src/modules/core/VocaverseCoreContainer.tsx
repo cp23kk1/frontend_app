@@ -1,14 +1,16 @@
 import { TSettingModal } from '@/components/common/SettingModal/type';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { getPublicPath } from '@/utils/basePath';
 import { ReactNode, useEffect, useState } from 'react';
 import settingSelectors from './setting/setting-selectors';
+import settingActions from './setting/setting-actions';
 
 export const LandingContainer = ({
   render
 }: {
   render: (props: TVocaverseCore) => ReactNode;
 }) => {
+  const dispatch = useAppDispatch();
   const [state, setState] = useState<TState>({ page: 'landing' });
   const [isModalSettingOpen, setIsModalSettingOpen] = useState<boolean>(false);
   const volume = useAppSelector(settingSelectors.volumeSelector);
@@ -26,6 +28,17 @@ export const LandingContainer = ({
   const onChangeState = (inputState: TState) => {
     setState(inputState);
   };
+  useEffect(() => {
+    dispatch(
+      settingActions.onChangeVolume(localStorage.getItem('volume') ?? 0)
+    );
+    dispatch(settingActions.onChangeMusic(localStorage.getItem('music') ?? 0));
+    dispatch(
+      settingActions.onChangeSoundEffect(
+        localStorage.getItem('soundEffect') ?? 0
+      )
+    );
+  }, []);
 
   return render({
     state,

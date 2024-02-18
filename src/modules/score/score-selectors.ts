@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
-import { IWeeklyScoreBoard } from './score-services';
+import { IBestScoreBoard, IWeeklyScoreBoard } from './score-services';
 
 const scoreSelector = (state: RootState) => state.score;
 
@@ -14,8 +14,20 @@ const isLoadingScoreBoardSelector = createSelector(scoreSelector, (score) => {
   return score.isScoreBoardLoading;
 });
 
+const bestScoreSelector = createSelector(
+  scoreSelector,
+  (score): IBestScoreBoard[] => {
+    return score.scoreBoard;
+  }
+);
+const isLoadingBestScoreSelector = createSelector(scoreSelector, (score) => {
+  return score.isScoreBoardLoading;
+});
+
 export default {
   scoreSelector,
   scoreBoardSelector,
-  isLoadingScoreBoardSelector
+  bestScoreSelector,
+  isLoadingScoreBoardSelector,
+  isLoadingBestScoreSelector
 };

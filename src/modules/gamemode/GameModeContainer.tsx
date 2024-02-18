@@ -31,6 +31,7 @@ const GamePlayContainer = ({
     userCoreSelectors.isUserProfileLoadingSelector
   );
   const scoreBoard = useAppSelector(scoreSelectors.scoreBoardSelector);
+  const bestScore = useAppSelector(scoreSelectors.bestScoreSelector);
 
   const modes = useAppSelector(gamemodeCoreSelectors.gameModeSelector);
 
@@ -49,6 +50,7 @@ const GamePlayContainer = ({
 
   useEffect(() => {
     dispatch(scoreDispatch.getLeaderBoardDispatch());
+    dispatch(scoreDispatch.getBestScoreDispatch());
     if (!userProfile) {
       onChangeState({
         page: 'landing',
@@ -59,7 +61,7 @@ const GamePlayContainer = ({
 
   return render({
     gameModeProps: {
-      bestScore: 999,
+      bestScore: bestScore[0].score,
       listMode: modes,
       onClickSetting: () => {},
       onSelectMode: handleChangeMode,
