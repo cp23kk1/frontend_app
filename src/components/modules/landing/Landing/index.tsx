@@ -46,10 +46,10 @@ const Landing = ({
               iconName="SettingLight"
               size={60}
             />
-            {userProfile?.displayName || true ? (
+            {userProfile?.displayName ? (
               <ProfileTab
-                profilePic={userProfile.image || 'asdfasdf'}
-                userName={userProfile.displayName || ' asdfasdf'}
+                profilePic={userProfile.image}
+                userName={userProfile.displayName}
                 onClickLogout={onClickLogout}
                 onClickProfile={onClickProfile}
               />
