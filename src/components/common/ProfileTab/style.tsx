@@ -12,28 +12,41 @@ export const ProfileTabWrapper = styled.div`
   font-family: Fredoka;
   padding: 10px 12px;
   align-items: center;
-  border-radius: 16px;
+  cursor: pointer;
+  ${({ isOpen }: { isOpen: boolean }) => {
+    return isOpen ? `border-radius: 16px 16px 0 0;` : `border-radius: 16px;`;
+  }}
+
   background-color: #fff;
   justify-content: space-between;
 
   .dropdown {
     position: absolute;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
+
     width: 100%;
-    border-radius: 0 0 16px 16px;
-    top: 47px;
+    top: 60px;
     right: 0;
-    .list {
-      border: 0;
-      background: none;
-      text-align: start;
-      font-size: 20px;
-      font-weight: 500;
-      font-family: Fredoka;
-      cursor: pointer;
+    .dropdown-content {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      border-radius: 0 0 16px 16px;
       padding: 10px 16px;
+      gap: 10px;
+
+      .list {
+        border: 0;
+        background: none;
+        text-align: start;
+        font-size: 20px;
+        font-weight: 500;
+        font-family: Fredoka;
+        cursor: pointer;
+        transition: 0.25s;
+      }
+      .list:hover {
+        scale: 1.1;
+      }
     }
   }
   .profilepic {
@@ -50,7 +63,6 @@ export const ProfileTabWrapper = styled.div`
     text-overflow: ellipsis;
   }
   .icon {
-    cursor: pointer;
     transition: 0.25s;
     ${({ isOpen }: { isOpen: boolean }) => {
       return isOpen ? `transform: rotate(180deg);` : ``;

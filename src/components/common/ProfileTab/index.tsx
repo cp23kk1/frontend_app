@@ -22,7 +22,11 @@ const ProfileTab = ({
   };
   return (
     <div>
-      <ProfileTabWrapper isOpen={isOpen} style={style}>
+      <ProfileTabWrapper
+        isOpen={isOpen}
+        style={style}
+        onClick={handleClickProfileTab}
+      >
         <img
           className="profilepic"
           src={profilePic}
@@ -34,20 +38,20 @@ const ProfileTab = ({
         <div className="username">
           <p>{userName}</p>
         </div>
-        <div onClick={handleClickProfileTab}>
-          <Icon className="icon" iconName="ChevronDown" size={13} />
-        </div>
+
+        <Icon className="icon" iconName="ChevronDown" size={13} />
 
         {isOpen && (
           <div className="dropdown">
-            <div className="menu">
+            <div className="dropdown-content">
               <button className="list" onClick={onClickProfile}>
                 Profile
               </button>
+
+              <button className="list" onClick={onClickLogout}>
+                Logout
+              </button>
             </div>
-            <button className="list" onClick={onClickLogout}>
-              Logout
-            </button>
           </div>
         )}
       </ProfileTabWrapper>

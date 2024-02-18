@@ -13,6 +13,7 @@ import userCoreDispatch from '../user/user-core/user-core-dispatch';
 import userCoreSelectors from '../user/user-core/user-core-selectors';
 import { TModal } from '../core/setting/type';
 import authSelectors from '../user/auth/auth-selectors';
+import authActions from '../user/auth/auth-actions';
 
 export const LandingContainer = ({
   render,
@@ -67,6 +68,7 @@ export const LandingContainer = ({
   const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
     dispatch(authDispatch.logoutDispatch());
+    dispatch(authActions.clear());
   };
 
   const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
