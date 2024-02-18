@@ -17,7 +17,8 @@ type Story = StoryObj<typeof meta>;
 export const GameModeSelection: Story = {
   args: {
     profileTab: {
-      onClick: () => {},
+      onClickLogout: () => {},
+      onClickProfile: () => {},
       profilePic:
         'https://images-ext-2.discordapp.net/external/dJJmLhUHryvqdKpU2GSg7ry6JojgwknW3lplFgm9ees/https/yuedpao.com/wp-content/uploads/2022/10/BLACK-e1666063217355-jpg.webp?format=webp&width=676&height=676',
       userName: 'j'
