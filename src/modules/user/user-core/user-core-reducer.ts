@@ -38,6 +38,7 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getUserProfileDispatch.rejected,
     (state, action: PayloadAction<any>) => {
       state.isUserProfileLoading = false;
+      state.userProfile = undefined;
     }
   );
 });
