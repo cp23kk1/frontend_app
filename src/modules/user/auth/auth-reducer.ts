@@ -6,11 +6,13 @@ import dispatch from './auth-dispatch';
 interface InitialState {
   //
   isGuestLoginLoading: boolean;
+  isLogoutLoading: boolean;
 }
 
 const initialState = {
   //
-  isGuestLoginLoading: false
+  isGuestLoginLoading: false,
+  isLogoutLoading: false
 } as InitialState;
 
 const reducer = createReducer(initialState, (builder) => {
@@ -24,6 +26,16 @@ const reducer = createReducer(initialState, (builder) => {
   });
   builder.addCase(dispatch.guestLoginDispatch.rejected, (state) => {
     state.isGuestLoginLoading = false;
+  });
+
+  builder.addCase(dispatch.logoutDispatch.pending, (state) => {
+    state.isLogoutLoading = true;
+  });
+  builder.addCase(dispatch.logoutDispatch.fulfilled, (state) => {
+    state.isLogoutLoading = false;
+  });
+  builder.addCase(dispatch.logoutDispatch.rejected, (state) => {
+    state.isLogoutLoading = false;
   });
 });
 

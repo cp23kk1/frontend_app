@@ -5,7 +5,7 @@ import services from './auth-services';
 import actionTypes from './auth-action-types';
 
 const guestLoginDispatch = createAsyncThunk(
-  actionTypes.GET_RAND_VOCAB,
+  actionTypes.GUEST,
   async (_, { rejectWithValue }) => {
     try {
       await services.guestLogin();
@@ -15,7 +15,7 @@ const guestLoginDispatch = createAsyncThunk(
   }
 );
 const logoutDispatch = createAsyncThunk(
-  actionTypes.GET_RAND_VOCAB,
+  actionTypes.LOGOUT,
   async (_, { rejectWithValue }) => {
     try {
       await services.logout();
@@ -25,7 +25,7 @@ const logoutDispatch = createAsyncThunk(
   }
 );
 const refreshDispatch = createAsyncThunk(
-  actionTypes.GET_RAND_VOCAB,
+  actionTypes.REFRESH,
   async (_, { rejectWithValue }) => {
     try {
       await services.refresh();

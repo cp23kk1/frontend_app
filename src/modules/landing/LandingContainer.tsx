@@ -29,6 +29,7 @@ export const LandingContainer = ({
   const isGuestLoginLoading = useAppSelector(
     authSelectors.isGuestLoginLoadingSelector
   );
+  const isLogoutLoading = useAppSelector(authSelectors.isLogoutLoading);
   const isUserProfileLoading = useAppSelector(
     userCoreSelectors.isUserProfileLoadingSelector
   );
@@ -78,7 +79,7 @@ export const LandingContainer = ({
 
   useEffect(() => {
     dispatch(userCoreDispatch.getUserProfileDispatch());
-  }, [isGuestLoginLoading]);
+  }, [isGuestLoginLoading, isLogoutLoading]);
 
   return render({
     onLogin,
