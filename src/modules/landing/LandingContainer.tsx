@@ -14,6 +14,7 @@ import userCoreSelectors from '../user/user-core/user-core-selectors';
 import { TModal } from '../core/setting/type';
 import authSelectors from '../user/auth/auth-selectors';
 import authActions from '../user/auth/auth-actions';
+import userCoreActions from '../user/user-core/user-core-actions';
 
 export const LandingContainer = ({
   render,
@@ -68,7 +69,7 @@ export const LandingContainer = ({
   const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
     dispatch(authDispatch.logoutDispatch());
-    dispatch(authActions.clear());
+    dispatch(userCoreActions.clear());
   };
 
   const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
