@@ -1,16 +1,13 @@
-// import { createSelector } from '@reduxjs/toolkit';
-// import type { RootState } from '@/store';
-// import { TGameHistory } from './type';
+import { createSelector } from '@reduxjs/toolkit';
+import type { RootState } from '@/store';
+import { TGameHistory } from './type';
 
-// const gameplayCoreSelector = (state: RootState) => state.gameplay.gameplayCore;
+const authSelector = (state: RootState) => state.user.auth;
 
-// const currentGameHistorySelector = createSelector(
-//   gameplayCoreSelector,
-//   (gamePlay): TGameHistory => {
-//     return gamePlay.currentGameHistory;
-//   }
-// );
-// export default {
-//   gameplayCoreSelector,
-//   currentGameHistorySelector
-// };
+const isGuestLoginLoadingSelector = createSelector(authSelector, (auth) => {
+  return auth.isGuestLoginLoading;
+});
+export default {
+  authSelector,
+  isGuestLoginLoadingSelector
+};

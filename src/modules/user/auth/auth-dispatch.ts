@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import services from './auth-services';
 import actionTypes from './auth-action-types';
+
 const guestLoginDispatch = createAsyncThunk(
   actionTypes.GET_RAND_VOCAB,
   async (_, { rejectWithValue }) => {

@@ -32,17 +32,34 @@ class Http {
 
     http.interceptors.response.use(
       (response) => {
-        if (Number(response.status) === 401) {
-        }
-
         return response;
       },
       (error: AxiosError<VocaverseResponseData>) => {
         const modal = modalAlert();
-        if (Number(error.response?.status) >= 500) {
+        console.log(error.config?.url);
+        if (
+          Number(error.response?.status) == 401 &&
+          error.config?.url !== '/auth/refresh'
+        ) {
+          return new Promise(async (resolve, reject) => {
+            try {
+              let response = await http.post(`/auth/refresh`);
+              resolve(response);
+            } catch (error) {
+              reject(error);
+            }
+          })
+            .then((response) => {
+              //this i want to call orginal request
+              return http(error.config || {});
+            })
+            .catch((error) => {
+              return Promise.reject(error);
+            });
+        } else if (Number(error.response?.status) >= 500) {
           modal.render({
             children: ErrorModal({
-              errorMessage: 'Please contact admin:',
+              errorMessage: 'Please contact admin.',
               errorStatus: error.response?.status
             })
           });

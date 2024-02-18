@@ -12,6 +12,7 @@ import { modalAlert } from '@/components/common/Modal';
 import userCoreDispatch from '../user/user-core/user-core-dispatch';
 import userCoreSelectors from '../user/user-core/user-core-selectors';
 import { TModal } from '../core/setting/type';
+import authSelectors from '../user/auth/auth-selectors';
 
 export const LandingContainer = ({
   render,
@@ -23,6 +24,9 @@ export const LandingContainer = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
   const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
+  const isGuestLoginLoading = useAppSelector(
+    authSelectors.isGuestLoginLoadingSelector
+  );
   const isUserProfileLoading = useAppSelector(
     userCoreSelectors.isUserProfileLoadingSelector
   );
@@ -44,6 +48,7 @@ export const LandingContainer = ({
     if (userProfile?.displayName) {
       onChangeState({ page: 'gamemode' });
     } else {
+      onLogin();
     }
   };
   const onGoogleLogin = () => {
@@ -61,7 +66,7 @@ export const LandingContainer = ({
 
   useEffect(() => {
     dispatch(userCoreDispatch.getUserProfileDispatch());
-  }, []);
+  }, [isGuestLoginLoading]);
 
   return render({
     onLogin,
