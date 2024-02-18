@@ -48,7 +48,6 @@ const Landing = ({
             />
             {userProfile?.displayName ? (
               <ProfileTab
-                style={{ width: 'fit-content', maxWidth: '200px' }}
                 profilePic={userProfile.image}
                 userName={userProfile.displayName}
                 onClickLogout={onClickLogout}

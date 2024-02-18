@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 export const ProfileTabWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 100%;
+  width: fit-content;
+  max-width: 200px;
   height: 40px;
   gap: 12px;
   font-size: 24px;
@@ -14,6 +15,7 @@ export const ProfileTabWrapper = styled.div`
   border-radius: 16px;
   background-color: #fff;
   justify-content: space-between;
+
   .dropdown {
     position: absolute;
     display: flex;
@@ -21,10 +23,8 @@ export const ProfileTabWrapper = styled.div`
     background-color: white;
     width: 100%;
     border-radius: 0 0 16px 16px;
-    top: 50px;
-    left: 0;
-    gap: 20px;
-    padding: 16px;
+    top: 47px;
+    right: 0;
     .list {
       border: 0;
       background: none;
@@ -33,6 +33,7 @@ export const ProfileTabWrapper = styled.div`
       font-weight: 500;
       font-family: Fredoka;
       cursor: pointer;
+      padding: 10px 16px;
     }
   }
   .profilepic {
