@@ -15,6 +15,7 @@ import user from '../user';
 import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
 import authDispatch from '../user/auth/auth-dispatch';
+import authSelectors from '../user/auth/auth-selectors';
 
 const GamePlayContainer = ({
   render,
@@ -31,6 +32,7 @@ const GamePlayContainer = ({
   const isUserProfileLoading = useAppSelector(
     userCoreSelectors.isUserProfileLoadingSelector
   );
+  const isLogoutLoading = useAppSelector(authSelectors.isLogoutLoading);
   const scoreBoard = useAppSelector(scoreSelectors.scoreBoardSelector);
   const userScore = useAppSelector(scoreSelectors.userScoreBoardSelector);
   const bestScore = useAppSelector(scoreSelectors.bestScoreSelector);
@@ -68,7 +70,7 @@ const GamePlayContainer = ({
         data: {}
       });
     }
-  }, [isUserProfileLoading]);
+  }, [isUserProfileLoading, isLogoutLoading]);
 
   return render({
     gameModeProps: {
