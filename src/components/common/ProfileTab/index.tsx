@@ -1,11 +1,9 @@
 import Image from 'next/image';
 import Icon from '../Icon';
-import { DropDownWrapper, ProfileTabWrapper } from './style';
+import { ProfileTabWrapper } from './style';
 import { TProfileTab } from './type';
-import { Textfit } from 'react-textfit';
 import { useState } from 'react';
 import { useAppDispatch } from '@/hooks';
-import authDispatch from '@/modules/user/auth/auth-dispatch';
 
 const ProfileTab = ({
   profilePic,

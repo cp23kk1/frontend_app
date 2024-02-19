@@ -33,7 +33,7 @@ export const ProfileTabWrapper = styled.div`
       border-radius: 0 0 16px 16px;
       padding: 10px 16px;
       gap: 10px;
-
+      z-index: 50;
       .list {
         border: 0;
         background: none;
@@ -69,5 +69,3 @@ export const ProfileTabWrapper = styled.div`
     }}
   }
 `;
-
-export const DropDownWrapper = styled.div``;
