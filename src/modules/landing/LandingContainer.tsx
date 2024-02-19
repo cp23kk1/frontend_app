@@ -70,7 +70,6 @@ export const LandingContainer = ({
   const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
     dispatch(authDispatch.logoutDispatch());
-    dispatch(userCoreActions.clear());
   };
 
   const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
