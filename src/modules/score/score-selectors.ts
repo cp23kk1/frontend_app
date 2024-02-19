@@ -21,13 +21,14 @@ const userScoreBoardSelector = createSelector(
   scoreSelector,
   (score): TScoreBoardRow => {
     return {
-      no: score.scoreBoard.includes(
-        score.userScoreBoard || ({} as IWeeklyScoreBoard)
-      )
-        ? score.scoreBoard.findIndex(
-            (value) => value.scoreId === score.userScoreBoard?.scoreId
-          ) + 1
-        : '-',
+      no:
+        score.scoreBoard.findIndex(
+          (value) => value.scoreId === score.userScoreBoard?.scoreId
+        ) >= 0
+          ? score.scoreBoard.findIndex(
+              (value) => value.scoreId === score.userScoreBoard?.scoreId
+            ) + 1
+          : '-',
       score: score.userScoreBoard ? score.userScoreBoard.score : '-',
       userName: score.userScoreBoard ? score.userScoreBoard.displayName : '-'
     };

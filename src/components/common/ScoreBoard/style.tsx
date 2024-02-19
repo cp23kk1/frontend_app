@@ -58,8 +58,12 @@ export const ScoreBoardWrapper = styled.div`
     border-radius: 32px;
     display: flex;
       padding: 0 8px;
-      .username {
-        text-align: start;
+      .username >p {
+          margin: 0;
+          text-align: start;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
       }
       .score {
         text-align: center;
