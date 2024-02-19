@@ -3,6 +3,7 @@ import { httpClient } from '@/services/HttpClient';
 import { VocaverseResponseData } from '@/types/vocaverse/api/response';
 
 export interface IWeeklyScoreBoard {
+  scoreId: number;
   score: number;
   week: number;
   startDate: string;
@@ -12,6 +13,7 @@ export interface IWeeklyScoreBoard {
 }
 export interface IWeeklyScoreBoardResponse {
   weeklyScore: IWeeklyScoreBoard[];
+  userScore: IWeeklyScoreBoard;
 }
 
 export const getTopLeaderBoard = () => {

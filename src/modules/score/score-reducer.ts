@@ -7,6 +7,7 @@ interface InitialState {
 
   isScoreBoardLoading: boolean;
   scoreBoard: IWeeklyScoreBoard[];
+  userScoreBoard?: IWeeklyScoreBoard;
   isBestScoreLoading: boolean;
   bestScore: number;
 }
@@ -15,6 +16,7 @@ const initialState = {
   //
   isScoreBoardLoading: false,
   scoreBoard: [],
+  userScoreBoard: undefined,
   isBestScoreLoading: false,
   bestScore: 0
 } as InitialState;
@@ -35,6 +37,7 @@ const reducer = createReducer(initialState, (builder) => {
     (state, action: PayloadAction<any>) => {
       state.isScoreBoardLoading = false;
       state.scoreBoard = action.payload.data.weeklyScore;
+      state.userScoreBoard = action.payload.data.userScore;
     }
   );
 

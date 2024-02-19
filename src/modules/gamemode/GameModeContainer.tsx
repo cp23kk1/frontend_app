@@ -32,6 +32,7 @@ const GamePlayContainer = ({
     userCoreSelectors.isUserProfileLoadingSelector
   );
   const scoreBoard = useAppSelector(scoreSelectors.scoreBoardSelector);
+  const userScore = useAppSelector(scoreSelectors.userScoreBoardSelector);
   const bestScore = useAppSelector(scoreSelectors.bestScoreSelector);
 
   const modes = useAppSelector(gamemodeCoreSelectors.gameModeSelector);
@@ -83,14 +84,8 @@ const GamePlayContainer = ({
         onClickProfile
       },
       scoreBoard: {
-        listScore: scoreBoard.map((score, index) => {
-          return {
-            no: index + 1,
-            score: score.score,
-            userName: score.displayName
-          };
-        }),
-        userScore: { no: 2, score: 999, userName: 'j' }
+        listScore: scoreBoard,
+        userScore: userScore
       }
     }
   });

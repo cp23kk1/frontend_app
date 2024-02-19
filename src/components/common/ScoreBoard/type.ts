@@ -6,8 +6,8 @@ export type TScoreBoard = {
   userScore: TScoreBoardRow;
 };
 
-type TScoreBoardRow = {
-  no: number;
+export type TScoreBoardRow = {
+  no: string | number;
   userName: string;
-  score: number;
+  score: string | number;
 };
