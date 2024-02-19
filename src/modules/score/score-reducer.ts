@@ -58,7 +58,10 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getBestScoreDispatch.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isBestScoreLoading = false;
-      state.bestScore = action.payload.data.bestScore[0].score;
+
+      state.bestScore = action.payload.data.bestScore
+        ? action.payload.data.bestScore[0].score
+        : 0;
     }
   );
 });
