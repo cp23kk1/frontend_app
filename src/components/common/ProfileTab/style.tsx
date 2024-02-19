@@ -22,6 +22,7 @@ export const ProfileTabWrapper = styled.div`
 
   .dropdown {
     position: absolute;
+    z-index: 2;
 
     width: 100%;
     top: 60px;
@@ -33,7 +34,6 @@ export const ProfileTabWrapper = styled.div`
       border-radius: 0 0 16px 16px;
       padding: 10px 16px;
       gap: 10px;
-      z-index: 50;
       .list {
         border: 0;
         background: none;
