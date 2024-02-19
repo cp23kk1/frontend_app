@@ -70,7 +70,7 @@ const GamePlayContainer = ({
         data: {}
       });
     }
-  }, [isUserProfileLoading, isLogoutLoading]);
+  }, [isUserProfileLoading, userProfile]);
 
   return render({
     gameModeProps: {
