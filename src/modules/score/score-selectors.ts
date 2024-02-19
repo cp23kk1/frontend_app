@@ -7,7 +7,7 @@ const scoreSelector = (state: RootState) => state.score;
 const scoreBoardSelector = createSelector(
   scoreSelector,
   (score): IWeeklyScoreBoard[] => {
-    return score.scoreBoard;
+    return score.scoreBoard ?? [];
   }
 );
 const isLoadingScoreBoardSelector = createSelector(scoreSelector, (score) => {
