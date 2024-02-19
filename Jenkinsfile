@@ -63,7 +63,7 @@ pipeline {
         stage('Clear Storage') {
             steps {
                 script {
-                    sh "docker image prune -a -f"
+                    sh "docker system prune -a -f"
                 }
             }
         }
