@@ -72,6 +72,10 @@ const GamePlayContainer = ({
     }
   }, [isUserProfileLoading, userProfile]);
 
+  useEffect(() => {
+    dispatch(userCoreDispatch.getUserProfileDispatch());
+  }, [isLogoutLoading]);
+
   return render({
     gameModeProps: {
       bestScore: bestScore,
