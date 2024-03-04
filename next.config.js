@@ -40,6 +40,7 @@ const rewrites = () => {
 // Next.js Configuration
 /** @type {import('next').NextConfig} */
 let nextConfig = {
+  images: { remotePatterns: [{ hostname: '**' }] },
   swcMinify: true,
   // publicRuntimeConfig: { basePath },
   basePath: basePath,

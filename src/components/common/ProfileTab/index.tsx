@@ -12,7 +12,6 @@ const ProfileTab = ({
   onClickLogout,
   onClickProfile
 }: TProfileTab) => {
-  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const handleClickProfileTab = (event: React.MouseEvent<HTMLDivElement>) => {
     event?.stopPropagation();
@@ -25,9 +24,9 @@ const ProfileTab = ({
         style={style}
         onClick={handleClickProfileTab}
       >
-        <img
+        <Image
           className="profilepic"
-          src={profilePic}
+          src={`${profilePic || ''}`}
           width={48}
           height={48}
           alt="profile_pic"
