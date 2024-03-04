@@ -26,7 +26,7 @@ const ProfileTab = ({
       >
         <Image
           className="profilepic"
-          src={`${profilePic || ''}`}
+          src={`${profilePic ?? ''}`}
           width={48}
           height={48}
           alt="profile_pic"
