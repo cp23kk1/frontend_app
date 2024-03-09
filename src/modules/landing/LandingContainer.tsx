@@ -1,60 +1,94 @@
-import { ReactNode, useState } from 'react';
-import { useAppDispatch } from '@/hooks';
+import { ReactNode, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
-import { actions as modalActions } from '../core/modal';
+import { actions as modalActions } from '../core/setting';
 import { TState } from '../core/VocaverseCoreContainer';
-import { ILandingContainer } from './type';
+import { TLandingContainer } from './type';
 import { getGoogleUrl } from '@/utils/getGoogleUrl';
 import authDispatch from '../user/auth/auth-dispatch';
+import LoginModal from '@/components/modules/landing/LoginModal';
+import { modalAlert } from '@/components/common/Modal';
+import userCoreDispatch from '../user/user-core/user-core-dispatch';
+import userCoreSelectors from '../user/user-core/user-core-selectors';
+import { TModal } from '../core/setting/type';
+import authSelectors from '../user/auth/auth-selectors';
+import authActions from '../user/auth/auth-actions';
+import userCoreActions from '../user/user-core/user-core-actions';
 
 export const LandingContainer = ({
   render,
   onChangeState
 }: {
-  render: (props: ILandingContainer) => ReactNode;
+  render: (props: TLandingContainer) => ReactNode;
   onChangeState: (input: TState) => void;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-  const [isModalLoginOpen, setIsModalLoginOpen] = useState<boolean>(false);
-  const _handleSetModalLogin = (bool: boolean) => {
-    setIsModalLoginOpen(bool);
-  };
-  const onCloseModal = (event?: React.MouseEvent<HTMLButtonElement>) => {
-    _handleSetModalLogin(false);
-  };
+  const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
+  const isGuestLoginLoading = useAppSelector(
+    authSelectors.isGuestLoginLoadingSelector
+  );
+  const isLogoutLoading = useAppSelector(authSelectors.isLogoutLoading);
+  const isUserProfileLoading = useAppSelector(
+    userCoreSelectors.isUserProfileLoadingSelector
+  );
   const onLogin = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
-    _handleSetModalLogin(true);
+    const modal = modalAlert();
+
+    modal.render({
+      children: LoginModal({
+        onClickGoogleLogin: onGoogleLogin,
+        onClickGuestLogin: onGuestLogin(modal),
+        onClickPolicy: () => {},
+        onClickTerm: () => {}
+      })
+    });
   };
-  const onSetting = (event?: React.MouseEvent<HTMLButtonElement>) => {
-    event?.stopPropagation();
-    dispatch(modalActions.onOpen('SettingMenu'));
-  };
+
   const onBegin = () => {
-    // router.push(getPublicPathPageRounting('/gameplay'));
-    onChangeState('gameplay');
+    if (userProfile?.displayName) {
+      onChangeState({ page: 'gamemode' });
+    } else {
+      onLogin();
+    }
   };
   const onGoogleLogin = () => {
-    // const a = document.createElement('a');
-    // a.href = getGoogleUrl(router.pathname);
-    // a.click();
     router.push(getGoogleUrl(router.pathname));
   };
-  const onGuestLogin = () => {
-    dispatch(authDispatch.guestLoginDispatch());
+  const onGuestLogin = (modal: {
+    render: (props: TModal) => void;
+    destroy: () => void;
+  }) => {
+    return () => {
+      dispatch(authDispatch.guestLoginDispatch());
+      modal.destroy();
+    };
   };
+
+  const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+    dispatch(authDispatch.logoutDispatch());
+  };
+
+  const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+  };
+
+  useEffect(() => {
+    dispatch(userCoreDispatch.getUserProfileDispatch());
+  }, [isGuestLoginLoading, isLogoutLoading]);
 
   return render({
     onLogin,
-    onSetting,
     onBegin,
-    onCloseModal,
-    onGoogleLogin,
-    onGuestLogin,
-    isModalLoginOpen
+    onClickLogout,
+    onClickProfile,
+    userProfile: {
+      displayName: userProfile?.displayName,
+      image: userProfile?.image
+    }
   });
 };
 export default LandingContainer;

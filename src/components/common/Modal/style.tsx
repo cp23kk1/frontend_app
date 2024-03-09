@@ -1,15 +1,13 @@
 import styled from '@emotion/styled';
 
 export const ModalWrapper = styled.div`
-  ${({ isOpen }: { isOpen: boolean }) => {
+  ${({ isOpen }: { isOpen?: boolean }) => {
     return isOpen
-      ? `opacity: 1;`
+      ? `display:flex;`
       : `
-    pointer-events: none;
-    opacity: 0;
+ display:none;
     `;
   }}
-  display: flex;
   transition: opacity 0.25s ease-in-out;
   justify-content: center;
   position: fixed;

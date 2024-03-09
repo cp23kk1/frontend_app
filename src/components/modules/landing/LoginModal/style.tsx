@@ -5,30 +5,37 @@ export const LoginModalWrapper = styled.div`
   justify-content: center;
   .loginContent {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 64px;
+    padding: 12px 0;
+    height: auto;
+    .top {
+      display: flex;
+      height: 60%;
+      flex-direction: column;
+      align-items: center;
+      justify-content: end;
+      gap: 64px;
+    }
     .getStart {
       display: flex;
-      align-items: end;
       color: #000;
       font-family: Poppins;
       font-size: 24px;
       font-style: normal;
       font-weight: 700;
       line-height: normal;
-      height: 30%;
     }
     .loginButtons {
       display: flex;
       align-items: center;
       flex-direction: column;
       gap: 22px;
-      width: 60%;
     }
     .termAndService {
       display: flex;
       align-items: end;
-      height: 30%;
       font-family: Roboto;
       font-size: 16px;
       font-style: normal;

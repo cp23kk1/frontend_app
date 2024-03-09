@@ -12,5 +12,9 @@ export const iconFiles = {
   ProfileLight: getPublicPath('/icon/ProfileLight.svg'),
   Retry: getPublicPath('/icon/Retry.svg'),
   SettingDark: getPublicPath('/icon/SettingDark.svg'),
-  SettingLight: getPublicPath('/icon/SettingLight.svg')
+  SettingLight: getPublicPath('/icon/SettingLight.svg'),
+  ArrowRight: getPublicPath('/icon/ArrowRight.svg'),
+  Crown: getPublicPath('/icon/Crown.svg'),
+  ChevronDown: getPublicPath('/icon/ChevronDown.svg'),
+  Speaker: getPublicPath('/icon/Speaker.svg')
 } as { [key: string]: any };

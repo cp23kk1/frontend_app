@@ -18,16 +18,18 @@ import {
 
 import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
-import { actions as modalActions } from '../core/modal';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
+import { current } from '@reduxjs/toolkit';
 
 const GamePlayContainer = ({
   render,
-  onChangeState
+  onChangeState,
+  state
 }: {
   render: (props: TGamePlayContainer) => ReactNode;
   onChangeState: (input: TState) => void;
+  state: TState;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -86,8 +88,9 @@ const GamePlayContainer = ({
       const newAnswer: TGamePlayAnswerButton[] = [
         { children: vocabulary[currentIndex].meaning, state: 'normal' },
         ...vocabulary
-          .filter((_, index) => index !== currentIndex)
+          .filter((_, index: number) => index !== currentIndex)
           .sort(() => 0.5 - Math.random())
+          // number of answer
           .splice(0, 1)
           .map((value): TGamePlayAnswerButton => {
             return { children: value.meaning, state: 'normal' };
@@ -118,7 +121,6 @@ const GamePlayContainer = ({
     );
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
-
       _calculateHealth(correctness, meaning);
     }, 1000);
   };
@@ -130,6 +132,9 @@ const GamePlayContainer = ({
       _handleChangePlayerHealth(playerHealth - 10);
     }
     updateGameHistory(correctness, meaning);
+    if (currentGameHistory.vocabs.length > vocabulary.length / 2) {
+      dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
+    }
   };
   const updateGameHistory = (correctness: boolean, meaning: string) => {
     dispatch(
@@ -148,7 +153,7 @@ const GamePlayContainer = ({
     );
   };
   const onPause = () => {
-    dispatch(modalActions.onOpen('PauseMenu'));
+    // dispatch(modalActions.onOpen('PauseMenu'));
   };
 
   //useEffect
@@ -162,12 +167,12 @@ const GamePlayContainer = ({
 
   useEffect(() => {
     if (playerHealth === 0) {
-      dispatch(modalActions.onOpen('GAMEOVER'));
+      // dispatch(modalActions.onOpen('GAMEOVER'));
 
       setTimeout(() => {
-        dispatch(modalActions.onClose());
+        // dispatch(modalActions.onClose());
         // router.push(getPublicPathPageRounting('/summary'));
-        onChangeState('summary');
+        onChangeState({ ...state, page: 'summary' });
       }, 1000);
     }
     if (enemyHealth === 0) {

@@ -3,8 +3,7 @@ import styled from '@emotion/styled';
 export const AnimationSectionWrapper = styled.div`
   width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 584px;
+  justify-content: space-around;
   z-index: 1;
   .player {
     display: flex;

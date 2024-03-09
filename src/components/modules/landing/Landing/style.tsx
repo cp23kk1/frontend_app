@@ -3,19 +3,30 @@ import styled from '@emotion/styled';
 export const LandingBackgroundWrapper = styled.div`
   display: flex;
   padding: 16px;
-  gap: 275px;
-  max-height: 100%;
+  height: 96.6vh;
+  max-height: 100vh;
   flex-direction: column;
+  justify-content: space-between;
   .top-wrapper {
     display: flex;
     justify-content: end;
     align-items: center;
     gap: 16px;
+    .signInButton {
+      border: 0;
+      border-radius: 16px;
+      padding: 0 24px;
+      font-size: 20px;
+      font-family: Audiowide;
+      background-color: #fff;
+      height: 48px;
+    }
   }
   .bottom-wrapper {
     display: flex;
     flex-direction: column;
-    gap: 64px;
+    justify-content: space-between;
+    height: 85%;
   }
   .landing-text-wrapper {
     display: flex;

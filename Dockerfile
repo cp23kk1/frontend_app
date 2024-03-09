@@ -1,12 +1,5 @@
-FROM node:20-alpine AS deps
-WORKDIR /app
-
-COPY package.json ./
-RUN  npm install --production
-
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ARG APP_VERSION
@@ -15,7 +8,7 @@ ENV APP_VERSION=${APP_VERSION}
 ENV ENVIRONMENT=${ENV}
 
 ENV NEXT_TELEMETRY_DISABLED 1
-RUN yarn add --exact --cwd /app --dev @types/node
+RUN yarn install
 RUN yarn build
 
 FROM node:20-alpine AS runner

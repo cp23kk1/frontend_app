@@ -1,4 +1,7 @@
 import type { Preview } from '@storybook/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import '@/styles/globals.css';
 
 const preview: Preview = {
   parameters: {

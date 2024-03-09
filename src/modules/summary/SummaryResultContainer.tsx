@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
 import { selectors as vocabularySelectors } from '../gameplay/vocabulary';
@@ -10,33 +10,34 @@ import { TGameOverFooter } from '@/components/modules/summary/GameOverFooter/typ
 import { TSummarySection } from '@/components/modules/summary/SummarySection/type';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
+import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions';
+import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
+import vocabularyActionTypes from '../gameplay/vocabulary/vocabulary-action-types';
+import vocabularyActions from '../gameplay/vocabulary/vocabulary-actions';
+import scoreDispatch from '../score/score-dispatch';
+import scoreSelectors from '../score/score-selectors';
 
 const SummaryResultContainer = ({
   render,
-  onChangeState
+  onChangeState,
+  state
 }: {
   render: (props: TSummaryResultContainer) => ReactNode;
   onChangeState: (input: TState) => void;
+  state: TState;
 }) => {
-  const router = useRouter();
-
   // vocabulary
   // const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
+  const dispatch = useAppDispatch();
 
-  const vocabulary = useAppSelector(
-    gameplayCoreSelectors.currentGameHistorySelector
-  )?.vocabs;
+  const bestScore = useAppSelector(scoreSelectors.bestScoreSelector);
 
   // header
   const gameHistory = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector
   );
 
-  const mode: string = 'Single Player';
-  // const bestScore: number = gameHistory?.current_score ?? 0;
-  // const currentScore: number = gameHistory?.current_score ?? 0;
-  const bestScore: number = 999 ?? 0;
-  const currentScore: number = gameHistory.current_score;
+  const mode: string = state.data.mode;
 
   // table
   const summarySection: TSummarySection = {
@@ -44,7 +45,7 @@ const SummaryResultContainer = ({
     tabs: [{ childen: 'Vocabulary', isSelected: true, onClick: () => {} }],
     table: {
       columns: ['No.', 'Question', 'Answer'],
-      data: vocabulary.map((item) => {
+      data: gameHistory.vocabs.map((item) => {
         return {
           id: item.vocabularyId,
           word: item.question,
@@ -67,35 +68,42 @@ const SummaryResultContainer = ({
         label: 'Home',
         onClick: () =>
           // router.push(getPublicPathPageRounting('/'))
-          onChangeState('landing')
+          onChangeState({ page: 'landing' })
       },
       {
         iconName: 'Retry',
         label: 'Retry',
-        onClick: () =>
-          // router.push(getPublicPathPageRounting('/gameplay'))
-          onChangeState('gameplay')
+        onClick: () => {
+          dispatch(gameplayCoreActions.clear());
+          onChangeState({ ...state, page: 'gameplay' });
+        }
       },
       {
         iconName: 'Menu',
         label: 'Mode',
-        onClick: () => console.log(getPublicPathPageRounting('Mode clicked!'))
+        onClick: () => onChangeState({ page: 'gamemode' })
       }
     ]
   };
 
   useEffect(() => {
-    let bool =
-      gameHistory.current_score === 0 && gameHistory.vocabs.length === 0;
-    if (bool) {
-      router.push(getPublicPathPageRounting('/'));
-    }
+    dispatch(
+      gameResultDispatch.createGameResultDispatch({
+        current_score: gameHistory.current_score,
+        gameID: gameHistory.gameId,
+        vocabs: gameHistory.vocabs,
+        passages: gameHistory.passages,
+        sentences: gameHistory.sentences
+      })
+    );
+    dispatch(scoreDispatch.getBestScoreDispatch());
+    dispatch(vocabularyActions.clear());
   }, []);
 
   return render({
     mode,
-    bestScore,
-    currentScore,
+    bestScore: bestScore,
+    currentScore: gameHistory.current_score,
     summarySection,
     options
   });

@@ -1,8 +1,7 @@
 import createAction from '@/utils/createAction';
-import actionTypes from './modal-action-types';
+import actionTypes from './game-result-action-types';
 
 export default createAction({
   clear: actionTypes.CLEAR,
-  onOpen: actionTypes.ON_OPEN,
-  onClose: actionTypes.ON_CLOSE
+  createGameResult: actionTypes.CREATE_GAME_RESULT
 });

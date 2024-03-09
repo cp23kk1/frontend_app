@@ -1,8 +1,10 @@
+import { TSettingModal } from '@/components/common/SettingModal/type';
 import { TLanding } from '@/components/modules/landing/Landing/type';
 
-export interface ILandingContainer extends TLanding {
-  onCloseModal: () => void;
-  onGoogleLogin: () => void;
-  onGuestLogin: () => void;
-  isModalLoginOpen: boolean;
-}
+export type TLandingContainer = {
+  onLogin: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onBegin: () => void;
+  onClickLogout: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClickProfile: (e?: React.MouseEvent<HTMLButtonElement>) => void;
+  userProfile: { displayName?: string; image?: string };
+};

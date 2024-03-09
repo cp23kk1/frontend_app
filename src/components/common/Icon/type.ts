@@ -13,7 +13,11 @@ export type TIcon = {
     | 'ProfileLight'
     | 'Retry'
     | 'SettingDark'
-    | 'SettingLight';
+    | 'SettingLight'
+    | 'ArrowRight'
+    | 'Crown'
+    | 'ChevronDown'
+    | 'Speaker';
   size?: number;
   style?: CSSProperties;
   onClick?: () => void;

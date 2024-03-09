@@ -1,5 +1,5 @@
 import createActionTypes from '@/utils/createActionTypes';
-const modulePath = 'modules/auth';
+const modulePath = 'modules/user/auth';
 export default createActionTypes(modulePath, [
   'CLEAR',
   'GUEST',

@@ -12,7 +12,7 @@ export const SummarySectionWrapper = styled.div`
   }
   .table-section {
     width: 1704px;
-    height: 512px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;

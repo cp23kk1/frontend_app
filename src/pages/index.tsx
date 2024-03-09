@@ -1,8 +1,11 @@
+import SettingModal from '@/components/common/SettingModal';
+import GameMode from '@/components/modules/gamemode/Gamemode';
 import GamePlay from '@/components/modules/gameplay/GamePlay';
 import Landing from '@/components/modules/landing/Landing';
 import LoginModal from '@/components/modules/landing/LoginModal';
 import SummaryResult from '@/components/modules/summary/SummaryResult';
 import VocaverseCoreContainer from '@/modules/core/VocaverseCoreContainer';
+import GameModeContainer from '@/modules/gamemode/GameModeContainer';
 import GamePlayContainer from '@/modules/gameplay/GamePlayContainer';
 import LandingContainer from '@/modules/landing/LandingContainer';
 import SummaryResultContainer from '@/modules/summary/SummaryResultContainer';
@@ -10,19 +13,17 @@ import SummaryResultContainer from '@/modules/summary/SummaryResultContainer';
 export default function Home() {
   return (
     <VocaverseCoreContainer
-      render={({ state, onChangeState }) => {
-        if (state === 'landing') {
+      render={({ state, onChangeState, onSetting, settingModal }) => {
+        if (state.page === 'landing') {
           return (
             <LandingContainer
               onChangeState={onChangeState}
               render={({
                 onBegin,
                 onLogin,
-                onSetting,
-                onCloseModal,
-                onGoogleLogin,
-                onGuestLogin,
-                isModalLoginOpen
+                userProfile,
+                onClickLogout,
+                onClickProfile
               }) => {
                 return (
                   <>
@@ -30,24 +31,41 @@ export default function Home() {
                       onBegin={onBegin}
                       onSetting={onSetting}
                       onLogin={onLogin}
+                      userProfile={userProfile}
+                      onClickLogout={onClickLogout}
+                      onClickProfile={onClickProfile}
                     />
-                    <LoginModal
-                      isModalOpen={isModalLoginOpen}
-                      onClickGoogleLogin={onGoogleLogin}
-                      onClickGuestLogin={onGuestLogin}
-                      onClickPolicy={() => {}}
-                      onClickTerm={() => {}}
-                      onClose={onCloseModal}
-                    />
+
+                    <SettingModal {...settingModal} />
                   </>
                 );
               }}
             />
           );
         }
-        if (state === 'gameplay') {
+        if (state.page === 'gamemode') {
+          return (
+            <GameModeContainer
+              state={state}
+              onChangeState={onChangeState}
+              render={({ gameModeProps }) => {
+                return (
+                  <>
+                    <GameMode
+                      {...gameModeProps}
+                      onClickSetting={onSetting}
+                    ></GameMode>
+                    <SettingModal {...settingModal} />
+                  </>
+                );
+              }}
+            />
+          );
+        }
+        if (state.page === 'gameplay') {
           return (
             <GamePlayContainer
+              state={state}
               onChangeState={onChangeState}
               render={({
                 knowLedgeSection,
@@ -67,10 +85,11 @@ export default function Home() {
             />
           );
         }
-        if (state === 'summary') {
+        if (state.page === 'summary') {
           return (
             <SummaryResultContainer
               onChangeState={onChangeState}
+              state={state}
               render={({
                 mode,
                 bestScore,
