@@ -10,15 +10,15 @@ export interface IGameResultRequest {
   passages: IGameResultPassage[];
 }
 export interface IGameResultVocabulary {
-  vocabularyId: number;
+  vocabularyId: string;
   correctness: boolean;
 }
 export interface IGameResultSentence {
-  sentenceId: number;
+  sentenceId: string;
   correctness: boolean;
 }
 export interface IGameResultPassage {
-  passageId: number;
+  passageId: string;
   correctness: boolean;
 }
 

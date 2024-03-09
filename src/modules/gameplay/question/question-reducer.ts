@@ -1,17 +1,23 @@
 import { type PayloadAction, createReducer } from '@reduxjs/toolkit';
-import dispatch from './vocabulary-dispatch';
-import actionTypes from './vocabulary-action-types';
-import { IVocabulary } from './vocabulary-services';
+import dispatch from './question-dispatch';
+import actionTypes from './question-action-types';
+import {
+  IQuestionSinglePlayerResponse,
+  IVocabulary
+} from './question-services';
 interface InitialState {
   //
 
   isVocabularyLoading: boolean;
+  isQuestionsLoading: boolean;
   vocabulary: IVocabulary[];
+  question?: IQuestionSinglePlayerResponse;
 }
 
 const initialState = {
   //
   isVocabularyLoading: false,
+  isQuestionsLoading: false,
   vocabulary: []
 } as InitialState;
 
@@ -38,6 +44,24 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getRandomVocabularyDispatch.rejected,
     (state, action: PayloadAction<any>) => {
       state.isVocabularyLoading = false;
+    }
+  );
+  builder.addCase(dispatch.getQuestionSinglePlayerDispatch.pending, (state) => {
+    state.isQuestionsLoading = true;
+  });
+
+  builder.addCase(
+    dispatch.getQuestionSinglePlayerDispatch.fulfilled,
+    (state, action: PayloadAction<any>) => {
+      state.isQuestionsLoading = false;
+      state.question = action.payload.data;
+    }
+  );
+
+  builder.addCase(
+    dispatch.getQuestionSinglePlayerDispatch.rejected,
+    (state, action: PayloadAction<any>) => {
+      state.isQuestionsLoading = false;
     }
   );
 });

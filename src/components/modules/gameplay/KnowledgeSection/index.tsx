@@ -14,8 +14,8 @@ const KnowLedgeSection = ({
   answers,
   onAnswer
 }: TKnowLedgeSection) => {
-  const _handleAnswer = (meaning: string) => {
-    onAnswer(meaning);
+  const _handleAnswer = (meaning: string, correctness: boolean) => {
+    onAnswer(meaning, correctness);
   };
   return (
     <KnowLedgeSectionWrapper style={style}>
@@ -31,7 +31,7 @@ const KnowLedgeSection = ({
               <AnswerButton
                 {...answer}
                 onClick={() => {
-                  _handleAnswer(answer.children);
+                  _handleAnswer(answer.children, answer.correctness);
                 }}
               />
             </Col>

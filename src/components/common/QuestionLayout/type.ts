@@ -4,7 +4,7 @@ export type TQuestionLayout = {
   question: ReactNode;
   style?: CSSProperties;
   type?: 'sentence' | 'vocabulary' | 'passage';
-  pos: TPos;
+  pos: string;
 };
 export type TPos =
   | 'verb'

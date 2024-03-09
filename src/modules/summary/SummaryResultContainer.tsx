@@ -2,7 +2,7 @@ import { ReactNode, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
-import { selectors as vocabularySelectors } from '../gameplay/vocabulary';
+import { selectors as vocabularySelectors } from '../gameplay/question';
 import { selectors as gameplayCoreSelectors } from '../gameplay/gameplay-core';
 
 import { useRouter } from 'next/router';
@@ -12,8 +12,7 @@ import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
 import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions';
 import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
-import vocabularyActionTypes from '../gameplay/vocabulary/vocabulary-action-types';
-import vocabularyActions from '../gameplay/vocabulary/vocabulary-actions';
+import vocabularyActions from '../gameplay/question/question-actions';
 import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
 

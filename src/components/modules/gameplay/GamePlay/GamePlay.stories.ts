@@ -26,12 +26,13 @@ export const NormalQuestion: Story = {
       answers: [
         {
           children: 'คำถาม',
+          correctness: true,
 
           state: 'correct'
         },
         {
           children: 'คำตอบ',
-
+          correctness: true,
           state: 'incorrect'
         }
       ]

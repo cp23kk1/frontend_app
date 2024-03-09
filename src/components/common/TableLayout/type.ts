@@ -1,9 +1,9 @@
-import { IVocabulary } from '@/modules/gameplay/vocabulary/vocabulary-services';
+import { IVocabulary } from '@/modules/gameplay/question/question-services';
 
 export type TTable = {
   columns: string[];
   data: Pick<IVocabulary, 'id' | 'word' | 'meaning'>[];
-  onClick: (id: number) => void;
+  onClick: (id: string) => void;
   moreinfo?: { label: string; isShow: boolean };
 };
 

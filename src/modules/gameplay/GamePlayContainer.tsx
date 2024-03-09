@@ -10,17 +10,14 @@ import { TAnimationSection } from '@/components/common/AnimationSection/type';
 import {
   dispatch as vocabularyDispatch,
   selectors as vocabularySelectors
-} from './vocabulary';
+} from './question';
 import {
   selectors as gameplayCoreSelectors,
   actions as gameplayCoreActions
 } from './gameplay-core';
 
-import { TPos } from '@/components/common/QuestionLayout/type';
 import { useRouter } from 'next/router';
-import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
-import { current } from '@reduxjs/toolkit';
 
 const GamePlayContainer = ({
   render,
@@ -36,8 +33,12 @@ const GamePlayContainer = ({
 
   // vocabulary
   const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
+  const questions = useAppSelector(vocabularySelectors.questionsSeletor);
   const isLoadingVocabulary = useAppSelector(
     vocabularySelectors.isLoadingVocabularySelector
+  );
+  const isLoadingQuestion = useAppSelector(
+    vocabularySelectors.isQuestionsLoadingSelector
   );
   const currentGameHistory = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector
@@ -46,7 +47,7 @@ const GamePlayContainer = ({
   // knowledge section
   const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([]);
   const [question, setQuestion] = useState<ReactNode>('');
-  const [pos, setPos] = useState<TPos | undefined>();
+  const [pos, setPos] = useState<string | undefined>();
   const [type, setType] = useState<
     'sentence' | 'vocabulary' | 'passage' | undefined
   >('vocabulary');
@@ -73,7 +74,7 @@ const GamePlayContainer = ({
   const _handleChangeQuestion = (inputQuestions: ReactNode) => {
     setQuestion(inputQuestions);
   };
-  const _handleChangePos = (inputPos: TPos | undefined) => {
+  const _handleChangePos = (inputPos: string | undefined) => {
     setPos(inputPos);
   };
   const _handleChangeType = (
@@ -84,73 +85,111 @@ const GamePlayContainer = ({
 
   //question logic
   const _addQuestion = () => {
-    if (vocabulary[currentIndex]) {
-      const newAnswer: TGamePlayAnswerButton[] = [
-        { children: vocabulary[currentIndex].meaning, state: 'normal' },
-        ...vocabulary
-          .filter((_, index: number) => index !== currentIndex)
-          .sort(() => 0.5 - Math.random())
-          // number of answer
-          .splice(0, 1)
-          .map((value): TGamePlayAnswerButton => {
-            return { children: value.meaning, state: 'normal' };
-          })
-      ];
+    if (questions?.questions[currentIndex]) {
+      const currQuestion = questions?.questions[currentIndex];
+      const newAnswer: TGamePlayAnswerButton[] = questions?.questions[
+        currentIndex
+      ].answers.map((value) => {
+        return {
+          children: value.answer,
+          state: 'normal',
+          correctness: value.correctness
+        };
+      });
       _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
-      _handleChangeQuestion(vocabulary[currentIndex].word);
-      _handleChangePos(vocabulary[currentIndex].pos);
-      _handleChangeType('vocabulary');
+      _handleChangeQuestion(currQuestion.question);
+      _handleChangePos(currQuestion.pos);
+      _handleChangeType(currQuestion.questionsType);
     }
+    // if (vocabulary[currentIndex]) {
+    //   const newAnswer: TGamePlayAnswerButton[] = [
+    //     { children: vocabulary[currentIndex].meaning, state: 'normal' },
+    //     ...vocabulary
+    //       .filter((_, index: number) => index !== currentIndex)
+    //       .sort(() => 0.5 - Math.random())
+    //       // number of answer
+    //       .splice(0, 1)
+    //       .map((value): TGamePlayAnswerButton => {
+    //         return { children: value.meaning, state: 'normal' };
+    //       })
+    //   ];
+    //   _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
+    //   _handleChangeQuestion(vocabulary[currentIndex].word);
+    //   _handleChangePos(vocabulary[currentIndex].pos);
+    //   _handleChangeType('vocabulary');
+    // }
   };
-  const _validateAnswer = (meaning: string) => {
-    const correctness = vocabulary[currentIndex].meaning === meaning;
+  const _validateAnswer = (answer: string, correctness: boolean) => {
     _handleChangeAnswers(
       answers.map((value) => {
         return correctness
           ? {
               ...value,
               disabled: true,
-              state: value.children === meaning ? 'correct' : 'normal'
+              state: value.children === answer ? 'correct' : 'normal'
             }
           : {
               ...value,
               disabled: true,
-              state: value.children === meaning ? 'incorrect' : 'normal'
+              state: value.children === answer ? 'incorrect' : 'normal'
             };
       })
     );
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
-      _calculateHealth(correctness, meaning);
+      _calculateHealth(correctness, answer);
     }, 1000);
   };
-  const _calculateHealth = (correctness: boolean, meaning: string) => {
+  const _calculateHealth = (correctness: boolean, answer: string) => {
     if (correctness) {
       _handleChangeEnemyHealth(enemyHealth - 10);
       _handleChangeScore(score + 1);
     } else {
       _handleChangePlayerHealth(playerHealth - 10);
     }
-    updateGameHistory(correctness, meaning);
+    updateGameHistory(correctness, answer);
     if (currentGameHistory.vocabs.length > vocabulary.length / 2) {
       dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
     }
   };
-  const updateGameHistory = (correctness: boolean, meaning: string) => {
-    dispatch(
-      gameplayCoreActions.changeGameHistory({
-        gameId: currentGameHistory?.gameId,
-        current_score: correctness ? score + 1 : score,
-        vocabs: currentGameHistory?.vocabs.concat({
-          vocabularyId: vocabulary[currentIndex].id,
-          answer: meaning,
-          question: vocabulary[currentIndex].word,
-          correctness: correctness
-        }),
-        sentences: [],
-        passages: []
-      })
-    );
+  const updateGameHistory = (correctness: boolean, answer: string) => {
+    const currQuestion = questions?.questions[currentIndex];
+    switch (currQuestion?.questionsType) {
+      case 'vocabulary': {
+        dispatch(
+          gameplayCoreActions.changeGameHistory({
+            gameId: currentGameHistory?.gameId,
+            current_score: correctness ? score + 1 : score,
+            vocabs: currentGameHistory?.vocabs.concat({
+              vocabularyId: currQuestion.dataId,
+              answer: answer,
+              question: currQuestion.question,
+              correctness: correctness
+            }),
+            sentences: currentGameHistory?.sentences,
+            passages: currentGameHistory?.passages
+          })
+        );
+        break;
+      }
+      case 'sentence': {
+        dispatch(
+          gameplayCoreActions.changeGameHistory({
+            gameId: currentGameHistory?.gameId,
+            current_score: correctness ? score + 1 : score,
+            vocabs: currentGameHistory?.vocabs,
+            sentences: currentGameHistory?.sentences.concat({
+              sentenceId: currQuestion.dataId,
+              answer: answer,
+              question: currQuestion.question,
+              correctness: correctness
+            }),
+            passages: currentGameHistory?.passages
+          })
+        );
+        break;
+      }
+    }
   };
   const onPause = () => {
     // dispatch(modalActions.onOpen('PauseMenu'));
@@ -159,11 +198,12 @@ const GamePlayContainer = ({
   //useEffect
   useEffect(() => {
     dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
+    dispatch(vocabularyDispatch.getQuestionSinglePlayerDispatch());
   }, []);
 
   useEffect(() => {
     _addQuestion();
-  }, [isLoadingVocabulary, currentIndex]);
+  }, [isLoadingVocabulary, isLoadingQuestion, currentIndex]);
 
   useEffect(() => {
     if (playerHealth === 0) {

@@ -20,52 +20,52 @@ export const Summary: Story = {
       columns: ['No.', 'Question', 'Answer', ''],
       data: [
         {
-          id: 2,
+          id: '2',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 1,
+          id: '1',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 2,
+          id: '2',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 1,
+          id: '1',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 2,
+          id: '2',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 1,
+          id: '1',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 2,
+          id: '2',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 1,
+          id: '1',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 2,
+          id: '2',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         },
         {
-          id: 1,
+          id: '1',
           word: 'Vocabulary',
           meaning: 'คำตอบ'
         }

@@ -6,13 +6,14 @@ export type TKnowLedgeSection = {
   question: ReactNode;
   style?: CSSProperties;
   type?: 'sentence' | 'vocabulary' | 'passage';
-  pos?: TPos;
+  pos?: string;
   answers: TGamePlayAnswerButton[];
-  onAnswer: (meaning: string) => void;
+  onAnswer: (answer: string, correctness: boolean) => void;
 };
 export type TGamePlayAnswerButton = {
   children: string;
   style?: CSSProperties;
   disabled?: boolean;
+  correctness: boolean;
   state: 'correct' | 'incorrect' | 'normal';
 };
