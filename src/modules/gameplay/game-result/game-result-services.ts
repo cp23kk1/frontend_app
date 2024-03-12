@@ -16,6 +16,7 @@ export interface IGameResultVocabulary {
 export interface IGameResultSentence {
   sentenceId: string;
   correctness: boolean;
+  answerId: string;
 }
 export interface IGameResultPassage {
   passageId: string;

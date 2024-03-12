@@ -76,17 +76,17 @@ export const Summary: Story = {
     },
     tabs: [
       {
-        childen: 'Vocabulary',
+        children: 'Vocabulary',
         isSelected: true,
         onClick: () => console.log('Clicked!')
       },
       {
-        childen: 'Sentence',
+        children: 'Sentence',
         isSelected: false,
         onClick: () => console.log('Clicked!')
       },
       {
-        childen: 'Passage',
+        children: 'Passage',
         isSelected: false,
         onClick: () => console.log('Clicked!')
       }

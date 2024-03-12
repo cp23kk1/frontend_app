@@ -22,6 +22,7 @@ export interface IQuestion {
   dataId: string;
   question: string;
   answers: IAnswer[];
+  correctAnswerId: string;
   pos?: string;
   questionsType: 'vocabulary' | 'sentence' | 'passage';
 }

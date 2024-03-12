@@ -32,7 +32,6 @@ const GamePlayContainer = ({
   const router = useRouter();
 
   // vocabulary
-  const vocabulary = useAppSelector(vocabularySelectors.vocabularySelector);
   const questions = useAppSelector(vocabularySelectors.questionsSeletor);
   const isLoadingVocabulary = useAppSelector(
     vocabularySelectors.isLoadingVocabularySelector
@@ -85,9 +84,9 @@ const GamePlayContainer = ({
 
   //question logic
   const _addQuestion = () => {
-    if (questions?.questions[currentIndex]) {
-      const currQuestion = questions?.questions[currentIndex];
-      const newAnswer: TGamePlayAnswerButton[] = questions?.questions[
+    if (questions[currentIndex]) {
+      const currQuestion = questions[currentIndex];
+      const newAnswer: TGamePlayAnswerButton[] = questions[
         currentIndex
       ].answers.map((value) => {
         return {
@@ -101,23 +100,6 @@ const GamePlayContainer = ({
       _handleChangePos(currQuestion.pos);
       _handleChangeType(currQuestion.questionsType);
     }
-    // if (vocabulary[currentIndex]) {
-    //   const newAnswer: TGamePlayAnswerButton[] = [
-    //     { children: vocabulary[currentIndex].meaning, state: 'normal' },
-    //     ...vocabulary
-    //       .filter((_, index: number) => index !== currentIndex)
-    //       .sort(() => 0.5 - Math.random())
-    //       // number of answer
-    //       .splice(0, 1)
-    //       .map((value): TGamePlayAnswerButton => {
-    //         return { children: value.meaning, state: 'normal' };
-    //       })
-    //   ];
-    //   _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
-    //   _handleChangeQuestion(vocabulary[currentIndex].word);
-    //   _handleChangePos(vocabulary[currentIndex].pos);
-    //   _handleChangeType('vocabulary');
-    // }
   };
   const _validateAnswer = (answer: string, correctness: boolean) => {
     _handleChangeAnswers(
@@ -148,12 +130,13 @@ const GamePlayContainer = ({
       _handleChangePlayerHealth(playerHealth - 10);
     }
     updateGameHistory(correctness, answer);
-    if (currentGameHistory.vocabs.length > vocabulary.length / 2) {
+    if (currentGameHistory.vocabs.length > questions.length / 2) {
       dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
+      dispatch(vocabularyDispatch.getQuestionSinglePlayerDispatch());
     }
   };
   const updateGameHistory = (correctness: boolean, answer: string) => {
-    const currQuestion = questions?.questions[currentIndex];
+    const currQuestion = questions[currentIndex];
     switch (currQuestion?.questionsType) {
       case 'vocabulary': {
         dispatch(
@@ -181,6 +164,7 @@ const GamePlayContainer = ({
             sentences: currentGameHistory?.sentences.concat({
               sentenceId: currQuestion.dataId,
               answer: answer,
+              answerId: currQuestion.correctAnswerId,
               question: currQuestion.question,
               correctness: correctness
             }),

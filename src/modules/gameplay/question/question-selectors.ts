@@ -1,6 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 import type { RootState } from '@/store';
 import {
+  IQuestion,
   IQuestionSinglePlayerResponse,
   IVocabulary
 } from './question-services';
@@ -16,14 +17,11 @@ const vocabularySelector = createSelector(
 
 const questionsSeletor = createSelector(
   gameplayQuestionSelector,
-  (gamePlay): IQuestionSinglePlayerResponse | undefined => {
-    if (gamePlay.question) {
-      let temp: IQuestionSinglePlayerResponse = {
-        passageQuestion: gamePlay.question.passageQuestion,
-        questions: gamePlay.question.questions
-      };
+  (gamePlay): IQuestion[] => {
+    if (gamePlay.questions) {
+      let temp: IQuestion[] = gamePlay.questions;
 
-      temp.questions = temp.questions.map((question) => {
+      temp = temp.map((question) => {
         let correctAnswer = question.answers.find(
           (answer) => answer.correctness
         );
@@ -37,10 +35,9 @@ const questionsSeletor = createSelector(
               : question.question
         };
       });
-      console.log(temp);
       return temp;
     }
-    return undefined;
+    return [];
   }
 );
 const isLoadingVocabularySelector = createSelector(

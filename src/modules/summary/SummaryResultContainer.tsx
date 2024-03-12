@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
@@ -15,6 +15,7 @@ import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
 import vocabularyActions from '../gameplay/question/question-actions';
 import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
+import { TTab } from '@/components/modules/summary/Tab/type';
 
 const SummaryResultContainer = ({
   render,
@@ -37,20 +38,68 @@ const SummaryResultContainer = ({
   );
 
   const mode: string = state.data.mode;
+  const [currentTab, setCurrentTab] = useState<string>('Vocabulary');
+
+  const onSelectTab = (inputTab: string) => {
+    setCurrentTab(inputTab);
+  };
+  const tabs: TTab[] = [
+    {
+      children: 'Vocabulary',
+      isSelected: currentTab === 'Vocabulary',
+      onClick: onSelectTab
+    },
+    {
+      children: 'Sentence',
+      isSelected: currentTab === 'Sentence',
+      onClick: onSelectTab
+    },
+    {
+      children: 'Passage',
+      isSelected: currentTab === 'Passage',
+      onClick: onSelectTab
+    }
+  ];
 
   // table
   const summarySection: TSummarySection = {
     //TODO: hard code, need improve later
-    tabs: [{ childen: 'Vocabulary', isSelected: true, onClick: () => {} }],
+    tabs: tabs.filter((tab) => {
+      let vocabBool = gameHistory.vocabs.length > 0;
+      let sentenceBool = gameHistory.sentences.length > 0;
+      let passageBool = gameHistory.passages.length > 0;
+      return tab.children === 'Vocabulary'
+        ? vocabBool
+        : tab.children === 'Sentence'
+        ? sentenceBool
+        : passageBool;
+    }),
     table: {
       columns: ['No.', 'Question', 'Answer'],
-      data: gameHistory.vocabs.map((item) => {
-        return {
-          id: item.vocabularyId,
-          word: item.question,
-          meaning: item.answer
-        };
-      }),
+      data:
+        currentTab === 'Vocabulary'
+          ? gameHistory.vocabs.map((item) => {
+              return {
+                id: item.vocabularyId,
+                word: item.question,
+                meaning: item.answer
+              };
+            })
+          : currentTab === 'Sentence'
+          ? gameHistory.sentences.map((item) => {
+              return {
+                id: item.sentenceId,
+                word: item.question,
+                meaning: item.answer
+              };
+            })
+          : gameHistory.passages.map((item) => {
+              return {
+                id: item.passageId,
+                word: item.question,
+                meaning: item.answer
+              };
+            }),
       onClick: () => {},
       moreinfo: {
         label: 'More info',
@@ -95,13 +144,17 @@ const SummaryResultContainer = ({
         sentences: gameHistory.sentences
       })
     );
+
     dispatch(scoreDispatch.getBestScoreDispatch());
     dispatch(vocabularyActions.clear());
   }, []);
 
   return render({
     mode,
-    bestScore: bestScore,
+    bestScore:
+      gameHistory.current_score > bestScore
+        ? gameHistory.current_score
+        : bestScore,
     currentScore: gameHistory.current_score,
     summarySection,
     options

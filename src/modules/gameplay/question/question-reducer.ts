@@ -2,6 +2,8 @@ import { type PayloadAction, createReducer } from '@reduxjs/toolkit';
 import dispatch from './question-dispatch';
 import actionTypes from './question-action-types';
 import {
+  IPassageQuestion,
+  IQuestion,
   IQuestionSinglePlayerResponse,
   IVocabulary
 } from './question-services';
@@ -11,14 +13,17 @@ interface InitialState {
   isVocabularyLoading: boolean;
   isQuestionsLoading: boolean;
   vocabulary: IVocabulary[];
-  question?: IQuestionSinglePlayerResponse;
+  questions: IQuestion[];
+  passageQuestions: IPassageQuestion[];
 }
 
 const initialState = {
   //
   isVocabularyLoading: false,
   isQuestionsLoading: false,
-  vocabulary: []
+  vocabulary: [],
+  questions: [],
+  passageQuestions: []
 } as InitialState;
 
 const reducer = createReducer(initialState, (builder) => {
@@ -54,7 +59,10 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getQuestionSinglePlayerDispatch.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isQuestionsLoading = false;
-      state.question = action.payload.data;
+      state.questions = state.questions.concat(action.payload.data.questions);
+      state.passageQuestions = state.passageQuestions.concat(
+        action.payload.data.passageQuestion
+      );
     }
   );
 
