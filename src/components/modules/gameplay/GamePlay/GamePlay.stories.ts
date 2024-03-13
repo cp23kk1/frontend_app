@@ -17,7 +17,10 @@ type Story = StoryObj<typeof meta>;
 export const NormalQuestion: Story = {
   args: {
     knowledgeSectionItem: {
-      question: 'Question',
+      onDragEnd: (event) => {},
+      passageAnswers: {},
+      onUnselectePassageAnswer: (index) => {},
+      question: [],
       pos: 'noun',
       type: 'vocabulary',
       onAnswer: (meaning) => {

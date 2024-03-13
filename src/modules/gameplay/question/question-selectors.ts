@@ -20,9 +20,10 @@ const questionsSeletor = createSelector(
   (gamePlay): IQuestion[] => {
     if (gamePlay.questions) {
       let temp: IQuestion[] = gamePlay.questions;
+      let passageQuestion = gamePlay.passageQuestions[0];
 
       temp = temp.map((question) => {
-        let correctAnswer = question.answers.find(
+        let correctAnswer = question.answers?.find(
           (answer) => answer.correctness
         );
         return {
@@ -35,6 +36,28 @@ const questionsSeletor = createSelector(
               : question.question
         };
       });
+      if (passageQuestion)
+        temp.push({
+          dataId: passageQuestion.dataId,
+          questionsType: passageQuestion.questionType,
+          question: passageQuestion.title,
+          subQuestions: passageQuestion.questions.map((question) => {
+            let correctAnswer = question.answers?.find(
+              (answer) => answer.correctness
+            );
+            return {
+              ...question,
+              question:
+                question.questionsType === 'sentence'
+                  ? question.question
+                      ?.toString()
+                      .replace(`${correctAnswer?.answer}`, `??`)
+                  : question.question
+            };
+          }),
+          answers: [],
+          correctAnswerId: ''
+        });
       return temp;
     }
     return [];

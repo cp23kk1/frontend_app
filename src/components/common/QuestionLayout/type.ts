@@ -1,10 +1,12 @@
 import { CSSProperties, ReactNode } from 'react';
 
 export type TQuestionLayout = {
-  question: ReactNode;
+  questions?: ReactNode[];
   style?: CSSProperties;
   type?: 'sentence' | 'vocabulary' | 'passage';
   pos: string;
+  passageAnswers: { [key: string]: string };
+  onUnselectePassageAnswer: (newPassageIndex: number) => void;
 };
 export type TPos =
   | 'verb'

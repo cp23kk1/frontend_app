@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TGamePlayContainer } from './type';
 import {
+  IGameplayPassageAnswered,
   TGamePlayAnswerButton,
   TKnowLedgeSection
 } from '@/components/modules/gameplay/KnowledgeSection/type';
@@ -18,6 +19,8 @@ import {
 
 import { useRouter } from 'next/router';
 import { TState } from '../core/VocaverseCoreContainer';
+import { getPublicPathPageRounting } from '@/utils/basePath';
+import { DragEndEvent } from '@dnd-kit/core';
 
 const GamePlayContainer = ({
   render,
@@ -45,6 +48,9 @@ const GamePlayContainer = ({
 
   // knowledge section
   const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([]);
+  const [passageAnswers, setPassageAnswers] = useState<{
+    [key: string]: string;
+  }>({});
   const [question, setQuestion] = useState<ReactNode>('');
   const [pos, setPos] = useState<string | undefined>();
   const [type, setType] = useState<
@@ -61,6 +67,7 @@ const GamePlayContainer = ({
   const _handleChangeCurrentIndex = (inputCurrentIndex: number) => {
     setCurrentIndex(inputCurrentIndex);
   };
+
   const _handleChangePlayerHealth = (inputPlayerHealth: number) => {
     setPlayerHealth(inputPlayerHealth);
   };
@@ -69,6 +76,11 @@ const GamePlayContainer = ({
   };
   const _handleChangeAnswers = (inputAnswers: TGamePlayAnswerButton[]) => {
     setAnswers(inputAnswers);
+  };
+  const _handleChangePassageAnswers = (inputAnswers: {
+    [key: string]: string;
+  }) => {
+    setPassageAnswers(inputAnswers);
   };
   const _handleChangeQuestion = (inputQuestions: ReactNode) => {
     setQuestion(inputQuestions);
@@ -84,20 +96,39 @@ const GamePlayContainer = ({
 
   //question logic
   const _addQuestion = () => {
-    if (questions[currentIndex]) {
-      const currQuestion = questions[currentIndex];
-      const newAnswer: TGamePlayAnswerButton[] = questions[
-        currentIndex
-      ].answers.map((value) => {
-        return {
-          children: value.answer,
-          state: 'normal',
-          correctness: value.correctness
-        };
-      });
+    const currQuestion = questions[currentIndex];
+    if (currQuestion && currQuestion.questionsType != 'passage') {
+      const newAnswer: TGamePlayAnswerButton[] = currQuestion.answers.map(
+        (value) => {
+          return {
+            children: value.answer,
+            state: 'normal',
+            correctness: value.correctness
+          };
+        }
+      );
       _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
       _handleChangeQuestion(currQuestion.question);
       _handleChangePos(currQuestion.pos);
+      _handleChangeType(currQuestion.questionsType);
+    } else if (currQuestion && currQuestion.subQuestions) {
+      let newAnswer: TGamePlayAnswerButton[] = [];
+      currQuestion.subQuestions.forEach((question) => {
+        newAnswer = newAnswer.concat(
+          question.answers.map((value) => {
+            return {
+              children: value.answer,
+              state: 'normal',
+              correctness: value.correctness
+            };
+          })
+        );
+      });
+      if (currQuestion.subQuestions.length === 0) {
+        return;
+      }
+      _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
+
       _handleChangeType(currQuestion.questionsType);
     }
   };
@@ -117,6 +148,7 @@ const GamePlayContainer = ({
             };
       })
     );
+
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
       _calculateHealth(correctness, answer);
@@ -173,6 +205,24 @@ const GamePlayContainer = ({
         );
         break;
       }
+      case 'passage': {
+        // dispatch(
+        //   gameplayCoreActions.changeGameHistory({
+        //     gameId: currentGameHistory?.gameId,
+        //     current_score: correctness ? score + 1 : score,
+        //     vocabs: currentGameHistory?.vocabs,
+        //     sentences: currentGameHistory?.sentences.concat({
+        //       sentenceId: currQuestion.dataId,
+        //       answer: answer,
+        //       answerId: currQuestion.correctAnswerId,
+        //       question: currQuestion.question,
+        //       correctness: correctness
+        //     }),
+        //     passages: currentGameHistory?.passages
+        //   })
+        // );
+        break;
+      }
     }
   };
   const onPause = () => {
@@ -204,12 +254,38 @@ const GamePlayContainer = ({
     }
   }, [playerHealth, enemyHealth]);
 
+  const _handleDragEnd = ({ over, active }: DragEndEvent) => {
+    let id = over?.id.toString();
+    console.log(passageAnswers);
+    if (id) {
+      let temp = { ...passageAnswers };
+      temp[id] = active.id.toString();
+      _handleChangePassageAnswers(temp);
+      // _handleChangeAnswers(
+      //   answers.filter((answer) => answer.children !== active.id.toString())
+      // );
+    }
+  };
+  const _handleUnselectPassageAnswer = (index?: number) => {
+    if (index) {
+      let temp = { ...passageAnswers };
+      delete temp[index];
+      _handleChangePassageAnswers(temp);
+    }
+  };
+
   const knowLedgeSection: TKnowLedgeSection = {
     answers: answers ?? [],
-    question: question ?? '',
+    question:
+      type === 'passage' && questions[currentIndex].subQuestions
+        ? questions[currentIndex].subQuestions?.map((value) => value.question)
+        : [question],
     pos: pos ?? '',
     type,
-    onAnswer: _validateAnswer
+    passageAnswers: passageAnswers,
+    onAnswer: _validateAnswer,
+    onUnselectePassageAnswer: _handleUnselectPassageAnswer,
+    onDragEnd: _handleDragEnd
   };
   const animationSection: TAnimationSection = {
     enemyHealth: enemyHealth,

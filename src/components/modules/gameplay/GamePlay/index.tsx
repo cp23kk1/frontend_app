@@ -31,7 +31,7 @@ const GamePlay = ({
         </TopSectionWrapper>
         <KnowLedgeSection
           {...knowledgeSectionItem}
-          question={knowledgeSectionItem ? knowledgeSectionItem.question : ''}
+          question={knowledgeSectionItem ? knowledgeSectionItem.question : []}
           answers={knowledgeSectionItem ? knowledgeSectionItem.answers : []}
         ></KnowLedgeSection>
       </GamePlayWrapper>

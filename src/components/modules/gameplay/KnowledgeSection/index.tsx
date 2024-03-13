@@ -5,6 +5,8 @@ import AnswerButton from '@/components/common/AnswerButton';
 import { ReactNode } from 'react';
 import { Col } from '@/components/common/layout/responsive';
 import { v4 as uuid } from 'uuid';
+import { DndContext } from '@dnd-kit/core';
+import { Draggable } from '@/components/common/Drag/Draggable';
 
 const KnowLedgeSection = ({
   style,
@@ -12,33 +14,74 @@ const KnowLedgeSection = ({
   question,
   pos,
   answers,
-  onAnswer
+  passageAnswers,
+  onAnswer,
+  onUnselectePassageAnswer,
+  onDragEnd
 }: TKnowLedgeSection) => {
   const _handleAnswer = (meaning: string, correctness: boolean) => {
     onAnswer(meaning, correctness);
   };
   return (
-    <KnowLedgeSectionWrapper style={style}>
-      <QuestionLayout question={question} pos={pos ?? ''} type={type} />
-      <div className="answer-layout">
-        {answers.map((answer, index) => {
-          return (
-            <Col
-              span={14 / answers.length}
-              className="answer-wrapper"
-              key={index}
-            >
-              <AnswerButton
-                {...answer}
-                onClick={() => {
-                  _handleAnswer(answer.children, answer.correctness);
-                }}
-              />
-            </Col>
-          );
-        })}
-      </div>
-    </KnowLedgeSectionWrapper>
+    <DndContext onDragEnd={onDragEnd}>
+      <KnowLedgeSectionWrapper style={style}>
+        <QuestionLayout
+          questions={question}
+          pos={pos ?? ''}
+          type={type}
+          passageAnswers={passageAnswers}
+          onUnselectePassageAnswer={onUnselectePassageAnswer}
+        />
+
+        {type === 'passage' ? (
+          <div className="answer-layout">
+            {answers.map((answer, index) => {
+              return (
+                <Col
+                  span={14 / answers.length}
+                  className="answer-wrapper"
+                  key={uuid()}
+                >
+                  <Draggable
+                    data={{
+                      children: answer.children,
+                      correctness: answer.correctness
+                    }}
+                    id={answer.children}
+                  >
+                    <AnswerButton
+                      {...answer}
+                      onClick={() => {
+                        _handleAnswer(answer.children, answer.correctness);
+                      }}
+                    />
+                  </Draggable>
+                </Col>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="answer-layout">
+            {answers.map((answer, index) => {
+              return (
+                <Col
+                  span={14 / answers.length}
+                  className="answer-wrapper"
+                  key={uuid()}
+                >
+                  <AnswerButton
+                    {...answer}
+                    onClick={() => {
+                      _handleAnswer(answer.children, answer.correctness);
+                    }}
+                  />
+                </Col>
+              );
+            })}
+          </div>
+        )}
+      </KnowLedgeSectionWrapper>
+    </DndContext>
   );
 };
 

@@ -17,7 +17,8 @@ type Story = StoryObj<typeof meta>;
 export const NormalQuestion: Story = {
   args: {
     style: {},
-    question: 'Question',
+    question: [],
+    passageAnswers: {},
     pos: 'noun',
     type: 'vocabulary',
     answers: []
