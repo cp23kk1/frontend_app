@@ -59,7 +59,7 @@ class Http {
         } else if (Number(error.response?.status) >= 500) {
           modal.render({
             children: ErrorModal({
-              errorMessage: 'Please contact admin.',
+              errorMessage: 'Please try again later.',
               errorStatus: error.response?.status
             })
           });

@@ -40,18 +40,31 @@ const QuestionLayout = ({
                         id={index}
                         style={{
                           color: passageAnswers[`${index}`] ? 'black' : '',
-                          opacity: passageAnswers[`${index}`] ? 1 : ''
+                          opacity: passageAnswers[`${index}`] ? 1 : '',
+                          backgroundColor: passageAnswers[`${index}`]
+                            ? passageAnswers[`${index}`].state === 'correct'
+                              ? 'green'
+                              : passageAnswers[`${index}`].state === 'incorrect'
+                              ? 'red'
+                              : ''
+                            : '',
+                          cursor: passageAnswers[`${index}`] ? 'pointer' : ''
                         }}
                       >
                         <span
+                          key={uuid()}
                           onClick={() => {
+                            if (
+                              passageAnswers[`${index}`] &&
+                              passageAnswers[`${index}`].state != 'normal'
+                            )
+                              return;
                             onUnselectePassageAnswer(index);
                           }}
-                          style={{
-                            cursor: passageAnswers[`${index}`] ? 'pointer' : ''
-                          }}
                         >
-                          {passageAnswers[`${index}`] ?? '???'}
+                          {passageAnswers[`${index}`]
+                            ? passageAnswers[`${index}`].children
+                            : '???'}
                         </span>
                       </Droppable>
                       {text.join('')}

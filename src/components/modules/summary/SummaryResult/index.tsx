@@ -19,13 +19,17 @@ const SummaryResult = ({
       <SummaryResultWrapper>
         <div className="headers">
           <Row className="header">
-            <Col span={6} className="mode">
+            <Col span={6} style={{ textAlign: 'center' }} className="mode">
               Mode: {mode}
             </Col>
             <Col span={12} className="gameover-header">
               GAME OVER
             </Col>
-            <Col span={6} className="best-score">
+            <Col
+              span={6}
+              style={{ textAlign: 'center' }}
+              className="best-score"
+            >
               Best score: {bestScore}
             </Col>
           </Row>

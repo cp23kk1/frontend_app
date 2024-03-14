@@ -16,6 +16,7 @@ import vocabularyActions from '../gameplay/question/question-actions';
 import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
 import { TTab } from '@/components/modules/summary/Tab/type';
+import questionActions from '../gameplay/question/question-actions';
 
 const SummaryResultContainer = ({
   render,
@@ -38,9 +39,11 @@ const SummaryResultContainer = ({
   );
 
   const mode: string = state.data.mode;
-  const [currentTab, setCurrentTab] = useState<string>('Vocabulary');
+  const [currentTab, setCurrentTab] = useState<
+    'Vocabulary' | 'Sentence' | 'Passage'
+  >('Vocabulary');
 
-  const onSelectTab = (inputTab: string) => {
+  const onSelectTab = (inputTab: 'Vocabulary' | 'Sentence' | 'Passage') => {
     setCurrentTab(inputTab);
   };
   const tabs: TTab[] = [
@@ -75,12 +78,17 @@ const SummaryResultContainer = ({
         : passageBool;
     }),
     table: {
-      columns: ['No.', 'Question', 'Answer'],
+      columns: ['No.'].concat(
+        currentTab === 'Vocabulary'
+          ? ['Word', 'Meaning']
+          : currentTab === 'Sentence'
+          ? ['Question', 'Answer']
+          : ['PassageId', 'SentenceQuestion', 'Answer']
+      ),
       data:
         currentTab === 'Vocabulary'
           ? gameHistory.vocabs.map((item) => {
               return {
-                id: item.vocabularyId,
                 word: item.question,
                 meaning: item.answer
               };
@@ -88,14 +96,18 @@ const SummaryResultContainer = ({
           : currentTab === 'Sentence'
           ? gameHistory.sentences.map((item) => {
               return {
-                id: item.sentenceId,
                 word: item.question,
                 meaning: item.answer
               };
             })
-          : gameHistory.passages.map((item) => {
+          : gameHistory.passages.map((item, index, arr) => {
               return {
-                id: item.passageId,
+                id:
+                  index > 0
+                    ? arr[index - 1].passageId === item.passageId
+                      ? ''
+                      : item.passageId
+                    : item.passageId,
                 word: item.question,
                 meaning: item.answer
               };
@@ -147,6 +159,7 @@ const SummaryResultContainer = ({
 
     dispatch(scoreDispatch.getBestScoreDispatch());
     dispatch(vocabularyActions.clear());
+    dispatch(questionActions.clear());
   }, []);
 
   return render({

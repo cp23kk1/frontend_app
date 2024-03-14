@@ -20,6 +20,8 @@ export interface IGameResultSentence {
 }
 export interface IGameResultPassage {
   passageId: string;
+  sentenceId: string;
+  vocabularyId: string;
   correctness: boolean;
 }
 

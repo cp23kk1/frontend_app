@@ -4,7 +4,7 @@ import { TDropable } from './type';
 
 export function Droppable({ id, children, className, style, data }: TDropable) {
   const { isOver, setNodeRef } = useDroppable({
-    id: id || '',
+    id: id === undefined ? '' : id,
     data: data
   });
 

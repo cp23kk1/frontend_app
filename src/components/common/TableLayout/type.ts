@@ -1,8 +1,11 @@
-import { IVocabulary } from '@/modules/gameplay/question/question-services';
+import {
+  IQuestion,
+  IVocabulary
+} from '@/modules/gameplay/question/question-services';
 
 export type TTable = {
   columns: string[];
-  data: Pick<IVocabulary, 'id' | 'word' | 'meaning'>[];
+  data: { [key: string]: string }[];
   onClick: (id: string) => void;
   moreinfo?: { label: string; isShow: boolean };
 };

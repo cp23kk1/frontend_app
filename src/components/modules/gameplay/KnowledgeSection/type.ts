@@ -9,7 +9,12 @@ export type TKnowLedgeSection = {
   type?: 'sentence' | 'vocabulary' | 'passage';
   pos?: string;
   answers: TGamePlayAnswerButton[];
-  passageAnswers: { [key: string]: string };
+  passageAnswers: {
+    [key: string]: {
+      state: 'normal' | 'correct' | 'incorrect';
+      children: string;
+    };
+  };
   onAnswer: (
     answer: string,
     correctness: boolean,
@@ -17,6 +22,7 @@ export type TKnowLedgeSection = {
   ) => void;
   onUnselectePassageAnswer: (sentenceIndex?: number) => void;
   onDragEnd: (event: DragEndEvent) => void;
+  onValidatePassage: () => void;
 };
 export type TGamePlayAnswerButton = {
   children: string;

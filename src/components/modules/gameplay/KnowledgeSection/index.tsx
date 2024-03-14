@@ -11,13 +11,14 @@ import { Draggable } from '@/components/common/Drag/Draggable';
 const KnowLedgeSection = ({
   style,
   type,
-  question,
+  question = [],
   pos,
   answers,
   passageAnswers,
   onAnswer,
   onUnselectePassageAnswer,
-  onDragEnd
+  onDragEnd,
+  onValidatePassage
 }: TKnowLedgeSection) => {
   const _handleAnswer = (meaning: string, correctness: boolean) => {
     onAnswer(meaning, correctness);
@@ -79,6 +80,22 @@ const KnowLedgeSection = ({
               );
             })}
           </div>
+        )}
+        {type === 'passage' && (
+          <Col>
+            <div
+              style={{
+                cursor:
+                  Object.keys(passageAnswers).length === question.length
+                    ? 'pointer'
+                    : 'not-allowed'
+              }}
+              onClick={onValidatePassage}
+              className="validate-button"
+            >
+              Submit
+            </div>
+          </Col>
         )}
       </KnowLedgeSectionWrapper>
     </DndContext>

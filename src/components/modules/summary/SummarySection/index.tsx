@@ -17,10 +17,8 @@ const SummarySection = ({ table, tabs, style }: TSummarySection) => {
           );
         })}
       </Row>
-      <div className="table-section">
-        <div className="table">
-          <TableLayout {...table} />
-        </div>
+      <div className="table">
+        <TableLayout {...table} />
       </div>
     </SummarySectionWrapper>
   );

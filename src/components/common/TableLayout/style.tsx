@@ -13,7 +13,6 @@ export const TableLayoutWrapper = styled.div`
     display: flex;
     width: 100%;
     height: 60px;
-    gap: 24px;
     background: #e1e1e1;
     
     color: #000;
@@ -29,9 +28,8 @@ export const TableLayoutWrapper = styled.div`
     display: flex;
     width: 100%;
     height: 60px;
-    gap: 24px;
 
-    color: #000;
+    color: black;
 
     /* Fredoka/Regular-24 */
     font-family: Fredoka;
@@ -49,6 +47,7 @@ export const TableLayoutWrapper = styled.div`
   .col {
     justify-content: center;
     align-items: center;
+    color: black;
   }
   .record .col {
     justify-content: center;
@@ -75,4 +74,16 @@ export const TableLayoutWrapper = styled.div`
     font-weight: 400;
     line-height: normal;
   }
+  .detail{
+    width: 100%;
+
+     /* Fredoka/Regular-20 */
+    font-family: Fredoka;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+
 `;

@@ -18,6 +18,7 @@ export const NormalQuestion: Story = {
   args: {
     knowledgeSectionItem: {
       onDragEnd: (event) => {},
+      onValidatePassage: () => {},
       passageAnswers: {},
       onUnselectePassageAnswer: (index) => {},
       question: [],

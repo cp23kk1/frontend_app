@@ -49,7 +49,10 @@ const GamePlayContainer = ({
   // knowledge section
   const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([]);
   const [passageAnswers, setPassageAnswers] = useState<{
-    [key: string]: string;
+    [key: string]: {
+      state: 'normal' | 'correct' | 'incorrect';
+      children: string;
+    };
   }>({});
   const [question, setQuestion] = useState<ReactNode>('');
   const [pos, setPos] = useState<string | undefined>();
@@ -78,7 +81,10 @@ const GamePlayContainer = ({
     setAnswers(inputAnswers);
   };
   const _handleChangePassageAnswers = (inputAnswers: {
-    [key: string]: string;
+    [key: string]: {
+      state: 'normal' | 'correct' | 'incorrect';
+      children: string;
+    };
   }) => {
     setPassageAnswers(inputAnswers);
   };
@@ -97,7 +103,7 @@ const GamePlayContainer = ({
   //question logic
   const _addQuestion = () => {
     const currQuestion = questions[currentIndex];
-    if (currQuestion && currQuestion.questionsType != 'passage') {
+    if (currQuestion && currQuestion.questionsType !== 'passage') {
       const newAnswer: TGamePlayAnswerButton[] = currQuestion.answers.map(
         (value) => {
           return {
@@ -111,9 +117,9 @@ const GamePlayContainer = ({
       _handleChangeQuestion(currQuestion.question);
       _handleChangePos(currQuestion.pos);
       _handleChangeType(currQuestion.questionsType);
-    } else if (currQuestion && currQuestion.subQuestions) {
+    } else if (currQuestion && currQuestion.questions) {
       let newAnswer: TGamePlayAnswerButton[] = [];
-      currQuestion.subQuestions.forEach((question) => {
+      currQuestion.questions.forEach((question) => {
         newAnswer = newAnswer.concat(
           question.answers.map((value) => {
             return {
@@ -124,7 +130,7 @@ const GamePlayContainer = ({
           })
         );
       });
-      if (currQuestion.subQuestions.length === 0) {
+      if (currQuestion.questions.length === 0) {
         return;
       }
       _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
@@ -154,20 +160,67 @@ const GamePlayContainer = ({
       _calculateHealth(correctness, answer);
     }, 1000);
   };
-  const _calculateHealth = (correctness: boolean, answer: string) => {
-    if (correctness) {
-      _handleChangeEnemyHealth(enemyHealth - 10);
-      _handleChangeScore(score + 1);
+
+  const _handleValidatePassage = () => {
+    const currQuestion = questions[currentIndex];
+    if (currQuestion.questions?.length !== Object.keys(passageAnswers).length)
+      return;
+    const temp = { ...passageAnswers };
+    let countCorrect = 0;
+    Object.keys(passageAnswers).forEach((index) => {
+      if (currQuestion.questions != undefined) {
+        let correctAnswer = currQuestion.questions[
+          parseInt(index)
+        ].answers.find(
+          (value) =>
+            value.answer == passageAnswers[index].children && value.correctness
+        );
+        let correctness = correctAnswer !== undefined;
+        if (correctness) countCorrect++;
+        temp[index] = {
+          children: passageAnswers[index].children,
+          state: correctness ? 'correct' : 'incorrect'
+        };
+      }
+    });
+    _handleChangePassageAnswers(temp);
+    setTimeout(() => {
+      _calculateHealth(false, '', countCorrect);
+      _handleChangePassageAnswers({});
+      _handleChangeCurrentIndex(currentIndex + 1);
+    }, 1000);
+  };
+  const _calculateHealth = (
+    correctness: boolean,
+    answer: string,
+    countCorrect?: number
+  ) => {
+    if (countCorrect === undefined) {
+      if (correctness) {
+        _handleChangeEnemyHealth(enemyHealth - 10);
+        _handleChangeScore(score + 1);
+      } else {
+        _handleChangePlayerHealth(playerHealth - 10);
+      }
+      updateGameHistory(correctness, answer);
     } else {
-      _handleChangePlayerHealth(playerHealth - 10);
+      _handleChangeEnemyHealth(enemyHealth - 10 * countCorrect);
+      _handleChangePlayerHealth(
+        playerHealth - 10 * (Object.keys(passageAnswers).length - countCorrect)
+      );
+      _handleChangeScore(score + countCorrect);
+      updateGameHistory(correctness, answer, countCorrect);
     }
-    updateGameHistory(correctness, answer);
-    if (currentGameHistory.vocabs.length > questions.length / 2) {
-      dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
+
+    if (currentIndex > questions.length / 2) {
       dispatch(vocabularyDispatch.getQuestionSinglePlayerDispatch());
     }
   };
-  const updateGameHistory = (correctness: boolean, answer: string) => {
+  const updateGameHistory = (
+    correctness: boolean,
+    answer: string,
+    countCorrect?: number
+  ) => {
     const currQuestion = questions[currentIndex];
     switch (currQuestion?.questionsType) {
       case 'vocabulary': {
@@ -206,23 +259,51 @@ const GamePlayContainer = ({
         break;
       }
       case 'passage': {
-        // dispatch(
-        //   gameplayCoreActions.changeGameHistory({
-        //     gameId: currentGameHistory?.gameId,
-        //     current_score: correctness ? score + 1 : score,
-        //     vocabs: currentGameHistory?.vocabs,
-        //     sentences: currentGameHistory?.sentences.concat({
-        //       sentenceId: currQuestion.dataId,
-        //       answer: answer,
-        //       answerId: currQuestion.correctAnswerId,
-        //       question: currQuestion.question,
-        //       correctness: correctness
-        //     }),
-        //     passages: currentGameHistory?.passages
-        //   })
-        // );
+        if (currQuestion.questions != undefined)
+          dispatch(
+            gameplayCoreActions.changeGameHistory({
+              gameId: currentGameHistory?.gameId,
+              current_score: countCorrect ? score + countCorrect : score,
+              vocabs: currentGameHistory?.vocabs,
+              sentences: currentGameHistory?.sentences,
+              passages: currentGameHistory?.passages.concat(
+                currQuestion.questions.map((question, index) => {
+                  return {
+                    answer: passageAnswers[`${index}`].children,
+                    correctness: question.answers.find(
+                      (value) => value.answer === passageAnswers[index].children
+                    )
+                      ? true
+                      : false,
+                    passageId: currQuestion.dataId,
+                    question: question.question,
+                    sentenceId: question.dataId,
+                    vocabularyId: question.correctAnswerId
+                  };
+                })
+              )
+            })
+          );
         break;
       }
+    }
+  };
+  const _handleDragEnd = ({ over, active }: DragEndEvent) => {
+    let id = over?.id.toString();
+    if (id) {
+      let temp = { ...passageAnswers };
+      temp[id] = { children: active.id.toString(), state: 'normal' };
+      _handleChangePassageAnswers(temp);
+      // _handleChangeAnswers(
+      //   answers.filter((answer) => answer.children !== active.id.toString())
+      // );
+    }
+  };
+  const _handleUnselectPassageAnswer = (index?: number) => {
+    if (index) {
+      let temp = { ...passageAnswers };
+      delete temp[index];
+      _handleChangePassageAnswers(temp);
     }
   };
   const onPause = () => {
@@ -240,7 +321,7 @@ const GamePlayContainer = ({
   }, [isLoadingVocabulary, isLoadingQuestion, currentIndex]);
 
   useEffect(() => {
-    if (playerHealth === 0) {
+    if (playerHealth <= 0) {
       // dispatch(modalActions.onOpen('GAMEOVER'));
 
       setTimeout(() => {
@@ -254,38 +335,19 @@ const GamePlayContainer = ({
     }
   }, [playerHealth, enemyHealth]);
 
-  const _handleDragEnd = ({ over, active }: DragEndEvent) => {
-    let id = over?.id.toString();
-    console.log(passageAnswers);
-    if (id) {
-      let temp = { ...passageAnswers };
-      temp[id] = active.id.toString();
-      _handleChangePassageAnswers(temp);
-      // _handleChangeAnswers(
-      //   answers.filter((answer) => answer.children !== active.id.toString())
-      // );
-    }
-  };
-  const _handleUnselectPassageAnswer = (index?: number) => {
-    if (index) {
-      let temp = { ...passageAnswers };
-      delete temp[index];
-      _handleChangePassageAnswers(temp);
-    }
-  };
-
   const knowLedgeSection: TKnowLedgeSection = {
     answers: answers ?? [],
     question:
-      type === 'passage' && questions[currentIndex].subQuestions
-        ? questions[currentIndex].subQuestions?.map((value) => value.question)
+      type === 'passage'
+        ? questions[currentIndex].questions?.map((value) => value.question)
         : [question],
     pos: pos ?? '',
     type,
     passageAnswers: passageAnswers,
     onAnswer: _validateAnswer,
     onUnselectePassageAnswer: _handleUnselectPassageAnswer,
-    onDragEnd: _handleDragEnd
+    onDragEnd: _handleDragEnd,
+    onValidatePassage: _handleValidatePassage
   };
   const animationSection: TAnimationSection = {
     enemyHealth: enemyHealth,

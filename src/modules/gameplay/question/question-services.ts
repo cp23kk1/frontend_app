@@ -11,23 +11,18 @@ export interface IVocabulary {
   difficultyCEFR: 'A1' | 'A2' | 'C1' | 'C2' | 'B1' | 'B2';
 }
 
-export interface IPassageQuestion {
-  dataId: string;
-  questions: IQuestion[];
-  title: string;
-  questionType: 'vocabulary' | 'sentence' | 'passage';
-}
-
 export interface IQuestion {
   dataId: string;
   question: string;
   answers: IAnswer[];
-  subQuestions?: IQuestion[];
+  questions?: IQuestion[];
+  title?: string;
   correctAnswerId: string;
   pos?: string;
   questionsType: 'vocabulary' | 'sentence' | 'passage';
 }
 export interface IAnswer {
+  answerId: string;
   answer: string;
   correctness: boolean;
 }
@@ -37,7 +32,7 @@ export interface IVocaublaryResponse {
 }
 
 export interface IQuestionSinglePlayerResponse {
-  passageQuestion: IPassageQuestion;
+  passageQuestion: IQuestion;
   questions: IQuestion[];
 }
 

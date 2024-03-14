@@ -30,14 +30,13 @@ const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
             <Row
               key={uuid()}
               className="record"
-              onClick={() => onClick(item.id)}
+              onClick={() => onClick(item.dataId)}
             >
+              <Col key={`no-${uuid()}`} span={2} className="col">
+                {++index}
+              </Col>
               {Object.entries(item).map(([key, value]) => {
-                return key === 'id' ? (
-                  <Col key={`no-${uuid()}`} span={2} className="col">
-                    {++index}
-                  </Col>
-                ) : (
+                return (
                   <Col key={`key-${uuid()}`} className="col">
                     {value}
                   </Col>

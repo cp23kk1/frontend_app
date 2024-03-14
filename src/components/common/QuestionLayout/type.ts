@@ -5,7 +5,12 @@ export type TQuestionLayout = {
   style?: CSSProperties;
   type?: 'sentence' | 'vocabulary' | 'passage';
   pos: string;
-  passageAnswers: { [key: string]: string };
+  passageAnswers: {
+    [key: string]: {
+      state: 'normal' | 'correct' | 'incorrect';
+      children: string;
+    };
+  };
   onUnselectePassageAnswer: (newPassageIndex: number) => void;
 };
 export type TPos =
