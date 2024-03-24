@@ -69,7 +69,7 @@ export const ButtonWrapper = styled.button`
       return disabled || state === 'selected'
         ? ''
         : danger
-        ? `border: 0;
+        ? `border: 2px solid #CC4949;
         color:#fff;
         background-color: #CC4949;
         .icon{
@@ -78,7 +78,7 @@ export const ButtonWrapper = styled.button`
         };}`
         : `background-color: #F8D34D;
     color: #262956;
-    border: 0;
+    border: 2px solid #F8D34D;
     .icon{
         div > svg > path {
           fill: #262956;

@@ -1,23 +1,8 @@
 import { CSSProperties } from 'react';
+import { TIconName } from '../../Icon/type';
 
 export type TNewButton = {
-  iconName?:
-    | 'Exit'
-    | 'Heart'
-    | 'Home'
-    | 'Info'
-    | 'Logo'
-    | 'Menu'
-    | 'Pause'
-    | 'ProfileDark'
-    | 'ProfileLight'
-    | 'Retry'
-    | 'SettingDark'
-    | 'SettingLight'
-    | 'ArrowRight'
-    | 'Crown'
-    | 'ChevronDown'
-    | 'Speaker';
+  iconName?: TIconName;
   label: string;
   disable?: boolean;
   style?: CSSProperties;

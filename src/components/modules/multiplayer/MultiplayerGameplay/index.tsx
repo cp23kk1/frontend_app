@@ -7,7 +7,7 @@ import NewButton from '@/components/common/V2/NewButton';
 import ListPlayer from '../ListPlayer';
 import MultiPlayerQuestion from '../MultiPlayerQuestion';
 
-const MultiplayerQuestion = ({
+const MultiplayerGameplay = ({
   currentRound,
   maxRound,
   listPlayer,
@@ -46,4 +46,4 @@ const MultiplayerQuestion = ({
   );
 };
 
-export default MultiplayerQuestion;
+export default MultiplayerGameplay;

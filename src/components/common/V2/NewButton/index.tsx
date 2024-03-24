@@ -2,7 +2,7 @@ import Icon from '../../Icon';
 import { ButtonWrapper } from './style';
 import { TNewButton } from './type';
 
-const Button = ({
+const NewButton = ({
   label,
   style,
   disable,
@@ -35,4 +35,4 @@ const Button = ({
   );
 };
 
-export default Button;
+export default NewButton;

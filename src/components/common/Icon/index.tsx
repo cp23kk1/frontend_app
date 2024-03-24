@@ -3,6 +3,7 @@ import { iconFiles } from './list-icon';
 import { IconDiv } from './style';
 import { TIcon } from './type';
 import { ReactSVG } from 'react-svg';
+import { getPublicPath } from '@/utils/basePath';
 
 const Icon = ({
   iconName,
@@ -16,7 +17,7 @@ const Icon = ({
     <IconDiv onClick={onClick} size={size} color={color} style={style}>
       {
         <ReactSVG
-          src={iconFiles[iconName]}
+          src={getPublicPath(`/icon/${iconName}.svg`)}
           fillRule="evenodd"
           fill="#FFFFFF"
           fillOpacity={1}
