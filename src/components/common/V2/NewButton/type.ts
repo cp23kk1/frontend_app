@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 
-export type TIcon = {
-  iconName:
+export type TNewButton = {
+  iconName?:
     | 'Exit'
     | 'Heart'
     | 'Home'
@@ -17,11 +17,12 @@ export type TIcon = {
     | 'ArrowRight'
     | 'Crown'
     | 'ChevronDown'
-    | 'Speaker'
-    | 'UserIcon';
-  size?: number;
+    | 'Speaker';
+  label: string;
+  disable?: boolean;
   style?: CSSProperties;
-  onClick?: () => void;
+  onClick: () => void;
   className?: string;
-  color?: string;
+  state?: 'selected' | 'unselected' | 'unselected-light' | 'hover';
+  danger?: boolean;
 };

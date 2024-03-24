@@ -1,17 +1,37 @@
+import { css } from '@emotion/react';
 import { iconFiles } from './list-icon';
-import { IconImg } from './style';
+import { IconDiv } from './style';
 import { TIcon } from './type';
+import { ReactSVG } from 'react-svg';
 
-const Icon = ({ iconName, size = 60, style, onClick, className }: TIcon) => {
+const Icon = ({
+  iconName,
+  size = 60,
+  style,
+  onClick,
+  className,
+  color = '#fff'
+}: TIcon) => {
   return (
-    <IconImg
-      className={className}
-      src={iconFiles[iconName]}
-      alt={iconName}
-      style={style}
-      size={size}
-      onClick={onClick}
-    />
+    <IconDiv onClick={onClick} size={size} color={color} style={style}>
+      {
+        <ReactSVG
+          src={iconFiles[iconName]}
+          fillRule="evenodd"
+          fill="#FFFFFF"
+          fillOpacity={1}
+          className={className}
+        />
+      }
+    </IconDiv>
+    // <IconImg
+    //   className={className}
+    //   src={iconFiles[iconName]}
+    //   alt={iconName}
+    //   style={style}
+    //   size={size}
+    //   onClick={onClick}
+    // />
   );
 };
 export default Icon;
