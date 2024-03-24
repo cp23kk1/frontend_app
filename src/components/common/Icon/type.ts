@@ -28,4 +28,5 @@ export type TIconName =
   | 'SignIn'
   | 'UserIcon'
   | 'Play'
-  | 'Group';
+  | 'Group'
+  | 'DoubleArrow';

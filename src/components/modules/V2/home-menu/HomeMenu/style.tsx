@@ -33,10 +33,14 @@ export const HomeWrapper = styled.div`
       width: 100%;
       max-width: 554px;
       padding: 12px 0;
+      .selected {
+        color: #f8d34d;
+        text-decoration: underline;
+      }
       div {
-        // color: #f8d34d;
         cursor: pointer;
         :hover {
+          color: #f8d34d;
           text-decoration: underline;
         }
       }
@@ -44,7 +48,8 @@ export const HomeWrapper = styled.div`
     .corner-button {
       display: flex;
       width: calc((3.5 / 24) * 100%);
-      justify-content: space-between;
+      justify-content: end;
+      gap: 24px;
       button {
         width: 120px;
       }

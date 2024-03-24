@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const ButtonWrapper = styled.button`
   display: flex;
   width: 100%;
-  height: 42px;
+  height: 48px;
   justify-content: center;
   align-items: center;
   border-radius: 12px;

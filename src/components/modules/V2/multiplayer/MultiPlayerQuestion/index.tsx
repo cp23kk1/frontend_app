@@ -10,8 +10,8 @@ const MultiplayerQuestion = ({
   return (
     <MultiplayerQuestionWrapper>
       <div className="question-section">
-        <div className="question">Vocabulary</div>
-        <div className="extra-info">Noun</div>
+        <div className="question">{question}</div>
+        <div className="extra-info">{extra}</div>
       </div>
       <div className="answer-section">
         <div className="answers">

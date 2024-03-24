@@ -1,8 +1,5 @@
-import ChoiceAnswer from '@/components/common/V2/ChoiceAnswer';
 import { MultiplayerGameplayWrapper } from './style';
 import { TMultiPlayerGameplay } from './type';
-import PlayerCard from '@/components/common/V2/PlayerCard';
-import Icon from '@/components/common/Icon';
 import NewButton from '@/components/common/V2/NewButton';
 import ListPlayer from '../ListPlayer';
 import MultiPlayerQuestion from '../MultiPlayerQuestion';

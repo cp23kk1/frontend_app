@@ -16,6 +16,18 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const NormalQuestion: Story = {
   args: {
+    onCLickSettings: () => {},
+    onChangePage: (input) => {},
+    onClickSignIn: () => {},
+    currentPage: 'home',
+    profileTab: {
+      onClickLogout: () => {},
+      onClickProfile: () => {},
+      onClickSignIn: () => {},
+      profilePic:
+        'https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg',
+      userName: 'Superman Batman'
+    },
     modes: [
       {
         modeName: 'SINGLE PLAYER',

@@ -1,6 +1,6 @@
 import BackGround from '@/components/modules/gameplay/BackgroundGamplay';
 import GamePlay from '@/components/modules/gameplay/GamePlay';
-import MultiplayerGameplay from '@/components/modules/multiplayer/MultiplayerGameplay';
+import MultiplayerGameplay from '@/components/modules/V2/multiplayer/MultiplayerGameplay';
 import GamePlayContainer from '@/modules/gameplay/GamePlayContainer';
 import type { NextPage } from 'next';
 import { useState } from 'react';

@@ -1,16 +1,23 @@
-import BackGround from '@/components/modules/gameplay/BackgroundGamplay';
-import GamePlay from '@/components/modules/gameplay/GamePlay';
-import MultiplayerGameplay from '@/components/modules/multiplayer/MultiplayerGameplay';
-import GamePlayContainer from '@/modules/gameplay/GamePlayContainer';
+import HomeMenu from '@/components/modules/V2/home-menu/HomeMenu';
 import type { NextPage } from 'next';
-import { useState } from 'react';
-import HomeMenu from '@/components/modules/home-menu/HomeMenu';
 
 //
 
 const GameMenuPage: NextPage = () => {
   return (
     <HomeMenu
+      onCLickSettings={() => {}}
+      onChangePage={(input) => {}}
+      onClickSignIn={() => {}}
+      currentPage="home"
+      profileTab={{
+        onClickLogout: () => {},
+        onClickProfile: () => {},
+        onClickSignIn: () => {},
+        profilePic:
+          'https://static01.nyt.com/images/2021/04/30/multimedia/30xp-meme/29xp-meme-mediumSquareAt3X-v5.jpg',
+        userName: 'Superman Batman'
+      }}
       modes={[
         {
           modeName: 'SINGLE PLAYER',
