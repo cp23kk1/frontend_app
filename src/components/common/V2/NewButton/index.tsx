@@ -20,10 +20,10 @@ const NewButton = ({
       disabled={disable}
       state={state}
       danger={danger}
+      iconName={iconName}
     >
       {iconName && (
         <Icon
-          color={'#fff'}
           size={24}
           iconName={iconName}
           onClick={onClick}

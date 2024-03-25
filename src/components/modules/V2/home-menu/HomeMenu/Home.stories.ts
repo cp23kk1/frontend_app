@@ -3,7 +3,7 @@ import Home from '.';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-  title: 'Component/modules/home/Home',
+  title: 'Component/modules/V2/homeMenu/Home',
   component: Home,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs']

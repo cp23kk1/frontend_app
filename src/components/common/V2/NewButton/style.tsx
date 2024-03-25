@@ -21,34 +21,51 @@ export const ButtonWrapper = styled.button`
   font-weight: 400;
   word-wrap: break-word;
   ${({
-    state
+    state,
+    iconName
   }: {
     state?: 'selected' | 'unselected' | 'unselected-light' | 'hover';
+    iconName?: string;
   }) => {
     switch (state) {
       case 'selected':
         return `background-color: #393D73;
                 color: #fff;
-                .icon{
+                ${
+                  iconName === 'Google'
+                    ? ''
+                    : `.icon{
         div > svg > path {
           fill: #fff;
-        };}`;
+        };}`
+                }
+                `;
       case 'unselected':
         return `border: 2px solid #fff;
         color: #fff;
         background-color: transparent;
-        .icon{
+        ${
+          iconName === 'Google'
+            ? ''
+            : `.icon{
         div > svg > path {
           fill: #fff;
-        };}`;
+        };}`
+        }`;
       case 'unselected-light':
         return `border: 2px solid #262956;
         color: #262956;
         background-color: transparent;
-        .icon{
+        
+        ${
+          iconName === 'Google'
+            ? ''
+            : `.icon{
         div > svg > path {
           fill: #262956;
-        };}
+        };}`
+        }
+        
         `;
     }
   }}
@@ -60,11 +77,13 @@ export const ButtonWrapper = styled.button`
     ${({
       disabled,
       danger,
-      state
+      state,
+      iconName
     }: {
       disabled?: boolean;
       state?: 'selected' | 'unselected' | 'unselected-light' | 'hover';
       danger?: boolean;
+      iconName?: string;
     }) => {
       return disabled || state === 'selected'
         ? ''
@@ -72,17 +91,27 @@ export const ButtonWrapper = styled.button`
         ? `border: 2px solid #CC4949;
         color:#fff;
         background-color: #CC4949;
-        .icon{
+        ${
+          iconName === 'Google'
+            ? ''
+            : `.icon{
         div > svg > path {
           fill: #fff;
         };}`
+        }
+        `
         : `background-color: #F8D34D;
     color: #262956;
     border: 2px solid #F8D34D;
-    .icon{
+    ${
+      iconName === 'Google'
+        ? ''
+        : `..icon{
         div > svg > path {
           fill: #262956;
-        };}`;
+        };}`
+    }
+    `;
     }}
   }
 `;

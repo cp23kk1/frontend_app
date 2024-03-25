@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const IconDiv = styled.div`
-  ${({ size, color }: { size: number; color: string }) => {
+  ${({ size, color }: { size: number; color?: string }) => {
     return `
         display: inline-flex;
         align-self: center;
@@ -14,8 +14,13 @@ export const IconDiv = styled.div`
           width: ${size}px;
           height: ${size}px;
         }
-        div > div > svg > path {
+        ${
+          color
+            ? `div > div > svg > path {
           fill: ${color};
-        }`;
+        }`
+            : ''
+        }       
+        `;
   }}
 `;

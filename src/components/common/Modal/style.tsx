@@ -21,12 +21,9 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 100%;
   .modalContent {
-    background-color: white;
-    padding: 10px;
-    border-radius: 24px;
     font-family: 'Mitr';
     position: relative;
-    width: 65%;
+    width: fit-content;
     z-index: 100;
     ${({ isOpen }: { isOpen: boolean }) => {
       return isOpen
@@ -43,8 +40,8 @@ export const ModalWrapper = styled.div`
       justify-content: center;
       background-color: #e1e1e1;
       padding: 8px;
-      top: 18px;
-      right: 18px;
+      top: 24px;
+      right: 24px;
       border-radius: 8px;
       border: 0;
       cursor: pointer;

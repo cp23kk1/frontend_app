@@ -29,4 +29,6 @@ export type TIconName =
   | 'UserIcon'
   | 'Play'
   | 'Group'
-  | 'DoubleArrow';
+  | 'DoubleArrow'
+  | 'Google'
+  | 'User';

@@ -3,6 +3,10 @@ import styled from '@emotion/styled';
 export const LoginModalWrapper = styled.div`
   display: flex;
   justify-content: center;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 24px;
+  width: 65vw;
   .loginContent {
     display: flex;
     flex-direction: column;
