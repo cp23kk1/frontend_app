@@ -31,4 +31,9 @@ export type TIconName =
   | 'Group'
   | 'DoubleArrow'
   | 'Google'
-  | 'User';
+  | 'User'
+  | 'Copy'
+  | 'Plus'
+  | 'Minus'
+  | 'Back'
+  | 'Close';
