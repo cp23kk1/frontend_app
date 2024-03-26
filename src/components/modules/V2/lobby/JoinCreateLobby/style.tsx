@@ -181,6 +181,7 @@ export const JoinCreateLobbyWrapper = styled.div`
           }
         }
       }
+
       .lobby {
         width: calc((13 / 24) * 100% - 32px);
         height: calc(100% - 32px);
@@ -193,7 +194,6 @@ export const JoinCreateLobbyWrapper = styled.div`
         .play-now {
           grid-column-start: 3;
           grid-column-end: 5;
-
           grid-row-start: 4;
           display: flex;
           justify-content: center;

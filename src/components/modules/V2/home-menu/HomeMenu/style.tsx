@@ -32,7 +32,6 @@ export const HomeWrapper = styled.div`
       word-wrap: break-word;
       width: 100%;
       max-width: 554px;
-      padding: 12px 0;
       .selected {
         color: #f8d34d;
         text-decoration: underline;
@@ -64,8 +63,8 @@ export const HomeWrapper = styled.div`
     align-items: center;
     .tutorial {
       color: white;
-      font-size: 16px;
-      font-family: Audiowide;
+      font-size: 20px;
+      font-family: Passion One;
       font-weight: 400;
       word-wrap: break-word;
     }

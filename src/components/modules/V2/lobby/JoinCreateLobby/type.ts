@@ -11,7 +11,7 @@ export type TJoinCreateLobby = {
 
   createLobby: {
     roomID: string;
-    players: { displayName: string; isReady: boolean; img: string }[];
+    players: TPlayer[];
     onClickCloseLobby: () => void;
     gameSetting: {
       onChangeMode: (e: ChangeEvent) => void;
@@ -22,4 +22,10 @@ export type TJoinCreateLobby = {
       onChangeSpeed: (e: string) => void;
     };
   };
+};
+
+export type TPlayer = {
+  displayName: string;
+  isReady: boolean;
+  img: string;
 };

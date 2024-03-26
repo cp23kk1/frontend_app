@@ -23,9 +23,21 @@ const JoinCreatLobbyPage: NextPage = () => {
         },
         roomID: '12312',
         players: [
-          { displayName: 'jedi', isReady: true, img: '' },
-          { displayName: 'jedi', isReady: false, img: '' },
-          { displayName: 'player3', isReady: false, img: '' }
+          {
+            displayName: 'jedi',
+            isReady: true,
+            img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg'
+          },
+          {
+            displayName: 'jedi',
+            isReady: false,
+            img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg'
+          },
+          {
+            displayName: 'player3',
+            isReady: false,
+            img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg'
+          }
         ]
       }}
     />

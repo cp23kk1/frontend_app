@@ -1,10 +1,9 @@
 import { InputHTMLAttributes } from 'react';
+import { TPlayer } from '../JoinCreateLobby/type';
 
-export type TJoinCreateLobby = {
-  currentPage: 'create' | 'join';
-  isJoinButtonDisabled: boolean;
-  onClickBack: () => void;
-  onClickPlayQuickly: () => void;
-  onChangeRoomID: (event: InputHTMLAttributes<HTMLInputElement>) => void;
-  onClickJoin: () => void;
+export type TLobby = {
+  onClickLeave: () => void;
+  roomID: string;
+  players: TPlayer[];
+  currentPlayer: TPlayer;
 };
