@@ -20,6 +20,7 @@ export const ButtonWrapper = styled.button`
   font-family: Passion One;
   font-weight: 400;
   word-wrap: break-word;
+  transition: 0.2s;
   ${({
     state,
     iconName
@@ -106,7 +107,7 @@ export const ButtonWrapper = styled.button`
     ${
       iconName === 'Google'
         ? ''
-        : `..icon{
+        : `.icon{
         div > svg > path {
           fill: #262956;
         };}`

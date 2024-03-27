@@ -36,4 +36,6 @@ export type TIconName =
   | 'Plus'
   | 'Minus'
   | 'Back'
-  | 'Close';
+  | 'Close'
+  | 'Leave'
+  | 'GoogleWithBG';

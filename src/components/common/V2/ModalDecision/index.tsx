@@ -12,7 +12,7 @@ const ModalDecision = ({ question, onClick }: TModalDecision) => {
           }}
           className="yes"
         >
-          asdfasdf
+          YES
         </div>
         <div
           onClick={() => {
@@ -20,7 +20,7 @@ const ModalDecision = ({ question, onClick }: TModalDecision) => {
           }}
           className="no"
         >
-          asdfasdfs
+          NO
         </div>
       </div>
     </ModalDecisionWrapper>

@@ -5,6 +5,7 @@ import { NextPage } from 'next';
 const JoinCreatLobbyPage: NextPage = () => {
   return (
     <Lobby
+      onClickReady={() => {}}
       onClickLeave={() => {}}
       players={[
         {

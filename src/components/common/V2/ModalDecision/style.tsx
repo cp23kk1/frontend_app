@@ -33,15 +33,16 @@ export const ModalDecisionWrapper = styled.button`
     height: 100%;
 
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, calc(50% - 12px));
     gap: 24px;
     .yes {
-      width: 100%;
-      height: 100%;
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
       background-color: #45ca9a;
       border-radius: 12px;
       display: flex;
       justify-content: center;
+      border: 4px solid transparent;
       align-items: center;
 
       color: white;
@@ -50,22 +51,30 @@ export const ModalDecisionWrapper = styled.button`
       font-weight: 400;
       word-wrap: break-word;
       cursor: pointer;
+      :hover {
+        border: 4px solid #fff;
+        color: #075338;
+      }
     }
     .no {
-      width: 100%;
-      height: 100%;
+      width: calc(100% - 8px);
+      height: calc(100% - 8px);
       background-color: #cc4949;
       border-radius: 12px;
       display: flex;
       justify-content: center;
       align-items: center;
-
+      border: 4px solid transparent;
       color: white;
       font-size: 36px;
       font-family: Passion One;
       font-weight: 400;
       word-wrap: break-word;
       cursor: pointer;
+      :hover {
+        border: 4px solid #fff;
+        color: #770000;
+      }
     }
   }
 `;

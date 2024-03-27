@@ -3,12 +3,19 @@ import { LobbyWrapper } from './style';
 import { TLobby } from './type';
 import NewButton from '@/components/common/V2/NewButton';
 
-const Lobby = ({ onClickLeave, roomID, players, currentPlayer }: TLobby) => {
+const Lobby = ({
+  onClickLeave,
+  roomID,
+  players,
+  currentPlayer,
+  onClickReady
+}: TLobby) => {
   return (
     <LobbyWrapper>
       <div className="top-content">
         <div className="back-button button">
           <NewButton
+            iconName="Leave"
             style={{ width: 'fit-content' }}
             label="Leave"
             onClick={onClickLeave}
@@ -78,6 +85,7 @@ const Lobby = ({ onClickLeave, roomID, players, currentPlayer }: TLobby) => {
                 style={{
                   backgroundColor: currentPlayer.isReady ? '#45CA9A' : '#CC4949'
                 }}
+                onClick={onClickReady}
               >
                 READY
               </div>
