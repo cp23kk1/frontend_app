@@ -4,6 +4,7 @@ import { TQuestionLayout } from './type';
 import { v4 as uuid } from 'uuid';
 import { Col } from '../layout/responsive';
 import { Droppable } from '../Drag/Droppable';
+import { Textfit } from 'react-textfit';
 const QuestionLayout = ({
   style,
   type,
@@ -51,7 +52,11 @@ const QuestionLayout = ({
                           cursor: passageAnswers[`${index}`] ? 'pointer' : ''
                         }}
                       >
-                        <span
+                        <Textfit
+                          mode="single"
+                          max={
+                            type === 'sentence' || type === 'passage' ? 64 : 128
+                          }
                           key={uuid()}
                           onClick={() => {
                             if (
@@ -65,7 +70,7 @@ const QuestionLayout = ({
                           {passageAnswers[`${index}`]
                             ? passageAnswers[`${index}`].children
                             : '???'}
-                        </span>
+                        </Textfit>
                       </Droppable>
                       {text.join('')}
                     </>
