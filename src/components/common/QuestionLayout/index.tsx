@@ -27,36 +27,35 @@ const QuestionLayout = ({
                   type === 'sentence' || type === 'passage' ? 500 : 600
               }}
             >
-              {question
-                .toString()
-                .split(' ')
-                .map((value) => {
-                  let text = value.split('??');
+              <Textfit
+                max={type === 'sentence' || type === 'passage' ? 64 : 128}
+                mode="single"
+              >
+                {question
+                  .toString()
+                  .split(' ')
+                  .map((value) => {
+                    let text = value.split('??');
 
-                  return value.includes('??') ? (
-                    <>
-                      <Droppable
-                        key={uuid()}
-                        className="sentence-box"
-                        id={index}
-                        style={{
-                          color: passageAnswers[`${index}`] ? 'black' : '',
-                          opacity: passageAnswers[`${index}`] ? 1 : '',
-                          backgroundColor: passageAnswers[`${index}`]
-                            ? passageAnswers[`${index}`].state === 'correct'
-                              ? 'green'
-                              : passageAnswers[`${index}`].state === 'incorrect'
-                              ? 'red'
-                              : ''
-                            : '',
-                          cursor: passageAnswers[`${index}`] ? 'pointer' : ''
-                        }}
-                      >
-                        <Textfit
-                          max={
-                            type === 'sentence' || type === 'passage' ? 64 : 128
-                          }
-                          mode="single"
+                    return value.includes('??') ? (
+                      <>
+                        <Droppable
+                          key={uuid()}
+                          className="sentence-box"
+                          id={index}
+                          style={{
+                            color: passageAnswers[`${index}`] ? 'black' : '',
+                            opacity: passageAnswers[`${index}`] ? 1 : '',
+                            backgroundColor: passageAnswers[`${index}`]
+                              ? passageAnswers[`${index}`].state === 'correct'
+                                ? 'green'
+                                : passageAnswers[`${index}`].state ===
+                                  'incorrect'
+                                ? 'red'
+                                : ''
+                              : '',
+                            cursor: passageAnswers[`${index}`] ? 'pointer' : ''
+                          }}
                         >
                           <span
                             key={uuid()}
@@ -73,14 +72,14 @@ const QuestionLayout = ({
                               ? passageAnswers[`${index}`].children
                               : '???'}
                           </span>
-                        </Textfit>
-                      </Droppable>
-                      {text.join('')}
-                    </>
-                  ) : (
-                    `${value} `
-                  );
-                })}
+                        </Droppable>
+                        {text.join('')}
+                      </>
+                    ) : (
+                      `${value} `
+                    );
+                  })}
+              </Textfit>
             </div>
           ) : (
             ''
