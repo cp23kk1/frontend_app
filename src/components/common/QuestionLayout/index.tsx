@@ -16,20 +16,21 @@ const QuestionLayout = ({
   return (
     <QuestionLayoutWrapper style={style}>
       <Col className="question-box">
-        {questions.map((question, index) => {
-          return question ? (
-            <div
-              key={uuid()}
-              className="question"
-              style={{
-                fontSize: type === 'sentence' || type === 'passage' ? 64 : 128,
-                fontWeight:
-                  type === 'sentence' || type === 'passage' ? 500 : 600
-              }}
-            >
-              <Textfit
-                max={type === 'sentence' || type === 'passage' ? 64 : 128}
-                mode="single"
+        <Textfit
+          max={type === 'sentence' || type === 'passage' ? 64 : 128}
+          mode="multi"
+        >
+          {questions.map((question, index) => {
+            return question ? (
+              <div
+                key={uuid()}
+                className="question"
+                style={{
+                  fontSize:
+                    type === 'sentence' || type === 'passage' ? 64 : 128,
+                  fontWeight:
+                    type === 'sentence' || type === 'passage' ? 500 : 600
+                }}
               >
                 {question
                   .toString()
@@ -79,12 +80,12 @@ const QuestionLayout = ({
                       `${value} `
                     );
                   })}
-              </Textfit>
-            </div>
-          ) : (
-            ''
-          );
-        })}
+              </div>
+            ) : (
+              ''
+            );
+          })}
+        </Textfit>
         {type === 'vocabulary' && <div className="pos">{pos}</div>}
         {type === 'sentence' && <div className="pos">{pos}</div>}
       </Col>
