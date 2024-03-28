@@ -22,7 +22,9 @@ const QuestionLayout = ({
         >
           {questions.map((question, index) => {
             return question ? (
-              <div
+              <Textfit
+                max={type === 'sentence' || type === 'passage' ? 64 : 128}
+                mode="multi"
                 key={uuid()}
                 className="question"
                 style={{
@@ -80,7 +82,7 @@ const QuestionLayout = ({
                       `${value} `
                     );
                   })}
-              </div>
+              </Textfit>
             ) : (
               ''
             );
