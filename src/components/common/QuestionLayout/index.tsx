@@ -18,9 +18,7 @@ const QuestionLayout = ({
       <Col className="question-box">
         {questions.map((question, index) => {
           return question ? (
-            <Textfit
-              max={type === 'sentence' || type === 'passage' ? 64 : 128}
-              mode="multi"
+            <div
               key={uuid()}
               className="question"
               style={{
@@ -76,7 +74,7 @@ const QuestionLayout = ({
                     `${value} `
                   );
                 })}
-            </Textfit>
+            </div>
           ) : (
             ''
           );
