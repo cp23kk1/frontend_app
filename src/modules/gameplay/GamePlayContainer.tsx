@@ -132,6 +132,7 @@ const GamePlayContainer = ({
         );
       });
       if (currQuestion.questions.length === 0) {
+        _handleChangeCurrentIndex(currentIndex + 1);
         return;
       }
       _handleChangeAnswers(newAnswer.toSorted(() => 0.5 - Math.random()));
