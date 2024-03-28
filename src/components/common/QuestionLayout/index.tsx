@@ -4,6 +4,7 @@ import { TQuestionLayout } from './type';
 import { v4 as uuid } from 'uuid';
 import { Col } from '../layout/responsive';
 import { Droppable } from '../Drag/Droppable';
+import { Textfit } from 'react-textfit';
 const QuestionLayout = ({
   style,
   type,
