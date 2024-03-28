@@ -8,7 +8,11 @@ export const AnswerButtonWrapper = styled.button`
   padding: 16px;
   cursor: pointer;
   transition: 0.25s;
-  font-family: 'Mitr';
+  color: #262956;
+  font-size: 48px;
+  font-family: Mitr;
+  font-weight: 500;
+  word-wrap: break-word;
   :hover {
     scale: 1.07;
   }
@@ -25,7 +29,7 @@ export const AnswerButtonWrapper = styled.button`
       case 'normal':
         result = `
         background: #FFF;
-        color: #000000;
+        color: #262956;
 `;
         break;
       case 'incorrect':

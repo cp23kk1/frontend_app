@@ -38,4 +38,8 @@ export type TIconName =
   | 'Back'
   | 'Close'
   | 'Leave'
-  | 'GoogleWithBG';
+  | 'GoogleWithBG'
+  | 'LeaderCrown'
+  | 'First'
+  | 'Second'
+  | 'Third';

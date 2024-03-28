@@ -3,14 +3,7 @@ import { TIcon } from './type';
 import { ReactSVG } from 'react-svg';
 import { getPublicPath } from '@/utils/basePath';
 
-const Icon = ({
-  iconName,
-  size = 60,
-  style,
-  onClick,
-  className,
-  color
-}: TIcon) => {
+const Icon = ({ iconName, size, style, onClick, className, color }: TIcon) => {
   return (
     <IconDiv onClick={onClick} size={size} color={color} style={style}>
       {

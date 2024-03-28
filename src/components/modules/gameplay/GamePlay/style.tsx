@@ -1,20 +1,23 @@
+import { getPublicPath } from '@/utils/basePath';
 import styled from '@emotion/styled';
 
 export const GamePlayWrapper = styled.div`
   padding: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  max-height: 100vh;
-  gap: 4vh;
+  height: calc((100vh) - 48px);
+  width: calc((100vw) - 48px);
+  background-image: url(${getPublicPath('/background/PlanetBG.png')});
+  padding: 24px;
+
   z-index: 1;
-  height: 96.6vh;
 `;
 export const TopSectionWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  gap: 24px;
+
   flex-direction: column;
   .top {
     display: flex;
@@ -23,12 +26,11 @@ export const TopSectionWrapper = styled.div`
     .score {
       color: #fff;
 
-      /* Audiowide/Display2-Regular-48 */
-      font-family: 'Audiowide', cursive;
-      font-size: 48px;
-      font-style: normal;
+      color: white;
+      font-size: 36px;
+      font-family: Passion One;
       font-weight: 400;
-      line-height: normal;
+      word-wrap: break-word;
     }
   }
 `;

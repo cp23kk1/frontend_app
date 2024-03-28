@@ -4,7 +4,7 @@ export const QuestionLayoutWrapper = styled.div`
   width: 100%;
   height: 288px;
   display: flex;
-  font-family: 'Fredoka', sans-serif;
+
   background-color: white;
   flex-direction: row;
   border-radius: 32px;
@@ -14,6 +14,11 @@ export const QuestionLayoutWrapper = styled.div`
   justify-content: center;
   position: relative;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5) inset;
+  color: #262956;
+  font-size: 128px;
+  font-family: Passion One;
+  font-weight: 400;
+  word-wrap: break-word;
   .question-box {
     display: flex;
     justify-content: center;

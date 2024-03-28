@@ -33,6 +33,20 @@ export const LandingContainer = ({
       settingActions.onChangeVolume(localStorage.getItem('volume') ?? 0)
     );
     dispatch(settingActions.onChangeMusic(localStorage.getItem('music') ?? 0));
+
+    onChangeState(
+      localStorage.getItem('currentState')
+        ? JSON.parse(
+            localStorage.getItem('currentState') ??
+              JSON.stringify({
+                page: 'landing'
+              })
+          )
+        : {
+            page: 'landing'
+          }
+    );
+
     dispatch(
       settingActions.onChangeSoundEffect(
         localStorage.getItem('soundEffect') ?? 0
@@ -57,7 +71,7 @@ export const LandingContainer = ({
 };
 
 export type TState = {
-  page: 'landing' | 'gameplay' | 'summary' | 'gamemode';
+  page: 'landing' | 'gameplay' | 'summary' | 'gamemode' | 'host-lobby';
   data?: any;
 };
 export type TVocaverseCore = {

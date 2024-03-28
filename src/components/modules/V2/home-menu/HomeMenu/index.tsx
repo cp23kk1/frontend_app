@@ -47,7 +47,7 @@ const HomeMenu = ({
           </div>
         </div>
         <div className="corner-button">
-          {profileTab ? (
+          {profileTab?.userName ? (
             <NewProfileTab {...profileTab} />
           ) : (
             <NewButton
