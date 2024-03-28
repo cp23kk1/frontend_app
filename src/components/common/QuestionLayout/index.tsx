@@ -18,7 +18,7 @@ const QuestionLayout = ({
       <Col className="question-box">
         <Textfit
           max={type === 'sentence' || type === 'passage' ? 64 : 128}
-          mode="multi"
+          mode="single"
         >
           {questions.map((question, index) => {
             return question ? (
