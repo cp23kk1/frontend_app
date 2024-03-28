@@ -53,23 +53,26 @@ const QuestionLayout = ({
                         }}
                       >
                         <Textfit
-                          mode="single"
                           max={
                             type === 'sentence' || type === 'passage' ? 64 : 128
                           }
-                          key={uuid()}
-                          onClick={() => {
-                            if (
-                              passageAnswers[`${index}`] &&
-                              passageAnswers[`${index}`].state != 'normal'
-                            )
-                              return;
-                            onUnselectePassageAnswer(index);
-                          }}
+                          mode="single"
                         >
-                          {passageAnswers[`${index}`]
-                            ? passageAnswers[`${index}`].children
-                            : '???'}
+                          <span
+                            key={uuid()}
+                            onClick={() => {
+                              if (
+                                passageAnswers[`${index}`] &&
+                                passageAnswers[`${index}`].state != 'normal'
+                              )
+                                return;
+                              onUnselectePassageAnswer(index);
+                            }}
+                          >
+                            {passageAnswers[`${index}`]
+                              ? passageAnswers[`${index}`].children
+                              : '???'}
+                          </span>
                         </Textfit>
                       </Droppable>
                       {text.join('')}
