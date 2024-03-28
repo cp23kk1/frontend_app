@@ -19,6 +19,7 @@ export const QuestionLayoutWrapper = styled.div`
     justify-content: center;
     align-items: center;
     gap: 10px;
+    overflow-y: scroll;
     .question {
       // font-size: 128px;
       // font-weight: 600;
