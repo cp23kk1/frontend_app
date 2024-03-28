@@ -16,69 +16,76 @@ const QuestionLayout = ({
   return (
     <QuestionLayoutWrapper style={style}>
       <Col className="question-box">
-        {questions.map((question, index) => {
-          return question ? (
-            <div
-              key={uuid()}
-              className="question"
-              style={{
-                fontSize: type === 'sentence' || type === 'passage' ? 64 : 128,
-                fontWeight:
-                  type === 'sentence' || type === 'passage' ? 500 : 600
-              }}
-            >
-              {question
-                .toString()
-                .split(' ')
-                .map((value) => {
-                  let text = value.split('??');
+        <Textfit
+          max={type === 'sentence' || type === 'passage' ? 64 : 128}
+          mode="multi"
+        >
+          {questions.map((question, index) => {
+            return question ? (
+              <div
+                key={uuid()}
+                className="question"
+                style={{
+                  fontSize:
+                    type === 'sentence' || type === 'passage' ? 64 : 128,
+                  fontWeight:
+                    type === 'sentence' || type === 'passage' ? 500 : 600
+                }}
+              >
+                {question
+                  .toString()
+                  .split(' ')
+                  .map((value) => {
+                    let text = value.split('??');
 
-                  return value.includes('??') ? (
-                    <>
-                      <Droppable
-                        key={uuid()}
-                        className="sentence-box"
-                        id={index}
-                        style={{
-                          color: passageAnswers[`${index}`] ? 'black' : '',
-                          opacity: passageAnswers[`${index}`] ? 1 : '',
-                          backgroundColor: passageAnswers[`${index}`]
-                            ? passageAnswers[`${index}`].state === 'correct'
-                              ? 'green'
-                              : passageAnswers[`${index}`].state === 'incorrect'
-                              ? 'red'
-                              : ''
-                            : '',
-                          cursor: passageAnswers[`${index}`] ? 'pointer' : ''
-                        }}
-                      >
-                        <span
+                    return value.includes('??') ? (
+                      <>
+                        <Droppable
                           key={uuid()}
-                          onClick={() => {
-                            if (
-                              passageAnswers[`${index}`] &&
-                              passageAnswers[`${index}`].state != 'normal'
-                            )
-                              return;
-                            onUnselectePassageAnswer(index);
+                          className="sentence-box"
+                          id={index}
+                          style={{
+                            color: passageAnswers[`${index}`] ? 'black' : '',
+                            opacity: passageAnswers[`${index}`] ? 1 : '',
+                            backgroundColor: passageAnswers[`${index}`]
+                              ? passageAnswers[`${index}`].state === 'correct'
+                                ? 'green'
+                                : passageAnswers[`${index}`].state ===
+                                  'incorrect'
+                                ? 'red'
+                                : ''
+                              : '',
+                            cursor: passageAnswers[`${index}`] ? 'pointer' : ''
                           }}
                         >
-                          {passageAnswers[`${index}`]
-                            ? passageAnswers[`${index}`].children
-                            : '???'}
-                        </span>
-                      </Droppable>
-                      {text.join('')}
-                    </>
-                  ) : (
-                    `${value} `
-                  );
-                })}
-            </div>
-          ) : (
-            ''
-          );
-        })}
+                          <span
+                            key={uuid()}
+                            onClick={() => {
+                              if (
+                                passageAnswers[`${index}`] &&
+                                passageAnswers[`${index}`].state != 'normal'
+                              )
+                                return;
+                              onUnselectePassageAnswer(index);
+                            }}
+                          >
+                            {passageAnswers[`${index}`]
+                              ? passageAnswers[`${index}`].children
+                              : '???'}
+                          </span>
+                        </Droppable>
+                        {text.join('')}
+                      </>
+                    ) : (
+                      `${value} `
+                    );
+                  })}
+              </div>
+            ) : (
+              ''
+            );
+          })}
+        </Textfit>
         {type === 'vocabulary' && <div className="pos">{pos}</div>}
         {type === 'sentence' && <div className="pos">{pos}</div>}
       </Col>
