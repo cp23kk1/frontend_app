@@ -103,6 +103,7 @@ const GamePlayContainer = ({
   //question logic
   const _addQuestion = () => {
     const currQuestion = questions[currentIndex];
+    console.log('add question: ', questions[currentIndex]);
     if (currQuestion && currQuestion.questionsType !== 'passage') {
       const newAnswer: TGamePlayAnswerButton[] = currQuestion.answers.map(
         (value) => {
