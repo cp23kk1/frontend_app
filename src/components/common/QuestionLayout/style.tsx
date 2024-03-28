@@ -16,7 +16,6 @@ export const QuestionLayoutWrapper = styled.div`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5) inset;
   .question-box {
     display: flex;
-    justify-content: center;
     align-items: center;
     gap: 10px;
     overflow-y: scroll;
