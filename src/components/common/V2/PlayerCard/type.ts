@@ -1,8 +1,7 @@
+import { TPlayer } from '@/components/modules/V2/lobby/JoinCreateLobby/type';
 import { CSSProperties } from 'react';
 
-export type TPlayerCard = {
+export interface TPlayerCard extends TPlayer {
   rank: number | string;
-  displayName: string;
-  imgPath: string;
   score: number;
-};
+}

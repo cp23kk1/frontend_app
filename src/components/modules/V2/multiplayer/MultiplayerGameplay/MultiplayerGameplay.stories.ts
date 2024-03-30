@@ -22,58 +22,66 @@ export const Primary: Story = {
       maxPlayer: 10,
       players: [
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         },
         {
+          id: 12,
+          isReady: false,
           displayName: 'test',
-          imgPath:
-            'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+          img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
           rank: '1',
           score: 999
         }
@@ -83,10 +91,25 @@ export const Primary: Story = {
       extra: 'asdf',
       question: 'sdfafdasdf',
       answers: [
-        { answer: 'asdfasdf', state: 'normal', onClick: () => {} },
-        { answer: 'asdfasdf', state: 'normal', onClick: () => {} },
-        { answer: 'asdfasdf', state: 'normal', onClick: () => {} },
-        { answer: 'asdfasdf', state: 'normal', onClick: () => {} }
+        {
+          answerId: '',
+          answer: 'asdfasdf',
+          state: 'normal',
+          onClick: () => {}
+        },
+        {
+          answerId: '',
+          answer: 'asdfasdf',
+          state: 'normal',
+          onClick: () => {}
+        },
+        {
+          answerId: '',
+          answer: 'asdfasdf',
+          state: 'normal',
+          onClick: () => {}
+        },
+        { answerId: '', answer: 'asdfasdf', state: 'normal', onClick: () => {} }
       ]
     }
   }

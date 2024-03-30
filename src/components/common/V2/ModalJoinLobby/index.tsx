@@ -49,7 +49,11 @@ const ErrorModal = ({
             <div className="lobby">
               {lobby &&
                 lobby.map((value) => {
-                  return <div className="list-lobby">{value}</div>;
+                  return (
+                    <div key={uuid()} className="list-lobby">
+                      {value}
+                    </div>
+                  );
                 })}
             </div>
             <div className="refresh">Refresh</div>

@@ -44,6 +44,7 @@ const KnowLedgeSection = ({
                   key={uuid()}
                 >
                   <Draggable
+                    key={uuid()}
                     data={{
                       children: answer.children,
                       correctness: answer.correctness
@@ -51,6 +52,7 @@ const KnowLedgeSection = ({
                     id={answer.children}
                   >
                     <AnswerButton
+                      key={uuid()}
                       {...answer}
                       onClick={() => {
                         _handleAnswer(answer.children, answer.correctness);
@@ -71,6 +73,7 @@ const KnowLedgeSection = ({
                   key={uuid()}
                 >
                   <AnswerButton
+                    key={uuid()}
                     {...answer}
                     onClick={() => {
                       _handleAnswer(answer.children, answer.correctness);

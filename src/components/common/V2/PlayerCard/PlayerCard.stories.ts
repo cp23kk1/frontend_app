@@ -17,9 +17,10 @@ type Story = StoryObj<typeof meta>;
 export const NormalButton: Story = {
   args: {
     rank: 1,
+    id: 123,
+    isReady: false,
     displayName: 'Display Name',
-    imgPath:
-      'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+    img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
     score: 999
   }
 };

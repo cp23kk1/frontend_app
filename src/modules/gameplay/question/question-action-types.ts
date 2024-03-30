@@ -3,5 +3,6 @@ const modulePath = 'modules/gameplay/question';
 export default createActionTypes(modulePath, [
   'CLEAR',
   'GET_RAND_VOCAB',
-  'GET_QUESTION_SINGLEPLAYER'
+  'GET_QUESTION_SINGLEPLAYER',
+  'GET_QUESTION_MULTIPLAYER'
 ]);

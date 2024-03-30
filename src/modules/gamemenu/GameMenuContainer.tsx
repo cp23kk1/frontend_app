@@ -80,6 +80,7 @@ const GameMenuContainer = ({
 
   const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
+    onChangeState({ page: 'user-profile' });
   };
   useEffect(() => {
     dispatch(scoreDispatch.getLeaderBoardDispatch());
@@ -124,13 +125,33 @@ const GameMenuContainer = ({
       {
         modeName: 'MULTIPLAYER',
         modeDesc: 'Multiplayer mode!! That u can play for fun!!!',
-        modeExtraInfo: 'I HAVE A CODE',
+        modeExtraInfo: (
+          <div
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              if (!userProfile) {
+                onLogin();
+              } else {
+                onChangeState({
+                  page: 'host-lobby',
+                  data: { pageMode: 'join' }
+                });
+              }
+            }}
+          >
+            I HAVE A CODE ?
+          </div>
+        ),
         modeButtons: [
           { iconName: 'Play', onClick: () => {}, text: 'PLAY QUICKLY' },
           {
             iconName: 'Group',
             onClick: () => {
-              onChangeState({ page: 'host-lobby' });
+              if (!userProfile) {
+                onLogin();
+              } else {
+                onChangeState({ page: 'host-lobby' });
+              }
             },
             text: 'CREATE A GAME'
           }

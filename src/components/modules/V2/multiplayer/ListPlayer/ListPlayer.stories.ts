@@ -19,58 +19,66 @@ export const Primary: Story = {
     maxPlayer: 10,
     players: [
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       },
       {
+        id: 12,
         displayName: 'test',
-        imgPath:
-          'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
+        isReady: true,
+        img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         rank: '1',
         score: 999
       }

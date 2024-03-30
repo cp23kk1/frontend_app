@@ -4,8 +4,15 @@ import { TMultiplayerResult } from './type';
 import NewButton from '@/components/common/V2/NewButton';
 import Icon from '@/components/common/Icon';
 import PlayButton from '@/components/common/V2/PlayButton';
-
-const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
+import { v4 as uuid } from 'uuid';
+const MultiplayerResult = ({
+  role,
+  players,
+  timer,
+  onClickBack,
+  onCloseLobby,
+  onClickPlay
+}: TMultiplayerResult) => {
   return (
     <MultiplayerResultWrapper>
       <div className="top-content">
@@ -14,7 +21,7 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
             iconName="Back"
             style={{ width: 'fit-content' }}
             label="BACK"
-            onClick={() => {}}
+            onClick={onClickBack}
           />
         </div>
 
@@ -29,7 +36,7 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
               iconName="Close"
               style={{ width: 'fit-content' }}
               label="CLOSE LOBBY"
-              onClick={() => {}}
+              onClick={onCloseLobby}
             />
           )}
         </div>
@@ -41,13 +48,9 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
               switch (index) {
                 case 0:
                   return (
-                    <div className="no-1">
+                    <div key={uuid()} className="no-1">
                       <Icon iconName="LeaderCrown" />
-                      <img
-                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
-                        alt=""
-                        className="profile-pic"
-                      />
+                      <img src={player.img} alt="" className="profile-pic" />
                       <div className="podium">
                         <Icon iconName="First" />
                         <div className="display-name">{player.displayName}</div>
@@ -60,12 +63,8 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
                   );
                 case 1:
                   return (
-                    <div className="no-2">
-                      <img
-                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
-                        alt=""
-                        className="profile-pic"
-                      />
+                    <div key={uuid()} className="no-2">
+                      <img src={player.img} alt="" className="profile-pic" />
                       <div className="podium">
                         <Icon iconName="Second" />
 
@@ -79,12 +78,8 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
                   );
                 case 2:
                   return (
-                    <div className="no-3">
-                      <img
-                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
-                        alt=""
-                        className="profile-pic"
-                      />
+                    <div key={uuid()} className="no-3">
+                      <img src={player.img} alt="" className="profile-pic" />
                       <div className="podium">
                         <Icon iconName="Third" />
 
@@ -98,14 +93,10 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
                   );
                 default:
                   return (
-                    <div className="player">
+                    <div key={uuid()} className="player">
                       <div className="rank">{++index}</div>
                       <div className="display-name-wrap">
-                        <img
-                          src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
-                          alt=""
-                          className="profile-pic"
-                        />
+                        <img src={player.img} alt="" className="profile-pic" />
                         <div className="display-name">{player.displayName}</div>
                       </div>
                       <div className="score">{player.score} points</div>
@@ -121,11 +112,11 @@ const MultiplayerResult = ({ role, players }: TMultiplayerResult) => {
               <PlayButton
                 text="NEXT GAME"
                 iconName="Play"
-                onClick={() => {}}
+                onClick={onClickPlay}
               ></PlayButton>
             </div>
           ) : (
-            <div className="joiner">NEXT GAME IN 10 SECONDS</div>
+            <div className="joiner">NEXT GAME IN {timer} SECONDS</div>
           )}
         </div>
       </div>

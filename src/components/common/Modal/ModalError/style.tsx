@@ -6,6 +6,9 @@ export const ErrorWraper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 16px;
   .header {
     color: red;
     font-size: 60px;

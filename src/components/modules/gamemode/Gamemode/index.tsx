@@ -68,7 +68,7 @@ const GameMode = ({
               {listMode.map((mode) => {
                 return (
                   <SwiperSlide key={`SwiperSlide-${uuid()}`}>
-                    <Card {...mode}></Card>
+                    <Card key={uuid()} {...mode}></Card>
                   </SwiperSlide>
                 );
               })}

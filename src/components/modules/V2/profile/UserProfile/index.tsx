@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid';
 const UserProfile = ({
   onClickBack,
   onClickSetting,
+  onChangeMode,
   account,
   mode,
   stats
@@ -41,14 +42,18 @@ const UserProfile = ({
             <NewButton
               state={mode === 'account' ? 'selected' : 'unselected'}
               label={'ACCOUNT'}
-              onClick={() => {}}
+              onClick={() => {
+                onChangeMode('account');
+              }}
             />
           </div>
           <div className="mode">
             <NewButton
               state={mode === 'stats' ? 'selected' : 'unselected'}
               label={'STATISTICS'}
-              onClick={() => {}}
+              onClick={() => {
+                onChangeMode('stats');
+              }}
             />
           </div>
         </div>
@@ -60,10 +65,10 @@ const UserProfile = ({
                   <div className="user-info">
                     <img
                       className="profile-pic"
-                      src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+                      src={account.profilePic}
                       alt=""
                     />
-                    <div className="display-name">asfasdfasdfasdfasdf</div>
+                    <div className="display-name">{account.displayName}</div>
                   </div>
                   <div className="edit">Edit</div>
                 </div>
@@ -73,14 +78,14 @@ const UserProfile = ({
                       <Icon size={24} iconName={'GoogleWithBG'} />
                       Authentication with Google
                     </div>
-                    <div className="email">testing_user@gmail.com</div>
+                    <div className="email">{account.email}</div>
                   </div>
                 </div>
                 <div className="bottom-card">
-                  Member since Jan, 1 2024
+                  {account.since}
                   <NewButton
                     style={{ width: 'fit-content' }}
-                    onClick={() => {}}
+                    onClick={account.onSingOut}
                     label="SIGN OUT"
                     iconName="Exit"
                   />

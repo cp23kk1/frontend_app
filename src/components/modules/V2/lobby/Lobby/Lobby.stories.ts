@@ -18,11 +18,13 @@ export const NormalQuestion: Story = {
   args: {
     players: [
       {
+        id: 12,
         displayName: 'jedi',
         img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         isReady: false
       },
       {
+        id: 12,
         displayName: 'jedi',
         img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
         isReady: false
@@ -30,6 +32,7 @@ export const NormalQuestion: Story = {
     ],
     roomID: '',
     currentPlayer: {
+      id: 12,
       displayName: 'jedi',
       img: 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg',
       isReady: false

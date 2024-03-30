@@ -91,8 +91,7 @@ const HomeMenu = ({
               {modes.map((mode) => {
                 return (
                   <SwiperSlide key={`SwiperSlide-${uuid()}`}>
-                    {}
-                    <div className="carousel-card mode">
+                    <div key={uuid()} className="carousel-card mode">
                       <div className="mode-content">
                         <div className="mode-name">{mode.modeName}</div>
                         <div className="mode-description">{mode.modeDesc}</div>
@@ -103,6 +102,7 @@ const HomeMenu = ({
                           {mode.modeButtons.map((button) => {
                             return (
                               <PlayButton
+                                key={uuid()}
                                 iconName={button.iconName}
                                 text={button.text}
                                 onClick={button.onClick}

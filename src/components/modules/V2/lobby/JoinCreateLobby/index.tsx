@@ -3,6 +3,7 @@ import { JoinCreateLobbyWrapper } from './style';
 import { TJoinCreateLobby } from './type';
 import NewButton from '@/components/common/V2/NewButton';
 import PlayButton from '@/components/common/V2/PlayButton';
+import { v4 as uuid } from 'uuid';
 
 const JoinCreateLobby = ({
   currentPage,
@@ -10,6 +11,7 @@ const JoinCreateLobby = ({
   onClickPlayQuickly,
   onChangeRoomID,
   onClickJoin,
+  onChangeMode,
   isJoinButtonDisabled,
   createLobby,
   onClickPlay
@@ -35,10 +37,20 @@ const JoinCreateLobby = ({
           )}
         </div>
         <div className="menu">
-          <div className={currentPage === 'create' ? 'menu-selected' : ''}>
+          <div
+            onClick={() => {
+              onChangeMode('create');
+            }}
+            className={currentPage === 'create' ? 'menu-selected' : ''}
+          >
             CREATE A GAME
           </div>
-          <div className={currentPage === 'join' ? 'menu-selected' : ''}>
+          <div
+            onClick={() => {
+              onChangeMode('join');
+            }}
+            className={currentPage === 'join' ? 'menu-selected' : ''}
+          >
             JOIN A LOBBY
           </div>
         </div>
@@ -115,6 +127,7 @@ const JoinCreateLobby = ({
                         );
                       }}
                       size={16}
+                      style={{ cursor: 'pointer' }}
                     />
                     {createLobby.gameSetting.numQuestions}
                     <Icon
@@ -125,6 +138,7 @@ const JoinCreateLobby = ({
                         );
                       }}
                       size={16}
+                      style={{ cursor: 'pointer' }}
                     />
                   </div>
                 </div>
@@ -192,7 +206,7 @@ const JoinCreateLobby = ({
               <div className="players">
                 {createLobby.players.map((player) => {
                   return (
-                    <div className="player">
+                    <div key={uuid()} className="player">
                       <div
                         className={`text-ready ${
                           player.isReady ? 'ready' : ''
@@ -204,7 +218,7 @@ const JoinCreateLobby = ({
                         className={`profile-image ${
                           player.isReady ? 'border-ready' : 'border-not-ready'
                         }`}
-                        src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"
+                        src={player.img}
                       />
                       <div className="profile-name">{player.displayName}</div>
                     </div>
@@ -212,7 +226,7 @@ const JoinCreateLobby = ({
                 })}
                 {[...Array(8 - createLobby.players.length)].map(() => {
                   return (
-                    <div className="player">
+                    <div key={uuid()} className="player">
                       <div className={`text-ready `}></div>
                       <div
                         className="profile-image"
@@ -232,6 +246,7 @@ const JoinCreateLobby = ({
               </div>
               <div className="play-now">
                 <PlayButton
+                  disabled={createLobby.isPlayDisabled}
                   iconName="Play"
                   text="PLAY NOW"
                   onClick={onClickPlay}

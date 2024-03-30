@@ -4,7 +4,14 @@ import { InputHTMLAttributes } from 'react';
 export type TUserProfile = {
   onClickBack: () => void;
   onClickSetting: () => void;
-  account: {};
+  onChangeMode: (input: 'account' | 'stats') => void;
+  account: {
+    email: string;
+    displayName: string;
+    profilePic: string;
+    since: string;
+    onSingOut: () => void;
+  };
   mode: 'account' | 'stats';
   stats: {
     barStats: TCardProgress[];

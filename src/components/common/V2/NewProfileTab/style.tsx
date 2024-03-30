@@ -35,9 +35,11 @@ export const ProfileTabWrapper = styled.div`
         font-family: Passion One;
         font-weight: 400;
         word-wrap: break-word;
+        width: 100%;
         cursor: pointer;
         transition: 0.25s;
         padding: 10px 16px;
+        border-radius: 12px;
 
         :hover {
           background-color: #e6e6e6;

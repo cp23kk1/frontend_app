@@ -36,6 +36,9 @@ export interface IQuestionSinglePlayerResponse {
   questions: IQuestion[];
 }
 
+export interface IQuestionMultiPlayerResponse {
+  questions: IQuestion[];
+}
 export const getRandomVocabulary = () => {
   return httpClient
     .get<VocaverseResponseData<IVocaublaryResponse>>(`/gameplays/vocabulary`)
@@ -53,7 +56,28 @@ export const getQuestionSinglePlayer = () => {
       return res.data;
     });
 };
+
+export const getQuestionMultiplayer = ({
+  mode,
+  numberOfQuestion
+}: {
+  mode: string;
+  numberOfQuestion: number;
+}) => {
+  return httpClient
+    .post<VocaverseResponseData<IQuestionSinglePlayerResponse>>(
+      `/gameplays/multi-player`,
+      {
+        mode,
+        numberOfQuestion
+      }
+    )
+    .then((res) => {
+      return res.data;
+    });
+};
 export default {
   getRandomVocabulary,
-  getQuestionSinglePlayer
+  getQuestionSinglePlayer,
+  getQuestionMultiplayer
 };

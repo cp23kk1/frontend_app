@@ -28,7 +28,26 @@ const getQuestionSinglePlayerDispatch = createAsyncThunk(
     }
   }
 );
+const getQuestionMultiPlayerDispatch = createAsyncThunk(
+  actionTypes.GET_QUESTION_MULTIPLAYER,
+  async (
+    props: {
+      mode: string;
+      numberOfQuestion: number;
+    },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await services.getQuestionMultiplayer(props);
+
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 export default {
   getRandomVocabularyDispatch,
-  getQuestionSinglePlayerDispatch
+  getQuestionSinglePlayerDispatch,
+  getQuestionMultiPlayerDispatch
 };

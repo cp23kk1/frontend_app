@@ -12,7 +12,7 @@ const SummarySection = ({ table, tabs, style }: TSummarySection) => {
         {tabs?.map((tab) => {
           return (
             <Col key={uuid()} span={24 / tabs?.length ?? 1}>
-              <Tab {...tab} />
+              <Tab key={uuid()} {...tab} />
             </Col>
           );
         })}

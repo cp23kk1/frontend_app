@@ -19,10 +19,10 @@ export const Primary: Story = {
     extra: 'asdf',
     question: 'sdfafdasdf',
     answers: [
-      { answer: 'asdfasdf', state: 'normal', onClick: () => {} },
-      { answer: 'asdfasdf', state: 'normal', onClick: () => {} },
-      { answer: 'asdfasdf', state: 'normal', onClick: () => {} },
-      { answer: 'asdfasdf', state: 'normal', onClick: () => {} }
+      { answerId: '', answer: 'asdfasdf', state: 'normal', onClick: () => {} },
+      { answerId: '', answer: 'asdfasdf', state: 'normal', onClick: () => {} },
+      { answerId: '', answer: 'asdfasdf', state: 'normal', onClick: () => {} },
+      { answerId: '', answer: 'asdfasdf', state: 'normal', onClick: () => {} }
     ]
   }
 };

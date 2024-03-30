@@ -35,9 +35,9 @@ export const NormalQuestion: Story = {
       },
       roomID: '12312',
       players: [
-        { displayName: 'jedi', isReady: true, img: '' },
-        { displayName: 'jedi', isReady: false, img: '' },
-        { displayName: 'player3', isReady: false, img: '' }
+        { id: 123, displayName: 'jedi', isReady: true, img: '' },
+        { id: 123, displayName: 'jedi', isReady: false, img: '' },
+        { id: 123, displayName: 'player3', isReady: false, img: '' }
       ]
     }
   }

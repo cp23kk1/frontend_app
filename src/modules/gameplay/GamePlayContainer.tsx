@@ -10,7 +10,7 @@ import {
 import { TAnimationSection } from '@/components/common/AnimationSection/type';
 import {
   dispatch as vocabularyDispatch,
-  selectors as vocabularySelectors
+  selectors as questionsSelectors
 } from './question';
 import {
   selectors as gameplayCoreSelectors,
@@ -35,12 +35,12 @@ const GamePlayContainer = ({
   const router = useRouter();
 
   // vocabulary
-  const questions = useAppSelector(vocabularySelectors.questionsSeletor);
+  const questions = useAppSelector(questionsSelectors.questionsSeletor);
   const isLoadingVocabulary = useAppSelector(
-    vocabularySelectors.isLoadingVocabularySelector
+    questionsSelectors.isLoadingVocabularySelector
   );
   const isLoadingQuestion = useAppSelector(
-    vocabularySelectors.isQuestionsLoadingSelector
+    questionsSelectors.isQuestionsLoadingSelector
   );
   const currentGameHistory = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector

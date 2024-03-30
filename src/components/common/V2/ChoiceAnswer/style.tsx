@@ -12,9 +12,18 @@ export const ChoiceAnswerWrapper = styled.button`
   transition: 0.1s;
   border: 0;
 
+  :disabled {
+    opacity: 0.5;
+  }
   :hover {
-    ${({ state }: { state: 'correct' | 'incorrect' | 'normal' }) => {
-      return state === 'normal'
+    ${({
+      state,
+      disabled
+    }: {
+      state: 'correct' | 'incorrect' | 'normal';
+      disabled?: boolean;
+    }) => {
+      return state === 'normal' && !disabled
         ? `
         background-color: #F8D34D;
         color: #262956;

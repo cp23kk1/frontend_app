@@ -6,15 +6,23 @@ import { NextPage } from 'next';
 const UserProfilePage: NextPage = () => {
   return (
     <UserProfile
+      onClickSetting={function (): void {
+        throw new Error('Function not implemented.');
+      }}
+      onChangeMode={function (input: 'account' | 'stats'): void {
+        throw new Error('Function not implemented.');
+      }}
       {...{
-        account: {},
-        mode: 'stats',
+        account: {
+          displayName: '',
+          email: '',
+          since: '',
+          onSingOut: () => {},
+          profilePic: ''
+        },
+        mode: 'account',
         stats: {
           barStats: [
-            { maxScore: '1000', score: '750', progress: '75', title: 'Noun' },
-            { maxScore: '1000', score: '750', progress: '45', title: 'Noun' },
-            { maxScore: '1000', score: '750', progress: '75', title: 'Noun' },
-            { maxScore: '1000', score: '750', progress: '11', title: 'Noun' },
             { maxScore: '1000', score: '750', progress: '75', title: 'Noun' },
             { maxScore: '1000', score: '750', progress: '75', title: 'Noun' },
             { maxScore: '1000', score: '750', progress: '75', title: 'Noun' },
@@ -22,21 +30,20 @@ const UserProfilePage: NextPage = () => {
             { maxScore: '1000', score: '750', progress: '75', title: 'Noun' },
             { maxScore: '1000', score: '750', progress: '75', title: 'Noun' }
           ],
-          overAllAcc: '10',
+          overAllAcc: '75',
           overAllMaxScore: '1000',
           overAllScore: '750',
           vocabularyAcc: '75',
           vocabularyMaxScore: '1000',
           vocabularyScore: '750',
-          passageAcc: '29',
+          passageAcc: '75',
           passageMaxScore: '1000',
           passageScore: '750',
           sentenceAcc: '75',
           sentenceMaxScore: '1000',
           sentenceScore: '750'
         },
-        onClickBack: () => {},
-        onClickSetting: () => {}
+        onClickBack: () => {}
       }}
     />
   );

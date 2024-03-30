@@ -15,11 +15,11 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const NormalButton: Story = {
-  args: { answer: 'asdfasdfa', state: 'normal' }
+  args: { answer: 'asdfasdfa', state: 'normal', answerId: '' }
 };
 export const CorrectButton: Story = {
-  args: { answer: 'asdfasdfa', state: 'correct' }
+  args: { answer: 'asdfasdfa', state: 'correct', answerId: '' }
 };
 export const InCorrectButton: Story = {
-  args: { answer: 'asdfasdfa', state: 'incorrect' }
+  args: { answer: 'asdfasdfa', state: 'incorrect', answerId: '' }
 };

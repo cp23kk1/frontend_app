@@ -1,7 +1,9 @@
 import { CSSProperties } from 'react';
 
 export type TChoiceAnswer = {
+  answerId: string;
   state: 'correct' | 'incorrect' | 'normal';
   answer: string;
-  onClick: () => void;
+  disabled?: boolean;
+  onClick: (answerId: string) => void;
 };

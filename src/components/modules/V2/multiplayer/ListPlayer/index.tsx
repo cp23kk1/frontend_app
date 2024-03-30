@@ -3,7 +3,7 @@ import { ListPlayerWrapper } from './style';
 import { TListPlayer } from './type';
 import PlayerCard from '@/components/common/V2/PlayerCard';
 import Icon from '@/components/common/Icon';
-
+import { v4 as uuid } from 'uuid';
 const ListPlayer = ({ players, maxPlayer }: TListPlayer) => {
   return (
     <ListPlayerWrapper>
@@ -18,7 +18,7 @@ const ListPlayer = ({ players, maxPlayer }: TListPlayer) => {
       </div>
       {players &&
         players.map((player) => {
-          return <PlayerCard {...player} />;
+          return <PlayerCard key={uuid()} {...player} />;
         })}
     </ListPlayerWrapper>
   );

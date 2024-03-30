@@ -2,7 +2,7 @@ import Icon from '@/components/common/Icon';
 import { LobbyWrapper } from './style';
 import { TLobby } from './type';
 import NewButton from '@/components/common/V2/NewButton';
-
+import { v4 as uuid } from 'uuid';
 const Lobby = ({
   onClickLeave,
   roomID,
@@ -43,7 +43,7 @@ const Lobby = ({
             <div className="players">
               {players.map((player) => {
                 return (
-                  <div className="player">
+                  <div key={uuid()} className="player">
                     <div
                       className={`text-ready ${player.isReady ? 'ready' : ''}`}
                     >
@@ -61,7 +61,7 @@ const Lobby = ({
               })}
               {[...Array(8 - players.length)].map(() => {
                 return (
-                  <div className="player">
+                  <div key={uuid()} className="player">
                     <div className={`text-ready `}></div>
                     <div
                       className="profile-image"

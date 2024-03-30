@@ -13,12 +13,19 @@ export const PlayButtonWrapper = styled.button`
   font-weight: 400;
   word-wrap: break-word;
   border: 0;
-  :hover {
+  :disabled {
+    opacity: 0.5;
+  }
+  ${({ disabled }: { disabled?: boolean }) => {
+    return disabled
+      ? ''
+      : `:hover {
     cursor: pointer;
     background-color: #262956;
     color: #f8d34d;
     div > svg > path {
       fill: #f8d34d;
     }
-  }
+  }`;
+  }}
 `;

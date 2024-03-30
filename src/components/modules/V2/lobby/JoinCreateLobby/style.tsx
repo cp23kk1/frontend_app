@@ -101,11 +101,19 @@ export const JoinCreateLobbyWrapper = styled.div`
               display: flex;
               border-radius: 8px;
               border: 1px solid #9ea3e8;
+              overflow: hidden;
+
               .selected {
                 background-color: #9ea3e8;
               }
+
               div {
                 padding: 8px 12px;
+                cursor: pointer;
+
+                :hover {
+                  background-color: #9ea3e8;
+                }
               }
             }
           }

@@ -17,15 +17,19 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     role: 'joiner',
+    onClickBack: () => {},
+    timer: 1,
+    onClickPlay: () => {},
+    onCloseLobby: () => {},
     players: [
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 },
-      { displayName: 'p1', score: 999 }
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 },
+      { id: 1, img: '', isReady: true, rank: 1, displayName: 'p1', score: 999 }
     ]
   }
 };

@@ -1,7 +1,7 @@
 import ChoiceAnswer from '@/components/common/V2/ChoiceAnswer';
 import { MultiplayerQuestionWrapper } from './style';
 import { TMultiplayerQuestion } from './type';
-
+import { v4 as uuid } from 'uuid';
 const MultiplayerQuestion = ({
   question,
   extra,
@@ -17,13 +17,7 @@ const MultiplayerQuestion = ({
         <div className="answers">
           {answers &&
             answers.map((answer) => {
-              return (
-                <ChoiceAnswer
-                  answer={answer.answer}
-                  state={answer.state}
-                  onClick={answer.onClick}
-                />
-              );
+              return <ChoiceAnswer key={uuid()} {...answer} />;
             })}
         </div>
       </div>

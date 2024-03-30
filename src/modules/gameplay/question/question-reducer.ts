@@ -20,15 +20,16 @@ const initialState = {
   isVocabularyLoading: false,
   isQuestionsLoading: false,
   vocabulary: [],
-  questions: [],
-  passageQuestions: []
+  questions: []
 } as InitialState;
 
 const reducer = createReducer(initialState, (builder) => {
   //
   builder.addCase(actionTypes.CLEAR, (state) => {
     state.isVocabularyLoading = false;
+    state.isQuestionsLoading = false;
     state.vocabulary = [];
+    state.questions = [];
   });
 
   builder.addCase(dispatch.getRandomVocabularyDispatch.pending, (state) => {
@@ -65,8 +66,20 @@ const reducer = createReducer(initialState, (builder) => {
     }
   );
 
+  builder.addCase(dispatch.getQuestionMultiPlayerDispatch.pending, (state) => {
+    state.isQuestionsLoading = true;
+  });
+
   builder.addCase(
-    dispatch.getQuestionSinglePlayerDispatch.rejected,
+    dispatch.getQuestionMultiPlayerDispatch.fulfilled,
+    (state, action: PayloadAction<any>) => {
+      state.isQuestionsLoading = false;
+      state.questions = state.questions.concat(action.payload.data.questions);
+    }
+  );
+
+  builder.addCase(
+    dispatch.getQuestionMultiPlayerDispatch.rejected,
     (state, action: PayloadAction<any>) => {
       state.isQuestionsLoading = false;
     }

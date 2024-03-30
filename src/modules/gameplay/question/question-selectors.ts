@@ -25,34 +25,37 @@ const questionsSeletor = createSelector(
         let correctAnswer = question.answers?.find(
           (answer) => answer.correctness
         );
-        return {
-          ...question,
-          question:
-            question.questionsType === 'sentence'
-              ? question.question
-                  ?.toString()
-                  .replace(`${correctAnswer?.answer}`, `??`)
-              : question.questionsType === 'passage'
-              ? ''
-              : question.question,
-          questions: question.questions
-            ? question.questions.map((question) => {
-                let correctAnswer = question.answers?.find(
-                  (answer) => answer.correctness
-                );
-                return {
-                  ...question,
-                  question:
-                    question.questionsType === 'sentence'
-                      ? question.question
-                          ?.toString()
-                          .replace(`${correctAnswer?.answer}`, `??`)
-                      : question.question
-                };
-              })
-            : undefined,
-          answers: question.answers ?? []
-        };
+
+        return question.questionsType === 'vocabulary'
+          ? question
+          : {
+              ...question,
+              question:
+                question.questionsType === 'sentence'
+                  ? question.question
+                      ?.toString()
+                      .replace(`${correctAnswer?.answer}`, `??`)
+                  : question.questionsType === 'passage'
+                  ? ''
+                  : question.question,
+              questions: question.questions
+                ? question.questions.map((question) => {
+                    let correctAnswer = question.answers?.find(
+                      (answer) => answer.correctness
+                    );
+                    return {
+                      ...question,
+                      question:
+                        question.questionsType === 'sentence'
+                          ? question.question
+                              ?.toString()
+                              .replace(`${correctAnswer?.answer}`, `??`)
+                          : question.question
+                    };
+                  })
+                : undefined,
+              answers: question.answers ?? []
+            };
       });
 
       return temp;

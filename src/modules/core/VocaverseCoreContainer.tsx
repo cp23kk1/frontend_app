@@ -11,7 +11,10 @@ export const LandingContainer = ({
   render: (props: TVocaverseCore) => ReactNode;
 }) => {
   const dispatch = useAppDispatch();
-  const [state, setState] = useState<TState>({ page: 'landing' });
+  const [state, setState] = useState<TState>({
+    page: 'landing',
+    listPage: ['landing']
+  });
   const [isModalSettingOpen, setIsModalSettingOpen] = useState<boolean>(false);
   const volume = useAppSelector(settingSelectors.volumeSelector);
   const music = useAppSelector(settingSelectors.musicSelector);
@@ -26,8 +29,13 @@ export const LandingContainer = ({
     setIsModalSettingOpen(false);
   };
   const onChangeState = (inputState: TState) => {
-    setState(inputState);
+    console.log(state);
+    setState({
+      ...inputState,
+      listPage: state.listPage?.concat(inputState.page)
+    });
   };
+
   useEffect(() => {
     dispatch(
       settingActions.onChangeVolume(localStorage.getItem('volume') ?? 0)
@@ -71,7 +79,8 @@ export const LandingContainer = ({
 };
 
 export type TState = {
-  page: 'landing' | 'gameplay' | 'summary' | 'gamemode' | 'host-lobby';
+  page: TPagelist;
+  listPage?: TPagelist[];
   data?: any;
 };
 export type TVocaverseCore = {
@@ -80,4 +89,14 @@ export type TVocaverseCore = {
   onSetting: () => void;
   settingModal: TSettingModal;
 };
+type TPagelist =
+  | 'landing'
+  | 'gameplay'
+  | 'summary'
+  | 'gamemode'
+  | 'host-lobby'
+  | 'user-profile'
+  | 'lobby'
+  | 'multiplay-gameplay'
+  | 'multiplayer-result';
 export default LandingContainer;
