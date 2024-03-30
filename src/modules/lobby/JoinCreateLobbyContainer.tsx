@@ -69,7 +69,7 @@ const JoinCreateLobbyContainer = ({
       } as TWebSocketData)
     );
     conn?.close();
-    setCurrentPageMode('join');
+    handleClickBack();
   };
   const onClickPlay = () => {
     dispatch(

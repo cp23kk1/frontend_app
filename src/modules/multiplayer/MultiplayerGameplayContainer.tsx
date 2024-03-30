@@ -260,7 +260,7 @@ const MultiplayerGameplayContainer = ({
           timer.current = timer.current + 0.2;
         } else {
           timer.current = 0;
-          if (currentRound < questions.length) {
+          if (currentRound < questions.length && currentRound < maxRound) {
             conn.send(
               JSON.stringify({
                 msg: `System:  update point.`,
