@@ -343,7 +343,7 @@ const MultiplayerGameplayContainer = ({
       }, 200);
       return () => clearInterval(interval);
     }
-  }, [currentRound]);
+  }, [currentRound, isQuestionsLoading]);
 
   return render({
     currentRound: currentRound,
