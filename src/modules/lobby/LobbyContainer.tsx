@@ -130,6 +130,14 @@ const LobbyContainer = ({
   useEffect(() => {
     dispatch(userCoreDispatch.getUserProfileDispatch());
     setConn(state.data.wsConnection);
+
+    if (!state.data.wsConnection) {
+      onChangeState({
+        page: 'host-lobby',
+        listPage: state.listPage,
+        data: { pageMode: 'join' }
+      });
+    }
     setRoomId(state.data.roomId);
   }, []);
   useEffect(() => {}, []);

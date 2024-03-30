@@ -12,6 +12,7 @@ import {
 } from '@/components/modules/V2/lobby/JoinCreateLobby/type';
 import { TWebSocketData } from '@/types/vocaverse/api/response';
 import questionDispatch from '../gameplay/question/question-dispatch';
+import { modalAlert } from '@/components/common/Modal';
 
 const JoinCreateLobbyContainer = ({
   render,
@@ -147,6 +148,7 @@ const JoinCreateLobbyContainer = ({
     conn.onclose = function (evt) {
       setIsConnect(false);
       console.log('close');
+      alert('not found room id');
     };
     conn.onopen = function () {
       conn.send(

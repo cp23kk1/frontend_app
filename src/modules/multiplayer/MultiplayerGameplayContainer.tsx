@@ -184,7 +184,7 @@ const MultiplayerGameplayContainer = ({
                         score:
                           player.score +
                           Math.floor(
-                            100 / (timer.current === 0 ? 1 : timer.current)
+                            100 / (timer.current < 0.5 ? 1 : timer.current)
                           )
                       }
                     : { ...player };

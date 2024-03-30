@@ -155,7 +155,6 @@ const MultiplayerResultContainer = ({
             conn.close();
             onChangeState({ page: 'gamemode', listPage: state.listPage });
           }
-
           setPlayers(
             players.filter((player) => {
               return player.id !== message.userData.id;
