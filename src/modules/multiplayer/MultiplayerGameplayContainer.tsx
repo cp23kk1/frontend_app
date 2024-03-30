@@ -236,7 +236,7 @@ const MultiplayerGameplayContainer = ({
 
   useEffect(() => {
     if (
-      currentRound < maxRound &&
+      currentRound <= maxRound &&
       role === 'host' &&
       !isQuestionsLoading &&
       questions.length > 0
@@ -295,6 +295,7 @@ const MultiplayerGameplayContainer = ({
                 userData: userProfile
               } as TWebSocketData)
             );
+
             setTimeout(() => {
               setCurrentRound(currentRound + 1);
             }, 1000);
