@@ -116,7 +116,16 @@ const MultiplayerGameplayContainer = ({
       let message = JSON.parse(evt.data) as TWebSocketData;
       switch (message.msgType) {
         case 'UpdateData':
-          handleChangePlayers(message.listPlayer as TPlayerCard[]);
+          let temp = message.listPlayer as TPlayerCard[];
+          handleChangePlayers(
+            temp
+              .sort((a: TPlayerCard, b: TPlayerCard) => {
+                return a.score - b.score;
+              })
+              .map((player, index) => {
+                return { ...player, rank: ++index };
+              })
+          );
           break;
         case 'ShowAnswer':
           handleChangeAnswers(
@@ -313,6 +322,7 @@ const MultiplayerGameplayContainer = ({
                 userData: userProfile
               } as TWebSocketData)
             );
+            console.log('container:316');
             setTimeout(() => {
               conn.send(
                 JSON.stringify({

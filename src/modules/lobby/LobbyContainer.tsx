@@ -96,7 +96,7 @@ const LobbyContainer = ({
           break;
 
         case 'UpdateData':
-          handleChangePlayers([...players, ...message.listPlayer]);
+          handleChangePlayers([...message.listPlayer]);
 
           break;
         case 'StartGame':
