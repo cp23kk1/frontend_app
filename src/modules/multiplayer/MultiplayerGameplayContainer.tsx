@@ -120,7 +120,7 @@ const MultiplayerGameplayContainer = ({
           handleChangePlayers(
             temp
               .sort((a: TPlayerCard, b: TPlayerCard) => {
-                return a.score - b.score;
+                return b.score - a.score;
               })
               .map((player, index) => {
                 return { ...player, rank: ++index };
@@ -273,7 +273,7 @@ const MultiplayerGameplayContainer = ({
           if (currentRound < questions.length && currentRound < maxRound) {
             conn.send(
               JSON.stringify({
-                msg: `System:  update point.`,
+                msg: `System:  update point 276.`,
                 from: `system`,
                 msgType: 'ShowAnswer',
                 currentQuestion: {
@@ -301,7 +301,7 @@ const MultiplayerGameplayContainer = ({
           } else {
             conn.send(
               JSON.stringify({
-                msg: `System:  update point.`,
+                msg: `System:  update point 304.`,
                 from: `system`,
                 msgType: 'ShowAnswer',
                 currentQuestion: {
@@ -343,7 +343,7 @@ const MultiplayerGameplayContainer = ({
       }, 200);
       return () => clearInterval(interval);
     }
-  }, [currentRound, isQuestionsLoading]);
+  }, [currentRound]);
 
   return render({
     currentRound: currentRound,
