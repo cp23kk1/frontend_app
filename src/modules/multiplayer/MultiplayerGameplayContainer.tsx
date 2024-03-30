@@ -190,7 +190,7 @@ const MultiplayerGameplayContainer = ({
                     : { ...player };
                 })
                 .sort((a, b) => {
-                  return a.score - b.score;
+                  return b.score - a.score;
                 });
               handleChangePlayers([...tempListPlayer]);
               conn.send(
@@ -269,6 +269,7 @@ const MultiplayerGameplayContainer = ({
           timer.current = timer.current + 0.2;
         } else {
           timer.current = 0;
+          console.log(currentRound);
           if (currentRound < questions.length && currentRound < maxRound) {
             conn.send(
               JSON.stringify({

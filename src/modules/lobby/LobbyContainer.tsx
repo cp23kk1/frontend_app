@@ -110,6 +110,16 @@ const LobbyContainer = ({
               role: 'player'
             }
           });
+          break;
+        case 'UserReady':
+          setPlayers([
+            ...players.map((player) => {
+              return player.id === message.userData.id
+                ? { ...player, isReady: message.isReady }
+                : player;
+            })
+          ]);
+          break;
       }
     };
     conn.onerror = function (err) {
