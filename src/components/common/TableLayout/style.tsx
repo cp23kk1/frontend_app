@@ -27,7 +27,7 @@ export const TableLayoutWrapper = styled.div`
   .record {
     display: flex;
     width: 100%;
-    height: 60px;
+    height: fit-content;
 
     color: black;
 
