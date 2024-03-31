@@ -69,7 +69,11 @@ const GameMenuContainer = ({
     });
   };
   const onGoogleLogin = () => {
-    router.push(getGoogleUrl(router.pathname));
+    router.push(
+      getGoogleUrl(
+        router.pathname + userProfile ? `?id=${userProfile?.id}` : ''
+      )
+    );
   };
   const onGuestLogin = (modal: {
     render: (props: TModal) => void;
