@@ -100,8 +100,8 @@ const LobbyContainer = ({
         const modal = modalAlert();
         modal.render({
           children: ErrorModal({
-            errorMessage: 'Please try again .',
-            errorStatus: 'Something went wrong'
+            errorMessage: 'Host closed lobby.',
+            errorStatus: 'Disconnected from lobby'
           }),
           closeable: false
         });

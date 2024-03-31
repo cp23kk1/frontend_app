@@ -31,6 +31,7 @@ const UserProfileContainer = ({
   const dispatch = useAppDispatch();
   const router = useRouter();
   const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
+  const userStatistic = useAppSelector(userCoreSelectors.userStatisticSelector);
   const [mode, setMode] = useState<'account' | 'stats'>('account');
   const handleChangeMode = (input: 'account' | 'stats') => {
     setMode(input);
@@ -47,6 +48,7 @@ const UserProfileContainer = ({
 
   useEffect(() => {
     dispatch(userCoreDispatch.getUserProfileDispatch());
+    dispatch(userCoreDispatch.getUserStatisticDispatch());
   }, []);
 
   return render({
@@ -64,80 +66,120 @@ const UserProfileContainer = ({
       onSingOut: handleClickLogout
     },
     stats: {
-      barStats: [
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '45',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '11',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        },
-        {
-          maxScore: '1000',
-          score: '750',
-          progress: '75',
-          title: 'Noun'
-        }
-      ],
-      overAllAcc: '10',
-      overAllMaxScore: '1000',
-      overAllScore: '750',
-      vocabularyAcc: '75',
-      vocabularyMaxScore: '1000',
-      vocabularyScore: '750',
-      passageAcc: '29',
-      passageMaxScore: '1000',
-      passageScore: '750',
-      sentenceAcc: '75',
-      sentenceMaxScore: '1000',
-      sentenceScore: '750'
+      barStats: userStatistic
+        ? [
+            ...userStatistic?.countVocabulary.map((maxVocab) => {
+              let countCorrect = userStatistic?.countVocabularyCorrect.find(
+                (value) => {
+                  return maxVocab.pos == value.pos;
+                }
+              ) ?? { count: 0, pos: '' };
+              return {
+                maxScore: `${maxVocab.count}`,
+                score: `${countCorrect?.count}`,
+                progress: `${(
+                  (countCorrect?.count / maxVocab.count) *
+                  100
+                ).toFixed(2)}`,
+                title: maxVocab.pos
+              };
+            }),
+            ...userStatistic?.countSentence.map((maxSentence) => {
+              let countCorrect = userStatistic?.countSentenceCorrect.find(
+                (value) => {
+                  return maxSentence.tense == value.tense;
+                }
+              ) ?? { count: 0, tense: '' };
+              return {
+                maxScore: `${maxSentence.count}`,
+                score: `${countCorrect?.count}`,
+                progress: `${(
+                  (countCorrect?.count / maxSentence.count) *
+                  100
+                ).toFixed(2)}`,
+                title: maxSentence.tense
+              };
+            })
+          ]
+        : [],
+      overAllAcc: `${(
+        (userStatistic
+          ? userStatistic.overallCorrect / userStatistic.overall
+          : 0) * 100
+      ).toFixed(2)}`,
+      overAllMaxScore: `${userStatistic ? userStatistic.overall : 0}`,
+      overAllScore: `${userStatistic ? userStatistic.overallCorrect : 0}`,
+      vocabularyAcc: `${(
+        (userStatistic
+          ? userStatistic?.countVocabularyCorrect.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.count,
+              0
+            ) /
+            userStatistic?.countVocabulary.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.count,
+              0
+            )
+          : 0) * 100
+      ).toFixed(2)}`,
+      vocabularyMaxScore: `${
+        userStatistic
+          ? userStatistic?.countVocabulary.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.count,
+              0
+            )
+          : 0
+      }`,
+      vocabularyScore: `${
+        userStatistic
+          ? userStatistic?.countVocabularyCorrect.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.count,
+              0
+            )
+          : 0
+      }`,
+      passageAcc: `${
+        userStatistic
+          ? (
+              (userStatistic?.countPassageCorrect /
+                userStatistic?.countPassage) *
+              100
+            ).toFixed(2)
+          : 0
+      }`,
+      passageMaxScore: `${userStatistic ? userStatistic.countPassage : 0}`,
+      passageScore: `${userStatistic ? userStatistic.countPassageCorrect : 0}`,
+      sentenceAcc: `${
+        userStatistic
+          ? (
+              (userStatistic?.countSentenceCorrect.reduce(
+                (accumulator, currentValue) => accumulator + currentValue.count,
+                0
+              ) /
+                userStatistic?.countSentence.reduce(
+                  (accumulator, currentValue) =>
+                    accumulator + currentValue.count,
+                  0
+                )) *
+              100
+            ).toFixed(2)
+          : 0
+      }`,
+      sentenceMaxScore: `${
+        userStatistic
+          ? userStatistic?.countSentence.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.count,
+              0
+            )
+          : 0
+      }`,
+      sentenceScore: `${
+        userStatistic
+          ? userStatistic?.countSentenceCorrect.reduce(
+              (accumulator, currentValue) => accumulator + currentValue.count,
+              0
+            )
+          : 0
+      }`
     }
   });
 };

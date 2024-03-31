@@ -11,6 +11,16 @@ export interface IUserResponse {
   isPrivate?: boolean;
   createAt?: string;
 }
+export interface IUserStatistic {
+  overall: number;
+  overallCorrect: number;
+  countPassage: number;
+  countPassageCorrect: number;
+  countSentence: { count: number; tense: string }[];
+  countSentenceCorrect: { count: number; tense: string }[];
+  countVocabulary: { count: number; pos: string }[];
+  countVocabularyCorrect: { count: number; pos: string }[];
+}
 export const getUserProfile = () => {
   return httpClient
     .get<VocaverseResponseData<IUserResponse>>(`/user/profile`)
@@ -18,6 +28,15 @@ export const getUserProfile = () => {
       return res.data;
     });
 };
+
+export const getUserStatistic = () => {
+  return httpClient
+    .get<VocaverseResponseData<IUserStatistic>>(`/user/statistic`)
+    .then((res) => {
+      return res.data;
+    });
+};
 export default {
-  getUserProfile
+  getUserProfile,
+  getUserStatistic
 };
