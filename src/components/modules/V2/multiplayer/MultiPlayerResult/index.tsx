@@ -109,6 +109,9 @@ const MultiplayerResult = ({
         <div className="button-play-again">
           {role === 'host' ? (
             <div className="host">
+              <div></div>
+              <div className="joiner">NEXT GAME IN {timer} SECONDS</div>
+
               <PlayButton
                 text="NEXT GAME"
                 iconName="Play"

@@ -4,6 +4,7 @@ import { TJoinCreateLobby } from './type';
 import NewButton from '@/components/common/V2/NewButton';
 import PlayButton from '@/components/common/V2/PlayButton';
 import { v4 as uuid } from 'uuid';
+import { create } from 'domain';
 
 const JoinCreateLobby = ({
   currentPage,
@@ -73,6 +74,7 @@ const JoinCreateLobby = ({
                 onChange={onChangeRoomID}
                 placeholder="######"
                 maxLength={6}
+                value={createLobby.roomID}
               />
             </div>
             <div className="join-button">
@@ -91,7 +93,7 @@ const JoinCreateLobby = ({
               <div className="setting">
                 <div>MODE</div>
                 <div className="mode-select">
-                  <label className="input-radio" htmlFor="all">
+                  {/* <label className="input-radio" htmlFor="all">
                     <input
                       onChange={createLobby.gameSetting.onChangeMode}
                       type="radio"
@@ -101,7 +103,7 @@ const JoinCreateLobby = ({
                       checked={createLobby.gameSetting.mode === 'all'}
                     />
                     <span className="checkmark"></span>ALL
-                  </label>
+                  </label> */}
 
                   <label className="input-radio" htmlFor="vocabulary">
                     <input

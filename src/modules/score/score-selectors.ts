@@ -12,7 +12,9 @@ const scoreBoardSelector = createSelector(
       return {
         no: index + 1,
         score: score.score,
-        userName: score.displayName
+        userName: score.displayName,
+        userId: score.userId,
+        userImage: score.userImage
       };
     });
   }
@@ -29,8 +31,10 @@ const userScoreBoardSelector = createSelector(
               (value) => value.scoreId === score.userScoreBoard?.scoreId
             ) + 1
           : '-',
-      score: score.userScoreBoard ? score.userScoreBoard.score : '-',
-      userName: score.userScoreBoard ? score.userScoreBoard.displayName : '-'
+      userId: score.userScoreBoard ? score.userScoreBoard.userId : 0,
+      score: score.userScoreBoard ? score.userScoreBoard.score : 0,
+      userName: score.userScoreBoard ? score.userScoreBoard.displayName : '-',
+      userImage: score.userScoreBoard ? score.userScoreBoard.userImage : '-'
     };
   }
 );

@@ -13,8 +13,9 @@ import authSelectors from '../user/auth/auth-selectors';
 import { modalAlert } from '@/components/common/Modal';
 import NewLoginModal from '@/components/modules/V2/home-menu/NewLoginModal';
 import { getGoogleUrl } from '@/utils/getGoogleUrl';
-import { TModal } from '../core/setting/type';
 import authDispatch from '../user/auth/auth-dispatch';
+import userCoreDispatch from '../user/user-core/user-core-dispatch';
+import { TModal } from '@/components/common/Modal/type';
 
 const GameMenuContainer = ({
   render,
@@ -31,6 +32,8 @@ const GameMenuContainer = ({
   const isGuestLoginLoading = useAppSelector(
     authSelectors.isGuestLoginLoadingSelector
   );
+  const scoreBoard = useAppSelector(scoreSelectors.scoreBoardSelector);
+  const userScore = useAppSelector(scoreSelectors.userScoreBoardSelector);
   const isLogoutLoading = useAppSelector(authSelectors.isLogoutLoading);
   const isUserProfileLoading = useAppSelector(
     userCoreSelectors.isUserProfileLoadingSelector
@@ -43,7 +46,11 @@ const GameMenuContainer = ({
   const handleChangeCurrentPage = (
     input: 'home' | 'leaderboard' | 'history' | 'item'
   ) => {
-    setCurrentPage(input);
+    if (userProfile || input == 'home') {
+      setCurrentPage(input);
+    } else {
+      onLogin();
+    }
   };
 
   const onLogin = (event?: React.MouseEvent<HTMLButtonElement>) => {
@@ -57,7 +64,8 @@ const GameMenuContainer = ({
         onClickGuestLogin: onGuestLogin(modal),
         onClickPolicy: () => {},
         onClickTerm: () => {}
-      })
+      }),
+      closeable: true
     });
   };
   const onGoogleLogin = () => {
@@ -86,9 +94,33 @@ const GameMenuContainer = ({
     dispatch(scoreDispatch.getLeaderBoardDispatch());
     dispatch(scoreDispatch.getBestScoreDispatch());
     localStorage.setItem('currentState', '');
-  }, [isUserProfileLoading, userProfile]);
+  }, [isUserProfileLoading, userProfile, currentPage]);
+
+  useEffect(() => {
+    dispatch(userCoreDispatch.getUserProfileDispatch());
+  }, [isGuestLoginLoading, isLogoutLoading]);
 
   return render({
+    leaderBoard: {
+      currentPlayer: {
+        displayName: userScore.userName,
+        score: userScore.score,
+        id: userScore.userId,
+        img: userScore.userImage,
+        isReady: false,
+        rank: ''
+      },
+      listPlayer: scoreBoard.map((player) => {
+        return {
+          displayName: player.userName,
+          isReady: false,
+          score: player.score,
+          id: player.userId,
+          img: player.userImage,
+          rank: player.no
+        };
+      })
+    },
     currentPage: currentPage,
     onChangePage: handleChangeCurrentPage,
     onCLickSettings: () => {},

@@ -6,6 +6,17 @@ import type { NextPage } from 'next';
 const GameMenuPage: NextPage = () => {
   return (
     <HomeMenu
+      leaderBoard={{
+        currentPlayer: {
+          displayName: '',
+          score: 123,
+          id: 123,
+          img: '',
+          isReady: false,
+          rank: ''
+        },
+        listPlayer: []
+      }}
       onCLickSettings={() => {}}
       onChangePage={(input) => {}}
       onClickSignIn={() => {}}

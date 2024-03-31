@@ -7,6 +7,7 @@ import 'swiper/css/navigation';
 import { Navigation, Pagination } from 'swiper/modules';
 import PlayButton from '@/components/common/V2/PlayButton';
 import NewProfileTab from '@/components/common/V2/NewProfileTab';
+import Icon from '@/components/common/Icon';
 
 const HomeMenu = ({
   modes,
@@ -14,6 +15,7 @@ const HomeMenu = ({
   onChangePage,
   onClickSignIn,
   onCLickSettings,
+  leaderBoard,
   profileTab
 }: THome) => {
   return (
@@ -87,6 +89,7 @@ const HomeMenu = ({
               allowTouchMove={false}
               navigation={true}
               pagination={{ clickable: true }}
+              slidesPerGroupSkip={0}
             >
               {modes.map((mode) => {
                 return (
@@ -121,9 +124,147 @@ const HomeMenu = ({
                 <div className="carousel-card comming-soon">COMING SOON...</div>
               </SwiperSlide>
             </Swiper>
-            <div className="tutorial">Tutorials</div>
           </>
         )}
+        {currentPage === 'leaderboard' && (
+          <>
+            <div className="leaderboard">
+              <div className="topic">WEEKLY LEADERBOARD</div>
+              <div className="list">
+                {leaderBoard &&
+                  leaderBoard.listPlayer.map((player, index) => {
+                    switch (index) {
+                      case 0:
+                        return (
+                          <div className="row no1">
+                            <div className="rank">
+                              <Icon iconName="LeaderCrown" />
+                            </div>
+                            <div className="pic">
+                              <img
+                                src={player.img}
+                                className="profile-pic"
+                                alt=""
+                              />
+                            </div>
+                            <div className="display-name">
+                              {player.displayName}
+                            </div>
+                            <span className="score">
+                              {player.score}
+                              <span className="points">&nbsp;points</span>
+                            </span>
+                          </div>
+                        );
+                      case 1:
+                        return (
+                          <div className="row no2">
+                            <div className="rank">
+                              <Icon iconName="Second" />
+                            </div>
+                            <div className="pic">
+                              <img
+                                src={player.img}
+                                className="profile-pic"
+                                alt=""
+                              />
+                            </div>
+                            <div className="display-name">
+                              {player.displayName}
+                            </div>
+                            <span className="score">
+                              {player.score}
+                              <span className="points">&nbsp;points</span>
+                            </span>
+                          </div>
+                        );
+                      case 2:
+                        return (
+                          <div className="row no3">
+                            <div className="rank">
+                              <Icon iconName="Third" />
+                            </div>
+                            <div className="pic">
+                              <img
+                                src={player.img}
+                                className="profile-pic"
+                                alt=""
+                              />
+                            </div>
+                            <div className="display-name">
+                              {player.displayName}
+                            </div>
+                            <span className="score">
+                              {player.score}
+                              <span className="points">&nbsp;points</span>
+                            </span>
+                          </div>
+                        );
+                      default:
+                        return (
+                          <div className="row">
+                            <div className="rank">{++index}</div>
+                            <div className="pic">
+                              <img
+                                src={player.img}
+                                className="profile-pic"
+                                alt=""
+                              />
+                            </div>
+                            <div className="display-name">
+                              {player.displayName}
+                            </div>
+                            <span className="score">
+                              {player.score}
+                              <span className="points">&nbsp;points</span>
+                            </span>
+                          </div>
+                        );
+                    }
+                  })}
+              </div>
+              <div className="bottom">
+                <div className="row current-player">
+                  <div className="rank"></div>
+                  <div className="pic">
+                    <img
+                      src={leaderBoard.currentPlayer.img}
+                      className="profile-pic"
+                      alt=""
+                    />
+                  </div>
+                  <div className="display-name">
+                    {leaderBoard.currentPlayer.displayName}
+                  </div>
+                  <span className="score">
+                    {leaderBoard.currentPlayer.score}
+                    <span className="points">&nbsp;points</span>
+                  </span>
+                </div>
+                <div className="filter">
+                  <div className="left-dropdown-wrapper">
+                    <div className="week-dropdown">
+                      <div className="custom-select">
+                        <select>
+                          <option value="week1">WEEK:1</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="selected-week">1 JAN 2024 - 1 JAN 2025</div>
+                  </div>
+                  <div className="mode-dropdown">
+                    <div className="custom-select">
+                      <select>
+                        <option value="week1">MODE: SINGLEPLAYER</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        <div className="tutorial">Tutorials</div>
       </div>
     </HomeWrapper>
   );

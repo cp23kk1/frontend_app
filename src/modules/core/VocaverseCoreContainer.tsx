@@ -68,8 +68,6 @@ export const LandingContainer = ({
     onSetting,
     settingModal: {
       charaterPic: getPublicPath(`/character/player/robot.svg`),
-      isModalOpen: isModalSettingOpen,
-      onClose: onCloseModalSetting,
       musicValue: music,
       volumeValue: volume,
       soundEffectValue: soundEffect,

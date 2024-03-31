@@ -24,6 +24,8 @@ import { TMultiplayerResult } from '@/components/modules/V2/multiplayer/MultiPla
 import questionDispatch from '../gameplay/question/question-dispatch';
 import questionActionTypes from '../gameplay/question/question-action-types';
 import questionActions from '../gameplay/question/question-actions';
+import { modalAlert } from '@/components/common/Modal';
+import ModalDecision from '@/components/common/V2/ModalDecision';
 
 const MultiplayerResultContainer = ({
   render,
@@ -67,28 +69,56 @@ const MultiplayerResultContainer = ({
   const [timer, setTimer] = useState<number>(10);
   const handleClickBack = () => {
     if (role === 'host') {
-      conn.send(
-        JSON.stringify({
-          msg: `System: Lobby closed.`,
-          from: `system`,
-          msgType: 'CloseLobby',
-          userData: userProfile
-        } as TWebSocketData)
-      );
+      const modal = modalAlert();
+      modal.render({
+        children: ModalDecision({
+          question: 'ARE YOU SURE THAT YOU WANT TO END THIS GAME?',
+          onClick: (boolean) => {
+            if (boolean) {
+              conn.send(
+                JSON.stringify({
+                  msg: `System: Lobby closed.`,
+                  from: `system`,
+                  msgType: 'CloseLobby',
+                  userData: userProfile
+                } as TWebSocketData)
+              );
+              conn?.close();
+              onChangeState({ page: 'gamemode', listPage: state.listPage });
+              modal.destroy();
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
     } else {
-      conn.send(
-        JSON.stringify({
-          msg: `User: User ${userProfile?.displayName} has left.`,
-          from: `system`,
-          msgType: 'UserLeft',
-          userData: userProfile
-        } as TWebSocketData)
-      );
+      const modal = modalAlert();
+      modal.render({
+        children: ModalDecision({
+          question: 'ARE YOU SURE THAT YOU WANT TO LEAVE THE GAME?',
+          onClick: (boolean) => {
+            if (boolean) {
+              conn.send(
+                JSON.stringify({
+                  msg: `User: User ${userProfile?.displayName} has left.`,
+                  from: `system`,
+                  msgType: 'UserLeft',
+                  userData: userProfile
+                } as TWebSocketData)
+              );
+              modal.destroy();
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
     }
   };
   const handleClickPlay = () => {
-    console.log(state.data.mode);
-    console.log(state.data.maxRound);
     dispatch(
       questionDispatch.getQuestionMultiPlayerDispatch({
         mode: state.data.mode,
@@ -117,14 +147,7 @@ const MultiplayerResultContainer = ({
     });
   };
   const handleCloseLobby = () => {
-    conn.send(
-      JSON.stringify({
-        msg: `System: Lobby closed.`,
-        from: `system`,
-        msgType: 'CloseLobby',
-        userData: userProfile
-      } as TWebSocketData)
-    );
+    handleClickBack();
   };
 
   if (conn) {
@@ -218,7 +241,22 @@ const MultiplayerResultContainer = ({
             return currentTime - 1;
           } else {
             setTimer(0);
-            handleClickPlay();
+            const modal = modalAlert();
+            modal.render({
+              children: ModalDecision({
+                question: 'GAME IS ABOUT TO START, ARE YOU WANT TO START?',
+                onClick: (boolean) => {
+                  if (boolean) {
+                    handleClickPlay();
+                    modal.destroy();
+                  } else {
+                    modal.destroy();
+                  }
+                }
+              }),
+              closeable: false
+            });
+
             clearInterval(interval);
             return currentTime;
           }

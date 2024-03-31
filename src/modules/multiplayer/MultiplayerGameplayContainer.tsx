@@ -41,6 +41,9 @@ const MultiplayerGameplayContainer = ({
   const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
   const [conn, setConn] = useState<WebSocket>(state.data.wsConnection);
   const [roomId, setRoomId] = useState<string>(state.data.roomId);
+  const [speed, setSpeed] = useState<'slow' | 'normal' | 'fast'>(
+    state.data.speed
+  );
 
   const [players, setPlayers] = useState<TPlayerCard[]>(
     state.data.listPlayers.map(
@@ -232,6 +235,7 @@ const MultiplayerGameplayContainer = ({
     );
     setMaxRound(state.data.maxRound);
     setRole(state.data.role);
+    setSpeed(state.data.speed);
   }, []);
 
   useEffect(() => {
@@ -265,7 +269,8 @@ const MultiplayerGameplayContainer = ({
         } as TWebSocketData)
       );
       const interval = setInterval(() => {
-        if (timer.current < 10) {
+        let timeLimit = speed === 'slow' ? 10 : speed === 'normal' ? 5 : 3;
+        if (timer.current < timeLimit) {
           timer.current = timer.current + 0.2;
         } else {
           timer.current = 0;
@@ -335,8 +340,6 @@ const MultiplayerGameplayContainer = ({
                   userData: userProfile
                 } as TWebSocketData)
               );
-
-              console.log('end game');
             }, 1000);
           }
           clearInterval(interval);

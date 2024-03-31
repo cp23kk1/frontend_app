@@ -183,6 +183,8 @@ export const MultiplayerResultWrapper = styled.div`
       .host {
         display: flex;
         justify-content: end;
+        align-items: end;
+        gap: 16px;
       }
       .joiner {
         display: flex;

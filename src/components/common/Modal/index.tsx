@@ -4,7 +4,7 @@ import { TModal } from './type';
 import { getPublicPath } from '@/utils/basePath';
 import { v4 as uuid } from 'uuid';
 
-const Modal = ({ onClose, children, isModalOpen }: TModal) => {
+const Modal = ({ onClose, children, isModalOpen, closeable }: TModal) => {
   return (
     <ModalWrapper
       className="modalBg"
@@ -19,9 +19,11 @@ const Modal = ({ onClose, children, isModalOpen }: TModal) => {
       isOpen={isModalOpen === undefined ? true : isModalOpen}
     >
       <div className="modalContent">
-        <button className="closeButton" onClick={onClose}>
-          <img src={getPublicPath(`/icon/X.svg`)} alt="X" />
-        </button>
+        {closeable && (
+          <button className="closeButton" onClick={onClose}>
+            <img src={getPublicPath(`/icon/X.svg`)} alt="X" />
+          </button>
+        )}
         {children}
       </div>
     </ModalWrapper>

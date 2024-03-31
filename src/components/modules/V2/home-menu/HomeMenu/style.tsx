@@ -11,7 +11,7 @@ export const HomeWrapper = styled.div`
     display: flex;
     color: white;
     justify-content: space-between;
-    height: calc((1 / 12) * 100%);
+    height: calc((1 / 12) * 100vh);
     .vocaverse {
       width: calc((3.5 / 24) * 100%);
       color: #f8d34d;
@@ -61,12 +61,242 @@ export const HomeWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    .leaderboard {
+      width: calc((12 / 24) * 100% - 48px);
+      height: calc((11 / 12) * 100% - 48px);
+      background-color: #262956;
+      border-radius: 24px;
+      padding: 24px;
+      .topic {
+        color: #f8d34d;
+        font-size: 36px;
+        font-family: Nabla;
+        font-weight: 400;
+        word-wrap: break-word;
+        width: 100%;
+        text-align: center;
+        height: calc((1 / 12) * 100%);
+      }
+      .row {
+        widht: calc(100% - 48px);
+        height: 48px;
+        padding: 0 24px;
+        border-radius: 12px;
+        background-color: #393d73;
+        display: flex;
+        gap: 24px;
+        color: white;
+        font-size: 20px;
+        font-family: Passion One;
+        font-weight: 400;
+        word-wrap: break-word;
+        .points {
+          color: white;
+          font-size: 16px;
+          font-family: Passion One;
+          font-weight: 400;
+          word-wrap: break-word;
+        }
+
+        .rank,
+        .pic {
+          width: calc((1 / 8) * 100%);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .profile-pic {
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+          }
+        }
+        .display-name {
+          width: calc((4 / 8) * 100%);
+          text-align: start;
+          display: flex;
+          align-items: center;
+        }
+        .score {
+          width: calc((2 / 8) * 100%);
+          display: flex;
+          align-items: center;
+          justify-content: end;
+        }
+      }
+      .bottom {
+        height: calc((2 / 12) * 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .current-player {
+          height: 48px;
+          background-color: #9ea3e8;
+          .profile-pic {
+            width: 36px;
+            height: 36px;
+          }
+        }
+        .profile-pic {
+          width: 36px;
+          height: 36px;
+        }
+
+        .filter {
+          display: flex;
+          width: 100%;
+          align-items: end;
+          .left-dropdown-wrapper {
+            width: calc((18 / 24) * 100%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            .selected-week {
+              color: white;
+              font-size: 20px;
+              font-family: Passion One;
+              font-weight: 400;
+              word-wrap: break-word;
+            }
+            .week-dropdown {
+              width: calc((3 / 18) * 100%);
+              .custom-select {
+                height: 100%;
+                width: 100%;
+              }
+
+              select {
+                height: 30px;
+                color: #393d73;
+                font-size: 20px;
+                font-family: Passion One;
+                font-weight: 400;
+                word-wrap: break-word;
+                appearance: none;
+                /* safari */
+                -webkit-appearance: none;
+                /* other styles for aesthetics */
+                width: 100%;
+                font-size: 1.15rem;
+                padding: 4px 8px;
+                background-color: #fff;
+                border: 0;
+                border-radius: 8px;
+                cursor: pointer;
+              }
+            }
+          }
+          .mode-dropdown {
+            width: calc((6 / 24) * 100%);
+            .custom-select {
+              height: 100%;
+              width: 100%;
+            }
+
+            select {
+              height: 30px;
+              color: #393d73;
+              font-size: 20px;
+              font-family: Passion One;
+              font-weight: 400;
+              word-wrap: break-word;
+              appearance: none;
+              /* safari */
+              -webkit-appearance: none;
+              /* other styles for aesthetics */
+              width: 100%;
+              font-size: 1.15rem;
+              padding: 4px 8px;
+              background-color: #fff;
+              border: 0;
+              border-radius: 8px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+      .list {
+        width: 100%;
+        height: calc((9 / 12) * 100% - 32px);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        overflow-y: scroll;
+        padding: 16px 0;
+
+        .no1 {
+          background-color: #fff;
+          height: 72px;
+          color: #393d73;
+          font-size: 48px;
+          font-family: Passion One;
+          font-weight: 400;
+          word-wrap: break-word;
+          .points {
+            color: #393d73;
+            font-size: 36px;
+            font-family: Passion One;
+            font-weight: 400;
+            word-wrap: break-word;
+          }
+          .profile-pic {
+            height: 56px;
+            width: 56px;
+            border-radius: 50%;
+          }
+        }
+        .no2 {
+          background-color: #fff;
+          height: 64px;
+          color: #393d73;
+          font-size: 36px;
+          font-family: Passion One;
+          font-weight: 400;
+          word-wrap: break-word;
+          .points {
+            color: #393d73;
+            font-size: 24px;
+            font-family: Passion One;
+            font-weight: 400;
+            word-wrap: break-word;
+          }
+          .profile-pic {
+            height: 48px;
+            width: 48px;
+            border-radius: 50%;
+          }
+        }
+        .no3 {
+          background-color: #fff;
+          height: 56px;
+          color: #393d73;
+          font-size: 24px;
+          font-family: Passion One;
+          font-weight: 400;
+          word-wrap: break-word;
+          .points {
+            color: #393d73;
+            font-size: 20px;
+            font-family: Passion One;
+            font-weight: 400;
+            word-wrap: break-word;
+          }
+          .profile-pic {
+            height: 36px;
+            width: 36px;
+            border-radius: 50%;
+          }
+        }
+      }
+    }
     .tutorial {
       color: white;
       font-size: 20px;
       font-family: Passion One;
       font-weight: 400;
       word-wrap: break-word;
+      display: flex;
+      align-items: end;
     }
     .carousel {
       height: calc((11 / 12) * 100%);

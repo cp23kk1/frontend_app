@@ -18,9 +18,15 @@ type Story = StoryObj<typeof meta>;
 export const NormalScoreBoard: Story = {
   args: {
     listScore: [
-      { no: 1, score: 99, userName: 'adfasdf' },
-      { no: 2, score: 99, userName: 'adfasdf' }
+      { no: 1, score: 99, userName: 'adfasdf', userImage: '', userId: 123 },
+      { no: 2, score: 99, userName: 'adfasdf', userImage: '', userId: 123 }
     ],
-    userScore: { no: 2, score: 99, userName: 'adfasdf' }
+    userScore: {
+      no: 2,
+      score: 99,
+      userName: 'adfasdf',
+      userImage: '',
+      userId: 123
+    }
   }
 };

@@ -11,10 +11,10 @@ import LoginModal from '@/components/modules/landing/LoginModal';
 import { modalAlert } from '@/components/common/Modal';
 import userCoreDispatch from '../user/user-core/user-core-dispatch';
 import userCoreSelectors from '../user/user-core/user-core-selectors';
-import { TModal } from '../core/setting/type';
 import authSelectors from '../user/auth/auth-selectors';
 import authActions from '../user/auth/auth-actions';
 import userCoreActions from '../user/user-core/user-core-actions';
+import { TModal } from '@/components/common/Modal/type';
 
 export const LandingContainer = ({
   render,
@@ -43,7 +43,8 @@ export const LandingContainer = ({
         onClickGuestLogin: onGuestLogin(modal),
         onClickPolicy: () => {},
         onClickTerm: () => {}
-      })
+      }),
+      closeable: false
     });
   };
 

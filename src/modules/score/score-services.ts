@@ -10,6 +10,8 @@ export interface IWeeklyScoreBoard {
   endDate: string;
   email: string;
   displayName: string;
+  userId: number;
+  userImage: string;
 }
 export interface IWeeklyScoreBoardResponse {
   weeklyScore: IWeeklyScoreBoard[];

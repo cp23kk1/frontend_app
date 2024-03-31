@@ -16,6 +16,17 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const NormalQuestion: Story = {
   args: {
+    leaderBoard: {
+      currentPlayer: {
+        displayName: '',
+        score: 123,
+        id: 123,
+        img: '',
+        isReady: false,
+        rank: ''
+      },
+      listPlayer: []
+    },
     onCLickSettings: () => {},
     onChangePage: (input) => {},
     onClickSignIn: () => {},

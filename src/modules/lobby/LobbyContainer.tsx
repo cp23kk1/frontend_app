@@ -12,6 +12,9 @@ import {
 } from '@/components/modules/V2/lobby/JoinCreateLobby/type';
 import { TWebSocketData } from '@/types/vocaverse/api/response';
 import { TLobby } from '@/components/modules/V2/lobby/Lobby/type';
+import { modalAlert } from '@/components/common/Modal';
+import ErrorModal from '@/components/common/Modal/ModalError';
+import ModalDecision from '@/components/common/V2/ModalDecision';
 
 const LobbyContainer = ({
   render,
@@ -59,21 +62,52 @@ const LobbyContainer = ({
   };
 
   const handleClickLeave = () => {
-    conn.send(
-      JSON.stringify({
-        msg: `User: ${userProfile?.displayName} has left.`,
-        from: `system`,
-        msgType: 'UserLeft',
-        userData: userProfile,
-        isReady: isReady
-      } as TWebSocketData)
-    );
-    conn.close();
-    onChangeState({ page: 'gamemode', listPage: state.listPage });
+    const modal = modalAlert();
+
+    modal.render({
+      children: ModalDecision({
+        question: 'ARE YOU SURE THAT YOU WANT TO LEAVE THE GAME?',
+        onClick: (boolean) => {
+          if (boolean) {
+            conn.send(
+              JSON.stringify({
+                msg: `User: ${userProfile?.displayName} has left.`,
+                from: `system`,
+                msgType: 'UserLeft',
+                userData: userProfile,
+                isReady: isReady
+              } as TWebSocketData)
+            );
+            conn.close(1000);
+            onChangeState({ page: 'gamemode', listPage: state.listPage });
+            modal.destroy();
+          } else {
+            modal.destroy();
+          }
+        }
+      }),
+      closeable: false
+    });
   };
 
   if (conn) {
     conn.onclose = function (evt) {
+      if (evt.code == 1000) {
+      } else {
+        const modal = modalAlert();
+        modal.render({
+          children: ErrorModal({
+            errorMessage: 'Please try again .',
+            errorStatus: 'Something went wrong'
+          }),
+          closeable: false
+        });
+        onChangeState({
+          page: 'host-lobby',
+          data: { pageMode: 'join' },
+          listPage: state.listPage
+        });
+      }
       console.log('close');
     };
     conn.onopen = function () {

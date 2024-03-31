@@ -13,6 +13,7 @@ import {
 import { TWebSocketData } from '@/types/vocaverse/api/response';
 import questionDispatch from '../gameplay/question/question-dispatch';
 import { modalAlert } from '@/components/common/Modal';
+import ModalDecision from '@/components/common/V2/ModalDecision';
 
 const JoinCreateLobbyContainer = ({
   render,
@@ -32,7 +33,37 @@ const JoinCreateLobbyContainer = ({
     state.data?.pageMode ?? 'create'
   );
   const handleOnChangeCurrentPageMode = (input: 'create' | 'join') => {
-    setCurrentPageMode(input);
+    if (input === 'join') {
+      const modal = modalAlert();
+      if (currentPageMode === 'create') {
+        modal.render({
+          children: ModalDecision({
+            question: 'ARE YOU SURE THAT YOU WANT TO END THIS GAME?',
+            onClick: (boolean) => {
+              if (boolean) {
+                conn?.send(
+                  JSON.stringify({
+                    msg: `User: ${userProfile?.displayName} has joined.`,
+                    from: `system`,
+                    msgType: 'CloseLobby',
+                    userData: userProfile,
+                    isReady: currentPageMode === 'create'
+                  } as TWebSocketData)
+                );
+                conn?.close();
+                setCurrentPageMode(input);
+                modal.destroy();
+              } else {
+                modal.destroy();
+              }
+            }
+          }),
+          closeable: false
+        });
+      }
+    } else {
+      setCurrentPageMode(input);
+    }
   };
 
   const [players, setPlayers] = useState<TPlayer[]>([]);
@@ -41,14 +72,16 @@ const JoinCreateLobbyContainer = ({
   };
 
   //create
-  const [gameMode, setGameMode] = useState<'all' | 'vocabulary'>('all');
+  const [gameMode, setGameMode] = useState<'all' | 'vocabulary'>('vocabulary');
   const handleChangegameMode = (input: React.FormEvent<HTMLInputElement>) => {
     setGameMode(input.currentTarget.value as 'all' | 'vocabulary');
   };
 
   const [numberOfQuestion, setNumberOfQuestion] = useState<number>(10);
   const handleOnChangeNumberOfQuestion = (input: number) => {
-    setNumberOfQuestion(input);
+    if (input >= 1) {
+      setNumberOfQuestion(input);
+    }
   };
 
   const [speed, setSpeed] = useState<'slow' | 'normal' | 'fast'>('slow');
@@ -60,17 +93,33 @@ const JoinCreateLobbyContainer = ({
     useState<boolean>(true);
 
   const handleCloseLobby = () => {
-    conn?.send(
-      JSON.stringify({
-        msg: `User: ${userProfile?.displayName} has joined.`,
-        from: `system`,
-        msgType: 'CloseLobby',
-        userData: userProfile,
-        isReady: currentPageMode === 'create'
-      } as TWebSocketData)
-    );
-    conn?.close();
-    handleClickBack();
+    const modal = modalAlert();
+    if (currentPageMode === 'create') {
+      modal.render({
+        children: ModalDecision({
+          question: 'ARE YOU SURE THAT YOU WANT TO END THIS GAME?',
+          onClick: (boolean) => {
+            if (boolean) {
+              conn?.send(
+                JSON.stringify({
+                  msg: `User: ${userProfile?.displayName} has joined.`,
+                  from: `system`,
+                  msgType: 'CloseLobby',
+                  userData: userProfile,
+                  isReady: currentPageMode === 'create'
+                } as TWebSocketData)
+              );
+              conn?.close();
+              modal.destroy();
+              handleClickBack();
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
+    }
   };
   const onClickPlay = () => {
     dispatch(
@@ -96,6 +145,7 @@ const JoinCreateLobbyContainer = ({
         listPlayers: players,
         maxRound: numberOfQuestion,
         mode: gameMode,
+        speed: speed,
         role: 'host'
       }
     });
@@ -104,7 +154,12 @@ const JoinCreateLobbyContainer = ({
   //join
   const [roomId, setRoomId] = useState<string>('');
   const handleChangeRoomId = (input: React.FormEvent<HTMLInputElement>) => {
-    setRoomId(input.currentTarget.value);
+    const numberRegex = /^[0-9]/;
+    if (
+      numberRegex.test(input.currentTarget.value) ||
+      input.currentTarget.value == ''
+    )
+      setRoomId(input.currentTarget.value);
   };
 
   const handleClickBack = () => {
@@ -148,7 +203,6 @@ const JoinCreateLobbyContainer = ({
     conn.onclose = function (evt) {
       setIsConnect(false);
       console.log('close');
-      alert('not found room id');
     };
     conn.onopen = function () {
       conn.send(
