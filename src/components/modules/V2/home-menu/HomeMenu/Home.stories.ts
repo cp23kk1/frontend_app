@@ -30,6 +30,7 @@ export const NormalQuestion: Story = {
     onCLickSettings: () => {},
     onChangePage: (input) => {},
     onClickSignIn: () => {},
+    onClickTutorial: () => {},
     currentPage: 'home',
     profileTab: {
       onClickLogout: () => {},

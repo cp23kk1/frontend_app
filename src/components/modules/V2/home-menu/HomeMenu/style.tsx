@@ -302,6 +302,7 @@ export const HomeWrapper = styled.div`
       font-weight: 400;
       word-wrap: break-word;
       display: flex;
+      cursor: pointer;
       align-items: end;
     }
     .carousel {

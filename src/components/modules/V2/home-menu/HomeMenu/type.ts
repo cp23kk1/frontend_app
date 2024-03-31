@@ -8,6 +8,7 @@ export type THome = {
   onChangePage: (page: 'home' | 'leaderboard' | 'history' | 'item') => void;
   onClickSignIn: () => void;
   onCLickSettings: () => void;
+  onClickTutorial: () => void;
   profileTab?: TNewProfileTab;
   leaderBoard: { listPlayer: TPlayerCard[]; currentPlayer: TPlayerCard };
   modes: {

@@ -15,6 +15,7 @@ const HomeMenu = ({
   onChangePage,
   onClickSignIn,
   onCLickSettings,
+  onClickTutorial,
   leaderBoard,
   profileTab
 }: THome) => {
@@ -264,7 +265,9 @@ const HomeMenu = ({
             </div>
           </>
         )}
-        <div className="tutorial">Tutorials</div>
+        <div onClick={onClickTutorial} className="tutorial">
+          Tutorials
+        </div>
       </div>
     </HomeWrapper>
   );

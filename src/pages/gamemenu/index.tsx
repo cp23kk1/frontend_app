@@ -17,6 +17,7 @@ const GameMenuPage: NextPage = () => {
         },
         listPlayer: []
       }}
+      onClickTutorial={() => {}}
       onCLickSettings={() => {}}
       onChangePage={(input) => {}}
       onClickSignIn={() => {}}

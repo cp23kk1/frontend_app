@@ -19,6 +19,7 @@ import { TModal } from '@/components/common/Modal/type';
 import lobbyDispatch from '../multiplayer/lobby/lobby-dispatch';
 import lobbySelectors from '../multiplayer/lobby/lobby-selectors';
 import { TWebSocketData } from '@/types/vocaverse/api/response';
+import ModalTutorial from '@/components/common/V2/ModalTutorial';
 
 const GameMenuContainer = ({
   render,
@@ -104,6 +105,11 @@ const GameMenuContainer = ({
     event?.stopPropagation();
     onChangeState({ page: 'user-profile' });
   };
+
+  const onClickTutorial = () => {
+    const modal = modalAlert();
+    modal.render({ closeable: true, children: ModalTutorial() });
+  };
   useEffect(() => {
     dispatch(scoreDispatch.getLeaderBoardDispatch());
     dispatch(scoreDispatch.getBestScoreDispatch());
@@ -171,6 +177,7 @@ const GameMenuContainer = ({
     onChangePage: handleChangeCurrentPage,
     onCLickSettings: () => {},
     onClickSignIn: onLogin,
+    onClickTutorial: onClickTutorial,
     profileTab: {
       onClickLogout: onClickLogout,
       onClickProfile: onClickProfile,
