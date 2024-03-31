@@ -28,6 +28,7 @@ export const TableLayoutWrapper = styled.div`
     display: flex;
     width: 100%;
     height: fit-content;
+    min-height: 60px;
 
     color: black;
 
