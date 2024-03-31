@@ -3,9 +3,9 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
 
-import { TState } from '../core/VocaverseCoreContainer';
-import userCoreDispatch from '../user/user-core/user-core-dispatch';
-import userCoreSelectors from '../user/user-core/user-core-selectors';
+import { TState } from '../../core/VocaverseCoreContainer';
+import userCoreDispatch from '../../user/user-core/user-core-dispatch';
+import userCoreSelectors from '../../user/user-core/user-core-selectors';
 import {
   TJoinCreateLobby,
   TPlayer
@@ -15,6 +15,9 @@ import { TLobby } from '@/components/modules/V2/lobby/Lobby/type';
 import { modalAlert } from '@/components/common/Modal';
 import ErrorModal from '@/components/common/Modal/ModalError';
 import ModalDecision from '@/components/common/V2/ModalDecision';
+import lobbyDispatch from './lobby-dispatch';
+import lobbyActionTypes from './lobby-action-types';
+import lobbyActions from './lobby-actions';
 
 const LobbyContainer = ({
   render,
@@ -162,6 +165,7 @@ const LobbyContainer = ({
   }
 
   useEffect(() => {
+    dispatch(lobbyActions.clear());
     dispatch(userCoreDispatch.getUserProfileDispatch());
     setConn(state.data.wsConnection);
 

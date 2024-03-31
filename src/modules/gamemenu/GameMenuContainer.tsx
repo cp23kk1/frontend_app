@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useLayoutEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
@@ -16,6 +16,9 @@ import { getGoogleUrl } from '@/utils/getGoogleUrl';
 import authDispatch from '../user/auth/auth-dispatch';
 import userCoreDispatch from '../user/user-core/user-core-dispatch';
 import { TModal } from '@/components/common/Modal/type';
+import lobbyDispatch from '../multiplayer/lobby/lobby-dispatch';
+import lobbySelectors from '../multiplayer/lobby/lobby-selectors';
+import { TWebSocketData } from '@/types/vocaverse/api/response';
 
 const GameMenuContainer = ({
   render,
@@ -39,6 +42,10 @@ const GameMenuContainer = ({
     userCoreSelectors.isUserProfileLoadingSelector
   );
   const bestScore = useAppSelector(scoreSelectors.bestScoreSelector);
+
+  const lobby = useAppSelector(lobbySelectors.lobbySelector);
+  const isLoadingLobby = useAppSelector(lobbySelectors.isLoadingLobbySelector);
+  const [conn, setConn] = useState<WebSocket | undefined>();
 
   const [currentPage, setCurrentPage] = useState<
     'home' | 'leaderboard' | 'history' | 'item'
@@ -84,6 +91,9 @@ const GameMenuContainer = ({
       modal.destroy();
     };
   };
+  const handlePlayQuick = () => {
+    dispatch(lobbyDispatch.getLobbyDispatch());
+  };
 
   const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
@@ -103,6 +113,38 @@ const GameMenuContainer = ({
   useEffect(() => {
     dispatch(userCoreDispatch.getUserProfileDispatch());
   }, [isGuestLoginLoading, isLogoutLoading]);
+
+  if (conn) {
+    conn.onclose = function (evt) {
+      console.log('close');
+    };
+    conn.onopen = function () {
+      conn.send(
+        JSON.stringify({
+          msg: `User: ${userProfile?.displayName} has joined.`,
+          from: `system`,
+          msgType: 'UserJoin',
+          userData: userProfile,
+          isReady: false
+        } as TWebSocketData)
+      );
+    };
+  }
+
+  useEffect(() => {
+    let randomLobby = lobby[Math.floor(Math.random() * lobby.length)];
+    if (randomLobby) {
+      let connection = new WebSocket(
+        `${process.env.WS_URL}/multiplayer/join-lobby?roomId=${randomLobby.roomId}&roomName=VocaverseRoom${randomLobby.roomId}&numberPlayer=8`
+      );
+      setConn(connection);
+      onChangeState({
+        page: 'lobby',
+        listPage: state.listPage,
+        data: { wsConnection: connection, roomId: randomLobby.roomId }
+      });
+    }
+  }, [isLoadingLobby]);
 
   return render({
     leaderBoard: {
@@ -179,7 +221,17 @@ const GameMenuContainer = ({
           </div>
         ),
         modeButtons: [
-          { iconName: 'Play', onClick: () => {}, text: 'PLAY QUICKLY' },
+          {
+            iconName: 'Play',
+            onClick: () => {
+              if (!userProfile) {
+                onLogin();
+              } else {
+                handlePlayQuick();
+              }
+            },
+            text: 'PLAY QUICKLY'
+          },
           {
             iconName: 'Group',
             onClick: () => {

@@ -3,17 +3,19 @@ import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
 
-import { TState } from '../core/VocaverseCoreContainer';
-import userCoreDispatch from '../user/user-core/user-core-dispatch';
-import userCoreSelectors from '../user/user-core/user-core-selectors';
+import { TState } from '../../core/VocaverseCoreContainer';
+import userCoreDispatch from '../../user/user-core/user-core-dispatch';
+import userCoreSelectors from '../../user/user-core/user-core-selectors';
 import {
   TJoinCreateLobby,
   TPlayer
 } from '@/components/modules/V2/lobby/JoinCreateLobby/type';
 import { TWebSocketData } from '@/types/vocaverse/api/response';
-import questionDispatch from '../gameplay/question/question-dispatch';
+import questionDispatch from '../../gameplay/question/question-dispatch';
 import { modalAlert } from '@/components/common/Modal';
 import ModalDecision from '@/components/common/V2/ModalDecision';
+import lobbySelectors from './lobby-selectors';
+import lobbyDispatch from './lobby-dispatch';
 
 const JoinCreateLobbyContainer = ({
   render,
@@ -32,6 +34,8 @@ const JoinCreateLobbyContainer = ({
   const [currentPageMode, setCurrentPageMode] = useState<'create' | 'join'>(
     state.data?.pageMode ?? 'create'
   );
+  const lobby = useAppSelector(lobbySelectors.lobbySelector);
+  const isLoadingLobby = useAppSelector(lobbySelectors.isLoadingLobbySelector);
   const handleOnChangeCurrentPageMode = (input: 'create' | 'join') => {
     if (input === 'join') {
       const modal = modalAlert();
@@ -164,9 +168,7 @@ const JoinCreateLobbyContainer = ({
 
   const handleClickBack = () => {
     onChangeState({
-      page: state.listPage
-        ? state.listPage[state.listPage.length - 2]
-        : state.page
+      page: 'gamemode'
     });
   };
 
@@ -197,6 +199,39 @@ const JoinCreateLobbyContainer = ({
       listPage: state.listPage,
       data: { wsConnection: connection, roomId }
     });
+  };
+
+  const handlePlayQuick = () => {
+    const modal = modalAlert();
+    if (currentPageMode === 'create') {
+      modal.render({
+        children: ModalDecision({
+          question: 'ARE YOU SURE THAT YOU WANT TO END THIS GAME?',
+          onClick: (boolean) => {
+            if (boolean) {
+              conn?.send(
+                JSON.stringify({
+                  msg: `User: ${userProfile?.displayName} has joined.`,
+                  from: `system`,
+                  msgType: 'CloseLobby',
+                  userData: userProfile,
+                  isReady: currentPageMode === 'create'
+                } as TWebSocketData)
+              );
+              conn?.close();
+              modal.destroy();
+              dispatch(lobbyDispatch.getLobbyDispatch());
+              setCurrentPageMode('join');
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
+    } else {
+      dispatch(lobbyDispatch.getLobbyDispatch());
+    }
   };
 
   if (conn) {
@@ -291,6 +326,20 @@ const JoinCreateLobbyContainer = ({
       setIsPlayButtonDisabled(true);
     }
   }, [players]);
+  useEffect(() => {
+    let randomLobby = lobby[Math.floor(Math.random() * lobby.length)];
+    if (randomLobby) {
+      let connection = new WebSocket(
+        `${process.env.WS_URL}/multiplayer/join-lobby?roomId=${randomLobby.roomId}&roomName=VocaverseRoom${randomLobby.roomId}&numberPlayer=8`
+      );
+      setConn(connection);
+      onChangeState({
+        page: 'lobby',
+        listPage: state.listPage,
+        data: { wsConnection: connection, roomId: randomLobby.roomId }
+      });
+    }
+  }, [isLoadingLobby]);
   return render({
     currentPage: currentPageMode,
     onChangeMode: handleOnChangeCurrentPageMode,
@@ -298,7 +347,9 @@ const JoinCreateLobbyContainer = ({
     onChangeRoomID: handleChangeRoomId,
     onClickBack: handleClickBack,
     onClickJoin: onJoin,
-    onClickPlayQuickly: () => {},
+    onClickPlayQuickly: () => {
+      handlePlayQuick();
+    },
     onClickPlay: onClickPlay,
     createLobby: {
       onClickCloseLobby: handleCloseLobby,
