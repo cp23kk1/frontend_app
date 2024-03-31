@@ -148,7 +148,7 @@ const HomeMenu = ({
                               />
                             </div>
                             <div className="display-name">
-                              {player.displayName}
+                              <p>{player.displayName}</p>
                             </div>
                             <span className="score">
                               {player.score}

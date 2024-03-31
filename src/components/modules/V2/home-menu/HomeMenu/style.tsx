@@ -116,6 +116,12 @@ export const HomeWrapper = styled.div`
           text-align: start;
           display: flex;
           align-items: center;
+          overflow: hidden;
+          p {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
         }
         .score {
           width: calc((2 / 8) * 100%);
