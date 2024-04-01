@@ -68,6 +68,7 @@ const UserProfileContainer = ({
   };
   const handleClickLogout = () => {
     dispatch(authDispatch.logoutDispatch());
+    onChangeState({ page: 'landing' });
   };
   const handleClickBack = () => {
     onChangeState({
