@@ -24,6 +24,8 @@ import { DragEndEvent } from '@dnd-kit/core';
 import { TGamePlay } from '@/components/modules/gameplay/GamePlay/type';
 import { modalAlert } from '@/components/common/Modal';
 import ModalBriefInfo from '@/components/common/V2/ModalBriefInfo';
+import briefInfoDispatch from './brief-info/brief-info-dispatch';
+import briefInfoSelectors from './brief-info/brief-info-selectors';
 
 const GamePlayContainer = ({
   render,
@@ -48,6 +50,10 @@ const GamePlayContainer = ({
   const currentGameHistory = useAppSelector(
     gameplayCoreSelectors.currentGameHistorySelector
   );
+  const briefInfo = useAppSelector(briefInfoSelectors.briefInfoSelector);
+  const isBriefInfosLoading = useAppSelector(
+    briefInfoSelectors.isBriefInfosLoadingSelector
+  );
 
   // knowledge section
   const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([]);
@@ -67,6 +73,10 @@ const GamePlayContainer = ({
   const [playerHealth, setPlayerHealth] = useState<number>(100);
   const [enemyHealth, setEnemyHealth] = useState<number>(100);
 
+  const [currentPos, setCurrentPos] = useState<string>();
+  const _handleChangeCurrentPos = (input: string) => {
+    setCurrentPos(input);
+  };
   const _handleChangeScore = (inputscore: number) => {
     setScore(inputscore);
   };
@@ -315,21 +325,11 @@ const GamePlayContainer = ({
   };
 
   const handleClickMore = () => {
-    const modal = modalAlert();
-    modal.render({
-      closeable: true,
-      children: ModalBriefInfo({
-        word: 'Vocabulary',
-        definition: 'asdfasdf',
-        example: 'asasdfasdfasdfasdfasd',
-        meaning: 'asdfasdfasdfasdfas',
-        pos: [
-          { pos: 'Noun', isSelected: false },
-          { pos: 'Noun', isSelected: true },
-          { pos: 'Noun', isSelected: false }
-        ]
+    dispatch(
+      briefInfoDispatch.getBriefInfoDispatch({
+        word: question?.toLocaleString() || ''
       })
-    });
+    );
   };
 
   //useEffect
@@ -341,6 +341,40 @@ const GamePlayContainer = ({
   useEffect(() => {
     _addQuestion();
   }, [isLoadingVocabulary, isLoadingQuestion, currentIndex]);
+
+  useEffect(() => {
+    if (!isBriefInfosLoading && briefInfo) {
+      let temp = briefInfo.meanings[0].partOfSpeech;
+      if (!currentPos) {
+        setCurrentPos(briefInfo.meanings[0].partOfSpeech);
+      }
+      const modal = modalAlert();
+      modal.render({
+        closeable: true,
+        children: ModalBriefInfo({
+          word: briefInfo?.word ?? '',
+          definition: briefInfo.meanings.find((info) => {
+            return info.partOfSpeech === (currentPos ?? temp);
+          })?.definitions[0].definition,
+          example: briefInfo.meanings.find((info) => {
+            return info.partOfSpeech === (currentPos ?? temp);
+          })?.definitions[0].definition,
+          meaning: `ไม่เฉลยหรอกนะ`,
+          pos: [
+            ...briefInfo.meanings.map((info) => {
+              return {
+                pos: info.partOfSpeech,
+                isSelected: (currentPos ?? temp) === info.partOfSpeech,
+                onCLick: () => {
+                  _handleChangeCurrentPos(info.partOfSpeech);
+                }
+              };
+            })
+          ]
+        })
+      });
+    }
+  }, [isBriefInfosLoading]);
 
   useEffect(() => {
     if (playerHealth <= 0) {
@@ -383,7 +417,7 @@ const GamePlayContainer = ({
     briefInfo: {
       definition: 'asdfasdf',
       onClickMore: handleClickMore,
-      word: 'Vocabulary'
+      word: question?.toLocaleString() || ''
     }
   });
 };

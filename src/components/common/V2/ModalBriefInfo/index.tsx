@@ -20,7 +20,11 @@ const ModalBriefInfo = ({
         <div className="pos">
           {pos.map((value) => {
             return (
-              <div className={`button ${value.isSelected ? 'selected' : ''}`}>
+              <div
+                key={uuid()}
+                onClick={value.onCLick}
+                className={`button ${value.isSelected ? 'selected' : ''}`}
+              >
                 {value.pos}
               </div>
             );

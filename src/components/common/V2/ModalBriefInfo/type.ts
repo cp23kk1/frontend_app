@@ -5,5 +5,5 @@ export type TModalBriefInfo = {
   word: string;
   meaning: string;
   example: string;
-  pos: { pos: string; isSelected: boolean }[];
+  pos: { pos: string; isSelected: boolean; onCLick: () => void }[];
 };
