@@ -58,9 +58,11 @@ const QuestionLayout = ({
                             if (
                               passageAnswers[`${index}`] &&
                               passageAnswers[`${index}`].state != 'normal'
-                            )
+                            ) {
                               return;
-                            onUnselectePassageAnswer(index);
+                            } else {
+                              onUnselectePassageAnswer(index);
+                            }
                           }}
                         >
                           {passageAnswers[`${index}`]

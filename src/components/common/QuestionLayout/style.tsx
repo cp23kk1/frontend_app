@@ -27,6 +27,7 @@ export const QuestionLayoutWrapper = styled.div`
     .question {
       // font-size: 128px;
       // font-weight: 600;
+      padding: 24px;
       width: fit-content;
       .sentence-box {
         background-color: #d9d9d9;

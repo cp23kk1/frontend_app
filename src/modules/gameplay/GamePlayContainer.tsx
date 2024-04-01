@@ -308,14 +308,23 @@ const GamePlayContainer = ({
       let temp = { ...passageAnswers };
       temp[id] = { children: active.id.toString(), state: 'normal' };
       _handleChangePassageAnswers(temp);
-      // _handleChangeAnswers(
-      //   answers.filter((answer) => answer.children !== active.id.toString())
-      // );
+      _handleChangeAnswers(
+        answers.filter((answer) => answer.children !== active.id.toString())
+      );
     }
   };
   const _handleUnselectPassageAnswer = (index?: number) => {
-    if (index) {
+    if (index != undefined) {
       let temp = { ...passageAnswers };
+      _handleChangeAnswers(
+        answers.concat([
+          {
+            children: temp[index].children,
+            state: temp[index].state,
+            correctness: false
+          }
+        ])
+      );
       delete temp[index];
       _handleChangePassageAnswers(temp);
     }
