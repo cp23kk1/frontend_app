@@ -274,11 +274,10 @@ const MultiplayerGameplayContainer = ({
           timer.current = timer.current + 0.2;
         } else {
           timer.current = 0;
-          console.log(currentRound);
           if (currentRound < questions.length && currentRound < maxRound) {
             conn.send(
               JSON.stringify({
-                msg: `System:  update point 276.`,
+                msg: `System:  update point.`,
                 from: `system`,
                 msgType: 'ShowAnswer',
                 currentQuestion: {
@@ -307,7 +306,7 @@ const MultiplayerGameplayContainer = ({
           } else {
             conn.send(
               JSON.stringify({
-                msg: `System:  update point 304.`,
+                msg: `System:  update point.`,
                 from: `system`,
                 msgType: 'ShowAnswer',
                 currentQuestion: {
@@ -329,7 +328,6 @@ const MultiplayerGameplayContainer = ({
                 userData: userProfile
               } as TWebSocketData)
             );
-            console.log('container:316');
             setTimeout(() => {
               conn.send(
                 JSON.stringify({

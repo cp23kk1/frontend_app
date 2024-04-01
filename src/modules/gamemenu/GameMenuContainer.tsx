@@ -99,6 +99,7 @@ const GameMenuContainer = ({
   const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
     dispatch(authDispatch.logoutDispatch());
+    onChangeState({ page: 'landing' });
   };
 
   const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
