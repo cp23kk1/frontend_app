@@ -21,13 +21,16 @@ import { useRouter } from 'next/router';
 import { TState } from '../core/VocaverseCoreContainer';
 import { getPublicPathPageRounting } from '@/utils/basePath';
 import { DragEndEvent } from '@dnd-kit/core';
+import { TGamePlay } from '@/components/modules/gameplay/GamePlay/type';
+import { modalAlert } from '@/components/common/Modal';
+import ModalBriefInfo from '@/components/common/V2/ModalBriefInfo';
 
 const GamePlayContainer = ({
   render,
   onChangeState,
   state
 }: {
-  render: (props: TGamePlayContainer) => ReactNode;
+  render: (props: TGamePlay) => ReactNode;
   onChangeState: (input: TState) => void;
   state: TState;
 }) => {
@@ -311,6 +314,24 @@ const GamePlayContainer = ({
     // dispatch(modalActions.onOpen('PauseMenu'));
   };
 
+  const handleClickMore = () => {
+    const modal = modalAlert();
+    modal.render({
+      closeable: true,
+      children: ModalBriefInfo({
+        word: 'Vocabulary',
+        definition: 'asdfasdf',
+        example: 'asasdfasdfasdfasdfasd',
+        meaning: 'asdfasdfasdfasdfas',
+        pos: [
+          { pos: 'Noun', isSelected: false },
+          { pos: 'Noun', isSelected: true },
+          { pos: 'Noun', isSelected: false }
+        ]
+      })
+    });
+  };
+
   //useEffect
   useEffect(() => {
     dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
@@ -355,11 +376,15 @@ const GamePlayContainer = ({
     playerHealth: playerHealth
   };
   return render({
-    knowLedgeSection,
-    animationSection,
+    knowledgeSectionItem: knowLedgeSection,
+    animationSectionItem: animationSection,
     score,
     onPause,
-    onChangeScore: _handleChangeScore
+    briefInfo: {
+      definition: 'asdfasdf',
+      onClickMore: handleClickMore,
+      word: 'Vocabulary'
+    }
   });
 };
 export default GamePlayContainer;

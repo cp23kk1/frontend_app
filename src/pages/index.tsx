@@ -62,20 +62,8 @@ export default function Home() {
               <GamePlayContainer
                 state={state}
                 onChangeState={onChangeState}
-                render={({
-                  knowLedgeSection,
-                  animationSection,
-                  score,
-                  onPause
-                }) => {
-                  return (
-                    <GamePlay
-                      knowledgeSectionItem={knowLedgeSection}
-                      score={score}
-                      onPause={onPause}
-                      animationSectionItem={animationSection}
-                    />
-                  );
+                render={(props) => {
+                  return <GamePlay {...props} />;
                 }}
               />
             );

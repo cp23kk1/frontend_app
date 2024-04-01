@@ -6,6 +6,7 @@ export const HomeWrapper = styled.div`
   width: calc(100vw - 48px);
   height: calc(100vh - 48px);
   background-image: url(${getPublicPath('/background/BackgroundSpace3.png')});
+  background-size: cover;
 
   .top {
     display: flex;

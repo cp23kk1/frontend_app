@@ -7,6 +7,7 @@ export const NewLandingWrapper = styled.div`
   padding: 24px;
   position: relative;
   background-image: url(${getPublicPath('/background/BackgroundSpace3.png')});
+  background-size: cover;
 
   display: grid;
   grid-template-rows: calc(100% - 16px) auto;

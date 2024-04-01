@@ -12,6 +12,7 @@ const GamePlay = ({
   knowledgeSectionItem,
   animationSectionItem,
   onPause,
+  briefInfo,
   score
 }: TGamePlay) => {
   return (
@@ -26,7 +27,19 @@ const GamePlay = ({
           <Col span={8} className="score">
             Score: {score ?? 0}
           </Col>
-          <Col span={8} />
+          <Col span={8} className="extra-wrapper">
+            {briefInfo && (
+              <div className="modal-extra-info">
+                <div className="topic">{briefInfo.word}</div>
+                <div className="body">{briefInfo.definition}</div>
+                <div className="more-button-wrapper">
+                  <div className="more-button" onClick={briefInfo.onClickMore}>
+                    more
+                  </div>
+                </div>
+              </div>
+            )}
+          </Col>
         </Row>
         <AnimationSection {...animationSectionItem} />
       </TopSectionWrapper>

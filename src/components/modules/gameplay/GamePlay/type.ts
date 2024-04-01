@@ -5,5 +5,6 @@ export type TGamePlay = {
   knowledgeSectionItem: TKnowLedgeSection;
   score?: number;
   animationSectionItem: TAnimationSection;
+  briefInfo: { word: string; definition: string; onClickMore: () => void };
   onPause: () => void;
 };

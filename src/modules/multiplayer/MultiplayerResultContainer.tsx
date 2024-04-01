@@ -26,6 +26,7 @@ import questionActionTypes from '../gameplay/question/question-action-types';
 import questionActions from '../gameplay/question/question-actions';
 import { modalAlert } from '@/components/common/Modal';
 import ModalDecision from '@/components/common/V2/ModalDecision';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const MultiplayerResultContainer = ({
   render,
@@ -222,6 +223,15 @@ const MultiplayerResultContainer = ({
           );
           break;
         case 'CloseLobby':
+          const modal = modalAlert();
+          modal.render({
+            children: ErrorModal({
+              errorMessage: 'Host closed lobby.',
+              errorStatus: 'Disconnected from lobby'
+            }),
+            closeable: false
+          });
+          conn.close();
           onChangeState({ page: 'gamemode', listPage: state.listPage });
           break;
         case 'StartGame':
