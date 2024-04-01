@@ -38,17 +38,14 @@ const KnowLedgeSection = ({
           <div className="answer-layout">
             {answers.map((answer, index) => {
               return (
-                <Col
-                  span={14 / answers.length}
-                  className="answer-wrapper"
-                  key={uuid()}
-                >
+                <>
                   <Draggable
                     key={uuid()}
                     data={{
                       children: answer.children,
                       correctness: answer.correctness
                     }}
+                    className="answer"
                     id={answer.children}
                   >
                     <AnswerButton
@@ -59,7 +56,7 @@ const KnowLedgeSection = ({
                       }}
                     />
                   </Draggable>
-                </Col>
+                </>
               );
             })}
           </div>
@@ -67,19 +64,16 @@ const KnowLedgeSection = ({
           <div className="answer-layout">
             {answers.map((answer, index) => {
               return (
-                <Col
-                  span={14 / answers.length}
-                  className="answer-wrapper"
-                  key={uuid()}
-                >
+                <>
                   <AnswerButton
+                    className="answer"
                     key={uuid()}
                     {...answer}
                     onClick={() => {
                       _handleAnswer(answer.children, answer.correctness);
                     }}
                   />
-                </Col>
+                </>
               );
             })}
           </div>

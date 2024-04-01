@@ -25,16 +25,14 @@ const questionsSeletor = createSelector(
         let correctAnswer = question.answers?.find(
           (answer) => answer.correctness
         );
-
+        var regex = new RegExp(correctAnswer?.answer || '', 'i');
         return question.questionsType === 'vocabulary'
           ? question
           : {
               ...question,
               question:
                 question.questionsType === 'sentence'
-                  ? question.question
-                      ?.toString()
-                      .replace(`${correctAnswer?.answer}`, `??`)
+                  ? question.question?.toString().replace(regex, `??`)
                   : question.questionsType === 'passage'
                   ? ''
                   : question.question,
@@ -43,13 +41,12 @@ const questionsSeletor = createSelector(
                     let correctAnswer = question.answers?.find(
                       (answer) => answer.correctness
                     );
+                    var regex = new RegExp(correctAnswer?.answer || '', 'i');
                     return {
                       ...question,
                       question:
                         question.questionsType === 'sentence'
-                          ? question.question
-                              ?.toString()
-                              .replace(`${correctAnswer?.answer}`, `??`)
+                          ? question.question?.toString().replace(regex, `??`)
                           : question.question
                     };
                   })

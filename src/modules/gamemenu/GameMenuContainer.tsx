@@ -20,6 +20,7 @@ import lobbyDispatch from '../multiplayer/lobby/lobby-dispatch';
 import lobbySelectors from '../multiplayer/lobby/lobby-selectors';
 import { TWebSocketData } from '@/types/vocaverse/api/response';
 import ModalTutorial from '@/components/common/V2/ModalTutorial';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const GameMenuContainer = ({
   render,
@@ -137,19 +138,34 @@ const GameMenuContainer = ({
       );
     };
   }
-
+  const [firstTime, setFirstTime] = useState(true);
   useEffect(() => {
     let randomLobby = lobby[Math.floor(Math.random() * lobby.length)];
-    if (randomLobby) {
-      let connection = new WebSocket(
-        `${process.env.WS_URL}/multiplayer/join-lobby?roomId=${randomLobby.roomId}&roomName=VocaverseRoom${randomLobby.roomId}&numberPlayer=8`
-      );
-      setConn(connection);
-      onChangeState({
-        page: 'lobby',
-        listPage: state.listPage,
-        data: { wsConnection: connection, roomId: randomLobby.roomId }
-      });
+    if (!isLoadingLobby) {
+      if (randomLobby) {
+        let connection = new WebSocket(
+          `${process.env.WS_URL}/multiplayer/join-lobby?roomId=${randomLobby.roomId}&roomName=VocaverseRoom${randomLobby.roomId}&numberPlayer=8`
+        );
+        setConn(connection);
+        onChangeState({
+          page: 'lobby',
+          listPage: state.listPage,
+          data: { wsConnection: connection, roomId: randomLobby.roomId }
+        });
+      } else {
+        if (!firstTime) {
+          const modal = modalAlert();
+          modal.render({
+            closeable: false,
+            children: ErrorModal({
+              errorMessage:
+                'You can "Create a lobby" on game menu or try again later.',
+              errorStatus: 'There is no lobby avaiable'
+            })
+          });
+        }
+        setFirstTime(false);
+      }
     }
   }, [isLoadingLobby]);
 

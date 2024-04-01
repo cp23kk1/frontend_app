@@ -7,10 +7,12 @@ const AnswerButton = ({
   children,
   onClick,
   state,
-  disabled
+  disabled,
+  className
 }: TAnswerButton) => {
   return (
     <AnswerButtonWrapper
+      className={className}
       style={style}
       onClick={onClick}
       state={state ?? 'normal'}

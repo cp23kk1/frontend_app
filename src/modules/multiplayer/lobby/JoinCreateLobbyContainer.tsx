@@ -16,6 +16,7 @@ import { modalAlert } from '@/components/common/Modal';
 import ModalDecision from '@/components/common/V2/ModalDecision';
 import lobbySelectors from './lobby-selectors';
 import lobbyDispatch from './lobby-dispatch';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const JoinCreateLobbyContainer = ({
   render,
@@ -54,7 +55,7 @@ const JoinCreateLobbyContainer = ({
                     isReady: currentPageMode === 'create'
                   } as TWebSocketData)
                 );
-                conn?.close();
+                conn?.close(1000);
                 setCurrentPageMode(input);
                 modal.destroy();
               } else {
@@ -113,7 +114,7 @@ const JoinCreateLobbyContainer = ({
                   isReady: currentPageMode === 'create'
                 } as TWebSocketData)
               );
-              conn?.close();
+              conn?.close(1000);
               modal.destroy();
               handleClickBack();
             } else {
@@ -218,7 +219,7 @@ const JoinCreateLobbyContainer = ({
                   isReady: currentPageMode === 'create'
                 } as TWebSocketData)
               );
-              conn?.close();
+              conn?.close(1000);
               modal.destroy();
               dispatch(lobbyDispatch.getLobbyDispatch());
               setCurrentPageMode('join');
@@ -237,6 +238,7 @@ const JoinCreateLobbyContainer = ({
   if (conn) {
     conn.onclose = function (evt) {
       setIsConnect(false);
+
       console.log('close');
     };
     conn.onopen = function () {
@@ -326,18 +328,35 @@ const JoinCreateLobbyContainer = ({
       setIsPlayButtonDisabled(true);
     }
   }, [players]);
+
+  const [firstTime, setFirstTime] = useState(true);
   useEffect(() => {
     let randomLobby = lobby[Math.floor(Math.random() * lobby.length)];
-    if (randomLobby) {
-      let connection = new WebSocket(
-        `${process.env.WS_URL}/multiplayer/join-lobby?roomId=${randomLobby.roomId}&roomName=VocaverseRoom${randomLobby.roomId}&numberPlayer=8`
-      );
-      setConn(connection);
-      onChangeState({
-        page: 'lobby',
-        listPage: state.listPage,
-        data: { wsConnection: connection, roomId: randomLobby.roomId }
-      });
+    if (!isLoadingLobby) {
+      if (randomLobby) {
+        let connection = new WebSocket(
+          `${process.env.WS_URL}/multiplayer/join-lobby?roomId=${randomLobby.roomId}&roomName=VocaverseRoom${randomLobby.roomId}&numberPlayer=8`
+        );
+        setConn(connection);
+        onChangeState({
+          page: 'lobby',
+          listPage: state.listPage,
+          data: { wsConnection: connection, roomId: randomLobby.roomId }
+        });
+      } else {
+        if (!firstTime) {
+          const modal = modalAlert();
+          modal.render({
+            closeable: false,
+            children: ErrorModal({
+              errorMessage:
+                'You can "Create a lobby" on game menu or try again later.',
+              errorStatus: 'There is no lobby avaiable'
+            })
+          });
+        }
+        setFirstTime(false);
+      }
     }
   }, [isLoadingLobby]);
   return render({

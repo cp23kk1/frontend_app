@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const KnowLedgeSectionWrapper = styled.div`
   width: auto;
-  height: calc((7 / 12) * 100%);
+  height: calc((12 / 12) * 100vh);
   padding: 16px;
   border-radius: 32px;
   background: rgba(255, 255, 255, 0.5);
@@ -10,11 +10,17 @@ export const KnowLedgeSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 1;
+  overflow-x: scroll;
   .answer-layout {
     height: auto;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    gap: 24px;
+    flex-wrap: wrap;
+    .answer {
+      width: 30%;
+    }
   }
   .validate-button {
     background-color: #4681f4;

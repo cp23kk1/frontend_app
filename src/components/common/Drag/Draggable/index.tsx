@@ -3,7 +3,7 @@ import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { TDraggable } from './type';
 
-export function Draggable({ id, children, data }: TDraggable) {
+export function Draggable({ id, children, data, className }: TDraggable) {
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: id,
@@ -17,7 +17,13 @@ export function Draggable({ id, children, data }: TDraggable) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <div
+      ref={setNodeRef}
+      className={className}
+      style={style}
+      {...listeners}
+      {...attributes}
+    >
       {children}
     </div>
   );
