@@ -32,9 +32,38 @@ const UserProfileContainer = ({
   const router = useRouter();
   const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
   const userStatistic = useAppSelector(userCoreSelectors.userStatisticSelector);
+  const isUpdateUserDisplayNameLoading = useAppSelector(
+    userCoreSelectors.isUpdateDisplayNameLoadingSelector
+  );
+
   const [mode, setMode] = useState<'account' | 'stats'>('account');
   const handleChangeMode = (input: 'account' | 'stats') => {
     setMode(input);
+  };
+
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+
+  const [editedDisplayName, setEditedDisplayName] = useState<string>(
+    userProfile?.displayName || ''
+  );
+
+  const handleChangeIsEditMode = () => {
+    setEditedDisplayName(userProfile?.displayName || '');
+    setIsEditMode(!isEditMode);
+  };
+  const handleConfirmEdit = () => {
+    dispatch(
+      userCoreDispatch.updateUserDisplayNameDispatch({
+        newDisplayName: editedDisplayName
+      })
+    );
+    handleChangeIsEditMode();
+  };
+
+  const handleChangeDisplayNamme = (
+    input: React.FormEvent<HTMLInputElement>
+  ) => {
+    setEditedDisplayName(input.currentTarget.value);
   };
   const handleClickLogout = () => {
     dispatch(authDispatch.logoutDispatch());
@@ -47,9 +76,11 @@ const UserProfileContainer = ({
   const handleClickSetting = () => {};
 
   useEffect(() => {
-    dispatch(userCoreDispatch.getUserProfileDispatch());
-    dispatch(userCoreDispatch.getUserStatisticDispatch());
-  }, []);
+    if (!isUpdateUserDisplayNameLoading) {
+      dispatch(userCoreDispatch.getUserProfileDispatch());
+      dispatch(userCoreDispatch.getUserStatisticDispatch());
+    }
+  }, [isUpdateUserDisplayNameLoading]);
 
   return render({
     mode: mode,
@@ -57,13 +88,18 @@ const UserProfileContainer = ({
     onClickBack: handleClickBack,
     onClickSetting: handleClickSetting,
     account: {
+      onConfirm: handleConfirmEdit,
+      editedDisplayName: editedDisplayName,
+      isEditMode: isEditMode,
+      onChangeDisplayName: handleChangeDisplayNamme,
       since: `Member since ${dayjs(userProfile?.createAt).format(
         'MMM, D YYYY'
       )}`,
       displayName: userProfile?.displayName ?? '',
       email: userProfile?.email ?? '',
       profilePic: userProfile?.image ?? '',
-      onSingOut: handleClickLogout
+      onSingOut: handleClickLogout,
+      onChangeEditMode: handleChangeIsEditMode
     },
     stats: {
       barStats: userStatistic

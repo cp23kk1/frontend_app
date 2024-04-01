@@ -36,7 +36,17 @@ export const getUserStatistic = () => {
       return res.data;
     });
 };
+
+export const updateUserDisplayName = (newDisplayName: string) => {
+  return httpClient.put<VocaverseResponseData<IUserStatistic>>(
+    `/user/profile`,
+    {
+      displayName: newDisplayName
+    }
+  );
+};
 export default {
   getUserProfile,
-  getUserStatistic
+  getUserStatistic,
+  updateUserDisplayName
 };

@@ -28,7 +28,24 @@ const getUserStatisticDispatch = createAsyncThunk(
     }
   }
 );
+
+const updateUserDisplayNameDispatch = createAsyncThunk(
+  actionTypes.PUT_USER_DISPLAYNAME,
+  async (
+    { newDisplayName }: { newDisplayName: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await services.updateUserDisplayName(newDisplayName);
+
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 export default {
   getUserProfileDispatch,
-  getUserStatisticDispatch
+  getUserStatisticDispatch,
+  updateUserDisplayNameDispatch
 };

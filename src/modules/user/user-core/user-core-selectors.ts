@@ -29,10 +29,17 @@ const isUserStatisticLoadingSelector = createSelector(
     return user.isUserStatisticLoading;
   }
 );
+const isUpdateDisplayNameLoadingSelector = createSelector(
+  userCoreSelector,
+  (user) => {
+    return user.isUpdateDisplayNameLoading;
+  }
+);
 export default {
   userCoreSelector,
   userProfileSelector,
   isUserProfileLoadingSelector,
   userStatisticSelector,
-  isUserStatisticLoadingSelector
+  isUserStatisticLoadingSelector,
+  isUpdateDisplayNameLoadingSelector
 };

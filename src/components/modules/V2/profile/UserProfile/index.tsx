@@ -68,9 +68,35 @@ const UserProfile = ({
                       src={account.profilePic}
                       alt=""
                     />
-                    <div className="display-name">{account.displayName}</div>
+                    {account.isEditMode ? (
+                      <div className="edit-mode">
+                        <input
+                          type="text"
+                          value={account.editedDisplayName}
+                          onChange={account.onChangeDisplayName}
+                          maxLength={255}
+                        />
+                        <div className="confirm-button">
+                          <NewButton
+                            label={'CONFIRM'}
+                            onClick={account.onConfirm}
+                          />
+
+                          <NewButton
+                            label={'CANCEL'}
+                            onClick={account.onChangeEditMode}
+                          />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="display-name">{account.displayName}</div>
+                    )}
                   </div>
-                  <div className="edit">Edit</div>
+                  {!account.isEditMode && (
+                    <div className="edit" onClick={account.onChangeEditMode}>
+                      Edit
+                    </div>
+                  )}
                 </div>
                 <div className="associate">
                   <div className="google-card">

@@ -14,6 +14,11 @@ const UserProfilePage: NextPage = () => {
       }}
       {...{
         account: {
+          onConfirm: () => {},
+          editedDisplayName: '',
+          isEditMode: false,
+          onChangeDisplayName: (input) => {},
+          onChangeEditMode: () => {},
           displayName: '',
           email: '',
           since: '',

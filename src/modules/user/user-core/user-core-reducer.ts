@@ -7,6 +7,7 @@ interface InitialState {
 
   isUserProfileLoading: boolean;
   isUserStatisticLoading: boolean;
+  isUpdateDisplayNameLoading: boolean;
   userStatistic?: IUserStatistic;
   userProfile?: IUserResponse;
 }
@@ -15,6 +16,7 @@ const initialState = {
   //
   isUserProfileLoading: false,
   isUserStatisticLoading: false,
+  isUpdateDisplayNameLoading: false,
   userStatistic: undefined,
   userProfile: undefined
 } as InitialState;
@@ -26,6 +28,7 @@ const reducer = createReducer(initialState, (builder) => {
     state.userProfile = undefined;
     state.isUserStatisticLoading = false;
     state.userStatistic = undefined;
+    state.isUpdateDisplayNameLoading = false;
   });
 
   builder.addCase(dispatch.getUserStatisticDispatch.pending, (state) => {
@@ -65,6 +68,24 @@ const reducer = createReducer(initialState, (builder) => {
     (state, action: PayloadAction<any>) => {
       state.isUserProfileLoading = false;
       state.userProfile = undefined;
+    }
+  );
+
+  builder.addCase(dispatch.updateUserDisplayNameDispatch.pending, (state) => {
+    state.isUpdateDisplayNameLoading = true;
+  });
+
+  builder.addCase(
+    dispatch.updateUserDisplayNameDispatch.fulfilled,
+    (state, action: PayloadAction<any>) => {
+      state.isUpdateDisplayNameLoading = false;
+    }
+  );
+
+  builder.addCase(
+    dispatch.updateUserDisplayNameDispatch.rejected,
+    (state, action: PayloadAction<any>) => {
+      state.isUpdateDisplayNameLoading = false;
     }
   );
 });

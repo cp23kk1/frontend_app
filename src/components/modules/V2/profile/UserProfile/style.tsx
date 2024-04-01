@@ -286,6 +286,26 @@ export const UserProfileWrapper = styled.div`
               font-family: Passion One;
               font-weight: 400;
               word-wrap: break-word;
+              .edit-mode {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                height: 100%;
+                input {
+                  height: calc(40px - 12px); 
+                  font-size: 36px;
+                  font-family: Passion One;
+                  font-weight: 400;
+                  word-wrap: break-word;
+                  border-radius: 12px;
+                  padding: 12px;
+                }
+                .confirm-button {
+                  display: flex;
+                  gap: 12px;
+                }
+
+              }
               img {
                 width: 154px;
                 height: 154px;

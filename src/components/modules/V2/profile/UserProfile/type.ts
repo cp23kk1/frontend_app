@@ -11,6 +11,11 @@ export type TUserProfile = {
     profilePic: string;
     since: string;
     onSingOut: () => void;
+    editedDisplayName: string;
+    isEditMode: boolean;
+    onConfirm: () => void;
+    onChangeDisplayName: (input: React.FormEvent<HTMLInputElement>) => void;
+    onChangeEditMode: () => void;
   };
   mode: 'account' | 'stats';
   stats: {

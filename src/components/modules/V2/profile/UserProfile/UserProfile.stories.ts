@@ -17,6 +17,11 @@ type Story = StoryObj<typeof meta>;
 export const NormalQuestion: Story = {
   args: {
     account: {
+      onConfirm: () => {},
+      editedDisplayName: '',
+      isEditMode: false,
+      onChangeDisplayName: (input) => {},
+      onChangeEditMode: () => {},
       displayName: '',
       email: '',
       since: '',

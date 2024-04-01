@@ -210,7 +210,8 @@ const GameMenuContainer = ({
       },
       {
         modeName: 'MULTIPLAYER',
-        modeDesc: 'Multiplayer mode!! That u can play for fun!!!',
+        modeDesc:
+          'Join friends or challenge others in multiplayer mode! Compete in language exercises, and learn together in real-time. Sharpen your English skills while having fun with others. Ready to team up and master English together?',
         modeExtraInfo: (
           <div
             style={{ cursor: 'pointer' }}
