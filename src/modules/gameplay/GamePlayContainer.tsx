@@ -306,11 +306,13 @@ const GamePlayContainer = ({
     let id = over?.id.toString();
     if (id) {
       let temp = { ...passageAnswers };
-      temp[id] = { children: active.id.toString(), state: 'normal' };
-      _handleChangePassageAnswers(temp);
-      _handleChangeAnswers(
-        answers.filter((answer) => answer.children !== active.id.toString())
-      );
+      if (!temp[id]) {
+        temp[id] = { children: active.id.toString(), state: 'normal' };
+        _handleChangePassageAnswers(temp);
+        _handleChangeAnswers(
+          answers.filter((answer) => answer.children !== active.id.toString())
+        );
+      }
     }
   };
   const _handleUnselectPassageAnswer = (index?: number) => {
