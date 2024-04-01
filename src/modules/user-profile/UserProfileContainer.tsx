@@ -141,14 +141,14 @@ const UserProfileContainer = ({
           ]
         : [],
       overAllAcc: `${(
-        (userStatistic
+        (userStatistic && userStatistic.overall > 0
           ? userStatistic.overallCorrect / userStatistic.overall
           : 0) * 100
       ).toFixed(2)}`,
       overAllMaxScore: `${userStatistic ? userStatistic.overall : 0}`,
       overAllScore: `${userStatistic ? userStatistic.overallCorrect : 0}`,
       vocabularyAcc: `${(
-        (userStatistic
+        (userStatistic && userStatistic.countVocabulary.length > 0
           ? userStatistic?.countVocabularyCorrect.reduce(
               (accumulator, currentValue) => accumulator + currentValue.count,
               0
@@ -176,7 +176,7 @@ const UserProfileContainer = ({
           : 0
       }`,
       passageAcc: `${
-        userStatistic
+        userStatistic && userStatistic?.countPassage > 0
           ? (
               (userStatistic?.countPassageCorrect /
                 userStatistic?.countPassage) *
@@ -187,7 +187,7 @@ const UserProfileContainer = ({
       passageMaxScore: `${userStatistic ? userStatistic.countPassage : 0}`,
       passageScore: `${userStatistic ? userStatistic.countPassageCorrect : 0}`,
       sentenceAcc: `${
-        userStatistic
+        userStatistic && userStatistic?.countSentence.length > 0
           ? (
               (userStatistic?.countSentenceCorrect.reduce(
                 (accumulator, currentValue) => accumulator + currentValue.count,
