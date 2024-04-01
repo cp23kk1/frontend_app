@@ -16,7 +16,12 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const NormalQuestion: Story = {
   args: {
-    briefInfo: { definition: '', onClickMore: () => {}, word: '' },
+    briefInfo: {
+      isShow: true,
+      definition: '',
+      onClickMore: () => {},
+      word: ''
+    },
     knowledgeSectionItem: {
       onDragEnd: (event) => {},
       onValidatePassage: () => {},

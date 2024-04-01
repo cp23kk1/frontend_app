@@ -340,32 +340,38 @@ const GamePlayContainer = ({
 
   useEffect(() => {
     _addQuestion();
+    setCurrentPos(undefined);
   }, [isLoadingVocabulary, isLoadingQuestion, currentIndex]);
 
   useEffect(() => {
     if (!isBriefInfosLoading && briefInfo) {
-      let temp = briefInfo.meanings[0].partOfSpeech;
       if (!currentPos) {
-        setCurrentPos(briefInfo.meanings[0].partOfSpeech);
+        _handleChangeCurrentPos(briefInfo.meanings[0].partOfSpeech);
       }
+    }
+  }, [isBriefInfosLoading]);
+
+  useEffect(() => {
+    if (!isBriefInfosLoading && briefInfo && currentPos) {
       const modal = modalAlert();
       modal.render({
         closeable: true,
         children: ModalBriefInfo({
           word: briefInfo?.word ?? '',
           definition: briefInfo.meanings.find((info) => {
-            return info.partOfSpeech === (currentPos ?? temp);
+            return info.partOfSpeech === currentPos;
           })?.definitions[0].definition,
           example: briefInfo.meanings.find((info) => {
-            return info.partOfSpeech === (currentPos ?? temp);
+            return info.partOfSpeech === currentPos;
           })?.definitions[0].definition,
           meaning: `ไม่เฉลยหรอกนะ`,
           pos: [
             ...briefInfo.meanings.map((info) => {
               return {
                 pos: info.partOfSpeech,
-                isSelected: (currentPos ?? temp) === info.partOfSpeech,
+                isSelected: currentPos === info.partOfSpeech,
                 onCLick: () => {
+                  modal.destroy();
                   _handleChangeCurrentPos(info.partOfSpeech);
                 }
               };
@@ -374,7 +380,7 @@ const GamePlayContainer = ({
         })
       });
     }
-  }, [isBriefInfosLoading]);
+  }, [currentPos, isBriefInfosLoading]);
 
   useEffect(() => {
     if (playerHealth <= 0) {
@@ -415,6 +421,9 @@ const GamePlayContainer = ({
     score,
     onPause,
     briefInfo: {
+      isShow: questions[currentIndex]
+        ? questions[currentIndex].questionsType === 'vocabulary'
+        : false,
       definition: 'asdfasdf',
       onClickMore: handleClickMore,
       word: question?.toLocaleString() || ''

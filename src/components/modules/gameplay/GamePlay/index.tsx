@@ -28,7 +28,7 @@ const GamePlay = ({
             Score: {score ?? 0}
           </Col>
           <Col span={8} className="extra-wrapper">
-            {briefInfo && (
+            {briefInfo && briefInfo.isShow && (
               <div className="modal-extra-info">
                 <div className="topic">{briefInfo.word}</div>
                 <div className="body">{briefInfo.definition}</div>
