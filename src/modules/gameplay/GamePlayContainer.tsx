@@ -424,7 +424,7 @@ const GamePlayContainer = ({
       isShow: questions[currentIndex]
         ? questions[currentIndex].questionsType === 'vocabulary'
         : false,
-      definition: 'asdfasdf',
+      definition: 'Hint',
       onClickMore: handleClickMore,
       word: question?.toLocaleString() || ''
     }
