@@ -119,32 +119,69 @@ const MultiplayerResultContainer = ({
     }
   };
   const handleClickPlay = () => {
-    dispatch(
-      questionDispatch.getQuestionMultiPlayerDispatch({
-        mode: state.data.mode,
-        numberOfQuestion: state.data.maxRound
-      })
-    );
-    conn?.send(
-      JSON.stringify({
-        msg: `Game: has started.`,
-        from: `system`,
-        msgType: 'StartGame',
-        userData: userProfile,
-        maxRound: maxRound
-      } as TWebSocketData)
-    );
-    onChangeState({
-      page: 'multiplay-gameplay',
-      listPage: state.listPage,
-      data: {
-        wsConnection: conn,
-        listPlayers: players,
-        maxRound: maxRound,
-        mode: gameMode,
-        role: role
-      }
-    });
+    if (role === 'host') {
+      const modal = modalAlert();
+      modal.render({
+        children: ModalDecision({
+          question: 'GAME IS ABOUT TO START, ARE YOU WANT TO START?',
+          onClick: (boolean) => {
+            if (boolean) {
+              const interval = setInterval(() => {
+                setTimer((currentTime) => {
+                  if (currentTime > 0) {
+                    conn.send(
+                      JSON.stringify({
+                        msg: `System:Next game will begin in ${currentTime}.`,
+                        from: `system`,
+                        msgType: 'Timer',
+                        timer: currentTime,
+                        userData: userProfile
+                      } as TWebSocketData)
+                    );
+                    return currentTime - 1;
+                  } else {
+                    setTimer(0);
+                    dispatch(
+                      questionDispatch.getQuestionMultiPlayerDispatch({
+                        mode: state.data.mode,
+                        numberOfQuestion: state.data.maxRound
+                      })
+                    );
+                    conn?.send(
+                      JSON.stringify({
+                        msg: `Game: has started.`,
+                        from: `system`,
+                        msgType: 'StartGame',
+                        userData: userProfile,
+                        maxRound: maxRound
+                      } as TWebSocketData)
+                    );
+                    onChangeState({
+                      page: 'multiplay-gameplay',
+                      listPage: state.listPage,
+                      data: {
+                        wsConnection: conn,
+                        listPlayers: players,
+                        maxRound: maxRound,
+                        mode: gameMode,
+                        role: role
+                      }
+                    });
+                    clearInterval(interval);
+                    return currentTime;
+                  }
+                });
+              }, 1000);
+
+              modal.destroy();
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
+    }
   };
   const handleCloseLobby = () => {
     handleClickBack();
@@ -222,48 +259,6 @@ const MultiplayerResultContainer = ({
     );
     setMaxRound(state.data.maxRound);
     setRole(state.data.role);
-  }, []);
-
-  useEffect(() => {
-    if (role === 'host') {
-      const interval = setInterval(() => {
-        setTimer((currentTime) => {
-          if (currentTime > 0) {
-            conn.send(
-              JSON.stringify({
-                msg: `System:Next game will begin in ${currentTime}.`,
-                from: `system`,
-                msgType: 'Timer',
-                timer: currentTime,
-                userData: userProfile
-              } as TWebSocketData)
-            );
-            return currentTime - 1;
-          } else {
-            setTimer(0);
-            const modal = modalAlert();
-            modal.render({
-              children: ModalDecision({
-                question: 'GAME IS ABOUT TO START, ARE YOU WANT TO START?',
-                onClick: (boolean) => {
-                  if (boolean) {
-                    handleClickPlay();
-                    modal.destroy();
-                  } else {
-                    modal.destroy();
-                  }
-                }
-              }),
-              closeable: false
-            });
-
-            clearInterval(interval);
-            return currentTime;
-          }
-        });
-      }, 1000);
-      return () => clearInterval(interval);
-    }
   }, []);
 
   return render({
