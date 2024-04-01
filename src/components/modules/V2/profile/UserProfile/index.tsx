@@ -70,16 +70,34 @@ const UserProfile = ({
                     />
                     {account.isEditMode ? (
                       <div className="edit-mode">
-                        <input
-                          type="text"
-                          value={account.editedDisplayName}
-                          onChange={account.onChangeDisplayName}
-                          maxLength={255}
-                        />
+                        <div>
+                          <input
+                            type="text"
+                            value={account.editedDisplayName}
+                            onChange={account.onChangeDisplayName}
+                            maxLength={255}
+                            style={{
+                              border:
+                                account.editedDisplayName.length === 0
+                                  ? '5px solid red'
+                                  : ''
+                            }}
+                          />
+                          {account.editedDisplayName.length === 0 && (
+                            <div style={{ color: 'red', fontSize: 26 }}>
+                              Displayname can't be empty.
+                            </div>
+                          )}
+                        </div>
+
                         <div className="confirm-button">
                           <NewButton
                             label={'CONFIRM'}
                             onClick={account.onConfirm}
+                            disable={
+                              account.editedDisplayName.length === 0 ||
+                              account.editedDisplayName === account.displayName
+                            }
                           />
 
                           <NewButton

@@ -73,6 +73,7 @@ export const ButtonWrapper = styled.button`
 
   :disabled {
     opacity: 0.5;
+    cursor: default;
   }
   :hover {
     ${({

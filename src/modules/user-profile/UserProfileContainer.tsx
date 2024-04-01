@@ -18,6 +18,7 @@ import authDispatch from '../user/auth/auth-dispatch';
 import { TUserProfile } from '@/components/modules/V2/profile/UserProfile/type';
 import dayjs, { Dayjs } from 'dayjs';
 import userCoreDispatch from '../user/user-core/user-core-dispatch';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const UserProfileContainer = ({
   render,
