@@ -178,8 +178,8 @@ const GamePlayContainer = ({
 
   const _handleValidatePassage = () => {
     const currQuestion = questions[currentIndex];
-    if (currQuestion.questions?.length !== Object.keys(passageAnswers).length)
-      return;
+    // if (currQuestion.questions?.length !== Object.keys(passageAnswers).length)
+    //   return;
     const temp = { ...passageAnswers };
     let countCorrect = 0;
     Object.keys(passageAnswers).forEach((index) => {
@@ -219,9 +219,12 @@ const GamePlayContainer = ({
       }
       updateGameHistory(correctness, answer);
     } else {
+      const currQuestion = questions[currentIndex];
       _handleChangeEnemyHealth(enemyHealth - 10 * countCorrect);
+      console.log((currQuestion.questions?.length ?? 0) - countCorrect);
       _handleChangePlayerHealth(
-        playerHealth - 10 * (Object.keys(passageAnswers).length - countCorrect)
+        playerHealth -
+          10 * ((currQuestion.questions?.length ?? 0) - countCorrect)
       );
       _handleChangeScore(score + countCorrect);
       updateGameHistory(correctness, answer, countCorrect);
@@ -284,11 +287,16 @@ const GamePlayContainer = ({
               passages: currentGameHistory?.passages.concat(
                 currQuestion.questions.map((question, index) => {
                   return {
-                    answer: passageAnswers[`${index}`].children,
-                    correctness: question.answers.find(
-                      (value) => value.answer === passageAnswers[index].children
-                    )
-                      ? true
+                    answer: passageAnswers[`${index}`]
+                      ? passageAnswers[`${index}`].children
+                      : '',
+                    correctness: passageAnswers[`${index}`]
+                      ? question.answers.find(
+                          (value) =>
+                            value.answer === passageAnswers[index].children
+                        )
+                        ? true
+                        : false
                       : false,
                     passageId: currQuestion.dataId,
                     question: question.question,
@@ -393,14 +401,16 @@ const GamePlayContainer = ({
           })
         });
       } else {
-        const modal = modalAlert();
-        modal.render({
-          closeable: false,
-          children: ErrorModal({
-            errorStatus: '404',
-            errorMessage: 'word not found.'
-          })
-        });
+        if (!briefInfo && currentPos) {
+          const modal = modalAlert();
+          modal.render({
+            closeable: false,
+            children: ErrorModal({
+              errorStatus: '404',
+              errorMessage: 'word not found.'
+            })
+          });
+        }
       }
     }
   }, [currentPos, isBriefInfosLoading]);
