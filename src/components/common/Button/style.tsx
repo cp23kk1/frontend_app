@@ -15,7 +15,7 @@ export const ButtonWrapper = styled.button`
   color: #000;
 
   /* Audiowide/Regular-24 */
-  font-family: Audiowide;
+  font-family: Passion One;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;

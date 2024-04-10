@@ -4,7 +4,6 @@ import { TJoinCreateLobby } from './type';
 import NewButton from '@/components/common/V2/NewButton';
 import PlayButton from '@/components/common/V2/PlayButton';
 import { v4 as uuid } from 'uuid';
-import { create } from 'domain';
 
 const JoinCreateLobby = ({
   currentPage,
@@ -206,7 +205,7 @@ const JoinCreateLobby = ({
                 </div>
               </div>
               <div className="players">
-                {createLobby.players.map((player) => {
+                {createLobby.players.map((player, index) => {
                   return (
                     <div key={uuid()} className="player">
                       <div
@@ -216,12 +215,28 @@ const JoinCreateLobby = ({
                       >
                         {player.isReady ? 'READY' : 'NOT READY'}
                       </div>
-                      <img
-                        className={`profile-image ${
-                          player.isReady ? 'border-ready' : 'border-not-ready'
-                        }`}
-                        src={player.img}
-                      />
+                      <div className="container">
+                        <img
+                          className={`profile-image ${
+                            player.isReady ? 'border-ready' : 'border-not-ready'
+                          }`}
+                          src={player.img}
+                        />
+                        {/* <button className>KICK</button> */}
+                        {index != 0 && (
+                          <div className="middle">
+                            <div
+                              className="kick-button"
+                              onClick={() => {
+                                createLobby.onKick(player.id);
+                              }}
+                            >
+                              KICK
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
                       <div className="profile-name">{player.displayName}</div>
                     </div>
                   );

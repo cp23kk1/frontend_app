@@ -96,6 +96,20 @@ const LobbyContainer = ({
   if (conn) {
     conn.onclose = function (evt) {
       if (evt.code == 1000) {
+      } else if (evt.code == 3000) {
+        const modal = modalAlert();
+        modal.render({
+          children: ErrorModal({
+            errorMessage: 'You has been kicked out.',
+            errorStatus: 'Disconnected from lobby'
+          }),
+          closeable: false
+        });
+        onChangeState({
+          page: 'host-lobby',
+          data: { pageMode: 'join' },
+          listPage: state.listPage
+        });
       } else {
         const modal = modalAlert();
         modal.render({
@@ -147,6 +161,26 @@ const LobbyContainer = ({
               role: 'player'
             }
           });
+          break;
+        case 'KickUser':
+          setPlayers([
+            ...players.filter((player) => {
+              return player.id !== message.kickUserId;
+            })
+          ]);
+          if (userProfile?.id === message.kickUserId) {
+            conn.send(
+              JSON.stringify({
+                msg: `User: ${userProfile?.displayName} has left.`,
+                from: `system`,
+                msgType: 'UserLeft',
+                userData: userProfile,
+                isReady: isReady
+              } as TWebSocketData)
+            );
+            conn.close(3000);
+          }
+
           break;
         case 'UserReady':
           setPlayers([

@@ -17,6 +17,11 @@ import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
 import { TTab } from '@/components/modules/summary/Tab/type';
 import questionActions from '../gameplay/question/question-actions';
+import briefInfoDispatch from '../gameplay/brief-info/brief-info-dispatch';
+import briefInfoSelectors from '../gameplay/brief-info/brief-info-selectors';
+import { modalAlert } from '@/components/common/Modal';
+import ModalBriefInfo from '@/components/common/V2/ModalBriefInfo';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const SummaryResultContainer = ({
   render,
@@ -46,6 +51,15 @@ const SummaryResultContainer = ({
   const onSelectTab = (inputTab: 'Vocabulary' | 'Sentence' | 'Passage') => {
     setCurrentTab(inputTab);
   };
+
+  const isBriefInfosLoading = useAppSelector(
+    briefInfoSelectors.isBriefInfosLoadingSelector
+  );
+  const [currentPos, setCurrentPos] = useState<string>();
+  const _handleChangeCurrentPos = (input: string) => {
+    setCurrentPos(input);
+  };
+  const briefInfo = useAppSelector(briefInfoSelectors.briefInfoSelector);
   const tabs: TTab[] = [
     {
       children: 'Vocabulary',
@@ -63,6 +77,13 @@ const SummaryResultContainer = ({
       onClick: onSelectTab
     }
   ];
+  const handleClickMoreInfo = (word: string) => {
+    dispatch(
+      briefInfoDispatch.getBriefInfoDispatch({
+        word: word
+      })
+    );
+  };
 
   // table
   const summarySection: TSummarySection = {
@@ -80,7 +101,7 @@ const SummaryResultContainer = ({
     table: {
       columns: ['No.'].concat(
         currentTab === 'Vocabulary'
-          ? ['Word', 'Meaning']
+          ? ['Word', 'Answer']
           : currentTab === 'Sentence'
           ? ['Question', 'Answer']
           : ['PassageId', 'SentenceQuestion', 'Answer']
@@ -90,14 +111,22 @@ const SummaryResultContainer = ({
           ? gameHistory.vocabs.map((item) => {
               return {
                 word: item.question,
-                meaning: item.answer
+                meaning: (
+                  <span style={{ color: item.correctness ? 'green' : 'red' }}>
+                    {item.answer}
+                  </span>
+                )
               };
             })
           : currentTab === 'Sentence'
           ? gameHistory.sentences.map((item) => {
               return {
                 word: item.question,
-                meaning: item.answer
+                meaning: (
+                  <span style={{ color: item.correctness ? 'green' : 'red' }}>
+                    {item.answer}
+                  </span>
+                )
               };
             })
           : gameHistory.passages.map((item, index, arr) => {
@@ -109,13 +138,17 @@ const SummaryResultContainer = ({
                       : item.passageId
                     : item.passageId,
                 word: item.question,
-                meaning: item.answer
+                meaning: (
+                  <span style={{ color: item.correctness ? 'green' : 'red' }}>
+                    {item.answer}
+                  </span>
+                )
               };
             }),
-      onClick: () => {},
+      onClick: handleClickMoreInfo,
       moreinfo: {
         label: 'More info',
-        isShow: true
+        isShow: currentTab === 'Vocabulary'
       }
     }
   };
@@ -161,6 +194,47 @@ const SummaryResultContainer = ({
     dispatch(vocabularyActions.clear());
     dispatch(questionActions.clear());
   }, []);
+  useEffect(() => {
+    if (!isBriefInfosLoading) {
+      if (briefInfo && currentPos) {
+        const modal = modalAlert();
+        modal.render({
+          closeable: true,
+          children: ModalBriefInfo({
+            word: briefInfo?.word ?? '',
+            definition: briefInfo.meanings.find((info) => {
+              return info.partOfSpeech === currentPos;
+            })?.definitions[0].definition,
+            example: briefInfo.meanings.find((info) => {
+              return info.partOfSpeech === currentPos;
+            })?.definitions[0].definition,
+            meaning: `ไม่เฉลยหรอกนะ`,
+            pos: [
+              ...briefInfo.meanings.map((info) => {
+                return {
+                  pos: info.partOfSpeech,
+                  isSelected: currentPos === info.partOfSpeech,
+                  onCLick: () => {
+                    modal.destroy();
+                    _handleChangeCurrentPos(info.partOfSpeech);
+                  }
+                };
+              })
+            ]
+          })
+        });
+      } else {
+        const modal = modalAlert();
+        modal.render({
+          closeable: false,
+          children: ErrorModal({
+            errorStatus: '404',
+            errorMessage: 'word not found.'
+          })
+        });
+      }
+    }
+  }, [currentPos, isBriefInfosLoading]);
 
   return render({
     mode,

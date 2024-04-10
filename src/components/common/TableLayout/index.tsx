@@ -27,11 +27,7 @@ const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
       <div className="detail">
         {data?.map((item, index) => {
           return (
-            <Row
-              key={uuid()}
-              className="record"
-              onClick={() => onClick(item.dataId)}
-            >
+            <Row key={uuid()} className="record">
               <Col key={`no-${uuid()}`} span={2} className="col">
                 {++index}
               </Col>
@@ -43,7 +39,10 @@ const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
                 );
               })}
               {moreinfo?.isShow && (
-                <Col className="col more-info">
+                <Col
+                  className="col more-info"
+                  onClick={() => onClick(item.word?.toLocaleString() ?? '')}
+                >
                   More info <Icon iconName="Info" size={20} />
                 </Col>
               )}

@@ -26,6 +26,7 @@ import { modalAlert } from '@/components/common/Modal';
 import ModalBriefInfo from '@/components/common/V2/ModalBriefInfo';
 import briefInfoDispatch from './brief-info/brief-info-dispatch';
 import briefInfoSelectors from './brief-info/brief-info-selectors';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const GamePlayContainer = ({
   render,
@@ -363,33 +364,44 @@ const GamePlayContainer = ({
   }, [isBriefInfosLoading]);
 
   useEffect(() => {
-    if (!isBriefInfosLoading && briefInfo && currentPos) {
-      const modal = modalAlert();
-      modal.render({
-        closeable: true,
-        children: ModalBriefInfo({
-          word: briefInfo?.word ?? '',
-          definition: briefInfo.meanings.find((info) => {
-            return info.partOfSpeech === currentPos;
-          })?.definitions[0].definition,
-          example: briefInfo.meanings.find((info) => {
-            return info.partOfSpeech === currentPos;
-          })?.definitions[0].definition,
-          meaning: `ไม่เฉลยหรอกนะ`,
-          pos: [
-            ...briefInfo.meanings.map((info) => {
-              return {
-                pos: info.partOfSpeech,
-                isSelected: currentPos === info.partOfSpeech,
-                onCLick: () => {
-                  modal.destroy();
-                  _handleChangeCurrentPos(info.partOfSpeech);
-                }
-              };
-            })
-          ]
-        })
-      });
+    if (!isBriefInfosLoading) {
+      if (briefInfo && currentPos) {
+        const modal = modalAlert();
+        modal.render({
+          closeable: true,
+          children: ModalBriefInfo({
+            word: briefInfo?.word ?? '',
+            definition: briefInfo.meanings.find((info) => {
+              return info.partOfSpeech === currentPos;
+            })?.definitions[0].definition,
+            example: briefInfo.meanings.find((info) => {
+              return info.partOfSpeech === currentPos;
+            })?.definitions[0].definition,
+            meaning: `ไม่เฉลยหรอกนะ`,
+            pos: [
+              ...briefInfo.meanings.map((info) => {
+                return {
+                  pos: info.partOfSpeech,
+                  isSelected: currentPos === info.partOfSpeech,
+                  onCLick: () => {
+                    modal.destroy();
+                    _handleChangeCurrentPos(info.partOfSpeech);
+                  }
+                };
+              })
+            ]
+          })
+        });
+      } else {
+        const modal = modalAlert();
+        modal.render({
+          closeable: false,
+          children: ErrorModal({
+            errorStatus: '404',
+            errorMessage: 'word not found.'
+          })
+        });
+      }
     }
   }, [currentPos, isBriefInfosLoading]);
 

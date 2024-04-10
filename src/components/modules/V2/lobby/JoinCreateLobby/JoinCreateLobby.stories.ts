@@ -24,6 +24,7 @@ export const NormalQuestion: Story = {
     onClickPlayQuickly: () => {},
     onClickPlay: () => {},
     createLobby: {
+      onKick: (id) => {},
       onClickCloseLobby: () => {},
       gameSetting: {
         mode: 'all',

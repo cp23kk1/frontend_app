@@ -13,6 +13,7 @@ const JoinCreatLobbyPage: NextPage = () => {
       onClickPlayQuickly={() => {}}
       onClickPlay={() => {}}
       createLobby={{
+        onKick(id) {},
         onClickCloseLobby: () => {},
         gameSetting: {
           mode: 'all',

@@ -24,7 +24,8 @@ export type TWebSocketData = {
     | 'Timer'
     | 'Answer'
     | 'ShowAnswer'
-    | 'EndGame';
+    | 'EndGame'
+    | 'KickUser';
   msg: string;
   from: string;
   userData: IUserResponse;
@@ -34,5 +35,6 @@ export type TWebSocketData = {
   currentQuestion: TMultiplayerQuestion;
   currentRound: number;
   timer: number;
+  kickUserId: number;
   answerId: string;
 };

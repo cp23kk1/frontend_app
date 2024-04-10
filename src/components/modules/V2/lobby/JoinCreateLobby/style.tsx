@@ -269,7 +269,43 @@ export const JoinCreateLobbyWrapper = styled.div`
               font-weight: 400;
               word-wrap: break-word;
             }
+            // .container {
+            //   display: flex;
+            //   flex-direction: column;
+            //   gap: 8px;
+            // }
+            .container {
+              position: relative;
+            }
+            .kick-button {
+              background-color: red;
+              color: white;
+              font-size: 20px;
+              font-family: Passion One;
+              font-weight: 400;
+              word-wrap: break-word;
+              padding: 8px 16px;
+              border-radius: 12px;
+            }
+            .middle {
+              transition: 0.2s ease;
+              opacity: 0;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              text-align: center;
+              cursor: pointer;
+            }
+            .container:hover .profile-image {
+              opacity: 0.5;
+            }
+            .container:hover .middle {
+              opacity: 1;
+            }
             .profile-image {
+              transition: 0.2s ease;
               width: 120px;
               height: 120px;
               border-radius: 50%;

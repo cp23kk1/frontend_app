@@ -82,10 +82,10 @@ const KnowLedgeSection = ({
           <Col>
             <div
               style={{
-                cursor:
-                  Object.keys(passageAnswers).length === question.length
-                    ? 'pointer'
-                    : 'not-allowed'
+                cursor: 'pointer'
+                // Object.keys(passageAnswers).length === question.length
+                //   ? 'pointer'
+                //   : 'not-allowed'
               }}
               onClick={onValidatePassage}
               className="validate-button"

@@ -155,6 +155,18 @@ const JoinCreateLobbyContainer = ({
       }
     });
   };
+  const onKick = (id: number) => {
+    conn?.send(
+      JSON.stringify({
+        msg: `Host: Kicked user id:${id}.`,
+        from: `system`,
+        msgType: 'KickUser',
+        kickUserId: id,
+        userData: userProfile,
+        isReady: currentPageMode === 'create'
+      } as TWebSocketData)
+    );
+  };
 
   //join
   const [roomId, setRoomId] = useState<string>('');
@@ -371,6 +383,7 @@ const JoinCreateLobbyContainer = ({
     },
     onClickPlay: onClickPlay,
     createLobby: {
+      onKick: onKick,
       onClickCloseLobby: handleCloseLobby,
       isPlayDisabled: isPlayButtonDisabled,
       gameSetting: {

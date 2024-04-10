@@ -15,6 +15,7 @@ export type TJoinCreateLobby = {
     players: TPlayer[];
     isPlayDisabled?: boolean;
     onClickCloseLobby: () => void;
+    onKick: (id: number) => void;
     gameSetting: {
       onChangeMode: (e: React.FormEvent<HTMLInputElement>) => void;
       mode: 'all' | 'vocabulary';

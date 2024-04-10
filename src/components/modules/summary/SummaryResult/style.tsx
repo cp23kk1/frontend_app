@@ -9,8 +9,7 @@ export const SummaryResultWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  /* Audiowide/Regular-32 */
-  font-family: Audiowide;
+  font-family: Passion One;
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
@@ -21,7 +20,7 @@ export const SummaryResultWrapper = styled.div`
     color: #e40714;
 
     /* Audiowide/Regular-96 */
-    font-family: Audiowide;
+    font-family: Passion One;
     font-size: 96px;
     font-style: normal;
     font-weight: 400;
