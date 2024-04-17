@@ -4,7 +4,8 @@ import { getPublicPath } from '@/utils/basePath';
 import { ReactNode, useEffect, useState } from 'react';
 import settingSelectors from './setting/setting-selectors';
 import settingActions from './setting/setting-actions';
-
+import { TModalPause } from '@/components/common/V2/ModalPause/type';
+import { v4 as uuid } from 'uuid';
 export const LandingContainer = ({
   render
 }: {
@@ -16,15 +17,19 @@ export const LandingContainer = ({
     listPage: ['landing']
   });
   const [isModalSettingOpen, setIsModalSettingOpen] = useState<boolean>(false);
+  const [key, setKey] = useState<string>(uuid());
   const volume = useAppSelector(settingSelectors.volumeSelector);
   const music = useAppSelector(settingSelectors.musicSelector);
   const soundEffect = useAppSelector(settingSelectors.soundEffectSelector);
   const onSetting = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
     setIsModalSettingOpen(true);
+
     // dispatch(modalActions.onOpen('SettingMenu'));
   };
-
+  const handleResetKey = () => {
+    setKey(uuid());
+  };
   const onCloseModalSetting = () => {
     setIsModalSettingOpen(false);
   };
@@ -66,13 +71,23 @@ export const LandingContainer = ({
     state,
     onChangeState,
     onSetting,
+    onCloseModalSetting,
     settingModal: {
-      charaterPic: getPublicPath(`/character/player/robot.svg`),
-      musicValue: music,
-      volumeValue: volume,
-      soundEffectValue: soundEffect,
-      onClickChangeButton: () => {}
-    }
+      isSetting: true,
+      masterVolume: volume,
+      musicVolume: music,
+      sfxVolume: soundEffect
+    },
+    isModalSettingOpen,
+    key,
+    resetKey: handleResetKey
+    // settingModal: {
+    //   charaterPic: getPublicPath(`/character/player/robot.svg`),
+    //   musicValue: music,
+    //   volumeValue: volume,
+    //   soundEffectValue: soundEffect,
+    //   onClickChangeButton: () => {}
+    // }
   });
 };
 
@@ -84,8 +99,12 @@ export type TState = {
 export type TVocaverseCore = {
   state: TState;
   onChangeState: (input: TState) => void;
+  onCloseModalSetting: () => void;
   onSetting: () => void;
-  settingModal: TSettingModal;
+  settingModal: TModalPause;
+  isModalSettingOpen: boolean;
+  key: string;
+  resetKey: () => void;
 };
 type TPagelist =
   | 'landing'

@@ -12,4 +12,6 @@ export type TGamePlay = {
     isShow: boolean;
   };
   onPause: () => void;
+  onClickRetry: () => void;
+  onClickFinish: () => void;
 };

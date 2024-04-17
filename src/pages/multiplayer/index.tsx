@@ -11,6 +11,8 @@ const Multiplayer: NextPage = () => {
   return (
     <MultiplayerGameplay
       {...{
+        onPause: () => {},
+        onClickFinish: () => {},
         currentRound: 6,
         maxRound: 10,
         listPlayer: {

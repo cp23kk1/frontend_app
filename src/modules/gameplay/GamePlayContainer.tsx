@@ -27,14 +27,23 @@ import ModalBriefInfo from '@/components/common/V2/ModalBriefInfo';
 import briefInfoDispatch from './brief-info/brief-info-dispatch';
 import briefInfoSelectors from './brief-info/brief-info-selectors';
 import ErrorModal from '@/components/common/Modal/ModalError';
+import ModalDecision from '@/components/common/V2/ModalDecision';
+import questionDispatch from './question/question-dispatch';
+import questionActions from './question/question-actions';
 
 const GamePlayContainer = ({
   render,
   onChangeState,
+  onSetting,
+  resetKey,
+  onCloseModalSetting,
   state
 }: {
   render: (props: TGamePlay) => ReactNode;
   onChangeState: (input: TState) => void;
+  onSetting: () => void;
+  onCloseModalSetting: () => void;
+  resetKey: () => void;
   state: TState;
 }) => {
   const dispatch = useAppDispatch();
@@ -75,7 +84,7 @@ const GamePlayContainer = ({
   const [enemyHealth, setEnemyHealth] = useState<number>(100);
 
   const [currentPos, setCurrentPos] = useState<string>();
-  const _handleChangeCurrentPos = (input: string) => {
+  const _handleChangeCurrentPos = (input?: string) => {
     setCurrentPos(input);
   };
   const _handleChangeScore = (inputscore: number) => {
@@ -178,8 +187,6 @@ const GamePlayContainer = ({
 
   const _handleValidatePassage = () => {
     const currQuestion = questions[currentIndex];
-    // if (currQuestion.questions?.length !== Object.keys(passageAnswers).length)
-    //   return;
     const temp = { ...passageAnswers };
     let countCorrect = 0;
     Object.keys(passageAnswers).forEach((index) => {
@@ -342,14 +349,17 @@ const GamePlayContainer = ({
   };
   const onPause = () => {
     // dispatch(modalActions.onOpen('PauseMenu'));
+    onSetting();
   };
 
   const handleClickMore = () => {
+    const currQuestion = questions[currentIndex];
     dispatch(
       briefInfoDispatch.getBriefInfoDispatch({
-        word: question?.toLocaleString() || ''
+        word: question?.toLocaleString() ?? ''
       })
     );
+    _handleChangeCurrentPos('');
   };
 
   //useEffect
@@ -401,7 +411,7 @@ const GamePlayContainer = ({
           })
         });
       } else {
-        if (!briefInfo && currentPos) {
+        if (!briefInfo && currentPos != undefined) {
           const modal = modalAlert();
           modal.render({
             closeable: false,
@@ -413,7 +423,7 @@ const GamePlayContainer = ({
         }
       }
     }
-  }, [currentPos, isBriefInfosLoading]);
+  }, [isBriefInfosLoading]);
 
   useEffect(() => {
     if (playerHealth <= 0) {
@@ -422,6 +432,7 @@ const GamePlayContainer = ({
       setTimeout(() => {
         // dispatch(modalActions.onClose());
         // router.push(getPublicPathPageRounting('/summary'));
+        _handleChangeCurrentPos(undefined);
         onChangeState({ ...state, page: 'summary' });
       }, 1000);
     }
@@ -448,6 +459,47 @@ const GamePlayContainer = ({
     enemyHealth: enemyHealth,
     playerHealth: playerHealth
   };
+
+  const handleClickRetry = () => {
+    const modal = modalAlert();
+    modal.render({
+      closeable: false,
+      children: ModalDecision({
+        question: `ARE YOU SURE THAT YOU WANT
+TO DISCARD THIS GAME?`,
+        onClick: (bool) => {
+          if (bool) {
+            resetKey();
+            modal.destroy();
+            onCloseModalSetting();
+            dispatch(questionActions.clear());
+          } else {
+            modal.destroy();
+          }
+        }
+      })
+    });
+  };
+
+  const handleClickFinish = () => {
+    const modal = modalAlert();
+    modal.render({
+      closeable: false,
+      children: ModalDecision({
+        question: `ARE YOU SURE THAT YOU WANT
+TO FINISH THIS GAME?`,
+        onClick: (bool) => {
+          _handleChangePlayerHealth(0);
+          modal.destroy();
+          onCloseModalSetting();
+          if (bool) {
+          } else {
+            modal.destroy();
+          }
+        }
+      })
+    });
+  };
   return render({
     knowledgeSectionItem: knowLedgeSection,
     animationSectionItem: animationSection,
@@ -459,8 +511,10 @@ const GamePlayContainer = ({
         : false,
       definition: 'Hint',
       onClickMore: handleClickMore,
-      word: question?.toLocaleString() || ''
-    }
+      word: question?.toLocaleString() ?? ''
+    },
+    onClickRetry: handleClickRetry,
+    onClickFinish: handleClickFinish
   });
 };
 export default GamePlayContainer;

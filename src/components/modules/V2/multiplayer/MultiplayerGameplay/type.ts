@@ -8,4 +8,6 @@ export type TMultiPlayerGameplay = {
   maxRound: number;
   listPlayer: TListPlayer;
   multiplayerQuestion: TMultiplayerQuestion;
+  onClickFinish?: () => void;
+  onPause: () => void;
 };

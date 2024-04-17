@@ -9,6 +9,9 @@ import { useState } from 'react';
 const GamePlayPage: NextPage = () => {
   return (
     <GamePlayContainer
+      onCloseModalSetting={() => {}}
+      onSetting={() => {}}
+      resetKey={() => {}}
       state={{ page: 'gamemode' }}
       onChangeState={() => {}} //for build
       render={(props) => {

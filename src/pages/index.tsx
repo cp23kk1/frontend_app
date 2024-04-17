@@ -1,4 +1,6 @@
+import Modal from '@/components/common/Modal';
 import SettingModal from '@/components/common/SettingModal';
+import ModalPause from '@/components/common/V2/ModalPause';
 import GameMode from '@/components/modules/gamemode/Gamemode';
 import GamePlay from '@/components/modules/gameplay/GamePlay';
 import Landing from '@/components/modules/landing/Landing';
@@ -27,7 +29,16 @@ import UserProfileContainer from '@/modules/user-profile/UserProfileContainer';
 export default function Home() {
   return (
     <VocaverseCoreContainer
-      render={({ state, onChangeState, onSetting, settingModal }) => {
+      render={({
+        state,
+        onChangeState,
+        onSetting,
+        onCloseModalSetting,
+        settingModal,
+        isModalSettingOpen,
+        key,
+        resetKey
+      }) => {
         switch (state.page) {
           case 'landing':
             return (
@@ -50,9 +61,25 @@ export default function Home() {
             return (
               <GameMenuContainer
                 state={state}
+                onSetting={onSetting}
                 onChangeState={onChangeState}
                 render={(props) => {
-                  return <HomeMenu {...props} />;
+                  return (
+                    <>
+                      <HomeMenu {...props} />
+                      <Modal
+                        closeable
+                        onClose={onCloseModalSetting}
+                        isModalOpen={isModalSettingOpen}
+                      >
+                        <ModalPause
+                          {...settingModal}
+                          isSetting
+                          onClickTutorial={props.onClickTutorial}
+                        />
+                      </Modal>
+                    </>
+                  );
                 }}
               />
             );
@@ -61,9 +88,30 @@ export default function Home() {
             return (
               <GamePlayContainer
                 state={state}
+                onSetting={onSetting}
+                key={key}
+                resetKey={resetKey}
                 onChangeState={onChangeState}
+                onCloseModalSetting={onCloseModalSetting}
                 render={(props) => {
-                  return <GamePlay {...props} />;
+                  return (
+                    <>
+                      <GamePlay {...props} />
+                      <Modal
+                        closeable
+                        onClose={onCloseModalSetting}
+                        isModalOpen={isModalSettingOpen}
+                      >
+                        <ModalPause
+                          {...settingModal}
+                          isSetting={false}
+                          onClickFinish={props.onClickFinish}
+                          onClickRetry={props.onClickRetry}
+                          onClickResume={onCloseModalSetting}
+                        />
+                      </Modal>
+                    </>
+                  );
                 }}
               />
             );
@@ -127,8 +175,27 @@ export default function Home() {
               <MultiplayerGameplayContainer
                 onChangeState={onChangeState}
                 state={state}
+                onSetting={onSetting}
+                onCloseModalSetting={onCloseModalSetting}
                 render={(props) => {
-                  return <MultiplayerGameplay {...props} />;
+                  return (
+                    <>
+                      <MultiplayerGameplay {...props} />
+                      <Modal
+                        closeable
+                        onClose={onCloseModalSetting}
+                        isModalOpen={isModalSettingOpen}
+                      >
+                        <ModalPause
+                          {...settingModal}
+                          isSetting={false}
+                          isMultiplayer
+                          onClickFinish={props.onClickFinish}
+                          onClickResume={onCloseModalSetting}
+                        />
+                      </Modal>
+                    </>
+                  );
                 }}
               />
             );

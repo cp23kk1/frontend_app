@@ -6,7 +6,7 @@ export type TNewButton = {
   label: string;
   disable?: boolean;
   style?: CSSProperties;
-  onClick: () => void;
+  onClick?: () => void;
   className?: string;
   state?: 'selected' | 'unselected' | 'unselected-light' | 'hover';
   danger?: boolean;

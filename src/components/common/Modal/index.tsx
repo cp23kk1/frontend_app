@@ -44,7 +44,11 @@ export const modalAlert = () => {
     return Modal({
       ...props,
       onClose: () => {
-        handleDestroy();
+        if (props.onClose) {
+          props.onClose();
+        } else {
+          handleDestroy();
+        }
       }
     });
   };

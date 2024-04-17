@@ -20,14 +20,21 @@ import {
   selectors as questionsSelectors
 } from '../gameplay/question';
 import { TChoiceAnswer } from '@/components/common/V2/ChoiceAnswer/type';
+import { modalAlert } from '@/components/common/Modal';
+import ModalDecision from '@/components/common/V2/ModalDecision';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const MultiplayerGameplayContainer = ({
   render,
   onChangeState,
+  onSetting,
+  onCloseModalSetting,
   state
 }: {
   render: (props: TMultiPlayerGameplay) => ReactNode;
   onChangeState: (input: TState) => void;
+  onSetting: () => void;
+  onCloseModalSetting: () => void;
   state: TState;
 }) => {
   const dispatch = useAppDispatch();
@@ -103,6 +110,36 @@ const MultiplayerGameplayContainer = ({
 
   if (conn) {
     conn.onclose = function (evt) {
+      if (evt.code == 1000) {
+      } else if (evt.code == 3000) {
+        const modal = modalAlert();
+        modal.render({
+          children: ErrorModal({
+            errorMessage: 'You leave the game.',
+            errorStatus: 'Disconnected from lobby'
+          }),
+          closeable: false
+        });
+        onChangeState({
+          page: 'host-lobby',
+          data: { pageMode: 'join' },
+          listPage: state.listPage
+        });
+      } else {
+        const modal = modalAlert();
+        modal.render({
+          children: ErrorModal({
+            errorMessage: 'Host closed lobby.',
+            errorStatus: 'Disconnected from lobby'
+          }),
+          closeable: false
+        });
+        onChangeState({
+          page: 'host-lobby',
+          data: { pageMode: 'join' },
+          listPage: state.listPage
+        });
+      }
       console.log('close');
     };
     conn.onopen = function () {
@@ -140,6 +177,25 @@ const MultiplayerGameplayContainer = ({
         case 'CloseLobby':
           conn.close();
           onChangeState({ page: 'gamemode', listPage: state.listPage });
+          break;
+        case 'KickUser':
+          setPlayers([
+            ...players.filter((player) => {
+              return player.id !== message.kickUserId;
+            })
+          ]);
+          if (userProfile?.id === message.kickUserId) {
+            conn.send(
+              JSON.stringify({
+                msg: `User: ${userProfile?.displayName} has left.`,
+                from: `system`,
+                msgType: 'UserLeft',
+                userData: userProfile
+              } as TWebSocketData)
+            );
+            conn.close(3000);
+          }
+
           break;
         case 'EndGame':
           onChangeState({
@@ -347,6 +403,63 @@ const MultiplayerGameplayContainer = ({
     }
   }, [currentRound, isQuestionsLoading]);
 
+  const handleClickFinish = () => {
+    if (role === 'host') {
+      const modal = modalAlert();
+      modal.render({
+        children: ModalDecision({
+          question: 'ARE YOU SURE THAT YOU WANT TO END THIS GAME?',
+          onClick: (boolean) => {
+            if (boolean) {
+              conn?.send(
+                JSON.stringify({
+                  msg: `User: ${userProfile?.displayName} has joined.`,
+                  from: `system`,
+                  msgType: 'CloseLobby',
+                  userData: userProfile,
+                  isReady: false
+                } as TWebSocketData)
+              );
+              conn?.close(1000);
+              modal.destroy();
+              onCloseModalSetting();
+              onChangeState({ page: 'gamemode', listPage: state.listPage });
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
+    } else {
+      const modal = modalAlert();
+      modal.render({
+        children: ModalDecision({
+          question: 'ARE YOU SURE THAT YOU WANT TO LEAVE THIS GAME?',
+          onClick: (boolean) => {
+            if (boolean) {
+              conn?.send(
+                JSON.stringify({
+                  msg: `System: User Leave:${userProfile?.id}.`,
+                  from: `system`,
+                  msgType: 'KickUser',
+                  kickUserId: userProfile?.id,
+                  userData: userProfile,
+                  isReady: false
+                } as TWebSocketData)
+              );
+              onCloseModalSetting();
+              modal.destroy();
+              onChangeState({ page: 'gamemode', listPage: state.listPage });
+            } else {
+              modal.destroy();
+            }
+          }
+        }),
+        closeable: false
+      });
+    }
+  };
   return render({
     currentRound: currentRound,
     listPlayer: { maxPlayer: 8, players: players },
@@ -355,7 +468,9 @@ const MultiplayerGameplayContainer = ({
       answers: answers,
       extra: extra,
       question: question
-    }
+    },
+    onClickFinish: handleClickFinish,
+    onPause: onSetting
   });
 };
 export default MultiplayerGameplayContainer;

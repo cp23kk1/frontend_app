@@ -83,6 +83,7 @@ const SummaryResultContainer = ({
         word: word
       })
     );
+    _handleChangeCurrentPos('');
   };
 
   // table
@@ -195,6 +196,13 @@ const SummaryResultContainer = ({
     dispatch(questionActions.clear());
   }, []);
   useEffect(() => {
+    if (!isBriefInfosLoading && briefInfo) {
+      if (!currentPos) {
+        _handleChangeCurrentPos(briefInfo.meanings[0].partOfSpeech);
+      }
+    }
+  }, [isBriefInfosLoading]);
+  useEffect(() => {
     if (!isBriefInfosLoading) {
       if (briefInfo && currentPos) {
         const modal = modalAlert();
@@ -224,14 +232,16 @@ const SummaryResultContainer = ({
           })
         });
       } else {
-        const modal = modalAlert();
-        modal.render({
-          closeable: false,
-          children: ErrorModal({
-            errorStatus: '404',
-            errorMessage: 'word not found.'
-          })
-        });
+        if (!briefInfo && currentPos != undefined) {
+          const modal = modalAlert();
+          modal.render({
+            closeable: false,
+            children: ErrorModal({
+              errorStatus: '404',
+              errorMessage: 'word not found.'
+            })
+          });
+        }
       }
     }
   }, [currentPos, isBriefInfosLoading]);

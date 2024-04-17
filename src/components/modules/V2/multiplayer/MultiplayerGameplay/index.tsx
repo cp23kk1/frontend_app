@@ -8,7 +8,8 @@ const MultiplayerGameplay = ({
   currentRound,
   maxRound,
   listPlayer,
-  multiplayerQuestion
+  multiplayerQuestion,
+  onPause
 }: TMultiPlayerGameplay) => {
   return (
     <MultiplayerGameplayWrapper>
@@ -18,18 +19,11 @@ const MultiplayerGameplay = ({
             label="PAUSE"
             iconName="Pause"
             state="unselected"
-            onClick={() => {}}
+            onClick={onPause}
           />
         </div>
         <div className="round">ROUND {`${currentRound}/${maxRound}`}</div>
-        <div>
-          <NewButton
-            label="SETTING"
-            iconName="SettingLight"
-            state="unselected"
-            onClick={() => {}}
-          />
-        </div>
+        <div></div>
       </div>
       <div className="main">
         <div className="list-player">

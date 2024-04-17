@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
 
-export const ModalTutorialWrapper = styled.button`
+export const ModalTutorialWrapper = styled.div`
   width: calc(1280px - 48px);
   height: calc(720px - 48px);
   border-radius: 24px;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  background-color: #393d73;
+  background-color: #262956;
   border: 0;
 
   .topic {

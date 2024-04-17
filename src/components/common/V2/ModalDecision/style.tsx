@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const ModalDecisionWrapper = styled.button`
+export const ModalDecisionWrapper = styled.div`
   width: calc(640px - 48px);
   height: calc(360px - 48px);
   border-radius: 24px;

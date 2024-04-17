@@ -21,14 +21,19 @@ import lobbySelectors from '../multiplayer/lobby/lobby-selectors';
 import { TWebSocketData } from '@/types/vocaverse/api/response';
 import ModalTutorial from '@/components/common/V2/ModalTutorial';
 import ErrorModal from '@/components/common/Modal/ModalError';
+import ModalPause from '@/components/common/V2/ModalPause';
+import settingSelectors from '../core/setting/setting-selectors';
+import settingActions from '../core/setting/setting-actions';
 
 const GameMenuContainer = ({
   render,
   onChangeState,
+  onSetting,
   state
 }: {
   render: (props: THome) => ReactNode;
   onChangeState: (input: TState) => void;
+  onSetting: () => void;
   state: TState;
 }) => {
   const dispatch = useAppDispatch();
@@ -192,7 +197,9 @@ const GameMenuContainer = ({
     },
     currentPage: currentPage,
     onChangePage: handleChangeCurrentPage,
-    onCLickSettings: () => {},
+    onCLickSettings: () => {
+      onSetting();
+    },
     onClickSignIn: onLogin,
     onClickTutorial: onClickTutorial,
     profileTab: {
