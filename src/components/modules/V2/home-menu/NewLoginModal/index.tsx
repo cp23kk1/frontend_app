@@ -28,7 +28,7 @@ const LoginModal = ({
               state="unselected-light"
             />
           </div>
-          {isConnectGuest && (
+          {!isConnectGuest && (
             <div className="guest">
               <NewButton
                 onClick={onClickGuestLogin}
