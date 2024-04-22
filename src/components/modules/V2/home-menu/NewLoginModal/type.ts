@@ -3,4 +3,5 @@ export type TNewLoginModal = {
   onClickPolicy: () => void;
   onClickGoogleLogin: () => void;
   onClickGuestLogin: () => void;
+  isConnectGuest: boolean;
 };

@@ -10,7 +10,8 @@ const LoginModal = ({
   onClickTerm,
   onClickPolicy,
   onClickGoogleLogin,
-  onClickGuestLogin
+  onClickGuestLogin,
+  isConnectGuest
 }: TNewLoginModal) => {
   return (
     <NewLoginModalWrapper>
@@ -27,15 +28,17 @@ const LoginModal = ({
               state="unselected-light"
             />
           </div>
-          <div className="guest">
-            <NewButton
-              onClick={onClickGuestLogin}
-              label="CONTINUE WITH GUEST"
-              state="unselected-light"
-              iconName="User"
-              style={{ width: 294 }}
-            />
-          </div>
+          {isConnectGuest && (
+            <div className="guest">
+              <NewButton
+                onClick={onClickGuestLogin}
+                label="CONTINUE WITH GUEST"
+                state="unselected-light"
+                iconName="User"
+                style={{ width: 294 }}
+              />
+            </div>
+          )}
         </div>
 
         <div className="bottom-content">

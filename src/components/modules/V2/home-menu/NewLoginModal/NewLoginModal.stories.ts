@@ -19,6 +19,7 @@ export const NormalQuestion: Story = {
     onClickTerm: () => {},
     onClickPolicy: () => {},
     onClickGoogleLogin: () => {},
-    onClickGuestLogin: () => {}
+    onClickGuestLogin: () => {},
+    isConnectGuest: false
   }
 };

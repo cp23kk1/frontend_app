@@ -77,7 +77,8 @@ const GameMenuContainer = ({
         onClickGoogleLogin: onGoogleLogin,
         onClickGuestLogin: onGuestLogin(modal),
         onClickPolicy: () => {},
-        onClickTerm: () => {}
+        onClickTerm: () => {},
+        isConnectGuest: userProfile?.email === null
       }),
       closeable: true
     });
@@ -85,7 +86,9 @@ const GameMenuContainer = ({
   const onGoogleLogin = () => {
     router.push(
       getGoogleUrl(
-        router.pathname + userProfile ? `?id=${userProfile?.id}` : ''
+        router.pathname + userProfile?.email === null
+          ? `?id=${userProfile?.id}`
+          : ''
       )
     );
   };
