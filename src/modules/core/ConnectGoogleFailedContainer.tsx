@@ -21,7 +21,6 @@ export const ConnectGoogleFailedContainer = ({
       })
     });
     setTimeout(() => {
-      modal.destroy();
       router.push('/');
     }, 3000);
   }, []);
