@@ -28,7 +28,9 @@ env = {
   ...env,
   API_URL: `${environment === 'prod' ? prodApiUrl : apiUrl}${env.PRE_FIX_API}`,
   ASSET_PREFIX: environment === 'prod' ? '/kk1' : `/${environment}`,
-  WS_URL: `${environment === 'prod' ? prodWsUrl : wsApiUrl}${env.PRE_FIX_API}`
+  WS_URL: `${
+    environment === 'prod' ? prodWsUrl : `${wsApiUrl}${env.PRE_FIX_API}`
+  }`
 };
 const basePath = environment === 'prod' ? '' : `/${environment}`;
 console.log(basePath);
