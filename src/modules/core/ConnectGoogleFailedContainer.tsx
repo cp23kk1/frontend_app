@@ -1,6 +1,5 @@
 import { modalAlert } from '@/components/common/Modal';
 import ErrorModal from '@/components/common/Modal/ModalError';
-import { useAppDispatch } from '@/hooks';
 import { useRouter } from 'next/router';
 import { ReactNode, useEffect } from 'react';
 export const ConnectGoogleFailedContainer = ({
@@ -8,7 +7,6 @@ export const ConnectGoogleFailedContainer = ({
 }: {
   render: () => ReactNode;
 }) => {
-  const dispatch = useAppDispatch();
   const router = useRouter();
 
   useEffect(() => {
@@ -20,9 +18,7 @@ export const ConnectGoogleFailedContainer = ({
         errorStatus: `Can't connect account.`
       })
     });
-    setTimeout(() => {
-      router.push('/');
-    }, 3000);
+    router.push('/');
   }, []);
 
   return render();

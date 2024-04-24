@@ -36,7 +36,7 @@ pipeline {
                         API_URL=${env.ORIGIN}
                         WS_URL=${WS_ORIGIN}
                         PROD_API_URL=https://capstone23.sit.kmutt.ac.th
-                        PROD_WS_URL=wss://capstone23.sit.kmutt.ac.th
+                        PROD_WS_URL=wss://capstone23.sit.kmutt.ac.th/kk1-socket
                         ENV=${params.deployEnvironment}
                         APP_VERSION=${GIT_TAG}
                         GOOGLE_OAUTH_CLIENT_ID=126533526038-40qi1o4nlvr4k56h01rl3634i4janrce.apps.googleusercontent.com
