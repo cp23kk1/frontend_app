@@ -8,6 +8,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import PlayButton from '@/components/common/V2/PlayButton';
 import NewProfileTab from '@/components/common/V2/NewProfileTab';
 import Icon from '@/components/common/Icon';
+import { getPublicPath } from '@/utils/basePath';
 
 const HomeMenu = ({
   modes,
@@ -17,7 +18,12 @@ const HomeMenu = ({
   onCLickSettings,
   onClickTutorial,
   leaderBoard,
-  profileTab
+  profileTab,
+  listCharacter,
+  currentCharacter,
+  selectedCharacter,
+  onChangeCharacter,
+  onSelectCharacter
 }: THome) => {
   return (
     <HomeWrapper>
@@ -36,17 +42,17 @@ const HomeMenu = ({
           >
             LEADERBOARD
           </div>
-          <div
+          {/* <div
             onClick={() => onChangePage('history')}
             className={currentPage === 'history' ? 'selected' : ''}
           >
             HISTORY
-          </div>
+          </div> */}
           <div
             onClick={() => onChangePage('item')}
             className={currentPage === 'item' ? 'selected' : ''}
           >
-            ITEM & DECORATION
+            CHARACTER CUSTOMIZATION
           </div>
         </div>
         <div className="corner-button">
@@ -264,6 +270,37 @@ const HomeMenu = ({
               </div>
             </div>
           </>
+        )}
+        {currentPage === 'item' && (
+          <div className="character-selection">
+            <div className="current-character">
+              <img src={getPublicPath(currentCharacter)} alt="player" />
+              <NewButton
+                disable={selectedCharacter === currentCharacter}
+                label={
+                  selectedCharacter === currentCharacter ? 'SELECTED' : 'SELECT'
+                }
+                onClick={() => {
+                  onSelectCharacter(currentCharacter);
+                }}
+              />
+            </div>
+            <div className="list-character">
+              {listCharacter.map((value) => {
+                return (
+                  <img
+                    src={getPublicPath(value)}
+                    alt="character"
+                    key={uuid()}
+                    className={value === currentCharacter ? 'selected' : ''}
+                    onClick={() => {
+                      onChangeCharacter(value);
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </div>
         )}
         <div onClick={onClickTutorial} className="tutorial">
           Tutorials

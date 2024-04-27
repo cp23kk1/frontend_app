@@ -6,6 +6,11 @@ import type { NextPage } from 'next';
 const GameMenuPage: NextPage = () => {
   return (
     <HomeMenu
+      listCharacter={[]}
+      onChangeCharacter={(img) => {}}
+      onSelectCharacter={(input) => {}}
+      currentCharacter="/character/player/robot.svg"
+      selectedCharacter="/character/player/robot.svg"
       leaderBoard={{
         currentPlayer: {
           displayName: '',

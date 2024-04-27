@@ -47,7 +47,7 @@ export const NormalQuestion: Story = {
         }
       ]
     },
-    animationSectionItem: { enemyHealth: 80, playerHealth: 97 },
+    animationSectionItem: { enemyHealth: 80, playerHealth: 97, playerImg: '' },
     score: 88
   }
 };

@@ -180,7 +180,31 @@ const GameMenuContainer = ({
     }
   }, [isLoadingLobby]);
 
+  const [listCharacter, setListCharacter] = useState<string[]>([
+    '/character/player/robot.svg',
+    '/character/player/bot.svg'
+  ]);
+  const [currentCharacter, setCurrentCharacter] = useState<string>(
+    listCharacter[0]
+  );
+  const [seletedCharacter, setSeletedCharacter] = useState<string>(
+    localStorage.getItem('character') ?? '/character/player/robot.svg'
+  );
+
+  const handleChangeCharacter = (character: string) => {
+    setCurrentCharacter(character);
+  };
+  const handleSelectCharacter = (character: string) => {
+    setSeletedCharacter(character);
+    localStorage.setItem('character', character);
+  };
+
   return render({
+    listCharacter: listCharacter,
+    currentCharacter: currentCharacter,
+    selectedCharacter: seletedCharacter,
+    onChangeCharacter: handleChangeCharacter,
+    onSelectCharacter: handleSelectCharacter,
     leaderBoard: {
       currentPlayer: {
         displayName: userScore.userName,

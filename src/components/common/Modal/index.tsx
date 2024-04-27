@@ -10,6 +10,12 @@ const Modal = ({ onClose, children, isModalOpen, closeable }: TModal) => {
       className="modalBg"
       onClick={(event) => {
         if (
+          (event?.target as Element).nodeName === 'path' ||
+          (event?.target as Element).nodeName === 'svg'
+        ) {
+          return;
+        }
+        if (
           (event?.target as Element).className.includes('modalBg') &&
           onClose
         ) {

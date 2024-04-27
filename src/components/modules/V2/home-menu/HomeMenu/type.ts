@@ -11,6 +11,11 @@ export type THome = {
   onClickTutorial: () => void;
   profileTab?: TNewProfileTab;
   leaderBoard: { listPlayer: TPlayerCard[]; currentPlayer: TPlayerCard };
+  listCharacter: string[];
+  currentCharacter: string;
+  selectedCharacter: string;
+  onChangeCharacter: (img: string) => void;
+  onSelectCharacter: (img: string) => void;
   modes: {
     modeName: string;
     modeDesc: string;

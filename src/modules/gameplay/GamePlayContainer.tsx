@@ -48,6 +48,7 @@ const GamePlayContainer = ({
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [character, setCharacter] = useState('/character/player/robot.svg');
 
   // vocabulary
   const questions = useAppSelector(questionsSelectors.questionsSeletor);
@@ -366,6 +367,7 @@ const GamePlayContainer = ({
   useEffect(() => {
     dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
     dispatch(vocabularyDispatch.getQuestionSinglePlayerDispatch());
+    setCharacter(localStorage.getItem('character') ?? character);
   }, []);
 
   useEffect(() => {
@@ -457,7 +459,8 @@ const GamePlayContainer = ({
   };
   const animationSection: TAnimationSection = {
     enemyHealth: enemyHealth,
-    playerHealth: playerHealth
+    playerHealth: playerHealth,
+    playerImg: character
   };
 
   const handleClickRetry = () => {

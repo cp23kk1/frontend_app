@@ -81,7 +81,12 @@ const ModalPause = ({
             <div className="panel">
               <div className="setting-panel">
                 <div className="input">
-                  <Icon iconName="Speaker" size={24} color="#393d73" />
+                  <Icon
+                    iconName="Speaker"
+                    onClick={() => {}}
+                    size={24}
+                    color="#393d73"
+                  />
                   <input
                     type="range"
                     min="0"

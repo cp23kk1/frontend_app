@@ -1,7 +1,7 @@
 import { TSettingModal } from '@/components/common/SettingModal/type';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { getPublicPath } from '@/utils/basePath';
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import settingSelectors from './setting/setting-selectors';
 import settingActions from './setting/setting-actions';
 import { TModalPause } from '@/components/common/V2/ModalPause/type';
@@ -12,6 +12,11 @@ export const LandingContainer = ({
   render: (props: TVocaverseCore) => ReactNode;
 }) => {
   const dispatch = useAppDispatch();
+  const musicPlayers = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== 'undefined'
+      ? new Audio(getPublicPath('/sound/Upbeat-Dynamic-Music.mp3'))
+      : undefined
+  );
   const [state, setState] = useState<TState>({
     page: 'landing',
     listPage: ['landing']
@@ -43,9 +48,9 @@ export const LandingContainer = ({
 
   useEffect(() => {
     dispatch(
-      settingActions.onChangeVolume(localStorage.getItem('volume') ?? 0)
+      settingActions.onChangeVolume(localStorage.getItem('volume') ?? 100)
     );
-    dispatch(settingActions.onChangeMusic(localStorage.getItem('music') ?? 0));
+    dispatch(settingActions.onChangeMusic(localStorage.getItem('music') ?? 75));
 
     onChangeState(
       localStorage.getItem('currentState')
@@ -62,10 +67,24 @@ export const LandingContainer = ({
 
     dispatch(
       settingActions.onChangeSoundEffect(
-        localStorage.getItem('soundEffect') ?? 0
+        localStorage.getItem('soundEffect') ?? 75
       )
     );
   }, []);
+  useEffect(() => {
+    if (musicPlayers.current) {
+      musicPlayers.current.loop = true;
+      musicPlayers.current.autoplay = true;
+      musicPlayers.current.play();
+    }
+  }, [state.page]);
+
+  useEffect(() => {
+    if (musicPlayers.current) {
+      musicPlayers.current.volume =
+        (parseInt(music) / 100) * (parseInt(volume) / 100);
+    }
+  }, [music, soundEffect, volume]);
 
   return render({
     state,

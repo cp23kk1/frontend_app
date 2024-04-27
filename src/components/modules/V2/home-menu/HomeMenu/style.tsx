@@ -296,6 +296,53 @@ export const HomeWrapper = styled.div`
         }
       }
     }
+
+    .character-selection {
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - 48px);
+      height: calc(100% - 48px);
+      border-radius: 24px;
+      padding: 24px;
+      .current-character {
+        width: calc(100% - 48px);
+        height: calc((10 / 12) * 100%);
+        padding: 0 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        img {
+          height: 60%;
+        }
+        button {
+          width: 20%;
+        }
+      }
+      .list-character {
+        width: calc(100% - 24px);
+        height: calc((2 / 12) * 100% - 24px);
+        padding: 12px;
+        display: flex;
+        gap: 24px;
+        overflow-y: scroll;
+        justify-content: center;
+        .selected {
+          height: calc(100% - 8px);
+          border: solid 4px white;
+          border-radius: 12px;
+        }
+        img {
+          height: 100%;
+          cursor: pointer;
+          :hover {
+            height: calc(100% - 8px);
+            border: solid 4px white;
+            border-radius: 12px;
+          }
+        }
+      }
+    }
     .tutorial {
       color: white;
       font-size: 20px;
