@@ -15,7 +15,11 @@ const LoginModal = ({
 }: TNewLoginModal) => {
   return (
     <NewLoginModalWrapper>
-      <div className="image"></div>
+      <img
+        src={getPublicPath(`/decorations/login_image.svg`)}
+        alt=""
+        className="image"
+      />
       <div className="login-content">
         <div className="login">
           <div className="title">Get Started!</div>

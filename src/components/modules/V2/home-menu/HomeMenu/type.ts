@@ -20,6 +20,7 @@ export type THome = {
     modeName: string;
     modeDesc: string;
     modeExtraInfo: ReactNode;
+    image: string;
     modeButtons: TPlayButton[];
   }[];
 };

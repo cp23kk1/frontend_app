@@ -24,6 +24,7 @@ import ErrorModal from '@/components/common/Modal/ModalError';
 import ModalPause from '@/components/common/V2/ModalPause';
 import settingSelectors from '../core/setting/setting-selectors';
 import settingActions from '../core/setting/setting-actions';
+import { getPublicPath } from '@/utils/basePath';
 
 const GameMenuContainer = ({
   render,
@@ -240,6 +241,7 @@ const GameMenuContainer = ({
         modeName: 'SINGLE PLAYER',
         modeDesc: 'Single play mode play for train for english skills.',
         modeExtraInfo: `Best Score: ${bestScore}`,
+        image: getPublicPath('/decorations/MenuSinglePic.png'),
         modeButtons: [
           {
             iconName: 'Play',
@@ -278,6 +280,7 @@ const GameMenuContainer = ({
             I HAVE A CODE ?
           </div>
         ),
+        image: getPublicPath('/decorations/MenuMultiPic.png'),
         modeButtons: [
           {
             iconName: 'Play',

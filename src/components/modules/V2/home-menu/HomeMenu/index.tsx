@@ -121,7 +121,9 @@ const HomeMenu = ({
                           })}
                         </div>
                       </div>
-                      <div className="mode-img"></div>
+                      <div className="mode-img">
+                        <img src={mode.image} />
+                      </div>
                     </div>
                   </SwiperSlide>
                 );

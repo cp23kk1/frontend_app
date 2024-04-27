@@ -1,4 +1,5 @@
 import HomeMenu from '@/components/modules/V2/home-menu/HomeMenu';
+import { getPublicPath } from '@/utils/basePath';
 import type { NextPage } from 'next';
 
 //
@@ -40,6 +41,7 @@ const GameMenuPage: NextPage = () => {
           modeName: 'SINGLE PLAYER',
           modeDesc: 'Single play mode play for train for english skills.',
           modeExtraInfo: 'Best Score: 999',
+          image: getPublicPath('/decorations/MenuSinglePic.png'),
           modeButtons: [
             { iconName: 'Play', onClick: () => {}, text: 'PLAY NOW' }
           ]
@@ -48,6 +50,7 @@ const GameMenuPage: NextPage = () => {
           modeName: 'MULTIPLAYER',
           modeDesc: 'Multiplayer mode!! That u can play for fun!!!',
           modeExtraInfo: 'I HAVE A CODE',
+          image: getPublicPath('/decorations/MenuMultiPic.png'),
           modeButtons: [
             { iconName: 'Play', onClick: () => {}, text: 'PLAY QUICKLY' },
             { iconName: 'Group', onClick: () => {}, text: 'PLAY QUICKLY' }

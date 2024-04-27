@@ -400,10 +400,14 @@ export const HomeWrapper = styled.div`
         display: grid;
         grid-template-columns: calc((7 / 12) * 100%) calc((5 / 12) * 100%);
         .mode-img {
-          width: 100%;
           height: 100%;
-          background-color: #d9d9d9;
           border-radius: 36px;
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          img {
+            height: 65vh;
+          }
         }
         .mode-content {
           padding: 24px;

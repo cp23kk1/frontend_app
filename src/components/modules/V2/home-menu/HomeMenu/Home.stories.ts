@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import Home from '.';
+import { getPublicPath } from '@/utils/basePath';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -50,12 +51,14 @@ export const NormalQuestion: Story = {
         modeName: 'SINGLE PLAYER',
         modeDesc: 'Single play mode play for train for english skills.',
         modeExtraInfo: 'Best Score: 999',
+        image: getPublicPath('/decorations/MenuSinglePic.png'),
         modeButtons: [{ iconName: 'Play', onClick: () => {}, text: 'PLAY NOW' }]
       },
       {
         modeName: 'MULTIPLAYER',
         modeDesc: 'Multiplayer mode!! That u can play for fun!!!',
         modeExtraInfo: 'I HAVE A CODE',
+        image: getPublicPath('/decorations/MenuSinglePic.png'),
         modeButtons: [
           { iconName: 'Play', onClick: () => {}, text: 'PLAY QUICKLY' },
           { iconName: 'Group', onClick: () => {}, text: 'PLAY QUICKLY' }
