@@ -72,12 +72,14 @@ export const LandingContainer = ({
     );
   }, []);
   useEffect(() => {
-    if (musicPlayers.current) {
-      musicPlayers.current.loop = true;
-      musicPlayers.current.autoplay = true;
-      musicPlayers.current.play();
-    }
-  }, [state.page]);
+    window.onclick = () => {
+      if (musicPlayers.current && musicPlayers.current.paused) {
+        musicPlayers.current.loop = true;
+        musicPlayers.current.autoplay = true;
+        musicPlayers.current.play();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (musicPlayers.current) {

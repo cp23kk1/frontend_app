@@ -84,10 +84,6 @@ const GameMenuContainer = ({
     });
   };
   const onGoogleLogin = () => {
-    console.log(
-      'email',
-      `${userProfile?.email === null ? `?id=${userProfile?.id}` : ''}`
-    );
     router.push(
       getGoogleUrl(
         router.pathname +
