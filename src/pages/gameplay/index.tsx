@@ -9,6 +9,7 @@ import { useState } from 'react';
 const GamePlayPage: NextPage = () => {
   return (
     <GamePlayContainer
+      onPlaySoundEffect={() => {}}
       onCloseModalSetting={() => {}}
       onSetting={() => {}}
       resetKey={() => {}}

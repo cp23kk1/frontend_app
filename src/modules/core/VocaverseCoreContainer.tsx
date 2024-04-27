@@ -17,6 +17,16 @@ export const LandingContainer = ({
       ? new Audio(getPublicPath('/sound/Upbeat-Dynamic-Music.mp3'))
       : undefined
   );
+  const correctSoundPlayers = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== 'undefined'
+      ? new Audio(getPublicPath('/sound/Correct-Sound.mp3'))
+      : undefined
+  );
+  const inCorrectSoundPlayers = useRef<HTMLAudioElement | undefined>(
+    typeof Audio !== 'undefined'
+      ? new Audio(getPublicPath('/sound/Incorrect-Sound.mp3'))
+      : undefined
+  );
   const [state, setState] = useState<TState>({
     page: 'landing',
     listPage: ['landing']
@@ -44,6 +54,17 @@ export const LandingContainer = ({
       ...inputState,
       listPage: state.listPage?.concat(inputState.page)
     });
+  };
+
+  const handlePlaySound = (correctness: boolean) => {
+    if (correctSoundPlayers.current && inCorrectSoundPlayers.current) {
+      if (correctness) {
+        correctSoundPlayers.current.play();
+      } else {
+        console.log('false');
+        inCorrectSoundPlayers.current.play();
+      }
+    }
   };
 
   useEffect(() => {
@@ -86,6 +107,14 @@ export const LandingContainer = ({
       musicPlayers.current.volume =
         (parseInt(music) / 100) * (parseInt(volume) / 100);
     }
+    if (correctSoundPlayers.current) {
+      correctSoundPlayers.current.volume =
+        (parseInt(soundEffect) / 100) * (parseInt(volume) / 100);
+    }
+    if (inCorrectSoundPlayers.current) {
+      inCorrectSoundPlayers.current.volume =
+        (parseInt(soundEffect) / 100) * (parseInt(volume) / 100);
+    }
   }, [music, soundEffect, volume]);
 
   return render({
@@ -93,6 +122,7 @@ export const LandingContainer = ({
     onChangeState,
     onSetting,
     onCloseModalSetting,
+    onPlaySoundEffect: handlePlaySound,
     settingModal: {
       isSetting: true,
       masterVolume: volume,
@@ -122,6 +152,7 @@ export type TVocaverseCore = {
   onChangeState: (input: TState) => void;
   onCloseModalSetting: () => void;
   onSetting: () => void;
+  onPlaySoundEffect: (correctness: boolean) => void;
   settingModal: TModalPause;
   isModalSettingOpen: boolean;
   key: string;
