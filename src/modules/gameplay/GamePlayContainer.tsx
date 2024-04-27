@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TGamePlayContainer } from './type';
@@ -19,7 +19,7 @@ import {
 
 import { useRouter } from 'next/router';
 import { TState } from '../core/VocaverseCoreContainer';
-import { getPublicPathPageRounting } from '@/utils/basePath';
+import { getPublicPath, getPublicPathPageRounting } from '@/utils/basePath';
 import { DragEndEvent } from '@dnd-kit/core';
 import { TGamePlay } from '@/components/modules/gameplay/GamePlay/type';
 import { modalAlert } from '@/components/common/Modal';
@@ -37,6 +37,7 @@ const GamePlayContainer = ({
   onSetting,
   resetKey,
   onCloseModalSetting,
+  onPlaySoundEffect,
   state
 }: {
   render: (props: TGamePlay) => ReactNode;
@@ -44,6 +45,7 @@ const GamePlayContainer = ({
   onSetting: () => void;
   onCloseModalSetting: () => void;
   resetKey: () => void;
+  onPlaySoundEffect: (correctness: boolean) => void;
   state: TState;
 }) => {
   const dispatch = useAppDispatch();
@@ -179,6 +181,7 @@ const GamePlayContainer = ({
             };
       })
     );
+    onPlaySoundEffect(correctness);
 
     setTimeout(() => {
       _handleChangeCurrentIndex(currentIndex + 1);
@@ -503,6 +506,7 @@ TO FINISH THIS GAME?`,
       })
     });
   };
+
   return render({
     knowledgeSectionItem: knowLedgeSection,
     animationSectionItem: animationSection,

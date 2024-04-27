@@ -33,6 +33,7 @@ export default function Home() {
         state,
         onChangeState,
         onSetting,
+        onPlaySoundEffect,
         onCloseModalSetting,
         settingModal,
         isModalSettingOpen,
@@ -93,6 +94,7 @@ export default function Home() {
                 resetKey={resetKey}
                 onChangeState={onChangeState}
                 onCloseModalSetting={onCloseModalSetting}
+                onPlaySoundEffect={onPlaySoundEffect}
                 render={(props) => {
                   return (
                     <>
