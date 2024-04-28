@@ -7,11 +7,12 @@ export type TQuestionLayout = {
   pos: string;
   passageAnswers: {
     [key: string]: {
+      id?: string;
       state: 'normal' | 'correct' | 'incorrect';
       children: string;
     };
   };
-  onUnselectePassageAnswer: (newPassageIndex: number) => void;
+  onUnselectePassageAnswer: (newPassageIndex?: number) => void;
 };
 export type TPos =
   | 'verb'

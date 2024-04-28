@@ -42,11 +42,12 @@ const KnowLedgeSection = ({
                   <Draggable
                     key={uuid()}
                     data={{
+                      id: answer.id,
                       children: answer.children,
                       correctness: answer.correctness
                     }}
                     className="answer"
-                    id={answer.children}
+                    id={answer.id ?? uuid()}
                   >
                     <AnswerButton
                       key={uuid()}

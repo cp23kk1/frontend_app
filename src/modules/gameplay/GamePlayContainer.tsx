@@ -31,6 +31,7 @@ import ModalDecision from '@/components/common/V2/ModalDecision';
 import questionDispatch from './question/question-dispatch';
 import questionActions from './question/question-actions';
 import briefInfoActions from './brief-info/brief-info-actions';
+import { v4 as uuid } from 'uuid';
 
 const GamePlayContainer = ({
   render,
@@ -75,6 +76,7 @@ const GamePlayContainer = ({
   const [answers, setAnswers] = useState<TGamePlayAnswerButton[]>([]);
   const [passageAnswers, setPassageAnswers] = useState<{
     [key: string]: {
+      id?: string;
       state: 'normal' | 'correct' | 'incorrect';
       children: string;
     };
@@ -111,6 +113,7 @@ const GamePlayContainer = ({
   };
   const _handleChangePassageAnswers = (inputAnswers: {
     [key: string]: {
+      id?: string;
       state: 'normal' | 'correct' | 'incorrect';
       children: string;
     };
@@ -152,6 +155,7 @@ const GamePlayContainer = ({
         newAnswer = newAnswer.concat(
           question.answers.map((value) => {
             return {
+              id: uuid(),
               children: value.answer,
               state: 'normal',
               correctness: value.correctness
@@ -330,10 +334,14 @@ const GamePlayContainer = ({
     if (id) {
       let temp = { ...passageAnswers };
       if (!temp[id]) {
-        temp[id] = { children: active.id.toString(), state: 'normal' };
+        temp[id] = {
+          id: active.data.current?.id.toString(),
+          children: active.data.current?.children.toString(),
+          state: 'normal'
+        };
         _handleChangePassageAnswers(temp);
         _handleChangeAnswers(
-          answers.filter((answer) => answer.children !== active.id.toString())
+          answers.filter((answer) => answer.id !== active.data.current?.id)
         );
       }
     }
@@ -341,15 +349,16 @@ const GamePlayContainer = ({
   const _handleUnselectPassageAnswer = (index?: number) => {
     if (index != undefined) {
       let temp = { ...passageAnswers };
+      console.log(temp);
       _handleChangeAnswers(
         answers.concat([
           {
-            children: temp[index].children,
-            state: temp[index].state,
+            ...temp[index],
             correctness: false
           }
         ])
       );
+
       delete temp[index];
       _handleChangePassageAnswers(temp);
     }

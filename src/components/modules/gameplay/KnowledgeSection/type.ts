@@ -25,6 +25,7 @@ export type TKnowLedgeSection = {
   onValidatePassage: () => void;
 };
 export type TGamePlayAnswerButton = {
+  id?: string;
   children: string;
   style?: CSSProperties;
   disabled?: boolean;
