@@ -114,7 +114,7 @@ const LobbyContainer = ({
         const modal = modalAlert();
         modal.render({
           children: ErrorModal({
-            errorMessage: 'Host closed lobby.',
+            errorMessage: `Room doesn't exist.`,
             errorStatus: 'Disconnected from lobby'
           }),
           closeable: false
