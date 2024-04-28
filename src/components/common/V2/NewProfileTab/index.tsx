@@ -43,9 +43,14 @@ const ProfileTab = ({
         <div className="dropdown">
           <div className="dropdown-content">
             {userName === 'Guest' ? (
-              <button className="list" onClick={onClickSignIn}>
-                SIGN IN
-              </button>
+              <>
+                <button className="list" onClick={onClickSignIn}>
+                  CONNECT WITH GOOGLE
+                </button>
+                <button className="list" onClick={onClickLogout}>
+                  SIGN OUT
+                </button>
+              </>
             ) : (
               <>
                 <button className="list" onClick={onClickProfile}>

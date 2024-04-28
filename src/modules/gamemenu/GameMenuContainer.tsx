@@ -25,6 +25,7 @@ import ModalPause from '@/components/common/V2/ModalPause';
 import settingSelectors from '../core/setting/setting-selectors';
 import settingActions from '../core/setting/setting-actions';
 import { getPublicPath } from '@/utils/basePath';
+import ModalDecision from '@/components/common/V2/ModalDecision';
 
 const GameMenuContainer = ({
   render,
@@ -107,8 +108,28 @@ const GameMenuContainer = ({
 
   const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
-    dispatch(authDispatch.logoutDispatch());
-    onChangeState({ page: 'landing' });
+    if (userProfile?.email === null) {
+    }
+    const modal = modalAlert();
+    modal.render({
+      children: ModalDecision({
+        question:
+          userProfile?.email === null
+            ? 'ARE YOU SURE YOU WANT TO DELETE YOUR USER?'
+            : 'ARE YOU SURE YOU WANT TO LOGOUT?',
+        onClick(bool) {
+          if (bool) {
+            dispatch(authDispatch.logoutDispatch());
+            onChangeState({ page: 'landing' });
+            modal.destroy();
+          } else {
+            modal.destroy();
+          }
+        }
+      }),
+      closeable: false
+    });
+    // dispatch(authDispatch.logoutDispatch());
   };
 
   const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
