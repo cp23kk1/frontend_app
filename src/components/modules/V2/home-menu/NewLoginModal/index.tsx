@@ -46,8 +46,8 @@ const LoginModal = ({
         </div>
 
         <div className="bottom-content">
-          <span onClick={onClickTerm}>Terms of Service</span> &nbsp;and&nbsp;
-          <span onClick={onClickPolicy}>Privacy Policy</span>
+          {/* <span onClick={onClickTerm}>Terms of Service</span> &nbsp;and&nbsp;
+          <span onClick={onClickPolicy}>Privacy Policy</span> */}
         </div>
       </div>
     </NewLoginModalWrapper>
