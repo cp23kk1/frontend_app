@@ -149,12 +149,6 @@ const MultiplayerResultContainer = ({
                         numberOfQuestion: state.data.maxRound
                       })
                     );
-                    dispatch(
-                      lobbyDispatch.updateLobbyDispatch({
-                        isPlayed: true,
-                        roomID: roomId
-                      })
-                    );
                     conn?.send(
                       JSON.stringify({
                         msg: `Game: has started.`,
