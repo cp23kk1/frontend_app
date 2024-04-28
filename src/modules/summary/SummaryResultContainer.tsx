@@ -160,9 +160,11 @@ const SummaryResultContainer = ({
       {
         iconName: 'Home',
         label: 'Home',
-        onClick: () =>
+        onClick: () => {
+          dispatch(gameplayCoreActions.clear());
           // router.push(getPublicPathPageRounting('/'))
-          onChangeState({ page: 'landing' })
+          onChangeState({ page: 'landing' });
+        }
       },
       {
         iconName: 'Retry',
@@ -175,7 +177,10 @@ const SummaryResultContainer = ({
       {
         iconName: 'Menu',
         label: 'Mode',
-        onClick: () => onChangeState({ page: 'gamemode' })
+        onClick: () => {
+          dispatch(gameplayCoreActions.clear());
+          onChangeState({ page: 'gamemode' });
+        }
       }
     ]
   };

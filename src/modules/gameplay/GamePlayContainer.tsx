@@ -366,11 +366,11 @@ const GamePlayContainer = ({
         word: question?.toLocaleString() ?? ''
       })
     );
-    _handleChangeCurrentPos('');
   };
 
   //useEffect
   useEffect(() => {
+    dispatch(gameplayCoreActions.clear());
     dispatch(vocabularyDispatch.getRandomVocabularyDispatch());
     dispatch(vocabularyDispatch.getQuestionSinglePlayerDispatch());
     setCharacter(localStorage.getItem('character') ?? character);
