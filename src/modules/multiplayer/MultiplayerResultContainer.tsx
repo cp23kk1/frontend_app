@@ -27,6 +27,7 @@ import questionActions from '../gameplay/question/question-actions';
 import { modalAlert } from '@/components/common/Modal';
 import ModalDecision from '@/components/common/V2/ModalDecision';
 import ErrorModal from '@/components/common/Modal/ModalError';
+import lobbyDispatch from './lobby/lobby-dispatch';
 
 const MultiplayerResultContainer = ({
   render,
@@ -146,6 +147,12 @@ const MultiplayerResultContainer = ({
                       questionDispatch.getQuestionMultiPlayerDispatch({
                         mode: state.data.mode,
                         numberOfQuestion: state.data.maxRound
+                      })
+                    );
+                    dispatch(
+                      lobbyDispatch.updateLobbyDispatch({
+                        isPlayed: true,
+                        roomID: roomId
                       })
                     );
                     conn?.send(

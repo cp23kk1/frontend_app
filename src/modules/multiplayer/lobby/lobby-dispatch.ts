@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 //
 
-import services from './lobby-services';
+import services, { IUpdateLobbyRequest } from './lobby-services';
 import actionTypes from './lobby-action-types';
 
 const getLobbyDispatch = createAsyncThunk(
@@ -16,7 +16,20 @@ const getLobbyDispatch = createAsyncThunk(
     }
   }
 );
+const updateLobbyDispatch = createAsyncThunk(
+  actionTypes.UPDATE_LOBBY,
+  async (gameResult: IUpdateLobbyRequest, { rejectWithValue }) => {
+    try {
+      const response = await services.updateLobby(gameResult);
+
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
 export default {
-  getLobbyDispatch
+  getLobbyDispatch,
+  updateLobbyDispatch
 };

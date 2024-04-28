@@ -3,5 +3,6 @@ import actionTypes from './lobby-action-types';
 
 export default createAction({
   clear: actionTypes.CLEAR,
-  getRandVocab: actionTypes.GET_LOBBY
+  getLobby: actionTypes.GET_LOBBY,
+  updateLobby: actionTypes.UPDATE_LOBBY
 });

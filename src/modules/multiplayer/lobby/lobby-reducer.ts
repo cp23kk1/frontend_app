@@ -7,12 +7,14 @@ interface InitialState {
   //
 
   isLobbyLoading: boolean;
+  isUpdateLobbyLoading: boolean;
   lobby: ILobby[];
 }
 
 const initialState = {
   //
   isLobbyLoading: false,
+  isUpdateLobbyLoading: false,
   lobby: []
 } as InitialState;
 
@@ -20,6 +22,7 @@ const reducer = createReducer(initialState, (builder) => {
   //
   builder.addCase(actionTypes.CLEAR, (state) => {
     state.isLobbyLoading = false;
+    state.isUpdateLobbyLoading;
     state.lobby = [];
   });
 
@@ -39,6 +42,24 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getLobbyDispatch.rejected,
     (state, action: PayloadAction<any>) => {
       state.isLobbyLoading = false;
+    }
+  );
+
+  builder.addCase(dispatch.updateLobbyDispatch.pending, (state) => {
+    state.isUpdateLobbyLoading = true;
+  });
+
+  builder.addCase(
+    dispatch.updateLobbyDispatch.fulfilled,
+    (state, action: PayloadAction<any>) => {
+      state.isUpdateLobbyLoading = false;
+    }
+  );
+
+  builder.addCase(
+    dispatch.updateLobbyDispatch.rejected,
+    (state, action: PayloadAction<any>) => {
+      state.isUpdateLobbyLoading = false;
     }
   );
 });

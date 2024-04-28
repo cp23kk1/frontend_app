@@ -89,7 +89,7 @@ const JoinCreateLobbyContainer = ({
     }
   };
 
-  const [speed, setSpeed] = useState<'slow' | 'normal' | 'fast'>('slow');
+  const [speed, setSpeed] = useState<'slow' | 'normal' | 'fast'>('normal');
   const handleOnChangeSpeed = (input: 'slow' | 'normal' | 'fast') => {
     setSpeed(input);
   };
@@ -132,6 +132,9 @@ const JoinCreateLobbyContainer = ({
         mode: gameMode,
         numberOfQuestion
       })
+    );
+    dispatch(
+      lobbyDispatch.updateLobbyDispatch({ isPlayed: true, roomID: roomId })
     );
     conn?.send(
       JSON.stringify({

@@ -13,7 +13,10 @@ export interface ILobby {
 export interface ILobbyResponse {
   lobby: ILobby[];
 }
-
+export interface IUpdateLobbyRequest {
+  roomID: string;
+  isPlayed: boolean;
+}
 export const getLobby = () => {
   return httpClient
     .get<VocaverseResponseData<ILobbyResponse>>(`/multiplayer/get-lobby`)
@@ -22,6 +25,18 @@ export const getLobby = () => {
     });
 };
 
+export const updateLobby = (data: IUpdateLobbyRequest) => {
+  return httpClient
+    .post<VocaverseResponseData<ILobbyResponse>>(
+      `/multiplayer/update-lobby`,
+      data
+    )
+    .then((res) => {
+      return res.data;
+    });
+};
+
 export default {
-  getLobby
+  getLobby,
+  updateLobby
 };
