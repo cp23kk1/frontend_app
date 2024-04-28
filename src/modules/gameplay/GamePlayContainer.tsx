@@ -50,7 +50,9 @@ const GamePlayContainer = ({
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [character, setCharacter] = useState('/character/player/robot.svg');
+  const [character, setCharacter] = useState(
+    '/character/player/Character1.png'
+  );
 
   // vocabulary
   const questions = useAppSelector(questionsSelectors.questionsSeletor);

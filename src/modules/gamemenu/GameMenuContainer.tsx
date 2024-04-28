@@ -178,14 +178,24 @@ const GameMenuContainer = ({
   }, [isLoadingLobby]);
 
   const [listCharacter, setListCharacter] = useState<string[]>([
-    '/character/player/robot.svg',
-    '/character/player/bot.svg'
+    '/character/player/Character1.png',
+    '/character/player/Character2.png',
+    '/character/player/Character3.png',
+    '/character/player/Character4.png',
+    '/character/player/Character5.png',
+    '/character/player/Character6.png',
+    '/character/player/Character7.png',
+    '/character/player/Character8.png',
+    '/character/player/Character9.png',
+    '/character/player/Character10.png',
+    '/character/player/Character11.png',
+    '/character/player/Character12.png'
   ]);
   const [currentCharacter, setCurrentCharacter] = useState<string>(
     listCharacter[0]
   );
   const [seletedCharacter, setSeletedCharacter] = useState<string>(
-    localStorage.getItem('character') ?? '/character/player/robot.svg'
+    localStorage.getItem('character') ?? '/character/player/Character1.png'
   );
 
   const handleChangeCharacter = (character: string) => {
