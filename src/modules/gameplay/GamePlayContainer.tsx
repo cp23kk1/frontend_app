@@ -30,6 +30,7 @@ import ErrorModal from '@/components/common/Modal/ModalError';
 import ModalDecision from '@/components/common/V2/ModalDecision';
 import questionDispatch from './question/question-dispatch';
 import questionActions from './question/question-actions';
+import briefInfoActions from './brief-info/brief-info-actions';
 
 const GamePlayContainer = ({
   render,
@@ -498,6 +499,7 @@ TO DISCARD THIS GAME?`,
 TO FINISH THIS GAME?`,
         onClick: (bool) => {
           _handleChangePlayerHealth(0);
+          dispatch(briefInfoActions.clear());
           modal.destroy();
           onCloseModalSetting();
           if (bool) {
