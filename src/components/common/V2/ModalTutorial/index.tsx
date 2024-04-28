@@ -3,6 +3,7 @@ import { TModalTutorial } from './type';
 import { v4 as uuid } from 'uuid';
 import { Navigation, Pagination } from 'swiper/modules';
 import { ModalTutorialWrapper } from './style';
+import { getPublicPath } from '@/utils/basePath';
 
 const ModalTutorial = () => {
   return (
@@ -29,13 +30,28 @@ const ModalTutorial = () => {
         slidesPerGroupSkip={0}
       >
         <SwiperSlide key={`SwiperSlide-${uuid()}`}>
-          <div key={uuid()} className="carousel-card mode"></div>
+          <img
+            src={getPublicPath('/decorations/tutorial1.png')}
+            alt="tutorial1"
+            key={uuid()}
+            className="carousel-card mode"
+          />
         </SwiperSlide>
         <SwiperSlide key={`SwiperSlide-${uuid()}`}>
-          <div key={uuid()} className="carousel-card mode"></div>
+          <img
+            src={getPublicPath('/decorations/tutorial2.png')}
+            alt="tutorial2"
+            key={uuid()}
+            className="carousel-card mode"
+          />
         </SwiperSlide>
         <SwiperSlide key={`SwiperSlide-${uuid()}`}>
-          <div key={uuid()} className="carousel-card mode"></div>
+          <img
+            src={getPublicPath('/decorations/tutorial3.png')}
+            alt="tutorial3"
+            key={uuid()}
+            className="carousel-card mode"
+          />
         </SwiperSlide>
       </Swiper>
     </ModalTutorialWrapper>

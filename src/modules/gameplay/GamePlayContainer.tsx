@@ -430,7 +430,7 @@ const GamePlayContainer = ({
         }
       }
     }
-  }, [isBriefInfosLoading]);
+  }, [isBriefInfosLoading, currentPos]);
 
   useEffect(() => {
     if (playerHealth <= 0) {
