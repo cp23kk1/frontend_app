@@ -22,7 +22,7 @@ const QuestionLayout = ({
               key={uuid()}
               className="question"
               style={{
-                fontSize: type === 'sentence' || type === 'passage' ? 64 : 128,
+                fontSize: type === 'sentence' || type === 'passage' ? 36 : 128,
                 fontWeight:
                   type === 'sentence' || type === 'passage' ? 500 : 600
               }}

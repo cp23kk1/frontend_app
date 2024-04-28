@@ -453,7 +453,7 @@ const GamePlayContainer = ({
         onChangeState({ ...state, page: 'summary' });
       }, 1000);
     }
-    if (enemyHealth === 0) {
+    if (enemyHealth <= 0) {
       _handleChangeEnemyHealth(100);
     }
   }, [playerHealth, enemyHealth]);

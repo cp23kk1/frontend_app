@@ -18,7 +18,7 @@ const AnswerButton = ({
       state={state ?? 'normal'}
       disabled={disabled}
     >
-      <Textfit max={48} mode="single">
+      <Textfit max={36} mode="single">
         {children}
       </Textfit>
     </AnswerButtonWrapper>
