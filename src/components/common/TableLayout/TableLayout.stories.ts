@@ -19,7 +19,7 @@ export const Table: Story = {
     columns: ['No.', 'Question', 'Answer', ''],
     data: [
       {
-        id: 1,
+        id: '1',
         word: 'Vocabulary',
         meaning: 'คำตอบ'
       }

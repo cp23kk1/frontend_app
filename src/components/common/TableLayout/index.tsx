@@ -27,24 +27,22 @@ const TableLayout = ({ columns, data, onClick, moreinfo }: TTable) => {
       <div className="detail">
         {data?.map((item, index) => {
           return (
-            <Row
-              key={uuid()}
-              className="record"
-              onClick={() => onClick(item.id)}
-            >
+            <Row key={uuid()} className="record">
+              <Col key={`no-${uuid()}`} span={2} className="col">
+                {++index}
+              </Col>
               {Object.entries(item).map(([key, value]) => {
-                return key === 'id' ? (
-                  <Col key={`no-${uuid()}`} span={2} className="col">
-                    {++index}
-                  </Col>
-                ) : (
+                return (
                   <Col key={`key-${uuid()}`} className="col">
                     {value}
                   </Col>
                 );
               })}
               {moreinfo?.isShow && (
-                <Col className="col more-info">
+                <Col
+                  className="col more-info"
+                  onClick={() => onClick(item.word?.toLocaleString() ?? '')}
+                >
                   More info <Icon iconName="Info" size={20} />
                 </Col>
               )}

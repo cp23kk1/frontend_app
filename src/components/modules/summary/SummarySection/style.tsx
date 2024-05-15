@@ -1,18 +1,19 @@
 import styled from '@emotion/styled';
 
 export const SummarySectionWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 0;
   .tabs {
-    width: 1704px;
+    width: 100%;
   }
   .table-section {
-    width: 1704px;
-    height: 512px;
+    width: 100%;
+
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,6 +21,9 @@ export const SummarySectionWrapper = styled.div`
     border-radius: 0px 0px 24px 24px;
   }
   .table {
-    width: 1656px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 0px 0px 24px 24px;
+    overflow-y: hidden;
   }
 `;

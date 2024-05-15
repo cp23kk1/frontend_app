@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export type TTab = {
-  childen: ReactNode;
+  children: 'Vocabulary' | 'Sentence' | 'Passage';
   isSelected: boolean;
-  onClick: () => void;
+  onClick: (input: 'Vocabulary' | 'Sentence' | 'Passage') => void;
 };

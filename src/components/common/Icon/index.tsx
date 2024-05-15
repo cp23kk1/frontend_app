@@ -1,17 +1,20 @@
-import { iconFiles } from './list-icon';
-import { IconImg } from './style';
+import { IconDiv } from './style';
 import { TIcon } from './type';
+import { ReactSVG } from 'react-svg';
+import { getPublicPath } from '@/utils/basePath';
 
-const Icon = ({ iconName, size = 60, style, onClick, className }: TIcon) => {
+const Icon = ({ iconName, size, style, onClick, className, color }: TIcon) => {
   return (
-    <IconImg
-      className={className}
-      src={iconFiles[iconName]}
-      alt={iconName}
-      style={style}
-      size={size}
-      onClick={onClick}
-    />
+    <IconDiv onClick={onClick} size={size} color={color} style={style}>
+      {
+        <ReactSVG
+          src={getPublicPath(`/icon/${iconName}.svg`)}
+          fillRule="evenodd"
+          fillOpacity={1}
+          className={className}
+        />
+      }
+    </IconDiv>
   );
 };
 export default Icon;

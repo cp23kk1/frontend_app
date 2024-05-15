@@ -9,15 +9,14 @@ import { useState } from 'react';
 const GamePlayPage: NextPage = () => {
   return (
     <GamePlayContainer
-      render={({ knowLedgeSection, animationSection, score, onPause }) => {
-        return (
-          <GamePlay
-            knowledgeSectionItem={knowLedgeSection}
-            score={score}
-            onPause={onPause}
-            animationSectionItem={animationSection}
-          />
-        );
+      onPlaySoundEffect={() => {}}
+      onCloseModalSetting={() => {}}
+      onSetting={() => {}}
+      resetKey={() => {}}
+      state={{ page: 'gamemode' }}
+      onChangeState={() => {}} //for build
+      render={(props) => {
+        return <GamePlay {...props} />;
       }}
     />
   );

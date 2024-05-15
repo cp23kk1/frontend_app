@@ -17,14 +17,14 @@ type Story = StoryObj<typeof meta>;
 export const NormalButton: Story = {
   args: {
     iconName: 'Home',
-    lebel: 'Home',
+    label: 'Home',
     onClick: () => console.log('Clicked!')
   }
 };
 export const DisabledButton: Story = {
   args: {
     iconName: 'Home',
-    lebel: 'Home',
+    label: 'Home',
     disable: true,
     onClick: () => console.log('Clicked!')
   }

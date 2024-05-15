@@ -13,7 +13,7 @@ export const TabWrapper = styled.div`
   color: #000;
 
   /* SemiBold-32 */
-  font-family: Fredoka;
+  font-family: Passion One;
   font-size: 32px;
   font-style: normal;
   font-weight: 600;

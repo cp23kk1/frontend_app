@@ -4,9 +4,10 @@ import '@/styles/globals.css';
 import { Provider } from 'react-redux';
 import store from '@/store';
 import { AppProps } from 'next/app';
-import { Fragment } from 'react';
 import Head from 'next/head';
-import Modal from '@/components/common/Modal';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { getPublicPath } from '@/utils/basePath';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,10 +21,14 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <Head>
         <title>VocaVerse</title>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          href={getPublicPath('/icon/Logo.svg')}
+        ></link>
       </Head>
 
       <Component {...pageProps} />
-      <Modal />
     </Provider>
   );
 }

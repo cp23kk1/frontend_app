@@ -6,4 +6,5 @@ export type TAnswerButton = {
   style?: CSSProperties;
   disabled?: boolean;
   state: 'correct' | 'incorrect' | 'normal';
+  className?: string;
 };

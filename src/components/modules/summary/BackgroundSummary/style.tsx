@@ -6,7 +6,7 @@ export const BackgroundSummaryWrapper = styled.div`
   width: 100%;
   height: 100%;
   position: fixed;
-  background-image: url(${getPublicPath('/background/Space_BG.svg')});
+  background-image: url(${getPublicPath('/background/BackgroundSpace3.png')});
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 0;

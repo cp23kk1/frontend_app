@@ -16,8 +16,18 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const NormalQuestion: Story = {
   args: {
+    briefInfo: {
+      isShow: true,
+      definition: '',
+      onClickMore: () => {},
+      word: ''
+    },
     knowledgeSectionItem: {
-      question: 'Question',
+      onDragEnd: (event) => {},
+      onValidatePassage: () => {},
+      passageAnswers: {},
+      onUnselectePassageAnswer: (index) => {},
+      question: [],
       pos: 'noun',
       type: 'vocabulary',
       onAnswer: (meaning) => {
@@ -26,17 +36,18 @@ export const NormalQuestion: Story = {
       answers: [
         {
           children: 'คำถาม',
+          correctness: true,
 
           state: 'correct'
         },
         {
           children: 'คำตอบ',
-
+          correctness: true,
           state: 'incorrect'
         }
       ]
     },
-    animationSectionItem: { enemyHealth: 80, playerHealth: 97 },
+    animationSectionItem: { enemyHealth: 80, playerHealth: 97, playerImg: '' },
     score: 88
   }
 };

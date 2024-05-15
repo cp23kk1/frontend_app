@@ -4,4 +4,5 @@ export type TAnimationSection = {
   playerHealth: number;
   enemyHealth: number;
   style?: CSSProperties;
+  playerImg: string;
 };

@@ -5,6 +5,8 @@ import WebsocketContainer from '@/modules/test/web-socket-core/WebsocketContaine
 import { DataWebSocket } from '@/modules/test/web-socket-core/type';
 
 import { v4 as uuid } from 'uuid';
+import { getGoogleUrl } from '@/utils/getGoogleUrl';
+import { useRouter } from 'next/router';
 
 const MainPage: NextPage = () => {
   return (
@@ -30,7 +32,9 @@ const MainPage: NextPage = () => {
         onChangeRoomId,
         onGetLobby
       }: DataWebSocket) => {
-        const Googlebutton = <div />;
+        const router = useRouter();
+
+        let from = router.pathname || '/';
         // const handleCallbackResponse = (response: CredentialResponse) => {
         //   console.log(response);
         // };
@@ -52,6 +56,7 @@ const MainPage: NextPage = () => {
         return (
           <Fragment>
             <div>React Google Login</div>
+            <a href={getGoogleUrl(from)}>Google</a>
 
             <div
               style={{

@@ -22,17 +22,17 @@ export const Result: Story = {
     result: {
       tabs: [
         {
-          childen: 'Vocabulary',
+          children: 'Vocabulary',
           isSelected: true,
           onClick: () => console.log('Clicked!')
         },
         {
-          childen: 'Sentence',
+          children: 'Sentence',
           isSelected: false,
           onClick: () => console.log('Clicked!')
         },
         {
-          childen: 'Passage',
+          children: 'Passage',
           isSelected: false,
           onClick: () => console.log('Clicked!')
         }
@@ -41,7 +41,7 @@ export const Result: Story = {
         columns: ['No.', 'Question', 'Answer', ''],
         data: [
           {
-            id: 1,
+            id: '1',
             word: 'Vocabulary',
             meaning: 'คำตอบ'
           }
@@ -55,17 +55,17 @@ export const Result: Story = {
       options: [
         {
           iconName: 'Home',
-          lebel: 'Home',
+          label: 'Home',
           onClick: () => console.log('Home clicked!')
         },
         {
           iconName: 'Retry',
-          lebel: 'Retry',
+          label: 'Retry',
           onClick: () => console.log('Retry clicked!')
         },
         {
           iconName: 'Menu',
-          lebel: 'Mode',
+          label: 'Mode',
           onClick: () => console.log('Mode clicked!')
         }
       ]

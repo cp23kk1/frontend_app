@@ -1,36 +1,95 @@
-import { ReactNode } from 'react';
-import { useAppDispatch } from '@/hooks';
+import { ReactNode, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { useRouter } from 'next/router';
-import { actions as modalActions } from '../core/modal';
-import { TLanding } from '@/components/modules/landing/Landing/type';
-import { getPublicPathPageRounting } from '@/utils/basePath';
+import { actions as modalActions } from '../core/setting';
+import { TState } from '../core/VocaverseCoreContainer';
+import { TLandingContainer } from './type';
+import { getGoogleUrl } from '@/utils/getGoogleUrl';
+import authDispatch from '../user/auth/auth-dispatch';
+import LoginModal from '@/components/modules/landing/LoginModal';
+import { modalAlert } from '@/components/common/Modal';
+import userCoreDispatch from '../user/user-core/user-core-dispatch';
+import userCoreSelectors from '../user/user-core/user-core-selectors';
+import authSelectors from '../user/auth/auth-selectors';
+import authActions from '../user/auth/auth-actions';
+import userCoreActions from '../user/user-core/user-core-actions';
+import { TModal } from '@/components/common/Modal/type';
 
 export const LandingContainer = ({
-  render
+  render,
+  onChangeState
 }: {
-  render: (props: TLanding) => ReactNode;
+  render: (props: TLandingContainer) => ReactNode;
+  onChangeState: (input: TState) => void;
 }) => {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
+  const userProfile = useAppSelector(userCoreSelectors.userProfileSelector);
+  const isGuestLoginLoading = useAppSelector(
+    authSelectors.isGuestLoginLoadingSelector
+  );
+  const isLogoutLoading = useAppSelector(authSelectors.isLogoutLoading);
+  const isUserProfileLoading = useAppSelector(
+    userCoreSelectors.isUserProfileLoadingSelector
+  );
   const onLogin = (event?: React.MouseEvent<HTMLButtonElement>) => {
     event?.stopPropagation();
-    dispatch(modalActions.onOpen('LoginMenu'));
-  };
-  const onSetting = (event?: React.MouseEvent<HTMLButtonElement>) => {
-    event?.stopPropagation();
+    const modal = modalAlert();
 
-    dispatch(modalActions.onOpen('SettingMenu'));
+    modal.render({
+      children: LoginModal({
+        onClickGoogleLogin: onGoogleLogin,
+        onClickGuestLogin: onGuestLogin(modal),
+        onClickPolicy: () => {},
+        onClickTerm: () => {}
+      }),
+      closeable: false
+    });
   };
+
   const onBegin = () => {
-    router.push(getPublicPathPageRounting('/gameplay'));
+    if (userProfile?.displayName) {
+      onChangeState({ page: 'gamemode' });
+    } else {
+      onLogin();
+    }
   };
+  const onGoogleLogin = () => {
+    router.push(getGoogleUrl(router.pathname));
+  };
+  const onGuestLogin = (modal: {
+    render: (props: TModal) => void;
+    destroy: () => void;
+  }) => {
+    return () => {
+      dispatch(authDispatch.guestLoginDispatch());
+      modal.destroy();
+    };
+  };
+
+  const onClickLogout = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+    dispatch(authDispatch.logoutDispatch());
+  };
+
+  const onClickProfile = (event?: React.MouseEvent<HTMLButtonElement>) => {
+    event?.stopPropagation();
+  };
+
+  useEffect(() => {
+    dispatch(userCoreDispatch.getUserProfileDispatch());
+  }, [isGuestLoginLoading, isLogoutLoading]);
 
   return render({
     onLogin,
-    onSetting,
-    onBegin
+    onBegin,
+    onClickLogout,
+    onClickProfile,
+    userProfile: {
+      displayName: userProfile?.displayName,
+      image: userProfile?.image
+    }
   });
 };
 export default LandingContainer;
