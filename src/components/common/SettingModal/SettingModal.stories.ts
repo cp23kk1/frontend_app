@@ -17,8 +17,6 @@ type Story = StoryObj<typeof meta>;
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const NormalQuestion: Story = {
   args: {
-    isModalOpen: true,
-    onClose: () => {},
     charaterPic: getPublicPath(`/character/player/robot.svg`),
     musicValue: '50',
     soundEffectValue: '75',

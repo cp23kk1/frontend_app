@@ -1,8 +1,8 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 
 import { TSummaryResultContainer } from './type';
-import { selectors as vocabularySelectors } from '../gameplay/vocabulary';
+import { selectors as vocabularySelectors } from '../gameplay/question';
 import { selectors as gameplayCoreSelectors } from '../gameplay/gameplay-core';
 
 import { useRouter } from 'next/router';
@@ -12,10 +12,16 @@ import { getPublicPathPageRounting } from '@/utils/basePath';
 import { TState } from '../core/VocaverseCoreContainer';
 import gameplayCoreActions from '../gameplay/gameplay-core/gameplay-core-actions';
 import gameResultDispatch from '../gameplay/game-result/game-result-dispatch';
-import vocabularyActionTypes from '../gameplay/vocabulary/vocabulary-action-types';
-import vocabularyActions from '../gameplay/vocabulary/vocabulary-actions';
+import vocabularyActions from '../gameplay/question/question-actions';
 import scoreDispatch from '../score/score-dispatch';
 import scoreSelectors from '../score/score-selectors';
+import { TTab } from '@/components/modules/summary/Tab/type';
+import questionActions from '../gameplay/question/question-actions';
+import briefInfoDispatch from '../gameplay/brief-info/brief-info-dispatch';
+import briefInfoSelectors from '../gameplay/brief-info/brief-info-selectors';
+import { modalAlert } from '@/components/common/Modal';
+import ModalBriefInfo from '@/components/common/V2/ModalBriefInfo';
+import ErrorModal from '@/components/common/Modal/ModalError';
 
 const SummaryResultContainer = ({
   render,
@@ -38,24 +44,112 @@ const SummaryResultContainer = ({
   );
 
   const mode: string = state.data.mode;
+  const [currentTab, setCurrentTab] = useState<
+    'Vocabulary' | 'Sentence' | 'Passage'
+  >('Vocabulary');
+
+  const onSelectTab = (inputTab: 'Vocabulary' | 'Sentence' | 'Passage') => {
+    setCurrentTab(inputTab);
+  };
+
+  const isBriefInfosLoading = useAppSelector(
+    briefInfoSelectors.isBriefInfosLoadingSelector
+  );
+  const [currentPos, setCurrentPos] = useState<string>();
+  const _handleChangeCurrentPos = (input: string) => {
+    setCurrentPos(input);
+  };
+  const briefInfo = useAppSelector(briefInfoSelectors.briefInfoSelector);
+  const tabs: TTab[] = [
+    {
+      children: 'Vocabulary',
+      isSelected: currentTab === 'Vocabulary',
+      onClick: onSelectTab
+    },
+    {
+      children: 'Sentence',
+      isSelected: currentTab === 'Sentence',
+      onClick: onSelectTab
+    },
+    {
+      children: 'Passage',
+      isSelected: currentTab === 'Passage',
+      onClick: onSelectTab
+    }
+  ];
+  const handleClickMoreInfo = (word: string) => {
+    dispatch(
+      briefInfoDispatch.getBriefInfoDispatch({
+        word: word
+      })
+    );
+    _handleChangeCurrentPos('');
+  };
 
   // table
   const summarySection: TSummarySection = {
     //TODO: hard code, need improve later
-    tabs: [{ childen: 'Vocabulary', isSelected: true, onClick: () => {} }],
+    tabs: tabs.filter((tab) => {
+      let vocabBool = gameHistory.vocabs.length > 0;
+      let sentenceBool = gameHistory.sentences.length > 0;
+      let passageBool = gameHistory.passages.length > 0;
+      return tab.children === 'Vocabulary'
+        ? vocabBool
+        : tab.children === 'Sentence'
+        ? sentenceBool
+        : passageBool;
+    }),
     table: {
-      columns: ['No.', 'Question', 'Answer'],
-      data: gameHistory.vocabs.map((item) => {
-        return {
-          id: item.vocabularyId,
-          word: item.question,
-          meaning: item.answer
-        };
-      }),
-      onClick: () => {},
+      columns: ['No.'].concat(
+        currentTab === 'Vocabulary'
+          ? ['Word', 'Answer']
+          : currentTab === 'Sentence'
+          ? ['Question', 'Answer']
+          : ['PassageId', 'SentenceQuestion', 'Answer']
+      ),
+      data:
+        currentTab === 'Vocabulary'
+          ? gameHistory.vocabs.map((item) => {
+              return {
+                word: item.question,
+                meaning: (
+                  <span style={{ color: item.correctness ? 'green' : 'red' }}>
+                    {item.answer}
+                  </span>
+                )
+              };
+            })
+          : currentTab === 'Sentence'
+          ? gameHistory.sentences.map((item) => {
+              return {
+                word: item.question,
+                meaning: (
+                  <span style={{ color: item.correctness ? 'green' : 'red' }}>
+                    {item.answer}
+                  </span>
+                )
+              };
+            })
+          : gameHistory.passages.map((item, index, arr) => {
+              return {
+                id:
+                  index > 0
+                    ? arr[index - 1].passageId === item.passageId
+                      ? ''
+                      : item.passageId
+                    : item.passageId,
+                word: item.question,
+                meaning: (
+                  <span style={{ color: item.correctness ? 'green' : 'red' }}>
+                    {item.answer}
+                  </span>
+                )
+              };
+            }),
+      onClick: handleClickMoreInfo,
       moreinfo: {
         label: 'More info',
-        isShow: true
+        isShow: currentTab === 'Vocabulary'
       }
     }
   };
@@ -66,9 +160,11 @@ const SummaryResultContainer = ({
       {
         iconName: 'Home',
         label: 'Home',
-        onClick: () =>
+        onClick: () => {
+          dispatch(gameplayCoreActions.clear());
           // router.push(getPublicPathPageRounting('/'))
-          onChangeState({ page: 'landing' })
+          onChangeState({ page: 'landing' });
+        }
       },
       {
         iconName: 'Retry',
@@ -81,7 +177,10 @@ const SummaryResultContainer = ({
       {
         iconName: 'Menu',
         label: 'Mode',
-        onClick: () => onChangeState({ page: 'gamemode' })
+        onClick: () => {
+          dispatch(gameplayCoreActions.clear());
+          onChangeState({ page: 'gamemode' });
+        }
       }
     ]
   };
@@ -96,13 +195,68 @@ const SummaryResultContainer = ({
         sentences: gameHistory.sentences
       })
     );
+
     dispatch(scoreDispatch.getBestScoreDispatch());
     dispatch(vocabularyActions.clear());
+    dispatch(questionActions.clear());
   }, []);
+  useEffect(() => {
+    if (!isBriefInfosLoading && briefInfo) {
+      if (!currentPos) {
+        _handleChangeCurrentPos(briefInfo.meanings[0].partOfSpeech);
+      }
+    }
+  }, [isBriefInfosLoading]);
+  useEffect(() => {
+    if (!isBriefInfosLoading) {
+      if (briefInfo && currentPos) {
+        const modal = modalAlert();
+        modal.render({
+          closeable: true,
+          children: ModalBriefInfo({
+            word: briefInfo?.word ?? '',
+            definition: briefInfo.meanings.find((info) => {
+              return info.partOfSpeech === currentPos;
+            })?.definitions[0].definition,
+            example: briefInfo.meanings.find((info) => {
+              return info.partOfSpeech === currentPos;
+            })?.definitions[0].definition,
+            meaning: `ไม่เฉลยหรอกนะ`,
+            pos: [
+              ...briefInfo.meanings.map((info) => {
+                return {
+                  pos: info.partOfSpeech,
+                  isSelected: currentPos === info.partOfSpeech,
+                  onCLick: () => {
+                    modal.destroy();
+                    _handleChangeCurrentPos(info.partOfSpeech);
+                  }
+                };
+              })
+            ]
+          })
+        });
+      } else {
+        if (!briefInfo && currentPos != undefined) {
+          const modal = modalAlert();
+          modal.render({
+            closeable: false,
+            children: ErrorModal({
+              errorStatus: '404',
+              errorMessage: 'word not found.'
+            })
+          });
+        }
+      }
+    }
+  }, [currentPos, isBriefInfosLoading]);
 
   return render({
     mode,
-    bestScore: bestScore,
+    bestScore:
+      gameHistory.current_score > bestScore
+        ? gameHistory.current_score
+        : bestScore,
     currentScore: gameHistory.current_score,
     summarySection,
     options

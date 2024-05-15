@@ -59,9 +59,10 @@ class Http {
         } else if (Number(error.response?.status) >= 500) {
           modal.render({
             children: ErrorModal({
-              errorMessage: 'Please contact admin.',
+              errorMessage: 'Please try again later.',
               errorStatus: error.response?.status
-            })
+            }),
+            closeable: false
           });
         } else if (
           Number(error.response?.status) >= 400 &&
@@ -71,7 +72,8 @@ class Http {
             children: ErrorModal({
               errorMessage: error.response?.data.status?.message,
               errorStatus: error.response?.status
-            })
+            }),
+            closeable: false
           });
         }
 

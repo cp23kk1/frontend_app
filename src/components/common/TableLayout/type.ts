@@ -1,9 +1,13 @@
-import { IVocabulary } from '@/modules/gameplay/vocabulary/vocabulary-services';
+import {
+  IQuestion,
+  IVocabulary
+} from '@/modules/gameplay/question/question-services';
+import { ReactNode } from 'react';
 
 export type TTable = {
   columns: string[];
-  data: Pick<IVocabulary, 'id' | 'word' | 'meaning'>[];
-  onClick: (id: number) => void;
+  data: { [key: string]: ReactNode }[];
+  onClick: (id: string) => void;
   moreinfo?: { label: string; isShow: boolean };
 };
 

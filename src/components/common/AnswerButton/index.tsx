@@ -7,16 +7,18 @@ const AnswerButton = ({
   children,
   onClick,
   state,
-  disabled
+  disabled,
+  className
 }: TAnswerButton) => {
   return (
     <AnswerButtonWrapper
+      className={className}
       style={style}
       onClick={onClick}
       state={state ?? 'normal'}
       disabled={disabled}
     >
-      <Textfit max={48} mode="single">
+      <Textfit max={36} mode="single">
         {children}
       </Textfit>
     </AnswerButtonWrapper>

@@ -5,7 +5,7 @@ import services from './user-core-services';
 import actionTypes from './user-core-action-types';
 
 const getUserProfileDispatch = createAsyncThunk(
-  actionTypes.GET_RAND_VOCAB,
+  actionTypes.GET_USER_PROFILE,
   async (_, { rejectWithValue }) => {
     try {
       const response = await services.getUserProfile();
@@ -16,6 +16,36 @@ const getUserProfileDispatch = createAsyncThunk(
     }
   }
 );
+const getUserStatisticDispatch = createAsyncThunk(
+  actionTypes.GET_USER_STATISTICS,
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await services.getUserStatistic();
+
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
+const updateUserDisplayNameDispatch = createAsyncThunk(
+  actionTypes.PUT_USER_DISPLAYNAME,
+  async (
+    { newDisplayName }: { newDisplayName: string },
+    { rejectWithValue }
+  ) => {
+    try {
+      const response = await services.updateUserDisplayName(newDisplayName);
+
+      return response;
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 export default {
-  getUserProfileDispatch
+  getUserProfileDispatch,
+  getUserStatisticDispatch,
+  updateUserDisplayNameDispatch
 };

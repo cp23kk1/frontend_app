@@ -35,8 +35,8 @@ const LoginModal = ({
           </div>
         </div>
         <div className="termAndService">
-          <div>Terms of Service</div>&nbsp; and &nbsp;
-          <div>Privacy Policy</div>
+          {/* <div>Terms of Service</div>&nbsp; and &nbsp;
+          <div>Privacy Policy</div> */}
         </div>
       </Col>
     </LoginModalWrapper>

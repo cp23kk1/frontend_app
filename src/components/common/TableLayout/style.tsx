@@ -13,13 +13,12 @@ export const TableLayoutWrapper = styled.div`
     display: flex;
     width: 100%;
     height: 60px;
-    gap: 24px;
     background: #e1e1e1;
     
     color: #000;
 
     /* Fredoka/SemiBold-24 */
-    font-family: Fredoka;
+    font-family: Passion One;
     font-size: 24px;
     font-style: normal;
     font-weight: 600;
@@ -28,13 +27,14 @@ export const TableLayoutWrapper = styled.div`
   .record {
     display: flex;
     width: 100%;
-    height: 60px;
-    gap: 24px;
+    height: fit-content;
+    min-height: 60px;
 
-    color: #000;
+    color: black;
 
     /* Fredoka/Regular-24 */
-    font-family: Fredoka;
+          font-family: Passion One;
+
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -49,13 +49,16 @@ export const TableLayoutWrapper = styled.div`
   .col {
     justify-content: center;
     align-items: center;
+    color: black;
   }
-  .record .col {
+  .record {
     justify-content: center;
     align-items: center;
+  }
+  .record .col {
     :nth-child(3) {
       /* Mitr/Light-24 */
-      font-family: Mitr;
+      font-family: Passion One;
       font-size: 24px;
       font-style: normal;
       font-weight: 300;
@@ -67,12 +70,25 @@ export const TableLayoutWrapper = styled.div`
     flex-direction: row;
     gap: 8px;
     color: #1B61E9;
+    cursor: pointer;
 
     /* Fredoka/Regular-20 */
-    font-family: Fredoka;
+    font-family: Passion One;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
   }
+  .detail{
+    width: 100%;
+
+     /* Fredoka/Regular-20 */
+    font-family: Passion One;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+
 `;

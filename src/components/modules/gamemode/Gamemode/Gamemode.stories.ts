@@ -38,12 +38,18 @@ export const GameModeSelection: Story = {
     ],
     scoreBoard: {
       listScore: [
-        { no: 2, score: 333, userName: 'j' },
-        { no: 2, score: 333, userName: 'j' },
-        { no: 2, score: 333, userName: 'j' },
-        { no: 2, score: 333, userName: 'j' }
+        { no: 2, score: 333, userName: 'j', userImage: '', userId: 123 },
+        { no: 2, score: 333, userName: 'j', userImage: '', userId: 123 },
+        { no: 2, score: 333, userName: 'j', userImage: '', userId: 123 },
+        { no: 2, score: 333, userName: 'j', userImage: '', userId: 123 }
       ],
-      userScore: { no: 2, score: 333, userName: 'j' }
+      userScore: {
+        no: 2,
+        score: 333,
+        userName: 'j',
+        userImage: '',
+        userId: 123
+      }
     },
     onClickSetting: () => {},
     onSelectMode: () => {}

@@ -16,5 +16,6 @@ export const iconFiles = {
   ArrowRight: getPublicPath('/icon/ArrowRight.svg'),
   Crown: getPublicPath('/icon/Crown.svg'),
   ChevronDown: getPublicPath('/icon/ChevronDown.svg'),
-  Speaker: getPublicPath('/icon/Speaker.svg')
+  Speaker: getPublicPath('/icon/Speaker.svg'),
+  UserIcon: getPublicPath('/icon/UserIcon.svg')
 } as { [key: string]: any };

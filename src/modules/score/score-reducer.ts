@@ -36,7 +36,7 @@ const reducer = createReducer(initialState, (builder) => {
     dispatch.getLeaderBoardDispatch.fulfilled,
     (state, action: PayloadAction<any>) => {
       state.isScoreBoardLoading = false;
-      state.scoreBoard = action.payload.data.weeklyScore;
+      state.scoreBoard = action.payload.data.weeklyScore ?? [];
       state.userScoreBoard = action.payload.data.userScore;
     }
   );

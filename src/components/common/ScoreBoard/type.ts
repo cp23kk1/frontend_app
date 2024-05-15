@@ -9,5 +9,7 @@ export type TScoreBoard = {
 export type TScoreBoardRow = {
   no: string | number;
   userName: string;
-  score: string | number;
+  score: number;
+  userId: number;
+  userImage: string;
 };

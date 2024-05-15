@@ -1,13 +1,31 @@
 import styled from '@emotion/styled';
 
-export const IconImg = styled.img`
-  ${({ size, onClick }: { size: number; onClick?: () => void }) => {
-    let css =
-      size > 0
-        ? `width: ${size}px;
-height: ${size}px;`
-        : '';
-    css += onClick ? 'cursor: pointer;' : '';
-    return css;
+export const IconDiv = styled.div`
+  ${({ size, color }: { size?: number; color?: string }) => {
+    return `
+        display: inline-flex;
+        align-self: center;
+        align-items: center;
+        div > div {
+          display: flex;
+          align-items: center;
+        }
+        ${
+          size
+            ? ` div > div > svg {
+          width: ${size}px;
+          height: ${size}px;
+        }`
+            : ''
+        }
+       
+        ${
+          color
+            ? `div > div > svg > path {
+          fill: ${color};
+        }`
+            : ''
+        }       
+        `;
   }}
 `;

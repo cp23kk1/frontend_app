@@ -7,19 +7,19 @@ export type TGameHistory = {
 };
 
 export type TVocabGameHistory = {
-  vocabularyId: number;
+  vocabularyId: string;
   answer: string;
   question: string;
   correctness: boolean;
 };
 export type TSentenceGameHistory = {
-  sentenceId: number;
+  sentenceId: string;
   answer: string;
   question: string;
   correctness: boolean;
 };
 export type TPassageGameHistory = {
-  passageId: number;
+  passageId: string;
   answer: string;
   question: string;
   correctness: boolean;

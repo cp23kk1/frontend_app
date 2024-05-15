@@ -4,11 +4,17 @@ import { TModal } from './type';
 import { getPublicPath } from '@/utils/basePath';
 import { v4 as uuid } from 'uuid';
 
-const Modal = ({ onClose, children, isModalOpen }: TModal) => {
+const Modal = ({ onClose, children, isModalOpen, closeable }: TModal) => {
   return (
     <ModalWrapper
       className="modalBg"
       onClick={(event) => {
+        if (
+          (event?.target as Element).nodeName === 'path' ||
+          (event?.target as Element).nodeName === 'svg'
+        ) {
+          return;
+        }
         if (
           (event?.target as Element).className.includes('modalBg') &&
           onClose
@@ -19,9 +25,11 @@ const Modal = ({ onClose, children, isModalOpen }: TModal) => {
       isOpen={isModalOpen === undefined ? true : isModalOpen}
     >
       <div className="modalContent">
-        <button className="closeButton" onClick={onClose}>
-          <img src={getPublicPath(`/icon/X.svg`)} alt="X" />
-        </button>
+        {closeable && (
+          <button className="closeButton" onClick={onClose}>
+            <img src={getPublicPath(`/icon/X.svg`)} alt="X" />
+          </button>
+        )}
         {children}
       </div>
     </ModalWrapper>
@@ -42,7 +50,11 @@ export const modalAlert = () => {
     return Modal({
       ...props,
       onClose: () => {
-        handleDestroy();
+        if (props.onClose) {
+          props.onClose();
+        } else {
+          handleDestroy();
+        }
       }
     });
   };

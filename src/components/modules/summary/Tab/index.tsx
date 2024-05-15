@@ -1,10 +1,13 @@
 import { TabWrapper } from './style';
 import { TTab } from './type';
 
-const Tab = ({ childen, isSelected, onClick }: TTab) => {
+const Tab = ({ children, isSelected, onClick }: TTab) => {
+  const onSelect = () => {
+    onClick(children);
+  };
   return (
-    <TabWrapper isSelected={isSelected} onClick={onClick}>
-      {childen}
+    <TabWrapper isSelected={isSelected} onClick={onSelect}>
+      {children}
     </TabWrapper>
   );
 };

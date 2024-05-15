@@ -6,9 +6,10 @@ export const SummaryResultWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 32px;
+  justify-content: center;
+  align-items: center;
 
-  /* Audiowide/Regular-32 */
-  font-family: Audiowide;
+  font-family: Passion One;
   font-size: 32px;
   font-style: normal;
   font-weight: 400;
@@ -19,7 +20,7 @@ export const SummaryResultWrapper = styled.div`
     color: #e40714;
 
     /* Audiowide/Regular-96 */
-    font-family: Audiowide;
+    font-family: Passion One;
     font-size: 96px;
     font-style: normal;
     font-weight: 400;
@@ -52,9 +53,10 @@ export const SummaryResultWrapper = styled.div`
     align-items: center;
     gap: 32px;
     padding-top: 32px;
+    width: 100%;
   }
   .header {
-    width: 1704px;
+    width: 100%;
   }
   .footer {
     display: flex;

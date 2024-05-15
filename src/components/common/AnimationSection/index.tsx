@@ -9,7 +9,7 @@ const AnimationSection = (animationSection: TAnimationSection) => {
         <div className="health-bar">
           <div className="health"></div>
         </div>
-        <img src={getPublicPath(`/character/player/robot.svg`)} alt="player" />
+        <img src={getPublicPath(animationSection.playerImg)} alt="player" />
       </div>
       <div className="enemy">
         <div className="health-bar">

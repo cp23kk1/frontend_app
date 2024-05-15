@@ -5,5 +5,13 @@ export type TGamePlay = {
   knowledgeSectionItem: TKnowLedgeSection;
   score?: number;
   animationSectionItem: TAnimationSection;
-  onPause?: () => void;
+  briefInfo: {
+    word: string;
+    definition: string;
+    onClickMore: () => void;
+    isShow: boolean;
+  };
+  onPause: () => void;
+  onClickRetry: () => void;
+  onClickFinish: () => void;
 };
